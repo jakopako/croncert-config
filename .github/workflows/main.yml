@@ -31,7 +31,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run the scraper
-        run: goskyr -config concerts-config.yml
+        run: goskyr -config croncert-config.yml
         env:
           WRITER_USER: ${{ secrets.WRITER_USER }}
           WRITER_PASSWORD: ${{ secrets.WRITER_PASSWORD }}
