@@ -230,7 +230,7 @@ scrapers:
   - name: ImportExport
     url: "https://import-export.cc/"
     item: ".events a"
-    exclude_with_selector: 
+    exclude_with_selector:
       - ".old" # events that have a node with this class will be excluded from the results.
     fields:
       static:
@@ -268,7 +268,7 @@ scrapers:
               layout: "Beginn: 15.04"
           date_location: "Europe/Berlin"
           date_language: de_DE
-      
+
   - name: Milla
     url: "https://www.milla-club.de/category/event/"
     item: ".preview-box-outline"
@@ -318,11 +318,10 @@ scrapers:
       - field: "title"
         regex: ".*verschoben.*"
         match: false
-    
 
   - name: Backstage
-    url: "https://backstage.info/veranstaltungen-2/alle-veranstaltungen"
-    item: ".event"
+    url: "https://backstage.eu/veranstaltungen/live.html"
+    item: ".products .items .product-item"
     fields:
       static:
         - name: "type"
@@ -334,17 +333,15 @@ scrapers:
       dynamic:
         - name: "title"
           location:
-            selector: ".pos-title a"
+            selector: ".product-item-link"
         - name: "comment"
           location:
-            selector: ".event h3"
-          on_subpage: "url"
+            selector: ".details h6"
           can_be_empty: true
         - name: "url"
           type: "url"
           location:
-            selector: ".pos-title a"
-          relative: true
+            selector: ".product-item-link"
         - name: "date"
           type: "date"
           on_subpage: "url"
@@ -353,23 +350,14 @@ scrapers:
                 day: true
                 month: true
                 year: true
-              location:
-                selector: ".pos-datum b"
-              layout: "Monday, 2. January 2006"
-            - covers:
                 time: true
               location:
-                selector: ".pos-einlass"
-                regex_extract:
-                  exp: "Beginn: [0-9]{1,2}:[0-9]{2}"
-                  index: 0
-              layout: "Beginn: 15:04"
+                selector: ".col-sm-12 .act .items .content"
+                attr: id
+              layout: "2006-01-02-15:04"
           date_location: "Europe/Berlin"
           date_language: "de_DE"
     filters:
-      - field: "title"
-        regex: "CORONA TESTZENTRUM.*"
-        match: false
       - field: "title"
         regex: ".*[A|a][B|b][G|g][E|e][S|s][A|a][G|g][T|t].*"
         match: false
@@ -377,9 +365,9 @@ scrapers:
         regex: ".*[V|v][E|e][R|r][L|l][E|e][G|g][T|t].*"
         match: false
     paginator:
-      selector: ".pagination .next"
-      relative: true
-      max_pages: 2 # otherwise this scraper takes ages.
+      selector: ".pages-item-next .next"
+      relative: false
+      max_pages: 6
 
   - name: Strom
     url: "https://strom-muc.de/"
@@ -537,7 +525,6 @@ scrapers:
       - field: "status"
         regex: "delayed"
         match: false
-
 
   ##########
   # Zurich
@@ -790,7 +777,7 @@ scrapers:
               layout: "15Uhr04"
           date_location: "Europe/Berlin"
           date_language: "de_DE"
-        
+
   - name: Mascotte
     url: "https://www.mascotte.ch/nu/events/event_list_type/2"
     item: ".nu-e-concert"
@@ -804,7 +791,7 @@ scrapers:
           value: "concert"
       dynamic:
         - name: "title"
-          location: 
+          location:
             selector: ".screen-only h2"
         - name: "comment"
           can_be_empty: true
@@ -885,7 +872,6 @@ scrapers:
       - field: "title"
         regex: "Abgesagt.*"
         match: false
-
 
   - name: Tonhalle
     url: "https://www.tonhalle-orchester.ch/en/home-tz/konzerte/kalender/"
@@ -984,7 +970,7 @@ scrapers:
   - name: Exil
     url: "https://exil.cl/programm"
     item: "#detail-main article"
-    exclude_with_selector: 
+    exclude_with_selector:
       - ".wct_event"
     fields:
       static:
@@ -1026,7 +1012,7 @@ scrapers:
       - field: "title"
         regex: "geschlossene Gesellschaft"
         match: false
-        
+
   - name: Papiersaal
     url: "https://www.papiersaal.ch/"
     item: ".single-act"
