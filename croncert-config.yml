@@ -1220,3 +1220,56 @@ scrapers:
       - field: "event-status"
         regex: "ABGESAGT"
         match: false
+
+  - name: BogenF
+    url: https://www.bogenf.ch/konzerte/aktuell/
+    item: ".concert-month-container .separator-bottom"
+    fields:
+      static:
+        - name: "location"
+          value: "BogenF"
+        - name: "city"
+          value: "Zurich"
+        - name: "type"
+          value: "concert"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".concert-band-title"
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".concert-bands a"
+          relative: true
+        - name: "comment"
+          on_subpage: "url"
+          location:
+            selector: ".bodytext"
+            max_length: 200
+          can_be_empty: true
+        - name: "date"
+          type: "date"
+          on_subpage: "url"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+                time: true
+              location:
+                selector: ".concert-title-date .title"
+              layout: "Monday, 2. January 2006, 15:04 Uhr "
+          date_location: "Europe/Berlin"
+          date_language: "de_DE"
+        - name: "event-status"
+          hide: true
+          can_be_empty: true
+          location:
+            selector: ".sold-out"
+    filters:
+      - field: "event-status"
+        regex: "Abgesagt"
+        match: false
+      - field: "event-status"
+        regex: "Verschoben.*"
+        match: false
