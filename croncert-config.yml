@@ -1273,3 +1273,36 @@ scrapers:
       - field: "event-status"
         regex: "Verschoben.*"
         match: false
+
+  - name: Komplex457
+    url: https://komplex-457.ch/event/
+    item: ".portfolio"
+    fields:
+      static:
+        - name: "location"
+          value: "Komplex457"
+        - name: "city"
+          value: "Zurich"
+        - name: "type"
+          value: "concert"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".av-masonry-entry-title"
+        - name: "url"
+          type: "url"
+          location:
+            selector: ""
+        - name: "date"
+          type: "date"
+          on_subpage: "url"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: ".iconbox_content_container p, .iconbox_content_container p strong"
+                node_index: 0
+              layout: "02.01.2006"
+          date_location: "Europe/Berlin"
