@@ -1,4 +1,4 @@
-# Croncert config
+# Croncert configuration
 
 This repository contains the configuration for [CrONCERT](https://croncert.ch). CrONCERT is a website that helps you find concerts worldwide. The data is gathered with [goskyr](https://github.com/jakopako/goskyr), a configurable
 scraper written in go. Once a week goskyr runs through a Github action using `croncert-config.yml` as configuration file.
