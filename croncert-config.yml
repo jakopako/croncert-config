@@ -466,6 +466,62 @@ scrapers:
               layout: "15:04"
           date_location: "Europe/Berlin"
 
+  - name: Eventfabrik
+    url: "https://www.eventfabrik-muenchen.de/events?s=&tribe_events_cat=konzert&tribe_events_venue=&tribe_events_month="
+    item: ".archive-card"
+    fields:
+      static:
+        - name: "type"
+          value: "concert"
+        - name: "city"
+          value: "Munich"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".archive-card--title span"
+            node_index: 1
+        - name: "comment"
+          location:
+            selector: ".subtitle"
+          can_be_empty: true
+        - name: "location"
+          location:
+            selector: ".archive-card--meta-venue"
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".archive-card--title a"
+        - name: "date"
+          type: "date"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: ".archive-card--title span"
+                node_index: 0
+                regex_extract:
+                  exp: "([0-9]{2}\\.){2}[0-9]{4}"
+              layout: "02.01.2006"
+            - covers:
+                time: true
+              location:
+                selector: ".archive-card--meta-starttime"
+                regex_extract:
+                  exp: "[0-9]{2}:[0-9]{2}"
+              layout: "15:04"
+          date_location: "Europe/Berlin"
+    paginator:
+      selector: ".pagination .next"
+    filters:
+      - field: "title"
+        regex: ".*VERLEGT"
+        match: false
+      - field: "title"
+        regex: ".*ABGESAGT"
+        match: false
+
   ##########
   # Paris
   ##########
