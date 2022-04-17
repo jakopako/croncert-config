@@ -1047,6 +1047,7 @@ scrapers:
         - name: "comment"
           location:
             selector: ".vsel-info p"
+          can_be_empty: true
         - name: "url"
           type: "url"
           location:
