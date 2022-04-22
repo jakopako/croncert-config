@@ -583,6 +583,51 @@ scrapers:
         match: false
 
   ##############
+  # Santa Cruz
+  ##############
+  - name: TheCatalyst
+    url: "https://catalystclub.com/events/"
+    item: ".eventWrapper"
+    fields:
+      static:
+        - name: "location"
+          value: "The Catalyst"
+        - name: "city"
+          value: "Santa Cruz"
+        - name: "type"
+          value: "concert"
+      dynamic:
+        - name: "title"
+          location:
+            selector: "#eventTitle h2"
+        - name: "url"
+          type: "url"
+          location:
+            selector: "#eventTitle"
+        - name: "date"
+          type: "date"
+          on_subpage: "url"
+          components:
+            - covers:
+                day: true
+                month: true
+              location:
+                selector: ".EventsDateBox span.eventStDate"
+              # location:
+              #   selector: ".rhpEventDetails span.lineHeight15"
+              layout: "Monday, January 02"
+            - covers:
+                time: true
+              location:
+                selector: ".eventDoorStartDate span"
+                regex_extract:
+                  exp: "[0-9]{1}(:[0-9]{2})?pm"
+                  index: 1
+              layout: "3pm"
+          date_location: "America/Los_Angeles"
+          date_language: "en_US"
+
+  ##############
   # Winterthur
   ##############
   - name: Salzhaus
