@@ -522,6 +522,63 @@ scrapers:
         regex: ".*ABGESAGT"
         match: false
 
+  - name: Motorworld
+    url: "https://muenchen.motorworld.de/"
+    item: "article.veranstaltungen"
+    fields:
+      static:
+        - name: "type"
+          value: "concert"
+        - name: "city"
+          value: "Munich"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".elementor-heading-title a"
+        - name: "comment"
+          location:
+            selector: ".elementor-widget-container"
+            node_index: 2
+          can_be_empty: true
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".elementor-heading-title a"
+        - name: "location"
+          on_subpage: "url"
+          location:
+            selector: ".dc-has-condition.dc-condition-equal.elementor-widget.elementor-widget-text-editor > div"
+            child_index: 2
+        - name: "date"
+          type: "date"
+          on_subpage: "url"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: ".elementor-element-fb8e674 .elementor-widget-container h2"
+              layout: ["02/01/2006"]
+            - covers:
+                time: true
+              location:
+                selector: ".elementor-element-5b967b1.dc-has-condition.dc-condition-empty.elementor-widget.elementor-widget-text-editor > div"
+                regex_extract:
+                  exp: "[0-9]{2}:[0-9]{2}"
+                child_index: 2
+              layout: ["15:04"]
+          date_location: "Europe/Berlin"
+        - name: "status"
+          location:
+            selector: ".elementor-element-75d1969 div"
+          can_be_empty: true
+          hide: true
+    filters:
+      - field: "status"
+        regex: "Abgesagt"
+        match: false
+
   ##########
   # Paris
   ##########
