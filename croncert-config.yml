@@ -4,6 +4,26 @@ writer:
 
 # Scraper configs are grouped by city and cities are sorted alphabetically.
 scrapers:
+  #######
+  # Bern
+  #######
+  - name: Bierhuebeli
+    url: "https://bierhuebeli.ch/konzerte/"
+    item: ".w-grid .w-grid-list article.event"
+    fields:
+      static:
+        - name: "type"
+          value: "concert"
+        - name: "city"
+          value: "Bern"
+        - name: "location"
+          value: "Bierhuebeli"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".event_titles a"
+            node_index: 0
+
   ##########
   # Bologna
   ##########
