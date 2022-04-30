@@ -440,7 +440,7 @@ scrapers:
             selector: ".entry-info"
             child_index: 10
             regex_extract:
-              exp: "[^:]+"
+              exp: "[^: ]+"
               index: 1
         - name: "date"
           type: "date"
