@@ -4,6 +4,53 @@ writer:
 
 # Scraper configs are grouped by city and cities are sorted alphabetically.
 scrapers:
+  #######
+  # Bern
+  #######
+  - name: Bierhuebeli
+    url: "https://bierhuebeli.ch/konzerte/"
+    item: ".height_small .w-grid .w-grid-list article.event"
+    fields:
+      static:
+        - name: "type"
+          value: "concert"
+        - name: "city"
+          value: "Bern"
+        - name: "location"
+          value: "Bierhuebeli"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".event_titles a"
+            node_index: 0
+        - name: "comment"
+          location:
+            selector: ".event_titles a"
+            node_index: 1
+          can_be_empty: true
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".event_titles a"
+        - name: "date"
+          type: "date"
+          on_subpage: "url"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: "#event_detail_date div"
+              layout: ["Monday 02.01.2006"]
+            - covers:
+                time: true
+              location:
+                selector: ".event_beginn span"
+              layout: ["Beginn: 15.04 Uhr"]
+          date_language: de_DE
+          date_location: "Europe/Berlin"
+
   ##########
   # Bologna
   ##########
