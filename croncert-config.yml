@@ -18,6 +18,8 @@ scrapers:
           value: "Bern"
         - name: "location"
           value: "Bierhuebeli"
+        - name: "sourceUrl"
+          value: "https://bierhuebeli.ch/konzerte/"
       dynamic:
         - name: "title"
           location:
