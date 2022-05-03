@@ -19,15 +19,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+
       - name: Setup Go environment
         uses: actions/setup-go@v2.1.5
         with:
           go-version: 1.17.8
-      
+
       # Install go binary
       - name: Install the scraper
-        run: go install github.com/jakopako/goskyr@latest
+        run: go install github.com/jakopako/goskyr@v0.1.7
 
       # Runs a single command using the runners shell
       - name: Run the scraper
@@ -36,4 +36,3 @@ jobs:
           WRITER_USER: ${{ secrets.WRITER_USER }}
           WRITER_PASSWORD: ${{ secrets.WRITER_PASSWORD }}
           WRITER_URI: ${{ secrets.WRITER_URI }}
-
