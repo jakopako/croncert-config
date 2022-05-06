@@ -18,6 +18,8 @@ scrapers:
           value: "Bern"
         - name: "location"
           value: "Bierhuebeli"
+        - name: "sourceUrl"
+          value: "https://bierhuebeli.ch/konzerte/"
       dynamic:
         - name: "title"
           location:
@@ -65,6 +67,8 @@ scrapers:
           value: "Bologna"
         - name: "location"
           value: "LocomotivClub"
+        - name: "sourceUrl"
+          value: "https://www.locomotivclub.it/eventtype/calendario/"
       dynamic:
         - name: "title"
           location:
@@ -132,6 +136,8 @@ scrapers:
           value: "Brussels"
         - name: "location"
           value: "Botanique"
+        - name: "sourceUrl"
+          value: "https://botanique.be/en/concerts"
       dynamic:
         - name: "title"
           location:
@@ -198,6 +204,8 @@ scrapers:
           value: "Leuven"
         - name: "location"
           value: "HetDepot"
+        - name: "sourceUrl"
+          value: "https://www.hetdepot.be/programma"
       dynamic:
         - name: "title"
           location:
@@ -205,6 +213,7 @@ scrapers:
         - name: "comment"
           location:
             selector: ".calendar-item__intro p"
+          can_be_empty: true
         - name: "url"
           type: "url"
           location:
@@ -242,6 +251,8 @@ scrapers:
           value: "Munich"
         - name: "location"
           value: "Unterfahrt"
+        - name: "sourceUrl"
+          value: "https://www.unterfahrt.de/programm.php"
       dynamic:
         - name: "title"
           location:
@@ -287,6 +298,8 @@ scrapers:
           value: "Munich"
         - name: "location"
           value: "ImportExport"
+        - name: "sourceUrl"
+          value: "https://import-export.cc/"
       dynamic:
         - name: "url"
           type: "url"
@@ -327,6 +340,8 @@ scrapers:
           value: "Munich"
         - name: "location"
           value: "Milla"
+        - name: "sourceUrl"
+          value: "https://www.milla-club.de/category/event/"
       dynamic:
         - name: "url"
           type: "url"
@@ -377,6 +392,8 @@ scrapers:
           value: "Munich"
         - name: "location"
           value: "Backstage"
+        - name: "sourceUrl"
+          value: "https://backstage.eu/veranstaltungen/live.html"
       dynamic:
         - name: "title"
           location:
@@ -430,6 +447,8 @@ scrapers:
           value: "Munich"
         - name: "location"
           value: "Strom"
+        - name: "sourceUrl"
+          value: "https://strom-muc.de/"
       dynamic:
         - name: "title"
           location:
@@ -472,6 +491,8 @@ scrapers:
           value: "concert"
         - name: "city"
           value: "Munich"
+        - name: "sourceUrl"
+          value: "https://www.muffatwerk.de/de/events/concert"
       dynamic:
         - name: "title"
           location:
@@ -541,6 +562,8 @@ scrapers:
           value: "concert"
         - name: "city"
           value: "Munich"
+        - name: "sourceUrl"
+          value: "https://www.eventfabrik-muenchen.de/events?s=&tribe_events_cat=konzert&tribe_events_venue=&tribe_events_month="
       dynamic:
         - name: "title"
           location:
@@ -597,6 +620,8 @@ scrapers:
           value: "concert"
         - name: "city"
           value: "Munich"
+        - name: "sourceUrl"
+          value: "https://muenchen.motorworld.de/"
       dynamic:
         - name: "title"
           location:
@@ -659,6 +684,8 @@ scrapers:
           value: "Paris"
         - name: "location"
           value: "LaCigale"
+        - name: "sourceUrl"
+          value: "http://www.lacigale.fr/en/"
       dynamic:
         - name: "title"
           location:
@@ -719,6 +746,8 @@ scrapers:
           value: "Santa Cruz"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://catalystclub.com/events/"
       dynamic:
         - name: "title"
           location:
@@ -764,6 +793,8 @@ scrapers:
           value: "Winterthur"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.salzhaus.ch/de/programm.html"
       dynamic:
         - name: "title"
           location:
@@ -805,7 +836,7 @@ scrapers:
   # Zurich
   ##########
   - name: Helsinki
-    url: https://www.helsinkiklub.ch
+    url: "https://www.helsinkiklub.ch"
     item: ".event .header"
     fields:
       static:
@@ -816,6 +847,8 @@ scrapers:
         - name: "type"
           value: "concert"
         - name: "url"
+          value: "https://www.helsinkiklub.ch"
+        - name: "sourceUrl"
           value: "https://www.helsinkiklub.ch"
       dynamic:
         - name: "title"
@@ -852,6 +885,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.mehrspur.ch/veranstaltungen"
       dynamic:
         - name: "title"
           location:
@@ -893,6 +928,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.umbo.wtf"
       dynamic:
         - name: "title"
           location:
@@ -929,6 +966,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://gds.fm/SENDER"
       dynamic:
         - name: "title"
           location:
@@ -969,6 +1008,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.moods.club/en/?a=1"
       dynamic:
         - name: "url"
           type: "url"
@@ -1018,6 +1059,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "http://www.ellokal.ch/?lang=de&details=9"
       dynamic:
         - name: "title"
           location:
@@ -1064,6 +1107,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.mascotte.ch/nu/events/event_list_type/2"
       dynamic:
         - name: "title"
           location:
@@ -1111,6 +1156,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://kaufleuten.ch/events/kultur/konzerte/"
       dynamic:
         - name: "title"
           location:
@@ -1159,6 +1206,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.tonhalle-orchester.ch/en/home-tz/konzerte/kalender/"
       dynamic:
         - name: "title"
           location:
@@ -1208,6 +1257,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.heldenbar.ch/programm/"
       dynamic:
         - name: "title"
           location:
@@ -1256,6 +1307,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://exil.cl/programm"
       dynamic:
         - name: "title"
           location:
@@ -1300,6 +1353,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.papiersaal.ch/"
       dynamic:
         - name: "title"
           location:
@@ -1363,6 +1418,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.x-tra.ch/en/agenda/concerts/"
       dynamic:
         - name: "title"
           location:
@@ -1409,6 +1466,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://walcheturm.ch/agenda/"
       dynamic:
         - name: "title"
           location:
@@ -1443,7 +1502,7 @@ scrapers:
           date_location: "Europe/Berlin"
 
   - name: Volkshaus
-    url: https://www.volkshaus.ch/aktuell
+    url: "https://www.volkshaus.ch/aktuell"
     item: ".event"
     fields:
       static:
@@ -1453,6 +1512,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.volkshaus.ch/aktuell"
       dynamic:
         - name: "title"
           location:
@@ -1498,7 +1559,7 @@ scrapers:
         match: false
 
   - name: BogenF
-    url: https://www.bogenf.ch/konzerte/aktuell/
+    url: "https://www.bogenf.ch/konzerte/aktuell/"
     item: ".concert-month-container .separator-bottom"
     fields:
       static:
@@ -1508,6 +1569,8 @@ scrapers:
           value: "Zurich"
         - name: "type"
           value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.bogenf.ch/konzerte/aktuell/"
       dynamic:
         - name: "title"
           location:
