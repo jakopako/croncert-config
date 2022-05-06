@@ -1,0 +1,56 @@
+scrapers:
+  - name: SourceName
+    url: https://url.to/events
+    item: "<event-selector>"
+    fields:
+      static:
+        - name: "location"
+          value: "LocationName" # This field can also be a dynamic field, if a website serves info about different event locations.
+        - name: "city"
+          value: "City"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl" # This is needed to uniquely identify this scraper
+          value: "https://url.to/events"
+      dynamic:
+        - name: "title"
+          location:
+            selector: "<title-selector>"
+        - name: "url"
+          type: "url"
+          location:
+            selector: "<url-selector>"
+          relative: true # optional
+        - name: "comment"
+          on_subpage: "url" # in this case the comment can be found on the subpage defined by the 'url' field
+          location:
+            selector: "<comment-selector>"
+            max_length: 200 # optional
+          can_be_empty: true # optional
+        - name: "date"
+          type: "date"
+          on_subpage: "url"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+                time: true
+              location:
+                selector: "<datetime-selector>"
+              layout: ["Monday, 2. January 2006, 15:04 Uhr "] # adapt according to actual format
+          date_location: "Europe/Berlin" # example
+          date_language: "de_DE" # example
+          # hidden fields can be used to filter events, as in this case.
+        - name: "event-status"
+          hide: true
+          can_be_empty: true
+          location:
+            selector: "<event-status-selector>"
+    filters:
+      - field: "event-status"
+        regex: "Abgesagt"
+        match: false # this means that matching events will be removed.
+      - field: "event-status"
+        regex: "Verschoben.*"
+        match: false
