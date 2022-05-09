@@ -650,7 +650,7 @@ scrapers:
                 year: true
               location:
                 selector: ".elementor-element-fb8e674 .elementor-widget-container h2"
-              layout: ["02/01/2006"]
+              layout: ["02.01.2006"]
             - covers:
                 time: true
               location:
