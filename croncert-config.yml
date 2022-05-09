@@ -1612,3 +1612,49 @@ scrapers:
       - field: "event-status"
         regex: "Verschoben.*"
         match: false
+
+  - name: Dynamo
+    url: "https://www.dynamo.ch/veranstaltungen?field_event_type_tid=1"
+    item: ".node-event"
+    fields:
+      static:
+        - name: "location"
+          value: "Dynamo"
+        - name: "city"
+          value: "Zurich"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.dynamo.ch/veranstaltungen?field_event_type_tid=1"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".field-name-title a"
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".field-name-title a"
+          relative: true
+        - name: "comment"
+          location:
+            selector: ".field-name-field-event-raum"
+          can_be_empty: true
+        - name: "date"
+          type: "date"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: ".date-display-single"
+                regex_extract:
+                  exp: "[0-9]{1,2}\\. [\u00e4A-Za-z]{3,9} [0-9]{4}"
+              layout: ["2. January 2006"]
+            - covers:
+                time: true
+              location:
+                selector: ".date-display-start"
+              layout: ["15:04"]
+          date_location: "Europe/Berlin"
+          date_language: "de_DE"
