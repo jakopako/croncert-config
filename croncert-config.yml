@@ -649,12 +649,12 @@ scrapers:
                 month: true
                 year: true
               location:
-                selector: ".elementor-element-fb8e674 .elementor-widget-container h2"
+                selector: ".elementor-element-6254285 .elementor-widget-container h2"
               layout: ["02.01.2006"]
             - covers:
                 time: true
               location:
-                selector: ".elementor-element-5b967b1.dc-has-condition.dc-condition-empty.elementor-widget.elementor-widget-text-editor > div"
+                selector: ".elementor-element-d2a1061.dc-has-condition.dc-condition-empty.elementor-widget.elementor-widget-text-editor > div"
                 regex_extract:
                   exp: "[0-9]{2}:[0-9]{2}"
                 child_index: 2
