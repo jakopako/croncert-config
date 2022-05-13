@@ -20,7 +20,6 @@ scrapers:
           type: "url"
           location:
             selector: "<url-selector>"
-          relative: true # optional
         - name: "comment"
           on_subpage: "url" # in this case the comment can be found on the subpage defined by the 'url' field
           location:
