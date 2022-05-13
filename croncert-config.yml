@@ -118,8 +118,9 @@ scrapers:
         regex: ".*Postponed.*"
         match: false
     paginator:
-      selector: ".pagination .qt-btn-primary"
-      node_index: -1
+      location:
+        selector: ".pagination .qt-btn-primary"
+        node_index: -1
       max_pages: 4
 
   ##########
@@ -150,7 +151,6 @@ scrapers:
           type: "url"
           location:
             selector: ".node-type-event__title h2 a"
-          relative: true
         - name: "date"
           type: "date"
           components:
@@ -180,8 +180,8 @@ scrapers:
           date_location: "Europe/Berlin"
           date_language: "en_US"
     paginator:
-      selector: ".pager__item a"
-      relative: true
+      location:
+        selector: ".pager__item a"
     filters:
       - field: "title"
         regex: ".*POSTPONED.*"
@@ -218,7 +218,6 @@ scrapers:
           type: "url"
           location:
             selector: ".calendar-item__inner a"
-          relative: true
         - name: "date"
           type: "date"
           on_subpage: "url"
@@ -234,8 +233,8 @@ scrapers:
           date_location: "Europe/Berlin"
           date_language: "nl_BE"
     paginator:
-      selector: ".pager__item--next a"
-      relative: true
+      location:
+        selector: ".pager__item--next a"
 
   ##########
   # Munich
@@ -266,7 +265,6 @@ scrapers:
           type: "url"
           location:
             selector: ".o-btn-hex__link"
-          relative: true
         - name: "date"
           type: "date"
           components:
@@ -429,8 +427,8 @@ scrapers:
         regex: ".*[V|v][E|e][R|r][L|l][E|e][G|g][T|t].*"
         match: false
     paginator:
-      selector: ".pages-item-next .next"
-      relative: false
+      location:
+        selector: ".pages-item-next .next"
       max_pages: 6
 
   - name: Strom
@@ -501,7 +499,6 @@ scrapers:
           type: "url"
           location:
             selector: ".hover-in .right a"
-          relative: true
         - name: "location"
           on_subpage: "url"
           location:
@@ -602,7 +599,8 @@ scrapers:
               layout: ["15:04"]
           date_location: "Europe/Berlin"
     paginator:
-      selector: ".pagination .next"
+      location:
+        selector: ".pagination .next"
     filters:
       - field: "title"
         regex: ".*VERLEGT"
@@ -988,7 +986,6 @@ scrapers:
           type: "url"
           location:
             selector: ".w-inline-block"
-          relative: true
         - name: "date"
           type: "date"
           components:
@@ -1029,7 +1026,6 @@ scrapers:
           type: "url"
           location:
             selector: "" # An empty string means that we look in the event node itself for an href
-          relative: true
         - name: "date"
           type: "date"
           components:
@@ -1062,7 +1058,6 @@ scrapers:
           type: "url"
           location:
             selector: "a"
-          relative: true
         - name: "title"
           location:
             selector: "h2"
@@ -1121,7 +1116,6 @@ scrapers:
           type: "url"
           location:
             selector: ".commingupEventsList_block5 a"
-          relative: true
         - name: "date"
           type: "date"
           components:
@@ -1268,7 +1262,6 @@ scrapers:
           type: "url"
           location:
             selector: ".desktop-linkoverlay"
-          relative: true
         - name: "date"
           type: "date"
           components:
@@ -1290,8 +1283,8 @@ scrapers:
           date_location: "Europe/Berlin"
           date_language: "de_DE"
     paginator:
-      selector: ".MarkupPagerNavNext a"
-      relative: true
+      location:
+        selector: ".MarkupPagerNavNext a"
 
   - name: Heldenbar
     url: "https://www.heldenbar.ch/programm/"
@@ -1410,7 +1403,6 @@ scrapers:
           type: "url"
           location:
             selector: ".col-sm-8 h2 a"
-          relative: true
         - name: "comment"
           on_subpage: "url"
           can_be_empty: true
@@ -1441,8 +1433,8 @@ scrapers:
           date_location: "Europe/Berlin"
           date_language: "de_DE"
     paginator:
-      selector: ".pull-right"
-      relative: true
+      location:
+        selector: ".pull-right"
     filters:
       - field: "title"
         regex: ".*Abgesagt.*"
@@ -1475,7 +1467,6 @@ scrapers:
           type: "url"
           location:
             selector: "a"
-          relative: true
         - name: "comment"
           can_be_empty: true
           on_subpage: "url"
@@ -1523,7 +1514,6 @@ scrapers:
           type: "url"
           location:
             selector: ""
-          relative: true
         - name: "date"
           type: "date"
           components:
@@ -1626,7 +1616,6 @@ scrapers:
           type: "url"
           location:
             selector: ".concert-bands a"
-          relative: true
         - name: "comment"
           on_subpage: "url"
           location:
@@ -1681,7 +1670,6 @@ scrapers:
           type: "url"
           location:
             selector: ".field-name-title a"
-          relative: true
         - name: "comment"
           location:
             selector: ".field-name-field-event-raum"
