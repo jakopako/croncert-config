@@ -962,19 +962,6 @@ scrapers:
               layout: [15:04 Uhr]
           date_location: "Europe/Berlin"
           date_language: "de_DE"
-          # hidden fields can be used to filter events, as in this case.
-    #     - name: "event-status"
-    #       hide: true
-    #       can_be_empty: true
-    #       location:
-    #         selector: "<event-status-selector>"
-    # filters:
-    #   - field: "event-status"
-    #     regex: "Abgesagt"
-    #     match: false # this means that matching events will be removed.
-    #   - field: "event-status"
-    #     regex: "Verschoben.*"
-    #     match: false
 
   ##############
   # Winterthur
