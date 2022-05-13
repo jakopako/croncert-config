@@ -23,6 +23,5 @@ While writing a new config snippet you can continuously test it by running `gosk
 There are still a few limititions that will be solved in the future and include the following but might not be limited to:
 
 - currently, [goskyr](https://github.com/jakopako/goskyr) only supports static pages. Javascript is not beeing executed.
-- a field of type date only supports one layout across all items of one concert location.
 - a field (type `text` & `url`) can only have one selector across all items of one concert location.
 - if you encounter any other bugs or limitations feel free to open an issue in the [goskyr](https://github.com/jakopako/goskyr) repo.
