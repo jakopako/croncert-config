@@ -4,6 +4,49 @@ writer:
 
 # Scraper configs are grouped by city and cities are sorted alphabetically.
 scrapers:
+  ########
+  # Basel
+  ########
+  - name: ParterreOne
+    url: "https://www.parterre.net/de/musik-kultur/one-music/programm?category=1"
+    item: "section.oneprog .upcomingprev"
+    fields:
+      static:
+        - name: "location"
+          value: "Parterre One"
+        - name: "city"
+          value: "Basel"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.parterre.net/de/musik-kultur/one-music/programm?category=1"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".smalltext h2"
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".pic a"
+        - name: "date"
+          type: "date"
+          on_subpage: "url"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: ".datetime dd"
+              layout: ["02.01.2006"]
+            - covers:
+                time: true
+              location:
+                selector: ".datetime dd"
+                node_index: 2
+              layout: ["15:04"]
+          date_location: "Europe/Berlin"
+
   #######
   # Bern
   #######
