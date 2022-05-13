@@ -1,4 +1,4 @@
-name: crawl_events
+name: scrape_events
 
 on:
   schedule:
@@ -9,8 +9,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  crawl-all-events:
+  scrape-all-events:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     environment: crawl-env
@@ -27,7 +26,7 @@ jobs:
 
       # Install go binary
       - name: Install the scraper
-        run: go install github.com/jakopako/goskyr@v0.2.0
+        run: go install github.com/jakopako/goskyr@v0.2.1
 
       # Runs a single command using the runners shell
       - name: Run the scraper
