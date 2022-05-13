@@ -911,6 +911,71 @@ scrapers:
               layout: ["15:04"]
           date_location: "Europe/Berlin"
 
+  - name: Konzerthaus
+    url: "https://konzerthaus.at/kalender"
+    item: "#dnn_ctr418_ViewProgrammlist_programmlist_pnlPlc .RowGroup .calendar_event"
+    fields:
+      static:
+        - name: "location"
+          value: "Konzerthaus"
+        - name: "city"
+          value: "Vienna"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl" # This is needed to uniquely identify this scraper
+          value: "https://konzerthaus.at/kalender"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".event_title"
+            child_index: 2
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".event_coreData a"
+        - name: "comment"
+          location:
+            selector: ".calendar_eventVenue"
+          can_be_empty: true
+        - name: "date"
+          type: "date"
+          components:
+            - covers:
+                day: true
+              location:
+                selector: ".calendarEventDaynumber"
+              layout: ["2"]
+            - covers:
+                month: true
+              location:
+                selector: ".calendarEventMonthname"
+              layout: ["January"]
+            - covers:
+                year: true
+              location:
+                selector: ".calendarEventYear"
+              layout: ["2006"]
+            - covers:
+                time: true
+              location:
+                selector: ".calendar_eventTime"
+              layout: [15:04 Uhr]
+          date_location: "Europe/Berlin"
+          date_language: "de_DE"
+          # hidden fields can be used to filter events, as in this case.
+    #     - name: "event-status"
+    #       hide: true
+    #       can_be_empty: true
+    #       location:
+    #         selector: "<event-status-selector>"
+    # filters:
+    #   - field: "event-status"
+    #     regex: "Abgesagt"
+    #     match: false # this means that matching events will be removed.
+    #   - field: "event-status"
+    #     regex: "Verschoben.*"
+    #     match: false
+
   ##############
   # Winterthur
   ##############
