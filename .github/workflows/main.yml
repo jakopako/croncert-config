@@ -1,4 +1,4 @@
-name: crawl_events
+name: scrape_events
 
 on:
   schedule:
@@ -9,8 +9,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  crawl-all-events:
+  scrape-all-events:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     environment: crawl-env
@@ -19,15 +18,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+
       - name: Setup Go environment
         uses: actions/setup-go@v2.1.5
         with:
           go-version: 1.17.8
-      
+
       # Install go binary
       - name: Install the scraper
-        run: go install github.com/jakopako/goskyr@latest
+        run: go install github.com/jakopako/goskyr@v0.2.1
 
       # Runs a single command using the runners shell
       - name: Run the scraper
@@ -36,4 +35,3 @@ jobs:
           WRITER_USER: ${{ secrets.WRITER_USER }}
           WRITER_PASSWORD: ${{ secrets.WRITER_PASSWORD }}
           WRITER_URI: ${{ secrets.WRITER_URI }}
-
