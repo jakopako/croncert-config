@@ -670,7 +670,7 @@ scrapers:
         - name: "comment"
           location:
             selector: ".elementor-widget-container"
-            node_index: 2
+            node_index: 3
           can_be_empty: true
         - name: "url"
           type: "url"
@@ -679,8 +679,9 @@ scrapers:
         - name: "location"
           on_subpage: "url"
           location:
-            selector: ".dc-has-condition.dc-condition-equal.elementor-widget.elementor-widget-text-editor > div"
+            selector: "div.elementor-element.elementor-element-5eb36ff.elementor-widget.elementor-widget-text-editor > div"
             child_index: 2
+            # body > div.elementor.elementor-29.elementor-location-single.post-663.veranstaltungen.type-veranstaltungen.status-publish.has-post-thumbnail.hentry.category-zenith > div.elementor-element.elementor-element-51f5561.e-container--row.e-container > div.elementor-element.elementor-element-1e3a848.e-container--column.e-container > div.elementor-element.elementor-element-05a07ab.e-container--column.e-container > div.elementor-element.elementor-element-5eb36ff.elementor-widget.elementor-widget-text-editor > div
         - name: "date"
           type: "date"
           on_subpage: "url"
@@ -710,6 +711,43 @@ scrapers:
       - field: "status"
         regex: "Abgesagt"
         match: false
+
+  - name: Glockenbachwerkstatt
+    url: "https://www.glockenbachwerkstatt.de/veranstaltungen/?date&category=konzert"
+    item: ".event"
+    fields:
+      static:
+        - name: "location"
+          value: "Glockenbachwerkstatt"
+        - name: "city"
+          value: "Munich"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.glockenbachwerkstatt.de/veranstaltungen/?date&category=konzert"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".event__title span"
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".event__title a"
+        - name: "date"
+          type: "date"
+          components:
+            - covers:
+                day: true
+                month: true
+              location:
+                selector: ".imgdate"
+              layout: ["2.1."]
+            - covers:
+                time: true
+              location:
+                selector: ".eventtime"
+              layout: ["15:04 Uhr"]
+          date_location: "Europe/Berlin"
 
   ##########
   # Paris
