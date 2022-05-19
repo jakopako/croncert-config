@@ -681,7 +681,6 @@ scrapers:
           location:
             selector: "div.elementor-element.elementor-element-5eb36ff.elementor-widget.elementor-widget-text-editor > div"
             child_index: 2
-            # body > div.elementor.elementor-29.elementor-location-single.post-663.veranstaltungen.type-veranstaltungen.status-publish.has-post-thumbnail.hentry.category-zenith > div.elementor-element.elementor-element-51f5561.e-container--row.e-container > div.elementor-element.elementor-element-1e3a848.e-container--column.e-container > div.elementor-element.elementor-element-05a07ab.e-container--column.e-container > div.elementor-element.elementor-element-5eb36ff.elementor-widget.elementor-widget-text-editor > div
         - name: "date"
           type: "date"
           on_subpage: "url"
