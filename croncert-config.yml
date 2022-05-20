@@ -810,6 +810,98 @@ scrapers:
         regex: "delayed"
         match: false
 
+  ##########
+  # Prague
+  ##########
+  - name: "CafeVLese"
+    url: "https://cafevlese.cz/kompletni-program/#"
+    item: "article.mec-event-article"
+    exclude_with_selector:
+      - ".mec-past-event"
+    fields:
+      static:
+        - name: "location"
+          value: "Café V Lese"
+        - name: "city"
+          value: "Prague"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl"
+          value: "https://cafevlese.cz/kompletni-program/#"
+      dynamic:
+        - name: "title"
+          location:
+            selector: "h4.mec-event-title a"
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".mec-event-content a"
+        - name: "date"
+          type: "date"
+          components:
+            - covers:
+                day: true
+                month: true
+              location:
+                selector: ".mec-start-date-label"
+              layout: ["2 Jan"]
+            - covers:
+                time: true
+              location:
+                selector: ".mec-event-time"
+                child_index: 1
+              layout: ["15:04"]
+          date_location: "Europe/Berlin"
+          date_language: "cs_CZ"
+
+  - name: KasarnaKarlin
+    url: "https://www.kasarnakarlin.cz/en/program"
+    item: ".event"
+    fields:
+      static:
+        - name: "location"
+          value: "Kasárna Karlín"
+        - name: "city"
+          value: "Prague"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.kasarnakarlin.cz/en/program"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".event-title"
+        - name: "eventType"
+          location:
+            selector: ".field--type-string"
+          hide: true
+        - name: "url"
+          type: "url"
+          location:
+            selector: "article a"
+        - name: "date"
+          type: "date"
+          on_subpage: "url"
+          components:
+            - covers:
+                day: true
+                month: true
+              location:
+                selector: ".field--name-field-date-range"
+              layout: ["2. 1."]
+            - covers:
+                time: true
+              location:
+                selector: ".field--name-field-text-time"
+                regex_extract:
+                  exp: "[0-9]{2}[\\.:]{1}[0-9]{2}"
+              layout: ["15.04", "15:04"]
+          date_location: "Europe/Berlin"
+    filters:
+      - field: "eventType"
+        regex: "Koncert"
+        match: true
+
   ##############
   # Santa Cruz
   ##############
