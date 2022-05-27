@@ -902,6 +902,58 @@ scrapers:
         regex: "Koncert"
         match: true
 
+  - name: MeetFactory
+    url: "http://www.meetfactory.cz/en/program/hudba"
+    item: "#a-content .action-boxes > div"
+    fields:
+      static:
+        - name: "location"
+          value: "MeetFactory"
+        - name: "city"
+          value: "Prague"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl"
+          value: "http://www.meetfactory.cz/en/program/hudba"
+      dynamic:
+        - name: "title"
+          location:
+            selector: ".abb-text h3 a"
+            attr: title
+        - name: "url"
+          type: "url"
+          location:
+            selector: ".abb-text h3 a"
+        - name: "eventStatus"
+          location:
+            selector: ".abb-text h3 a span"
+            node_index: 1
+          can_be_empty: true
+          hide: true
+        - name: "date"
+          type: "date"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+                time: true
+              location:
+                selector: ".abb-date meta"
+                attr: "content"
+              layout: ["2006-01-02T15:04"]
+          date_location: "Europe/Berlin"
+    filters:
+      - field: "eventStatus"
+        regex: ".*Cancelled"
+        match: false
+      - field: "eventStatus"
+        regex: ".*Rescheduled"
+        match: false
+    paginator:
+      location:
+        selector: "a.endless_more"
+
   ##############
   # Santa Cruz
   ##############
