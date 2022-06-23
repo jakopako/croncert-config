@@ -2095,6 +2095,8 @@ scrapers:
               location:
                 selector: ".iconbox_content_container p"
                 node_index: 0
+                regex_extract:
+                  exp: "[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}"
               layout: ["02.01.2006"]
             - covers:
                 time: true
