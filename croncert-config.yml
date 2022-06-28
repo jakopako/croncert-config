@@ -1655,10 +1655,8 @@ scrapers:
           date_language: "de_DE"
 
   - name: Exil
-    url: "https://exil.cl/programm"
-    item: "#detail-main article"
-    exclude_with_selector:
-      - ".wct_event"
+    url: "https://exil.club"
+    item: ".events-list > a"
     fields:
       static:
         - name: "location"
@@ -1668,38 +1666,54 @@ scrapers:
         - name: "type"
           value: "concert"
         - name: "sourceUrl"
-          value: "https://exil.cl/programm"
+          value: "https://exil.cl/programm" # a hack to make sure the events are deleted before being readded
       dynamic:
         - name: "title"
           location:
-            selector: ".grid-event-title"
+            selector: ".content .topbar h2"
+          on_subpage: "url"
         - name: "comment"
+          on_subpage: "url"
           location:
-            selector: ".hyphenate p"
+            selector: ".text > .block.block-text > p"
             max_length: 200
           can_be_empty: true
+        - name: "event-type"
+          location:
+            selector: ".type.float"
+          hide: true
         - name: "url"
           type: "url"
+          location:
+            selector: ""
         - name: "date"
           type: "date"
+          on_subpage: "url"
           components:
             - covers:
                 day: true
                 month: true
                 year: true
+              location:
+                selector: ".main-title > .list-item.list-event > .date"
+                regex_extract:
+                  exp: "([0-9]{2}\\.){2}[0-9]{4}"
+              layout: ["02.01.2006"]
+            - covers:
                 time: true
               location:
-                selector: ".grid-event-date"
-                attr: "datetime"
-              layout: ["2006-01-02T15:04"]
+                selector: ".block.block-info > .start"
+                regex_extract:
+                  exp: "[0-9]{2}:[0-9]{2}"
+              layout: ["15:04"]
           date_location: "Europe/Berlin"
           date_language: "de_DE"
     filters:
+      - field: "event-type"
+        regex: "live"
+        match: true
       - field: "title"
-        regex: ".*abgesagt.*"
-        match: false
-      - field: "title"
-        regex: "geschlossene Gesellschaft"
+        regex: ".*ABGESAGT.*"
         match: false
 
   - name: Papiersaal
