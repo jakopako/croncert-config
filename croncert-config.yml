@@ -1189,6 +1189,45 @@ scrapers:
           date_location: "Europe/Berlin"
           date_language: "de_DE"
 
+  - name: PorgyAndBess
+    url: https://www.porgy.at/events/upcoming
+    item: body > div.main > div.main_content > div.container > div.row.events > div.col-md-9.event_list > div.row.event_list
+    fields:
+      static:
+        - name: "location"
+          value: "Porgy & Bess"
+        - name: "city"
+          value: "Vienna"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.porgy.at/events/upcoming"
+      dynamic:
+        - name: title
+          location:
+            selector: div.col-md-7.event_list.event_list_item > div.title > a
+        - name: url
+          type: url
+          location:
+            selector: div.col-md-7.event_list.event_list_item > div.title > a
+        - name: date
+          type: date
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: div.col-md-3.event_list > div.date
+              layout: ["Mon 2. January 2006"]
+            - covers:
+                time: true
+              location:
+                selector: div.col-md-2.event_list > div.time
+              layout: ["15:04"]
+          date_location: "Europe/Berlin"
+          date_language: "de_DE"
+
   ##############
   # Winterthur
   ##############
