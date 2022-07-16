@@ -2167,3 +2167,42 @@ scrapers:
                   exp: "[0-9]{1,2}:[0-9]{2}"
               layout: ["15:04"]
           date_location: "Europe/Berlin"
+
+  - name: BrauereiOerlikon
+    url: https://www.brauerei-oerlikon.ch/events/
+    item: body > div > div > div > div.mesh-layout > main > div._1gF1C > div.Ry26q > div._3K7uv > div._1KV2M > div > div > div._2GqI3 > div._1Bme7 > div._3Rcdf > div._1ozXL > div._1vNJf > div
+    fields:
+      static:
+        - name: "location"
+          value: "Brauerei Oerlikon"
+        - name: "city"
+          value: "Zurich"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.brauerei-oerlikon.ch/events/"
+      dynamic:
+        - name: url
+          type: url
+          location:
+            selector: div > div._2UgQw > a._1fbEI
+        - name: comment
+          location:
+            selector: div._1Q9if._3bcaz > p.font_8 > span > span
+            node_index: 1
+          can_be_empty: true
+          hide: false
+        - name: title
+          location:
+            selector: div > div._1Q9if._3bcaz > h3.font_3
+        - name: date
+          type: date
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+                time: true
+              location:
+                selector: div > div._1Q9if._3bcaz > p.font_8 > span > span > span
+              layout: ["2.1.06, 15:04"]
