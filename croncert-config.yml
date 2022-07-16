@@ -300,6 +300,10 @@ scrapers:
           location:
             selector: div.excerpt__main > div.excerpt__header > div.excerpt__intro
           can_be_empty: true
+        - name: url
+          type: url
+          location:
+            selector: div.excerpt__main > div.excerpt__header > h3.excerpt__title > a
         - name: "date"
           type: "date"
           components:
