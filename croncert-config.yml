@@ -279,6 +279,47 @@ scrapers:
       location:
         selector: ".pager__item--next a"
 
+  - name: 30cc
+    url: https://www.30cc.be/nl/programma?seizoen=2022-2023&discipline=3
+    item: body.page-programma > div.page-wrap > div.page-main > div.section.section--content.js-filter > div.container > div.section__content > div.grid > div.grid__12.grid--bp-med__8 > div.block.js-load-more > div.block > div.grid.grid--flex.js-load-more-results > div.grid__12.is-view-list > div.excerpt.excerpt--event.excerpt--link.excerpt--clickable
+    fields:
+      static:
+        - name: "type"
+          value: "concert"
+        - name: "city"
+          value: "Leuven"
+        - name: "location"
+          value: "30cc"
+        - name: "sourceUrl"
+          value: "https://www.30cc.be/nl/programma?seizoen=2022-2023&discipline=3"
+      dynamic:
+        - name: title
+          location:
+            selector: div.excerpt__main > div.excerpt__header > h3.excerpt__title > a
+        - name: comment
+          location:
+            selector: div.excerpt__main > div.excerpt__header > div.excerpt__intro
+          can_be_empty: true
+        - name: "date"
+          type: "date"
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: div.excerpt__main > div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta
+                regex_extract:
+                  exp: "([0-9]{2}/){2}[0-9]{4}"
+              layout: ["02/01/2006"]
+            - covers:
+                time: true
+              location:
+                selector: div.excerpt__main > div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta > span.excerpt__time
+              layout: ["15:04"]
+          date_location: "Europe/Berlin"
+          date_language: "nl_BE"
+
   ##########
   # Munich
   ##########
