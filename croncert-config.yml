@@ -233,6 +233,53 @@ scrapers:
         regex: ".*CANCELLED.*"
         match: false
 
+  ############
+  # Lausanne
+  ############
+
+  - name: Docks
+    url: https://www.docks.ch/programme/
+    item: body.page-template.page-template-page-programme.page-template-page-programme-php.page.page-id-3652 > div.wrapper.wrapper-programme > div.container-fluid > div.home-program.position-relative > div.row.programme-container > div.col-xxl-10 > div.row.special-row > div.mix.col-sm-6.col-md-5.col-lg-4.col-xl-4.col-xxl-4.concerts
+    fields:
+      static:
+        - name: "type"
+          value: "concert"
+        - name: "city"
+          value: "Lausanne"
+        - name: "location"
+          value: "Docks"
+        - name: "sourceUrl"
+          value: "https://www.docks.ch/programme/"
+      dynamic:
+        - name: title
+          location:
+            selector: a > div.position-relative > div.event-item-title.programme-item-title
+        - name: url
+          type: url
+          location:
+            selector: a
+        - name: date
+          type: date
+          on_subpage: url
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: span.event-info-date
+              layout: ["02.01.2006"]
+            - covers:
+                time: true
+              location:
+                selector: span.event-info-door
+                node_index: 1
+                child_index: 1
+                regex_extract:
+                  exp: "[0-9]{2}:[0-9]{2}"
+              layout: ["15:04"]
+          date_location: "Europe/Berlin"
+
   ##########
   # Leuven
   ##########
