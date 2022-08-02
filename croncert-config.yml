@@ -239,7 +239,6 @@ scrapers:
   - name: Luxor
     url: https://www.luxor-koeln.de/programm/
     item: body.page-template.page-template-page-events.page-template-page-events-php.page.page-id-26.wp-embed-responsive.preload > main.content > article.article.post-26.page.type-page.status-publish.hentry > section.events-overview.alignwide > div.events-overview__listing > article
-    exclude_with_selector: []
     fields:
       static:
         - name: "type"
@@ -285,18 +284,6 @@ scrapers:
       - field: "eventType"
         regex: "Konzerte & Events"
         match: true
-    paginator:
-      location:
-        selector: ""
-        node_index: 0
-        child_index: 0
-        regex_extract:
-          exp: ""
-          index: 0
-        attr: ""
-        max_length: 0
-        entire_subtree: false
-      max_pages: 0
 
   ############
   # Lausanne
