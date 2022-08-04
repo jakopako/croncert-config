@@ -2385,3 +2385,48 @@ scrapers:
               location:
                 selector: div > div._1Q9if._3bcaz > p.font_8 > span > span > span
               layout: ["2.1.06, 15:04"]
+
+  - name: Plaza
+    url: https://www.plaza-zurich.ch/nu/events/event_list_type/2
+    item: body.nu-page-eventlist.page-template-with-sidebar > div.hfeed.site > div.site-content > div.content-area.nunight.nu-event-list > main.site-main > article.page.type-page.hentry > ul > li.nu-event.nu-e-concert
+    fields:
+      static:
+        - name: "location"
+          value: "Plaza Klub"
+        - name: "city"
+          value: "Zurich"
+        - name: "type"
+          value: "concert"
+        - name: "sourceUrl"
+          value: "https://www.plaza-zurich.ch/nu/events/event_list_type/2"
+        - name: url
+          value: "https://www.plaza-zurich.ch/nu/events/event_list_type/2"
+      dynamic:
+        - name: title
+          location:
+            selector: div.nu-e-innerwrap > div.nu-e-mobitop > div.nu-e-titleblock > h2
+        - name: comment
+          location:
+            selector: a.addtocalendar
+            attr: data-cal-description
+        - name: date
+          type: date
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+                time: true
+              location:
+                selector: a.addtocalendar
+                attr: data-cal-start
+              layout: ["2006-01-02 15:04:05"]
+          date_location: "Europe/Berlin"
+
+    filters:
+      - field: "title"
+        regex: "Abgesagt.*"
+        match: false
+      - field: "title"
+        regex: "ABGESAGT.*"
+        match: false
