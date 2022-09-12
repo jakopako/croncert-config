@@ -423,6 +423,56 @@ scrapers:
           date_location: "Europe/Berlin"
           date_language: "nl_BE"
 
+  - name: Lemmens
+    url: https://www.luca-arts.be/nl/concerten-evenementen
+    item: body.path-node.page-node-type-landing-page > div.dialog-off-canvas-main-canvas > div.page > div.wrapper.container > main.main > div.block.block-system.block-system-main-block > article.node.node--type-landing-page.node--view-mode-full > div.node__content > div.row.layout.layout--onecol.layout-builder--layout__region > div.col.col-sm-12 > div.blue.colored-bg.js-inview-block.block.block-layout-builder.block-inline-blockhighlight > div.block-content.block-content--type-highlight.block-content--view-mode-full.ds-1col > div.node.node--type-event.node--view-mode-teaser.ds-1col > div.teaser-content
+    fields:
+      static:
+        - name: "type"
+          value: "concert"
+        - name: "city"
+          value: "Leuven"
+        - name: "location"
+          value: "Lemmens"
+        - name: "sourceUrl"
+          value: "https://www.luca-arts.be/nl/concerten-evenementen"
+      dynamic:
+        - name: comment
+          type: text
+          location:
+            selector: div.text-formatted.field.field--name-field-short-description.field__item > p
+        - name: url
+          type: url
+          location:
+            selector: div.field.field-name-node-title > h3 > a
+            attr: href
+        - name: title
+          type: text
+          location:
+            selector: div.field.field-name-node-title > h3 > a
+        - name: date
+          type: date
+          on_subpage: url
+          components:
+            - covers:
+                day: true
+                month: true
+                year: true
+              location:
+                selector: div.event-meta > div.field.field--name-field-event-date.field__items > div
+                regex_extract:
+                  exp: "([0-9]{2}\\.){2}[0-9]{4}"
+              layout: ["2.1.2006"]
+            - covers:
+                time: true
+              location:
+                selector: div.event-meta > div.field.field--name-field-event-date.field__items > div
+                regex_extract:
+                  exp: "[0-9]{2}u"
+              layout: ["15u"]
+          date_location: "Europe/Berlin"
+          date_language: "nl_BE"
+
   ##########
   # Munich
   ##########
