@@ -45,6 +45,50 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
 
+  #########
+  # Berlin
+  #########
+  - name: Gretchen
+    url: https://www.gretchen-club.de/
+    item: body.normal.start > div.block > div.start > div > div.dates > div.gig
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "location"
+        value: "Gretchen"
+      - name: "sourceUrl"
+        value: "https://www.gretchen-club.de/"
+      - name: title
+        location:
+          selector: div.gig_main > div.scroll.nano > div.text.nano-content > span.title > h2 > a
+      - name: url
+        type: url
+        location:
+          selector: div.gig_main > div.scroll.nano > div.text.nano-content > span.title > h2 > a
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.gig_top > span.date > strong
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.gig_main > div.scroll.nano > div.text.nano-content > span.lineup
+              node_index: 1
+              regex_extract:
+                exp: "Show: [0-9\\.]+"
+              entire_subtree: true
+            layout: ["Show: 15", "Show: 15.04"]
+        date_location: "Europe/Berlin"
+
   #######
   # Bern
   #######
