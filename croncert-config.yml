@@ -459,6 +459,56 @@ scrapers:
         date_language: "nl_BE"
 
   ##########
+  # London
+  ##########
+  - name: OsloHackney
+    url: https://www.oslohackney.com/events/
+    item: body.page-template.page-template-templates.page-template-template_gig-guide.page-template-templatestemplate_gig-guide-php.page.page-id-490.body-site-header--standard.body-site-header--logo-left.body-site-header--no-sticky-links > section.section.section--spacing-above-standard.section--spacing-below-standard.section--centered.guide.js-guide-section > div.wrapper > div.js-guide-container.guide__container > div.js-guide-post-grid.guide__post-grid > div.guide__month > div.grid.guide__grid > div.grid__col.guide__grid-col > div.card.card--full.card--alt-layout > div.card__inside > div.card__grid > div.card__grid-content.text__reset
+    fields:
+      - name: "location"
+        value: "Oslo Hackney"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.oslohackney.com/events/"
+      - name: url
+        type: url
+        location:
+          selector: a.card__heading.card__heading--last.card__heading--gig.h4.text-link.text-link--color
+          attr: href
+      - name: title
+        location:
+          selector: a.card__heading.card__heading--last.card__heading--gig.h4.text-link.text-link--color
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: ".wrapper .standard-content ul.single-article__list > li"
+              child_index: 1
+            layout: [
+                "Mon 2st January 2006",
+                "Mon 2nd January 2006",
+                "Mon 2rd January 2006",
+                "Mon 2th January 2006",
+              ] # hack
+          - covers:
+              time: true
+            location:
+              selector: ".wrapper .standard-content ul.single-article__list > li"
+              node_index: 1
+              child_index: 1
+            layout: ["15:04 "]
+        date_location: "Europe/London"
+        date_language: "en_GB"
+
+  ##########
   # Munich
   ##########
   - name: Unterfahrt
