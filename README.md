@@ -16,7 +16,7 @@ If you know a concert venue that you'd like to add to [CrONCERT](https://croncer
 
 It is important that at least the fields `title`, `url`, `city`, `location`, `type`, `sourceUrl` and `date` are present. Optionally, a `comment` field can be configured (currently not shown on <https://croncert.ch>). If the mandatory fields are not present or additional new fields are configured then the scraper won't be able to send the data to the api that feeds the website. Also note, that `type` should be a static field with 'concert' as value and `city` should be a static field with the city name in English.
 
-While writing a new config snippet you can continuously test it by running `goskyr -single <name> -config croncert-config.yml -stdout` (`goskyr` must be installed locally). This prints the items in json format to stdout instead of trying to write them to the croncert api. The latter wouldn't work anyways because you'd need to set the correct credentials as environment variables. Also it might be helpful to start with the config snippet provided by the `config-template.yml`.
+While writing a new config snippet you can continuously test it by running `goskyr -s <name> -c croncert-config.yml -stdout` (`goskyr` must be installed locally). This prints the items in json format to stdout instead of trying to write them to the croncert api. The latter wouldn't work anyways because you'd need to set the correct credentials as environment variables. Also it might be helpful to start with the config snippet provided by the `config-template.yml`.
 
 ## Limitations
 
