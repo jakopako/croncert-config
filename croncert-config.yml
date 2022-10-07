@@ -2546,3 +2546,40 @@ scrapers:
       - field: "title"
         regex: "ABGESAGT.*"
         match: false
+
+  - name: RoteFabrik
+    url: "https://rotefabrik.ch/de/programm.html#/calendar/konzert/"
+    item: ".rf-calendar-container > article"
+    renderJs: true
+    fields:
+      - name: "location"
+        value: "Rote Fabrik"
+      - name: "city"
+        value: "Zurich"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://rotefabrik.ch/de/programm.html#/calendar/konzert/"
+      - name: title
+        location:
+          selector: .event-list-entry__sub-element--large > h2
+      - name: comment
+        location:
+          selector: .event-list-entry__sub-element--large > h3
+      - name: url
+        type: url
+        location:
+          selector: .rf-event-list-entry > a
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: .event-list-entry__sub-element > time
+              attr: datetime
+            layout: ["06-01-02 15:04:05"]
+        date_location: "Europe/Berlin"

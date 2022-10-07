@@ -22,15 +22,18 @@ jobs:
       - name: Setup Go environment
         uses: actions/setup-go@v2.1.5
         with:
-          go-version: 1.17.8
+          go-version: 1.19.1
+
+      - name: Install google chrome
+        uses: browser-actions/setup-chrome@latest
 
       # Install go binary
       - name: Install the scraper
-        run: go install github.com/jakopako/goskyr@v0.2.12
+        run: go install github.com/jakopako/goskyr@v0.3.0
 
       # Runs a single command using the runners shell
       - name: Run the scraper
-        run: goskyr -config croncert-config.yml
+        run: goskyr -c croncert-config.yml
         env:
           WRITER_USER: ${{ secrets.WRITER_USER }}
           WRITER_PASSWORD: ${{ secrets.WRITER_PASSWORD }}
