@@ -502,6 +502,39 @@ scrapers:
         date_location: "Europe/Berlin"
         date_language: "nl_BE"
 
+  - name: BlauweKater
+    url: http://www.blauwekater.be/events.html
+    item: .rTable .rTableRow
+    renderJs: true
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Leuven"
+      - name: "location"
+        value: "Blauwe Kater"
+      - name: "sourceUrl"
+        value: "http://www.blauwekater.be/events.html"
+      - name: url
+        value: "http://www.blauwekater.be/events.html"
+      - name: title
+        type: text
+        location:
+          selector: .rTableCell strong
+          entire_subtree: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: .rTableCell
+            layout: ["2.1.2006"]
+        date_location: "Europe/Berlin"
+        date_language: "nl_BE"
+
   ##########
   # London
   ##########
