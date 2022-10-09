@@ -2618,3 +2618,49 @@ scrapers:
               attr: datetime
             layout: ["06-01-02 15:04:05"]
         date_location: "Europe/Berlin"
+
+  - name: Zentralwaescherei
+    url: https://zentralwaescherei.space/en
+    item: body > div > div.app_app__3X0V5 > div.container > div.base > div > div.events_event__zMaGU.undefined
+    fields:
+      - name: "location"
+        value: "Zentralwäscherei"
+      - name: "city"
+        value: "Zurich"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: " https://zentralwaescherei.space/en"
+      - name: title
+        type: text
+        location:
+          selector: div.events_event_title__eaz0V > span
+      - name: type
+        type: text
+        location:
+          selector: div.events_event_detail___Yldr > div.events_event_detail_bottom__PTC0f > span
+          node_index: 2
+          entire_subtree: true
+        hide: true
+      - name: url
+        value: https://zentralwaescherei.space/en
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.events_event_date__ml09M > span
+            layout: ["Monday, 2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.events_event_starttime__iwhoE > span
+            layout: ["15:04"]
+    renderJs: true
+    filters:
+      - field: "type"
+        regex: ".*Concert.*"
+        match: true
