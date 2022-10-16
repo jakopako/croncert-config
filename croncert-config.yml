@@ -2635,7 +2635,7 @@ scrapers:
         type: text
         location:
           selector: div.events_event_title__eaz0V > span
-      - name: type
+      - name: eventType
         type: text
         location:
           selector: div.events_event_detail___Yldr > div.events_event_detail_bottom__PTC0f > span
@@ -2661,6 +2661,6 @@ scrapers:
             layout: ["15:04"]
     renderJs: true
     filters:
-      - field: "type"
+      - field: "eventType"
         regex: ".*Concert.*"
         match: true
