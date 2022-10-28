@@ -1554,6 +1554,49 @@ scrapers:
         date_location: "Europe/Berlin"
         date_language: "de_DE"
 
+  - name: ArenaWien
+    url: https://arena.wien/Home/Programm#data_abonnement=-1&data_month=-1&data_year=-1&data_event_category=-1&searchTerm=&data_mode=DATE&data_pagenumber=0&page_header=alle+Monate
+    item: body > form > div.container.theme-showcase > div.row > div.DnnModule.DnnModule-EventListDirectTicketing.DnnModule-1076.col-md-12 > div > div > div.DNNModuleContent.ModEventListDirectTicketingC > div > div.row > div.col-md-12 > div.VAlist > div.suite_calRowContainer > a
+    fields:
+      - name: location
+        value: Arena
+      - name: city
+        value: Vienna
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://arena.wien/Home/Programm#data_abonnement=-1&data_month=-1&data_year=-1&data_event_category=-1&searchTerm=&data_mode=DATE&data_pagenumber=0&page_header=alle+Monate
+      - name: title
+        location:
+          selector: span.col-md-5.suite_Eventitle > span.Event_H1
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: span.col-md-2.suite_EvenTime > span
+              child_index: 4
+            layout: ["15:04"]
+          - covers:
+              month: true
+              year: true
+            location:
+              selector: span.col-md-1.suite_EvenDate > span.suite_datePlate > span.suite_year
+            layout: ["Jan. | 2006"]
+          - covers:
+              day: true
+            location:
+              selector: span.col-md-1.suite_EvenDate > span.suite_datePlate > span.suite_day-number
+            layout: ["02"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+    renderJs: true
+
   ##############
   # Winterthur
   ##############
