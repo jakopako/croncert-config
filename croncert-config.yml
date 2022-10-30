@@ -1332,6 +1332,41 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
 
+  - name: Roxy
+    url: https://www.roxy.cz/en/#program
+    item: body.home > div.wrapper.schedule > div.event-list > a.item
+    fields:
+      - name: "location"
+        value: "Roxy"
+      - name: "city"
+        value: "Prague"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.roxy.cz/en/#program"
+      - name: title
+        location:
+          selector: article.wrap > div.front > h2.title
+      - name: url
+        type: url
+        location:
+          selector: ""
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: article.wrap > div.front > time.date
+              attr: datetime
+            layout: ["2006-01-02 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+
   ##############
   # Santa Cruz
   ##############
