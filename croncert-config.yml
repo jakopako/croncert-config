@@ -1839,8 +1839,8 @@ scrapers:
         date_language: "en_US"
 
   - name: Moods
-    url: "https://www.moods.club/en/?a=1"
-    item: ".event"
+    url: "https://www.moods.ch/en"
+    item: main > section.main-container.mx-auto.py-9 > ul > li > ul > li.pb-6.mb-6.border-b.border-b-mono-200
     fields:
       - name: "location"
         value: "Moods"
@@ -1849,42 +1849,38 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://www.moods.club/en/?a=1"
-      - name: "url"
-        type: "url"
+        value: "https://www.moods.ch/en"
+      - name: title
         location:
-          selector: "a"
-      - name: "title"
+          selector: h3.h3
+      - name: comment
         location:
-          selector: "h2"
-      - name: "comment"
+          selector: span > span.flex.paragraph-2
+      - name: url
+        type: url
         location:
-          selector: ".left .content"
-          max_length: 200
-        on_subpage: "url"
-        can_be_empty: true
-      - name: "date"
-        type: "date"
-        on_subpage: "url"
+          selector: a.absolute.inset-0
+          attr: href
+      - name: date
+        type: date
         components:
           - covers:
               day: true
-            location:
-              selector: ".date .day"
-            layout: ["2"]
-          - covers:
               month: true
+              year: true
             location:
-              selector: ".date .month_name"
-            layout: ["Jan"]
+              selector: time.flex.items-center
+              attr: datetime # in the source code it's dateTime. Very weird that go sees it as datetime...
+              regex_extract:
+                exp: "[0-9]{4}(-[0-9]{2}){2}"
+            layout: ["2006-01-02"]
           - covers:
               time: true
             location:
-              selector: ".right .time"
-              node_index: -1 # -1 means the last node
-            layout: ["Start: 15:04"]
+              selector: div.flex.flex-col.items-end.ml-auto.gap-y-4.flex-shrink-0 > div.flex.gap-x-3.items-center > div.h5
+            layout: ["15:04"]
         date_location: "Europe/Berlin"
-        date_language: "en_US"
+        date_language: "de_DE"
 
   - name: ElLokal
     url: "http://www.ellokal.ch/?lang=de&details=9"
