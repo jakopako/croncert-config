@@ -2579,7 +2579,7 @@ scrapers:
 
   - name: BrauereiOerlikon
     url: https://www.brauerei-oerlikon.ch/events/
-    item: body > div > div > div > div.mesh-layout > main > div._1gF1C > div.Ry26q > div._3K7uv > div._1KV2M > div > div > div._2GqI3 > div._1Bme7 > div._3Rcdf > div._1ozXL > div._1vNJf > div
+    item: div._3Rcdf > div._3iVFe
     fields:
       - name: "location"
         value: "Brauerei Oerlikon"
