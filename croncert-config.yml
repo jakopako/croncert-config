@@ -1036,6 +1036,50 @@ scrapers:
             layout: ["15:04 Uhr"]
         date_location: "Europe/Berlin"
 
+  ############
+  # Nijmegen
+  ############
+  - name: Doornroosje
+    url: https://www.doornroosje.nl/
+    item: div.c-program > div.c-program__items > a.c-program__item.js-open-overlay
+    fields:
+      - name: "location"
+        value: "Doornroosje"
+      - name: "city"
+        value: "Nijmegen"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.doornroosje.nl/"
+      - name: title
+        location:
+          selector: div.c-program__content > h3.c-program__title
+      - name: url
+        type: url
+        location:
+          selector: ""
+          attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.c-event-data__value
+              node_index: 1
+            layout: ["Monday 2 January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.c-event-data__value
+              node_index: 3
+            layout: ["15:04 uur"]
+        date_location: "Europe/Berlin"
+        date_language: "nl_NL"
+
   ##########
   # Paris
   ##########
