@@ -2478,7 +2478,7 @@ scrapers:
         match: false
 
   - name: Dynamo
-    url: "https://www.dynamo.ch/veranstaltungen?field_event_type_tid=1"
+    url: "https://www.dynamo.ch/veranstaltungen"
     item: ".node-event"
     fields:
       - name: "location"
@@ -2488,7 +2488,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://www.dynamo.ch/veranstaltungen?field_event_type_tid=1"
+        value: "https://www.dynamo.ch/veranstaltungen"
       - name: "title"
         location:
           selector: ".field-name-title a"
