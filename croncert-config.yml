@@ -204,6 +204,43 @@ scrapers:
         node_index: -1
       max_pages: 4
 
+  #############
+  # Bratislava
+  #############
+  - name: Majestic
+    url: http://www.majestic.sk/program
+    item: body > div.container-fixed > div.container-item > section.upcoming-events > div > table.event-list-simple > tbody > tr.event-list-simple-item > td.event-list-simple-info
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Bratislava"
+      - name: "location"
+        value: "Majestic"
+      - name: "sourceUrl"
+        value: "http://www.majestic.sk/program"
+      - name: url
+        type: url
+        location:
+          selector: a.event-list-simple-title
+          attr: href
+      - name: title
+        location:
+          selector: a.event-list-simple-title
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.event-list-simple-start
+              child_index: 2
+            layout: ["2. 1. 2006\n\t\t\t\t@ 15:04"]
+        date_location: "Europe/Berlin"
+
   ##########
   # Brussels
   ##########
