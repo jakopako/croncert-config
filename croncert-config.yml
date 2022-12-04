@@ -622,6 +622,54 @@ scrapers:
         date_location: "Europe/London"
         date_language: "en_GB"
 
+  ###########
+  # Lucerne
+  ###########
+  - name: Schuur
+    url: https://www.schuur.ch/programm/
+    item: body.layout-standard > div > div > div > div > div.frame.frame-default.frame-type-list.frame-layout-0 > div.event-list > section.event-list-box.event-link-to-details.lazyload-event-background > article
+    fields:
+      - name: "location"
+        value: "Schüür"
+      - name: "city"
+        value: "Lucerne"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.schuur.ch/programm/
+      - name: comment
+        location:
+          selector: div.event-box-title > span.event-subtitle
+      - name: eventType
+        hide: true
+        location:
+          selector: div.event-box-title > span.event-genre
+      - name: title
+        location:
+          selector: div.event-box-title > h3 > a.event-box-details-link > span.event-name
+      - name: url
+        type: url
+        location:
+          selector: div.event-box-title > h3 > a.event-box-details-link
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.event-box-date > div.event-date
+            layout: ["Mon. 2.1.2006 – 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+    filters:
+      - field: "eventType"
+        regex: "Konzert"
+        match: true
+
   ##########
   # Munich
   ##########
