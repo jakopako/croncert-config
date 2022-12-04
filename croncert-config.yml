@@ -88,6 +88,10 @@ scrapers:
               entire_subtree: true
             layout: ["Show: 15", "Show: 15.04"]
         date_location: "Europe/Berlin"
+    filters:
+      - field: "title"
+        regex: ".*CANCELLED"
+        match: false
 
   #######
   # Bern
@@ -135,6 +139,10 @@ scrapers:
             layout: ["Beginn: 15.04 Uhr"]
         date_language: de_DE
         date_location: "Europe/Berlin"
+    filters:
+      - field: "title"
+        regex: "Abgesagt:.*"
+        match: false
 
   ##########
   # Bologna
@@ -1680,6 +1688,10 @@ scrapers:
             layout: [15:04 Uhr]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
+    filters:
+      - field: "title"
+        regex: ".*ABGESAGT"
+        match: false
 
   - name: PorgyAndBess
     url: https://www.porgy.at/events/upcoming
@@ -2607,6 +2619,9 @@ scrapers:
     filters:
       - field: "title"
         regex: ".*[A|a][B|b][G|g][E|e][S|s][A|a][G|g][T|t].*"
+        match: false
+      - field: "title"
+        regex: ".*Cancelled!"
         match: false
 
   - name: Photobastei
