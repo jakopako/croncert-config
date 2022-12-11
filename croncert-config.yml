@@ -368,6 +368,55 @@ scrapers:
         match: false
 
   ############
+  # Hamburg
+  ############
+
+  - name: Fabrik
+    url: https://fabrik.de/programm
+    item: body > div.page > article > div.programm_termin > div.programm_termin_lh > div.programm_termin_lh_hinten
+    fields:
+      - name: "location"
+        value: "Fabrik"
+      - name: "city"
+        value: "Hamburg"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://fabrik.de/programm"
+      - name: url
+        type: url
+        location:
+          selector: div.programm_termin_lh_datum > a.tdcn
+          attr: href
+      - name: comment
+        type: text
+        location:
+          selector: a.tdcn > div.programm_termin_untertitel
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          selector: a.tdcn > div.programm_termin_titel
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.programm_termin_lh_datum > a.tdcn
+              child_index: 1
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.programm_termin_infos
+              child_index: 2
+            layout: ["Beginn: 15:04 Uhr"]
+        date_location: "Europe/Berlin"
+
+  ############
   # Lausanne
   ############
 
