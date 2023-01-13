@@ -697,7 +697,7 @@ scrapers:
       - name: comment
         location:
           selector: div.event-box-title > span.event-subtitle
-      - name: eventType
+      - name: hiddenType
         hide: true
         location:
           selector: div.event-box-title > span.event-genre
@@ -723,7 +723,7 @@ scrapers:
         date_location: "Europe/Berlin"
         date_language: "de_DE"
     filters:
-      - field: "eventType"
+      - field: "hiddenType"
         regex: "Konzert"
         match: true
 
