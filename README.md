@@ -1,7 +1,7 @@
 # Croncert configuration
 
-This repository contains the configuration for [CrONCERT](https://croncert.ch). CrONCERT is a website that helps you find concerts worldwide. The data is gathered with [goskyr](https://github.com/jakopako/goskyr), a configurable
-scraper written in go. Once a week goskyr runs through a Github action using `croncert-config.yml` as configuration file.
+This repository contains the configuration for [CrONCERT](https://croncert.ch). CrONCERT is a website that helps you find concerts worldwide. The data is gathered with [goskyr](https://github.com/jakopako/goskyr), a configurable command-line
+scraper written in go. Once a week goskyr runs through a Github action using `croncert-config.yml` as configuration file and updates the concert database.
 
 Despite the fact that there are other websites that offer an overview about concerts and events (such as <https://www.songkick.com/>, <https://www.jambase.com/>, etc.) I found none that are complete and/or include smaller event locations that might only be known to locals. That's why I came up with this idea.
 
@@ -14,9 +14,78 @@ the data available on <https://croncert.ch>. I might have a good knowledge about
 
 If you know a concert venue that you'd like to add to [CrONCERT](https://croncert.ch) just fork the repository, add a new config snippet and open a pull request to merge the newly added snippet into the main branch. Have a look at the [README of goskyr](https://github.com/jakopako/goskyr) to make yourself familiar with the configuration syntax. Looking at the existing configurations might also give you some hints about how to write your own.
 
-It is important that at least the fields `title`, `url`, `city`, `location`, `type`, `sourceUrl` and `date` are present. Optionally, a `comment` field can be configured (currently not shown on <https://croncert.ch>). If the mandatory fields are not present or additional new fields are configured then the scraper won't be able to send the data to the api that feeds the website. Also note, that `type` should be a static field with 'concert' as value and `city` should be a static field with the city name in English.
+### How to add a config snippet - step by step
 
-While writing a new config snippet you can continuously test it by running `goskyr -s <name> -c croncert-config.yml -stdout` (`goskyr` must be installed locally). This prints the items in json format to stdout instead of trying to write them to the croncert api. The latter wouldn't work anyways because you'd need to set the correct credentials as environment variables. Also it might be helpful to start with the config snippet provided by the `config-template.yml`.
+We'll demonstrate the process for the location "Konzerthaus Schüür" with the url https://www.schuur.ch/programm/
+
+1. **Install goskyr**
+
+    [Download](https://github.com/jakopako/goskyr/releases/latest) the latest prebuilt binary from the [releases page](https://github.com/jakopako/goskyr/releases) and unpack into this directory. For other options check out the [install section](https://github.com/jakopako/goskyr/blob/main/README.md#installation) of goskyr's README.
+
+1. **Generate initial config snippet**
+
+    Since v0.2.5 goskyr provides functionality to automatically generate a config snippet for a given url. We're going to rely on this feature to generate an initial version of the configuration. Unfortunately, goskyr still lacks the ability to generate the *entire* configuration so we'll have to do some modifications afterwards.
+
+    1. Run goskyr with the `-g` flag
+
+        In your terminal run `./goskyr -g  https://www.schuur.ch/programm/`. You'll be presented with a table that shows different fields from the website with corresponding examples. In case you don't see the fields you'd expect from looking at the website there might be a couple of things you can try. Adding the option `-m` allows you to set a minimum number of occurences of the extracted fields (default is 20). Only fields that occur at least this many times are added to the table to filter out noise. In some cases though a list of items on a website may be shorter so you may want to decrease that number accordingly. A second thing that you could try is using the `-d` flag to render js. Note, that chrome needs to be installed for this to work.
+
+    1. Select fields
+
+        With the <kbd>↑</kbd> and <kbd>↓</kbd> arrow keys you can navigate through the rows and with the <kbd>return</kbd> key you can select or de-select a row (ie a field). In case there are many fields to select from the color coding can be useful by giving fields that are close to each other (in the html tree) a similar color. In our example case we can ignore the colors. Once you selected the fields that you want to extract from the website (in our example we select all fields) press the <kbd>tab</kbd> key to navigate to the button below the table and press <kbd>return</kbd> to generate the configuration.
+
+1. **Update the generated configuration accordingly**
+
+    First, to get a feeling what data would be extracted with the previously generated configuration run `./goskyr`. In our case, this should print a number of json items containing concert info. Now that you have an idea of what data is scraped with the current configuration, we need to adapt a few things for this specific use case.
+
+    1. Field names
+
+        Change the generated field names to `title`, `url`, `comment`, `date` and `hiddenType`. `hiddenType` is the field that contains the event type. We don't want this field in our output hence we add `hide: true` but we still need to configure it to be able to filter based on this field in a later step.
+
+    1. Date field
+
+        For the date to be parsed correctly and not just stored as raw string we need to edit the configuration like so:
+
+        ```yaml
+        - name: date
+          type: date
+          components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.event-box-date > div.event-date
+            layout: ["Mon. 2.1.2006 – 15:04"]
+          date_location: "Europe/Berlin"
+          date_language: "de_DE"
+        ```
+
+        Note that the `–` in the layout is the character `U+2013`. To better understand the date extraction read the section on the `Key: type` under **[Dynamic Fields](https://github.com/jakopako/goskyr#dynamic-fields)**.
+
+    1. Filter
+
+        To only scrape events that are actually concerts (not parties) we add the following filter at the same level as the `fields` keyword.
+
+        ```yaml
+        filters:
+        - field: "hiddenType"
+          regex: "Konzert"
+          match: true
+        ```
+
+        Checkout the [filters section](https://github.com/jakopako/goskyr#filters) of the goskyr README for details on how filters work.
+
+    1. Additional fields
+
+        Right now we only configured dynamic fields, ie fields whose values change depending on the scraped website. For croncert we also need a couple of static fields: `city`, `location`, `type` and `sourceUrl`. Check the huge config file `croncert-config.yml` to find out how to configure those. If the mandatory fields are not present or additional new fields are configured then the scraper won't be able to send the data to the api that feeds the website. Also note, that `type` should be a static field with 'concert' as value and `city` should be a static field with the city name in English.
+
+    1. Check the output
+
+        Run `./goskyr` again and check whether the output makes sense. If it does, change the value of the `name` field to the name of the location and copy the config snippet to `croncert-config.yml`. The example location has already been added to the configuration file so you can see the final version there.
+
+1. **Make a pull request**
 
 ## Limitations
 
