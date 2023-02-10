@@ -417,6 +417,58 @@ scrapers:
         date_location: "Europe/Berlin"
 
   ############
+  # Krakow
+  ############
+
+  - name: KlubStudio
+    url: https://www.klubstudio.pl/wydarzenia
+    item: body.stretched.no-transition.device-sm > div.clearfix > section > div.container > div > div.row.padding20 > div.entry-title.col-xs-12.col-sm-6.col-lg-7
+    fields:
+      - name: "location"
+        value: "Klub Studio"
+      - name: "city"
+        value: "Krakow"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.klubstudio.pl/wydarzenia"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: h3 > span
+              regex_extract:
+                exp: "([0-9]{1,2}\\.){2}[0-9]{4}"
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector: h3 > span
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+      - name: url
+        type: url
+        location:
+          selector: h1.tleft.kropki.nomargin > a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: h1.tleft.kropki.nomargin > a > span.head
+      - name: comment
+        type: text
+        can_be_empty: true
+        location:
+          selector: h1.tleft.kropki.nomargin > a > span.bo
+    renderJs: true
+
+  ############
   # Lausanne
   ############
 
