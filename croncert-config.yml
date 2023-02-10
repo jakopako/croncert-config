@@ -1178,6 +1178,49 @@ scrapers:
             layout: ["15:04 Uhr"]
         date_location: "Europe/Berlin"
 
+  - name: HeppelEttlich
+    url: https://heppel-ettlich.de/
+    item: body > div > div > div.container-fluid > div.row.align-items-start > div.col.col-xl-3.col-lg-4.col-sm-6.col-12 > div.mypost
+    fields:
+      - name: "location"
+        value: "Heppel & Ettlich"
+      - name: "city"
+        value: "Munich"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://heppel-ettlich.de/
+      - name: url
+        type: url
+        location:
+          selector: div.event-image-container > a
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.event-meta > span
+            layout: ["Mon, 02.01."]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+      - name: eventType
+        type: text
+        hide: true
+        location:
+          selector: div.event-meta > span
+          node_index: 1
+      - name: title
+        type: text
+        location:
+          selector: div.event-meta > h1.entry-title.event-name
+    filters:
+      - field: "eventType"
+        regex: "Konzert"
+        match: true
+
   ############
   # Nijmegen
   ############
