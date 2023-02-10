@@ -1290,7 +1290,7 @@ scrapers:
         value: "https://www.doornroosje.nl/"
       - name: title
         location:
-          selector: div.c-program__content > h3.c-program__title
+          selector: div.c-program__content > h3.c-program__title > span.c-program__title--main
       - name: url
         type: url
         location:
