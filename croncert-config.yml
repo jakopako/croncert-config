@@ -144,6 +144,51 @@ scrapers:
         regex: "Abgesagt:.*"
         match: false
 
+  - name: Gaskessel
+    url: https://gaskessel.ch/programm/
+    item: article.eventpreview
+    fields:
+      - name: "location"
+        value: "Gaskessel"
+      - name: "city"
+        value: "Bern"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://gaskessel.ch/programm/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: a.previewlink > span.eventdatum
+            layout: ["Mon 2.1.06"]
+          - covers:
+              time: true
+            location:
+              selector: div.contentbox > div.content > div.textblock > div.infobox > div.table > div.trow > div.tcell
+              node_index: 1
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+      - name: title
+        type: text
+        location:
+          selector: a.previewlink > h2.eventname > p
+      - name: url
+        type: url
+        location:
+          selector: div.contentbox > div.content > div.textblock > div.infobox > div.btns > a.ticketlink
+          attr: href
+      - name: comment
+        type: text
+        location:
+          selector: div.contentbox > div.content > div.textblock > div.text > p
+        can_be_empty: true
+
   ##########
   # Bologna
   ##########
