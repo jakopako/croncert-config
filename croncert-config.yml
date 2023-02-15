@@ -1739,6 +1739,57 @@ scrapers:
         date_language: "en_US"
 
   ##########
+  # Vevey
+  ##########
+  - name: Café Litteraire
+    url: https://lecafelitteraire.ch/culture/
+    item: body.culture > div.site > main.site-main > article.is_page.culture.is_parent > div.entry-content > div.wp-block-getwid-section > div.wp-block-getwid-section__wrapper > div.wp-block-getwid-section__inner-wrapper > div.wp-block-getwid-section__content > div.wp-block-getwid-section__inner-content > ul.list.evenements > li
+    fields:
+      - name: "location"
+        value: "Café Litteraire"
+      - name: "city"
+        value: "Vevey"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://lecafelitteraire.ch/culture/"
+      - name: date
+        type: date
+        components:
+        - covers:
+            day: true
+            month: true
+          location:
+            selector: p.event_date > strong.has-green-color
+          layout: ["Monday 2 January"]
+        - covers:
+            time: true
+          location:
+            selector: p.event_date > span
+          layout: ["15:04-15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
+      - name: title
+        type: text
+        location:
+          selector: h2
+      - name: comment
+        type: text
+        location:
+          selector: p:not([class])
+    filters:
+      - field: "title"
+        regex: ".*Brunch"
+        match: false
+      - field: "title"
+        regex: ".*Saint-Valentin"
+        match: false
+      - field: "title"
+        regex: ".*Reveillon"
+        match: false
+    renderJs: true
+
+  ##########
   # Vienna
   ##########
   - name: Rhiz
