@@ -1789,6 +1789,47 @@ scrapers:
         match: false
     renderJs: true
 
+scrapers:
+  - name: The Rocking Chair
+    url: https://www.rocking-chair.ch/
+    item: div.event:has(.info-futur-events)
+    renderJs: true
+    fields:
+      - name: city
+        type: text
+        value: Vevey
+      - name: "sourceUrl"
+        value: "https://www.rocking-chair.ch/"
+      - name: url
+        type: "url"
+        location:
+          selector: a.link-project
+      - name: title
+        type: text
+        location:
+          selector: span.title_event
+      - name: comment
+        type: text
+        location:
+          selector: span.info_event > p
+      - name: type
+        type: text
+        value: "concert"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.date_event
+            layout: ["2.1.2006 "]
+    filters:
+      - field: "title"
+        regex: ".*VIDE-GRENIER"
+        match: false
+
   ##########
   # Vienna
   ##########
