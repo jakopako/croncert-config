@@ -1747,11 +1747,15 @@ scrapers:
     fields:
       - name: "location"
         value: "Café Litteraire"
+        type: text
       - name: "city"
+        type: text
         value: "Vevey"
       - name: "type"
+        type: text
         value: "concert"
       - name: "sourceUrl"
+        type: url
         value: "https://lecafelitteraire.ch/culture/"
       - name: date
         type: date
@@ -1795,10 +1799,14 @@ scrapers:
     item: div.event:has(.info-futur-events)
     renderJs: true
     fields:
+      - name: "location"
+        type: text
+        value: "The Rocking Chair"
       - name: city
         type: text
         value: Vevey
       - name: "sourceUrl"
+        type: url
         value: "https://www.rocking-chair.ch/"
       - name: url
         type: "url"
