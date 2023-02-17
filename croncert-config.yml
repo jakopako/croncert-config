@@ -1838,6 +1838,7 @@ scrapers:
         location:
           selector: span.ticketing
         can_be_empty: true
+        hide: true
     filters:
       - field: ticketing
         regex: "Ticket"
