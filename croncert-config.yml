@@ -1739,6 +1739,104 @@ scrapers:
         date_language: "en_US"
 
   ##########
+  # Vevey
+  ##########
+  - name: CafeLitteraire
+    url: https://lecafelitteraire.ch/culture/
+    item: body.culture > div.site > main.site-main > article.is_page.culture.is_parent > div.entry-content > div.wp-block-getwid-section > div.wp-block-getwid-section__wrapper > div.wp-block-getwid-section__inner-wrapper > div.wp-block-getwid-section__content > div.wp-block-getwid-section__inner-content > ul.list.evenements > li
+    fields:
+      - name: "location"
+        value: "Café Litteraire"
+      - name: "city"
+        value: "Vevey"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://lecafelitteraire.ch/culture/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: p.event_date > strong.has-green-color
+            layout: ["Monday 2 January"]
+          - covers:
+              time: true
+            location:
+              selector: p.event_date > span
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+                index: 0 # this is the default but for clarity I left it
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
+      - name: title
+        type: text
+        location:
+          selector: h2
+      - name: comment
+        type: text
+        location:
+          selector: p:not([class])
+        can_be_empty: true # this location seems to contain events without comment. We should still scrape those.
+    filters:
+      - field: "title"
+        regex: ".*Brunch"
+        match: false
+      - field: "title"
+        regex: ".*Saint-Valentin"
+        match: false
+      - field: "title"
+        regex: ".*Reveillon"
+        match: false
+
+  - name: TheRockingChair
+    url: https://www.rocking-chair.ch/
+    item: div.event:has(.info-futur-events)
+    fields:
+      - name: "location"
+        value: "The Rocking Chair"
+      - name: city
+        value: Vevey
+      - name: "sourceUrl"
+        value: "https://www.rocking-chair.ch/"
+      - name: url
+        type: "url"
+        location:
+          selector: a.link-project
+      - name: title
+        type: text
+        location:
+          selector: span.title_event
+      - name: comment
+        type: text
+        location:
+          selector: span.info_event > p
+      - name: type
+        value: "concert"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.date_event
+            layout: ["2.1.2006 "]
+      - name: ticketing
+        location:
+          selector: span.ticketing
+        can_be_empty: true
+        hide: true
+    filters:
+      - field: ticketing
+        regex: "Ticket"
+        match: true
+
+  ##########
   # Vienna
   ##########
   - name: Rhiz
