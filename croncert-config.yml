@@ -1408,6 +1408,66 @@ scrapers:
         date_language: "nl_NL"
 
   ##########
+  # Nyon
+  ##########
+  - name: Parenthese
+    url: http://www.bar-laparenthese.ch/
+    item: div.event
+    fields:
+      - name: location
+        value: La Parenthèse
+      - name: city
+        value: Nyon
+      - name: eventType
+        value: concert
+      - name: "sourceUrl"
+        value: "http://www.bar-laparenthese.ch/"
+      - name: title
+        type: text
+        location:
+          selector: div.event_title > h3 > a
+      - name: url
+        type: url
+        location:
+          attr: href
+          selector: div.event_title > h3 > a
+      - name: date
+        type: "date"
+        date_language: fr_FR
+        date_location: "Europe/Paris"
+        components:
+          - covers:
+              day: true
+            location:
+              selector: div.dt span:nth-child(1)
+            child_node: 0
+            layout: ["2"]
+          - covers:
+              month: true
+            location:
+              selector: div.dt span:nth-child(3)
+            child_node: 0
+            layout: ["January"]
+          - covers:
+              year: true
+            location:
+              selector: div.dt span:nth-child(5)
+            child_node: 0
+            layout: ["2006"]
+      - name: eventType
+        type: text
+        on_subpage: "url"
+        location:
+          selector: div.entry p a
+        can_be_empty: true
+        entire_subtree: true
+    filters:
+      - field: "title"
+        regex: "ANECDOTES" # the eventType isn't used consitantly, so I'm explicity removing the improv comedy
+        match: false
+
+
+  ##########
   # Paris
   ##########
   - name: LaCigale
@@ -1786,6 +1846,54 @@ scrapers:
   ##########
   # Vevey
   ##########
+  - name: BoutDuMonde
+    url: https://www.leboutdumonde.ch/
+    item: section.list_program > ul.events > li.event.has_thumb
+    fields:
+    # static
+      - name: location
+        value: "Le Bout Du Monde"
+      - name: city
+        value: Vevey
+      - name: "sourceUrl"
+        value: "https://www.leboutdumonde.ch"
+    # dynamic
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.event_header > time
+            attr: datetime
+        date_location: "Europe/Berlin"
+        date_language: fr_FR
+      - name: eventType
+        type: text
+        location:
+          selector: div.event_header > span.style
+      - name: title
+        type: text
+        location:
+          selector: h2
+          entire_subtree: true
+      - name: comment
+        type: text
+        location:
+          selector: p > a.notInline
+      - name: url
+        type: url
+        location:
+          selector: a.more
+          attr: href
+    filters:
+      - field: "eventType"
+        regex: "Jeux"
+        match: false
+
   - name: CafeLitteraire
     url: https://lecafelitteraire.ch/culture/
     item: body.culture > div.site > main.site-main > article.is_page.culture.is_parent > div.entry-content > div.wp-block-getwid-section > div.wp-block-getwid-section__wrapper > div.wp-block-getwid-section__inner-wrapper > div.wp-block-getwid-section__content > div.wp-block-getwid-section__inner-content > ul.list.evenements > li
@@ -3214,3 +3322,4 @@ scrapers:
       - field: "eventType"
         regex: ".*Concert.*"
         match: true
+
