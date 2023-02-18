@@ -439,12 +439,14 @@ scrapers:
               month: true
             location:
               selector: div.event-info > div.event-info-up > span.event-date
-            layout: ["Monday 2 January"]
+              regex_extract:
+                exp: "[0-9]{1,2}\\s[a-zA-Z]+"
+            layout: ["2 January"]
           - covers:
               time: true
             location:
               selector: div.event-info > div.event-info-up > span.event-hour
-            layout: ["15:00"]
+            layout: ["15:04"]
         date_language: fr_FR
       - name: location
         type: text
