@@ -1900,6 +1900,8 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://lecafelitteraire.ch/culture/"
+      - name: "url"
+        value: "https://lecafelitteraire.ch/culture/"
       - name: date
         type: date
         components:
