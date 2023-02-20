@@ -559,6 +559,43 @@ scrapers:
         date_location: "Europe/Berlin"
 
   ##########
+  # Leipzig
+  ##########
+  - name: Taeubchenthal
+    url: https://www.taeubchenthal.com/programm
+    item: body > div > main > div.block.mod_article.mod_article--row > div.row > div.block.mod_eventlist.mod_eventlist--default.row > div.cal_1.col.col-md-4.col-sm-6.event.event--list.layout_list.upcoming > div.inside
+    fields:
+      - name: location
+        value: Täubchenthal
+      - name: city
+        value: Leipzig
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.taeubchenthal.com/programm
+      - name: url
+        type: url
+        location:
+          selector: h2 > a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: h2 > a
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: p.time > time
+              attr: datetime
+            layout: ["2006-01-02T15:04:05-07:00"]
+
+  ##########
   # Leuven
   ##########
   - name: HetDepot
