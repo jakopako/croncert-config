@@ -3057,7 +3057,7 @@ scrapers:
 
   - name: BrauereiOerlikon
     url: https://www.brauerei-oerlikon.ch/events/
-    item: div._3Rcdf > div._3iVFe
+    item: div.E6jjcn > div.VM7gjN > div.Zc7IjY > div.comp-kwuqdcms2.YzqVVZ > div > div
     fields:
       - name: "location"
         value: "Brauerei Oerlikon"
@@ -3070,16 +3070,15 @@ scrapers:
       - name: url
         type: url
         location:
-          selector: div > div._2UgQw > a._1fbEI
+          selector: div.comp-kwuqdcnd1.R6ex7N > a.kuTaGy.zKbzSQ
       - name: comment
         location:
-          selector: div._1Q9if._3bcaz > p.font_8 > span > span
-          node_index: 1
+          selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn91.wixui-text > p.font_8 > span > span
         can_be_empty: true
         hide: false
       - name: title
         location:
-          selector: div > div._1Q9if._3bcaz > h3.font_3
+          selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn51.wixui-text > h3.font_3
       - name: date
         type: date
         components:
@@ -3089,7 +3088,7 @@ scrapers:
               year: true
               time: true
             location:
-              selector: div > div._1Q9if._3bcaz > p.font_8 > span > span > span
+              selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn2.wixui-text > p.font_8 > span > span > span
             layout: ["2.1.06, 15:04"]
 
   - name: Plaza
