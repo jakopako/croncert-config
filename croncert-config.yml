@@ -604,6 +604,43 @@ scrapers:
         date_location: "Europe/Berlin"
 
   ##########
+  # Leipzig
+  ##########
+  - name: Taeubchenthal
+    url: https://www.taeubchenthal.com/programm
+    item: body > div > main > div.block.mod_article.mod_article--row > div.row > div.block.mod_eventlist.mod_eventlist--default.row > div.cal_1.col.col-md-4.col-sm-6.event.event--list.layout_list.upcoming > div.inside
+    fields:
+      - name: location
+        value: Täubchenthal
+      - name: city
+        value: Leipzig
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.taeubchenthal.com/programm
+      - name: url
+        type: url
+        location:
+          selector: h2 > a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: h2 > a
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: p.time > time
+              attr: datetime
+            layout: ["2006-01-02T15:04:05-07:00"]
+
+  ##########
   # Leuven
   ##########
   - name: HetDepot
@@ -3204,7 +3241,7 @@ scrapers:
 
   - name: BrauereiOerlikon
     url: https://www.brauerei-oerlikon.ch/events/
-    item: div._3Rcdf > div._3iVFe
+    item: div.E6jjcn > div.VM7gjN > div.Zc7IjY > div.comp-kwuqdcms2.YzqVVZ > div > div
     fields:
       - name: "location"
         value: "Brauerei Oerlikon"
@@ -3217,16 +3254,15 @@ scrapers:
       - name: url
         type: url
         location:
-          selector: div > div._2UgQw > a._1fbEI
+          selector: div.comp-kwuqdcnd1.R6ex7N > a.kuTaGy.zKbzSQ
       - name: comment
         location:
-          selector: div._1Q9if._3bcaz > p.font_8 > span > span
-          node_index: 1
+          selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn91.wixui-text > p.font_8 > span > span
         can_be_empty: true
         hide: false
       - name: title
         location:
-          selector: div > div._1Q9if._3bcaz > h3.font_3
+          selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn51.wixui-text > h3.font_3
       - name: date
         type: date
         components:
@@ -3236,7 +3272,43 @@ scrapers:
               year: true
               time: true
             location:
-              selector: div > div._1Q9if._3bcaz > p.font_8 > span > span > span
+              selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn2.wixui-text > p.font_8 > span > span > span
+            layout: ["2.1.06, 15:04"]
+
+  - name: ZumWarmeWerni
+    url: https://www.brauerei-oerlikon.ch/zumwarmewerni/
+    item: div.E6jjcn > div.VM7gjN > div.Zc7IjY > div.comp-lc7y811e1.YzqVVZ > div > div
+    fields:
+      - name: "location"
+        value: "Zum Warme Werni"
+      - name: "city"
+        value: "Zurich"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.brauerei-oerlikon.ch/zumwarmewerni/
+      - name: url
+        type: url
+        location:
+          selector: div.comp-lc7y812e1.R6ex7N > a.kuTaGy.zKbzSQ
+      - name: comment
+        location:
+          selector: div.BaOVQ8.tz5f0K.comp-lc7y8126.wixui-text > p.font_8 > span > span
+        can_be_empty: true
+        hide: false
+      - name: title
+        location:
+          selector: div.KcpHeO.tz5f0K.comp-lc7y811z.wixui-text > h3.font_3 > span > span
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.BaOVQ8.tz5f0K.comp-lc7y811t.wixui-text > p.font_8 > span > span > span
             layout: ["2.1.06, 15:04"]
 
   - name: Plaza
@@ -3363,3 +3435,37 @@ scrapers:
       - field: "eventType"
         regex: ".*Concert.*"
         match: true
+
+  - name: GZRiesbach
+    url: https://jazzimseefeld.ch/programm/
+    item: body > div.wrapper > div.innerwrap > div.col-width > div.main_content > article > div.concert.topic_active4 > div.ctoggle > div.full
+    fields:
+      - name: location
+        value: GZ Riesbach
+      - name: city
+        value: Zurich
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://jazzimseefeld.ch/programm/
+      - name: url
+        value: https://jazzimseefeld.ch/programm/
+      - name: title
+        location:
+          selector: h3
+      - name: comment
+        location:
+          selector: p:nth-child(7)
+          entire_subtree: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: span.concert_date
+            layout: ["2.1.2006 - 15:04"]
+        date_location: "Europe/Berlin"
