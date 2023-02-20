@@ -3353,3 +3353,37 @@ scrapers:
       - field: "eventType"
         regex: ".*Concert.*"
         match: true
+
+  - name: GZRiesbach
+    url: https://jazzimseefeld.ch/programm/
+    item: body > div.wrapper > div.innerwrap > div.col-width > div.main_content > article > div.concert.topic_active4 > div.ctoggle > div.full
+    fields:
+      - name: location
+        value: GZ Riesbach
+      - name: city
+        value: Zurich
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://jazzimseefeld.ch/programm/
+      - name: url
+        value: https://jazzimseefeld.ch/programm/
+      - name: title
+        location:
+          selector: h3
+      - name: comment
+        location:
+          selector: p:nth-child(7)
+          entire_subtree: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: span.concert_date
+            layout: ["2.1.2006 - 15:04"]
+        date_location: "Europe/Berlin"
