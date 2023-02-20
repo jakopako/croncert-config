@@ -3193,6 +3193,42 @@ scrapers:
               selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn2.wixui-text > p.font_8 > span > span > span
             layout: ["2.1.06, 15:04"]
 
+  - name: ZumWarmeWerni
+    url: https://www.brauerei-oerlikon.ch/zumwarmewerni/
+    item: div.E6jjcn > div.VM7gjN > div.Zc7IjY > div.comp-lc7y811e1.YzqVVZ > div > div
+    fields:
+      - name: "location"
+        value: "Zum Warme Werni"
+      - name: "city"
+        value: "Zurich"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.brauerei-oerlikon.ch/zumwarmewerni/
+      - name: url
+        type: url
+        location:
+          selector: div.comp-lc7y812e1.R6ex7N > a.kuTaGy.zKbzSQ
+      - name: comment
+        location:
+          selector: div.BaOVQ8.tz5f0K.comp-lc7y8126.wixui-text > p.font_8 > span > span
+        can_be_empty: true
+        hide: false
+      - name: title
+        location:
+          selector: div.KcpHeO.tz5f0K.comp-lc7y811z.wixui-text > h3.font_3 > span > span
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.BaOVQ8.tz5f0K.comp-lc7y811t.wixui-text > p.font_8 > span > span > span
+            layout: ["2.1.06, 15:04"]
+
   - name: Plaza
     url: https://www.plaza-zurich.ch/nu/events/event_list_type/2
     item: body.nu-page-eventlist.page-template-with-sidebar > div.hfeed.site > div.site-content > div.content-area.nunight.nu-event-list > main.site-main > article.page.type-page.hentry > ul > li.nu-event.nu-e-concert
