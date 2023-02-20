@@ -1408,6 +1408,55 @@ scrapers:
         date_language: "nl_NL"
 
   ##########
+  # Nyon
+  ##########
+  - name: Parenthese
+    url: http://www.bar-laparenthese.ch/
+    item: div.event
+    fields:
+      - name: location
+        value: La Parenthèse
+      - name: city
+        value: Nyon
+      - name: type
+        value: concert
+      - name: "sourceUrl"
+        value: "http://www.bar-laparenthese.ch/"
+      - name: title
+        type: text
+        location:
+          selector: div.event_title > h3 > a
+      - name: url
+        type: url
+        location:
+          attr: href
+          selector: div.event_title > h3 > a
+      - name: date
+        type: "date"
+        on_subpage: url
+        date_language: fr_FR
+        date_location: "Europe/Paris"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.post > div.entry > p
+              child_index: 1
+            layout: ["January 2, 2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.post > div.entry > p:nth-child(3)
+              child_index: 1
+            layout: ["15:04"]
+    filters:
+      - field: "title"
+        regex: "ANECDOTES" # the eventType isn't used consitantly, so I'm explicity removing the improv comedy
+        match: false
+
+  ##########
   # Paris
   ##########
   - name: LaCigale
@@ -1786,6 +1835,59 @@ scrapers:
   ##########
   # Vevey
   ##########
+  - name: BoutDuMonde
+    url: https://www.leboutdumonde.ch/
+    item: section.list_program > ul.events > li.event.has_thumb
+    fields:
+      # static
+      - name: location
+        value: "Le Bout Du Monde"
+      - name: city
+        value: Vevey
+      - name: "sourceUrl"
+        value: "https://www.leboutdumonde.ch"
+      - name: type
+        value: concert
+      # dynamic
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.event_header > time
+              attr: datetime # unfortunately the time component is not correct. It's always 23:59:59+00:00
+              regex_extract:
+                exp: "[0-9]{4}(-[0-9]{2}){2}"
+            layout: ["2006-01-02"]
+          - covers:
+              time: true
+            location:
+              selector: span.hours
+            layout: ["15h04"]
+        date_location: "Europe/Berlin"
+        date_language: fr_FR
+      - name: title
+        type: text
+        location:
+          selector: h2
+          entire_subtree: true
+      - name: comment
+        type: text
+        location:
+          selector: p > a.notInline
+      - name: url
+        type: url
+        location:
+          selector: a.more
+          attr: href
+    filters:
+      - field: "eventType"
+        regex: "Jeux"
+        match: false
+
   - name: CafeLitteraire
     url: https://lecafelitteraire.ch/culture/
     item: body.culture > div.site > main.site-main > article.is_page.culture.is_parent > div.entry-content > div.wp-block-getwid-section > div.wp-block-getwid-section__wrapper > div.wp-block-getwid-section__inner-wrapper > div.wp-block-getwid-section__content > div.wp-block-getwid-section__inner-content > ul.list.evenements > li
