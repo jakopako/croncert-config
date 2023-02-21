@@ -421,8 +421,10 @@ scrapers:
     fields:
       - name: city
         value: Cully
-      - name: eventType
+      - name: type
         value: concert
+      - name: sourceUrl
+        value: https://cullyjazz.ch/fr/programme
       - name: url
         type: url
         location:
@@ -452,7 +454,7 @@ scrapers:
         type: text
         location:
           selector: div.event-info > div.event-info-down > span.venue-name
-      - name: price
+      - name: price # right now (21.2.2023) this is being ignored by the event api. But might be added in the future.
         type: text
         location:
           selector: div.event-info > div.event-info-down > span.event-price
