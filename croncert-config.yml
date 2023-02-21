@@ -177,7 +177,8 @@ scrapers:
       - name: title
         type: text
         location:
-          selector: a.previewlink > h2.eventname > p
+          selector: a.previewlink > h2.eventname
+          entire_subtree: true
       - name: url
         type: url
         location:
