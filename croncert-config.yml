@@ -98,7 +98,7 @@ scrapers:
   #######
   - name: Bierhuebeli
     url: "https://bierhuebeli.ch/konzerte/"
-    item: ".height_small .w-grid .w-grid-list article.event"
+    item: div.elementor-widget-container > div.js-wpv-view-layout.js-wpv-layout-responsive.js-wpv-view-layout-11026 > a.datumlink
     fields:
       - name: "type"
         value: "concert"
@@ -108,41 +108,37 @@ scrapers:
         value: "Bierhuebeli"
       - name: "sourceUrl"
         value: "https://bierhuebeli.ch/konzerte/"
-      - name: "title"
+      - name: url
+        type: url
         location:
-          selector: ".event_titles a"
-          node_index: 0
-      - name: "comment"
+          attr: href
+      - name: title
+        type: text
         location:
-          selector: ".event_titles a"
-          node_index: 1
+          selector: div.datumswrapper > div.event-upperpart > div.eventtitel
+      - name: comment
+        type: text
         can_be_empty: true
-      - name: "url"
-        type: "url"
         location:
-          selector: ".event_titles a"
-      - name: "date"
-        type: "date"
-        on_subpage: "url"
+          selector: div.datumswrapper > div.byline
+      - name: date
+        type: date
+        on_subpage: url
         components:
           - covers:
               day: true
               month: true
               year: true
+            layout: ["Mon, 2.1.06"]
             location:
-              selector: "#event_detail_date div"
-            layout: ["Monday 02.01.2006"]
+              selector: div.billboard-big > div > div.billboard-datum > font
           - covers:
               time: true
             location:
-              selector: ".event_beginn span"
-            layout: ["Beginn: 15.04 Uhr"]
+              selector: div.eventinfos > b:nth-child(3)
+            layout: ["15:04"]
         date_language: de_DE
         date_location: "Europe/Berlin"
-    filters:
-      - field: "title"
-        regex: "Abgesagt:.*"
-        match: false
 
   - name: Gaskessel
     url: https://gaskessel.ch/programm/
@@ -177,7 +173,8 @@ scrapers:
       - name: title
         type: text
         location:
-          selector: a.previewlink > h2.eventname > p
+          selector: a.previewlink > h2.eventname
+          entire_subtree: true
       - name: url
         type: url
         location:
@@ -604,6 +601,61 @@ scrapers:
                 exp: "[0-9]{2}:[0-9]{2}"
             layout: ["15:04"]
         date_location: "Europe/Berlin"
+
+  - name: Salopard
+    url: http://salopard.ch/
+    item: a.eventItem
+    fields:
+      - name: city
+        value: Lausanne
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: http://salopard.ch/
+      - name: title
+        type: text
+        location:
+          selector: .eventItem__title
+          entire_subtree: true
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: comment
+        type: text
+        location:
+          selector: .eventItem__description
+          entire_subtree: true
+        can_be_empty: true
+      - name: location
+        type: text
+        location:
+          selector: .eventItem__infoMobile div
+          node_index: 0
+      - name: eventType
+        type: text
+        location:
+          selector: .eventItem__infoMobile div
+          node_index: 1
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: .eventItem__date
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: .eventItem__date
+              regex_extract:
+                exp: "([0-9]{1,2}\\.){2}[0-9]{2}"
+            layout: ["02.01.06"]
 
   - name: PoleSud
     url: https://polesud.ch/evenements-a-venir/
