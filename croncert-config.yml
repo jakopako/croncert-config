@@ -657,6 +657,75 @@ scrapers:
                 exp: "([0-9]{1,2}\\.){2}[0-9]{2}"
             layout: ["02.01.06"]
 
+  - name: PoleSud
+    url: https://polesud.ch/evenements-a-venir/
+    item: body.ast-header-break-point.ast-hfb-header.ast-inherit-site-logo-transparent.ast-no-sidebar.ast-normal-title-enabled.ast-separate-container.ast-single-post.ast-two-container.astra-child.page.page-id-29052.page-parent.page-template.page-template-template-events.page-template-template-events-php.wp-custom-logo > div.hfeed.site > div.site-content > div.ast-container > div.content-area.primary > div.event_listings > div.event_listings.wpem-event-listing-box-view.wpem-event-listings.wpem-main.wpem-row > div.wpem-col.wpem-col-12.wpem-col-lg-3.wpem-col-md-6.wpem-event-box-col > div.wpem-event-layout-wrapper > div.event_listing.has-post-thumbnail.hentry.status-publish.type-event_listing
+    fields:
+      - name: location
+        value: Pôle Sud
+      - name: city
+        value: Lausanne
+      - name: type
+        value: concert
+      - name: "sourceUrl"
+        value: "https://polesud.ch/evenements-a-venir/"
+      - name: url
+        type: url
+        location:
+          selector: a.event-style-color.wpem-event-action-url
+          attr: href
+      - name: eventType
+        type: text
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-category > a > span.event-category.wpem-event-category-text
+      - name: title
+        type: text
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-title > p.wpem-heading-text
+      - name: evenTypeURL
+        type: url
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-type > a
+          attr: href
+      - name: style
+        type: text
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-type > a > span.event-type.wpem-event-type-text
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+            location:
+              selector: div.wpem-event-infomation > div.wpem-event-date > div.wpem-event-date-type > div.wpem-from-date > div.wpem-date
+            layout: ["02"]
+          - covers:
+              month: true
+            location:
+              selector: div.wpem-event-infomation > div.wpem-event-date > div.wpem-event-date-type > div.wpem-from-date > div.wpem-month
+            layout: ["Jan"]
+          - covers:
+              time: true
+            location:
+              selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-date-time > span.wpem-event-date-time-text > div.wpem-event-date-time > span.wpem-event-date-time-text
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+                index: 0
+            layout: ["15:04"]
+            can_be_empty: true
+        date_language: fr_FR
+        date_location: "Europe/Berlin"
+      - name: textDate # for testing
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-date-time > span.wpem-event-date-time-text > div.wpem-event-date-time > span.wpem-event-date-time-text
+        can_be_empty: true
+    renderJs: true
+    filters:
+      - field: "eventType"
+        regex: "Concert"
+        match: true
+
   ##########
   # Leipzig
   ##########
