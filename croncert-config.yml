@@ -139,10 +139,6 @@ scrapers:
             layout: ["15:04"]
         date_language: de_DE
         date_location: "Europe/Berlin"
-    filters:
-      - field: "title"
-        regex: "Abgesagt:.*"
-        match: false
 
   - name: Gaskessel
     url: https://gaskessel.ch/programm/
