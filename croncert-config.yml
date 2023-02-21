@@ -98,7 +98,7 @@ scrapers:
   #######
   - name: Bierhuebeli
     url: "https://bierhuebeli.ch/konzerte/"
-    item: ".height_small .w-grid .w-grid-list article.event"
+    item: div.elementor-widget-container > div.js-wpv-view-layout.js-wpv-layout-responsive.js-wpv-view-layout-11026 > a.datumlink
     fields:
       - name: "type"
         value: "concert"
@@ -108,35 +108,35 @@ scrapers:
         value: "Bierhuebeli"
       - name: "sourceUrl"
         value: "https://bierhuebeli.ch/konzerte/"
-      - name: "title"
+      - name: url
+        type: url
         location:
-          selector: ".event_titles a"
-          node_index: 0
-      - name: "comment"
+          attr: href
+      - name: title
+        type: text
         location:
-          selector: ".event_titles a"
-          node_index: 1
+          selector: div.datumswrapper > div.event-upperpart > div.eventtitel
+      - name: comment
+        type: text
         can_be_empty: true
-      - name: "url"
-        type: "url"
         location:
-          selector: ".event_titles a"
-      - name: "date"
-        type: "date"
-        on_subpage: "url"
+          selector: div.datumswrapper > div.byline
+      - name: date
+        type: date
+        on_subpage: url
         components:
           - covers:
               day: true
               month: true
               year: true
+            layout: ["Mon, 2.1.06"]
             location:
-              selector: "#event_detail_date div"
-            layout: ["Monday 02.01.2006"]
+              selector: div.billboard-big > div > div.billboard-datum > font
           - covers:
               time: true
             location:
-              selector: ".event_beginn span"
-            layout: ["Beginn: 15.04 Uhr"]
+              selector: div.eventinfos > b:nth-child(3)
+            layout: ["15:04"]
         date_language: de_DE
         date_location: "Europe/Berlin"
     filters:
