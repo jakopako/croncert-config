@@ -560,6 +560,48 @@ scrapers:
   ############
   # Lausanne
   ############
+  #
+  - name: Chorus
+    url: https://chorus.ch/programme/
+    item: body.page-template-default.page.page-id-12 > div.body-outer-wrapper > div.body-wrapper.boxed-style > div.content-wrapper.container.main > div.post-12.page.type-page.status-publish.hentry > div.page-wrapper.single-page.single-sidebar.left-sidebar > div.row.gdl-page-row-wrapper > div.gdl-page-left.mb0.twelve.columns > div.row > div.gdl-page-item.mb0.eight.columns > div.row > div.twelve.columns.mb30 > div.gdl-page-content > div.gdl-tab > ul.gdl-tab-content > li > ul.eme_events_list > code > li
+    fields:
+      - name: "location"
+        value: "Chorus"
+      - name: "city"
+        value: "Lausanne"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl" # This is needed to uniquely identify this scraper
+        value: "https://chorus.ch/"
+      - name: date
+        type: date 
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: strong
+            layout: ["Mon 2 Jan - 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
+      - name: url
+        type: url
+        location:
+          selector: a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: a
+      - name: comment
+        type: text
+        location:
+          selector: p
+      - name: tagline # kind of fun, but I'm not sure what to do with it
+        type: text
+        location:
+          selector: div > em
 
   - name: Docks
     url: https://www.docks.ch/programme/
