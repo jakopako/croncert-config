@@ -1489,10 +1489,9 @@ scrapers:
               time: true
             location:
               selector: time
-              attr: datetime
-            layout: ["2006-01-02T15:04:05-07:00"]
-        date_location: "Europe/Berlin" # example
-        date_language: "de_DE" # example
+            layout: ["Monday 2 January 2006 • 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
 
 
   ############
