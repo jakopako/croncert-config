@@ -1130,6 +1130,62 @@ scrapers:
   ##########
   # London
   ##########
+  - name: CafeOto
+    url: https://www.cafeoto.co.uk/events/
+    item: body.event-overview > div.content-push > div.activity-container.events.clearfix > div.container-fluid > div.row > div.activity-container-inner > div.each-activity
+    fields:
+    # static
+      - name: "location"
+        value: "Cafe Oto" # This field can also be a dynamic field, if a website serves info about different event locations.
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.cafeoto.co.uk/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.each-header > p
+            layout: ["Monday 2 January 2006, 3pm"] # adapt according to actual format
+        date_location: "Europe/London" # example
+        date_language: "en_GB" # example
+      - name: url
+        type: url
+        location:
+          selector: div.each-image > a
+          attr: href
+      - name: comment
+        type: text
+        location:
+          selector: div.each-header > p > span.prefix
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          selector: div.each-header > p > a
+      - name: doorPrice
+        type: text
+        location:
+          selector: div.each-price.each-meta > div.member_price > span
+        can_be_empty: true
+      - name: advancePrice
+        type: text
+        location:
+          selector: div.each-price.each-meta > div.member_price > span > a.active
+        can_be_empty: true
+      - name: memberPrice
+        type: text
+        location:
+          selector: div.each-price.each-meta > div.member_price > span > a > span
+        can_be_empty: true
+
   - name: OsloHackney
     url: https://www.oslohackney.com/events/
     item: body.page-template.page-template-templates.page-template-template_gig-guide.page-template-templatestemplate_gig-guide-php.page.page-id-490.body-site-header--standard.body-site-header--logo-left.body-site-header--no-sticky-links > section.section.section--spacing-above-standard.section--spacing-below-standard.section--centered.guide.js-guide-section > div.wrapper > div.js-guide-container.guide__container > div.js-guide-post-grid.guide__post-grid > div.guide__month > div.grid.guide__grid > div.grid__col.guide__grid-col > div.card.card--full.card--alt-layout > div.card__inside > div.card__grid > div.card__grid-content.text__reset
