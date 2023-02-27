@@ -574,7 +574,7 @@ scrapers:
       - name: "sourceUrl" # This is needed to uniquely identify this scraper
         value: "https://chorus.ch/"
       - name: date
-        type: date 
+        type: date
         components:
           - covers:
               day: true
@@ -828,19 +828,11 @@ scrapers:
         location:
           selector: div > div.text-block-7
         can_be_empty: true
-      - name: dow
-        type: text
-        location:
-          selector: div:nth-child(4)
       - name: location
         type: text
         location:
           selector: div:nth-child(5)
         can_be_empty: true
-      - name: timeString
-        type: text
-        location:
-          selector: div.text-block-8
       - name: "date"
         type: "date"
         components:
@@ -862,6 +854,8 @@ scrapers:
               time: true
             location:
               selector: div.text-block-8
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "fr_FR"
@@ -1753,7 +1747,6 @@ scrapers:
             layout: ["Monday 2 January 2006 • 15:04"]
         date_location: "Europe/Berlin"
         date_language: "fr_FR"
-
 
   ############
   # Nijmegen
