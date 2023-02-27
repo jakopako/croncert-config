@@ -866,6 +866,62 @@ scrapers:
         regex: "Concert"
         match: true
 
+  - name: Premices
+    url: https://www.premices.ch/programme
+    item: body > div.page-content > div.section.wf-section > div > div.container > div.w-dyn-list > div._4-column-grid.w-dyn-items > div.w-dyn-item > div
+    fields:
+      - name: "city"
+        value: "Lausanne"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.premices.ch"
+      - name: url
+        type: url
+        location:
+          selector: a.w-inline-block
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: h2.heading-6
+      - name: style
+        type: text
+        location:
+          selector: div > div.text-block-7
+        can_be_empty: true
+      - name: location
+        type: text
+        location:
+          selector: div:nth-child(5)
+        can_be_empty: true
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div:nth-child(4)
+            transform:
+              - type: regex-replace
+                regex: Vendredi
+                replace: 17-3-2023
+              - type: regex-replace
+                regex: Samedi
+                replace: 18-3-2023
+            layout: ["2-1-2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.text-block-8
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
+
   ##########
   # Leipzig
   ##########
