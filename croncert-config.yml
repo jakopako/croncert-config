@@ -565,6 +565,58 @@ scrapers:
             exp: "[^|]*"
             index: 0
 
+  - name: Hafenklang
+    url: https://www.hafenklang.com/programm/konzerte/
+    item: body.page.page-child.page-id-77.page-template-default.parent-pageid-17 > div > div.section-inner.site > main.site-main > article.hentry.page.post-77.status-publish.type-page > div.entry-content > article.cp-event.cp-event-
+    fields:
+    - name: "location"
+      value: "Hafenklang"
+    - name: "city"
+      value: "Hamburg"
+    - name: "type"
+      value: "concert"
+    - name: "sourceUrl"
+      value: https://www.hafenklang.com/programm/konzerte/
+    - name: "url"
+      type: url
+      location:
+        selector: div.cp-title-mobile.mobile-only > h2.cp-title > a
+        attr: href
+    - name: "title"
+      type: text
+      location:
+        selector: div.cp-title-mobile.mobile-only > h2.cp-title > a
+    - name: "comment"
+      type: text
+      location:
+        selector: div.cp-title-mobile.mobile-only > h2.cp-title > a > span.cp-sub-title
+      can_be_empty: true
+    - name: "date"
+      type: date
+      components:
+        - covers:
+            day: true
+            month: true
+            year: true
+          location:
+            selector: div.col.col-12.col-md-4.cp-meta > p.cp-date
+            regex_extract:
+              exp: "[0-9]{2}.[0-9]{2}.[0-9]{2}"
+          layout: ["02.01.06"]
+        - covers:
+            time: true
+          location:
+            selector: div.col.col-12.col-md-4.cp-meta > p.cp-times > span.cp-start
+            regex_extract:
+              exp: "[0-9]{2}:[0-9]{2}"
+          layout: ["15:04"]
+      date_location: "Europe/Berlin"
+      date_language: "de_DE"			
+    - name: "room"
+      type: text
+      location:
+        selector: div.col.col-12.col-md-4.cp-meta > span.cp-room
+
   ############
   # Krakow
   ############
