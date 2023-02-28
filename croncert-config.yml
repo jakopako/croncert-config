@@ -372,6 +372,8 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://www.emptybottle.com"
+      - name: "url"
+        value: "https://www.emptybottle.com"
       - name: date
         type: date
         components:
@@ -395,6 +397,7 @@ scrapers:
         type: text
         location:
           selector: div.content-back > div.item-description
+        can_be_empty: true
     renderJs: true
 
   - name: Hideout
@@ -462,7 +465,7 @@ scrapers:
           selector: div.card-header > div.tessera-has-inventory > a
           attr: href
       - name: date
-        type: date 
+        type: date
         components:
           - covers:
               day: true
