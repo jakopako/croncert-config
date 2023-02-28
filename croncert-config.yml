@@ -1287,6 +1287,10 @@ scrapers:
         location:
           selector: div.each-price.each-meta > div.member_price > span > a > span
         can_be_empty: true
+    paginator:
+      location:
+        selector: "div#iscroll_other a"
+        attr: href
 
   - name: OsloHackney
     url: https://www.oslohackney.com/events/
