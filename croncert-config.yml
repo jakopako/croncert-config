@@ -1163,6 +1163,60 @@ scrapers:
         date_location: "Europe/Berlin"
         date_language: "fr_FR"
 
+  # This one is a bit messy, but better than nothing for now. Unfortunately we'r missing a couple of events.
+  # See discussion here: https://github.com/jakopako/croncert-config/discussions/174
+  - name: Datcha
+    url: https://la-datcha.ch/
+    item: body.home.page-template-default.page.page-id-28887.no-sidebar.has-header-image.raw-image.hero-image > div.site > div.content-area > main.main-content > div.wrapper.content-wrapper > article.post-28887.page.type-page.status-publish.has-post-thumbnail.hentry > div.post-wrapper > div.post-content > p
+    fields:
+      - name: "location"
+        value: "La Datcha"
+      - name: "city"
+        value: "Lausanne"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://la-datcha.ch/"
+      - name: "url"
+        value: "https://la-datcha.ch/"
+      - name: title
+        type: text
+        location:
+          selector: span > strong
+          entire_subtree: true
+          regex_extract:
+            exp: "(concert de|soirée) [^–]*"
+      - name: comment
+        type: text
+        location:
+          selector: span > strong
+          entire_subtree: true
+          regex_extract:
+            exp: "– .*"
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: span > strong
+              entire_subtree: true
+              regex_extract:
+                exp: "[A-Za-z]+\\s[0-9]{1,2}\\s[\u00e4A-Za-z]+,"
+            layout: ["Monday 2 January,"]
+          - covers:
+              time: true
+            location:
+              selector: span > strong
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}h[0-9]{0,2}"
+            layout: ["15h", "15h04"]
+        date_language: "fr_FR"
+        date_location: "Europe/Berlin"
+
   ##########
   # Leipzig
   ##########
