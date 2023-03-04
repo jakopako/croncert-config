@@ -699,6 +699,55 @@ scrapers:
           selector: div.row.sk_indent.gig.xs-card > div.col-xs-12.col-sm-8.col-md-7.card > div.hidden-xs > div.tickets > a.boxoffice.ticket_link.information
           attr: href
 
+  - name: DClub
+    url: https://dclub.ch/agenda/
+    item: div.dclub-agenda > div.date_container
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: "location"
+        value: "D! Club"
+      - name: "sourceUrl"
+        value: "https://dclub.ch/agenda/"
+      - name: style
+        type: text
+        location:
+          selector: div.info > div.details > p.style
+      - name: url
+        type: url
+        location:
+          selector: a.main
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: span.name
+        entire_subtree: true
+      - name: date
+        type: date
+        on_subpage: "url"
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: h1.day-selector > span
+            layout: ["Monday 02 January"]
+          - covers:
+              time: true
+            location:
+              selector: div.details > p.door
+            layout: ["Porte: 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
+      - name: comment
+        type: text
+        on_subpage: "url"
+        location:
+          selector: div.dclub-date-content > div > p
+
   - name: Docks
     url: https://www.docks.ch/programme/
     item: body.page-template.page-template-page-programme.page-template-page-programme-php.page.page-id-3652 > div.wrapper.wrapper-programme > div.container-fluid > div.home-program.position-relative > div.row.programme-container > div.col-xxl-10 > div.row.special-row > div.mix.col-sm-6.col-md-5.col-lg-4.col-xl-4.col-xxl-4.concerts
