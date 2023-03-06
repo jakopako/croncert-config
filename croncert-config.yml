@@ -1034,6 +1034,44 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
 
+  - name: SalleMetropole
+    url: https://sallemetropole.ch/les-spectacles/
+    item: body.is-loading.page.page-id-35.page-template.page-template-concerts.page-template-layouts.page-template-layoutsconcerts-php > div.main-wrap > section.page-concerts > div.inner-page > section.spectacles-section > div.container > div.spectacles > div.spectacles__in > a.spectacles__item
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Cologne"
+      - name: "location"
+        value: "Salle Métropole"
+      - name: "sourceUrl"
+        value: "https://sallemetropole.ch/les-spectacles/"
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: span.spectacles__item__head
+      - name: comment
+        type: text
+        location:
+          selector: div.performance__info__content > p
+        on_subpage: url
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: span.spectacles__item__date
+            layout: ["Mon. 02.01.06"]
+        date_language: fr_FR
+
   - name: Salopard
     url: http://salopard.ch/
     item: a.eventItem
