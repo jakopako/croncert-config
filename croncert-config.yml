@@ -701,7 +701,7 @@ scrapers:
 
   - name: DClub
     url: https://dclub.ch/agenda/
-    item: div.dclub-agenda > div.date_container
+    item: div.dclub-agenda > div.date_container > div.events_container > div.event
     fields:
       - name: "type"
         value: "concert"
@@ -723,18 +723,21 @@ scrapers:
       - name: title
         type: text
         location:
-          selector: span.name
-        entire_subtree: true
+          selector: div.header > .artist
+          entire_subtree: true
       - name: date
         type: date
-        on_subpage: "url"
         components:
           - covers:
               day: true
               month: true
+              year: true
             location:
-              selector: h1.day-selector > span
-            layout: ["Monday 02 January"]
+              selector: a.main
+              attr: href
+              regex_extract:
+                exp: "[0-9]{8}"
+            layout: ["20060102"]
           - covers:
               time: true
             location:
@@ -745,6 +748,7 @@ scrapers:
       - name: comment
         type: text
         on_subpage: "url"
+        can_be_empty: true
         location:
           selector: div.dclub-date-content > div > p
 
