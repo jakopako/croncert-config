@@ -1041,7 +1041,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "city"
-        value: "Cologne"
+        value: "Lausanne"
       - name: "location"
         value: "Salle Métropole"
       - name: "sourceUrl"
