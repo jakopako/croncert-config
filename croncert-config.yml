@@ -1071,6 +1071,7 @@ scrapers:
               selector: span.spectacles__item__date
             layout: ["Mon. 02.01.06"]
         date_language: fr_FR
+        date_location: Europe/Berlin
 
   - name: Salopard
     url: http://salopard.ch/
