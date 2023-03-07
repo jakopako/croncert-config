@@ -935,6 +935,48 @@ scrapers:
   # Lausanne
   ############
   #
+  - name: BeaulieuLausanne
+    url: https://beaulieu-lausanne.com/agenda/categorie/theatre/
+    item: article
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: "location"
+        value: "Théatre de Beaulieu"
+      - name: "sourceUrl"
+        value: "https://beaulieu-lausanne.com/agenda/"
+      - name: url
+        type: url
+        location:
+          selector: a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: h3.excerpt-title
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers: # FIXME: this only gets the last date in a multi-day run
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.content-wrapper > header > time
+              regex_extract:
+                exp: "[0-9]{1,2} [a-z]+ [0-9]{4}"
+            layout: ["2 January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: article > div > div.col-xl-4.col-lg-5.col-md-12.col-sm-12.col-12.offset-lg-1 > aside > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(2) > span
+            layout: [15h04]
+        date_location: Europe/Berlin
+        date_language: fr_FR
+
   - name: Chorus
     url: https://chorus.ch/programme/
     item: body.page-template-default.page.page-id-12 > div.body-outer-wrapper > div.body-wrapper.boxed-style > div.content-wrapper.container.main > div.post-12.page.type-page.status-publish.hentry > div.page-wrapper.single-page.single-sidebar.left-sidebar > div.row.gdl-page-row-wrapper > div.gdl-page-left.mb0.twelve.columns > div.row > div.gdl-page-item.mb0.eight.columns > div.row > div.twelve.columns.mb30 > div.gdl-page-content > div.gdl-tab > ul.gdl-tab-content > li > ul.eme_events_list > code > li
