@@ -885,16 +885,22 @@ scrapers:
           selector: h3.excerpt-title
       - name: date
         type: date
+        on_subpage: url
         components:
           - covers: # FIXME: this only gets the last date in a multi-day run
               day: true
               month: true
               year: true
             location:
-              selector: time
+              selector: div.content-wrapper > header > time
               regex_extract:
                 exp: "[0-9]{1,2} [a-z]+ [0-9]{4}"
             layout: ["2 January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: article > div > div.col-xl-4.col-lg-5.col-md-12.col-sm-12.col-12.offset-lg-1 > aside > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(2) > span
+            layout: [15h04]
         date_location: Europe/Berlin
         date_language: fr_FR
 
