@@ -1,12 +1,12 @@
 title
-date-component-day-month-year
+comment
 url
+date-component-year
+date-component-time
 date-component-day
 date-component-month
-date-component-time
-comment
 date-component-day-month-year-time
-date-component-year
+date-component-day-month-year
 date-component-day-month
 date-component-day-month-time
 date-component-month-year
