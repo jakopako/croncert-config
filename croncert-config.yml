@@ -3783,7 +3783,11 @@ scrapers:
             location:
               selector: ".time li strong"
               node_index: 1
-            layout: ["3.04 p.m. "]
+            transform:
+              - type: regex-replace
+                regex: "p\\.m\\."
+                replace: pm
+            layout: ["3.04 pm "]
         date_location: "Europe/Berlin"
         date_language: "en_US"
 
