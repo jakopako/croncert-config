@@ -2624,8 +2624,6 @@ scrapers:
               month: true
             location:
               selector: ".EventsDateBox span.eventStDate"
-            # location:
-            #   selector: ".rhpEventDetails span.lineHeight15"
             layout: ["Monday, January 02"]
           - covers:
               time: true
