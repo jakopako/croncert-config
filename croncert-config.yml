@@ -941,41 +941,6 @@ scrapers:
         type: text
         location:
           selector: div > em
-  - name: BeaulieuLausanne
-    url: https://beaulieu-lausanne.com/agenda/categorie/theatre/
-    item: article
-    fields:
-      - name: "type"
-        value: "concert"
-      - name: "city"
-        value: "Lausanne"
-      - name: "location"
-        value: "Théatre de Beaulieu"
-      - name: "sourceUrl"
-        value: "https://beaulieu-lausanne.com/agenda/"
-      - name: url
-        type: url
-        location:
-          selector: a
-          attr: href
-      - name: title
-        type: text
-        location:
-          selector: h3.excerpt-title
-      - name: date
-        type: date
-        components:
-          - covers:
-              day: true
-              month: true
-              year: true
-            location:
-              selector: time
-              regex_extract:
-                exp: "[0-9]{1,2} [a-z]+ [0-9]{4}"
-            layout: ["2 January 2006"]
-        date_location: Europe/Berlin
-        date_language: fr_FR
 
   - name: BaseBar
     url: https://stadtkonzerte.ch/locations/base-bar-lausanne
