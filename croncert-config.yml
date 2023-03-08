@@ -1097,6 +1097,40 @@ scrapers:
           selector: div.row.sk_indent.gig.xs-card > div.col-xs-12.col-sm-8.col-md-7.card > div.hidden-xs > div.tickets > a.boxoffice.ticket_link.information
           attr: href
 
+  - name: BleuLezard
+    url: https://stadtkonzerte.ch/locations/bleu-lezard-lausanne
+    item: body.body > div.page > div.page__column.page__column--left > div.container > div.content > div.sk_gig-day-container > div.gig_day
+    fields:
+      - name: location
+        value: La Cave du Bleu Lézard
+      - name: city
+        value: Lausanne
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://bleu-lezard.ch/la-cave/
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.row.visible-xs.visible-sm.sticky-div > h2.col-xs-12.col-md-offset-1.col-md-10.date-header > span.day
+            layout: ["Mon 2. January 2006"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+      - name: title
+        type: text
+        location:
+          selector: div.row.sk_indent.gig.xs-card > div.col-xs-12.col-sm-8.col-md-7.card > div.artist > a
+      - name: url
+        type: url
+        location:
+          selector: div.row.sk_indent.gig.xs-card > div.col-xs-12.col-sm-8.col-md-7.card > div.hidden-xs > div.tickets > a.boxoffice.ticket_link.information
+          attr: href
+
   - name: DClub
     url: https://dclub.ch/agenda/
     item: div.dclub-agenda > div.date_container > div.events_container > div.event
