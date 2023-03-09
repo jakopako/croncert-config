@@ -1599,7 +1599,7 @@ scrapers:
       - name: "location"
         value: "30cc"
       - name: "sourceUrl"
-        value: "https://www.30cc.be/nl/programma?seizoen=2022-2023&discipline=3"
+        value: "https://www.30cc.be/nl/programma?discipline=3"
       - name: title
         location:
           selector: div.excerpt__header > h3.excerpt__title > a
