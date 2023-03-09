@@ -747,7 +747,7 @@ scrapers:
               time: true
             location:
               selector: h6.eventinfotext.time
-            layout: ["15:04:05"]
+            layout: ["15:04"]
         date_location: CET
       - name: url
         type: url
