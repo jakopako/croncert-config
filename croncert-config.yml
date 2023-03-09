@@ -3586,9 +3586,6 @@ scrapers:
       - name: title
         location:
           selector: h3.h3
-      - name: comment
-        location:
-          selector: span > span.flex.paragraph-2
       - name: url
         type: url
         location:
