@@ -3290,6 +3290,10 @@ scrapers:
             location:
               selector: span.col-md-1.suite_EvenDate > span.suite_datePlate > span.suite_year
             layout: ["Jan. | 2006"]
+            transform:
+              - type: regex-replace
+                regex: MRZ
+                replace: Mär
           - covers:
               day: true
             location:
@@ -3298,6 +3302,10 @@ scrapers:
         date_location: "Europe/Berlin"
         date_language: "de_DE"
     renderJs: true
+    filters:
+      - field: "title"
+        regex: ".*ABGESAGT.*"
+        match: false
 
   ##############
   # Winterthur
@@ -4247,6 +4255,8 @@ scrapers:
       - field: "title"
         regex: ".*[A|a][B|b][G|g][E|e][S|s][A|a][G|g][T|t].*"
         match: false
+      - field: title
+        regex: ".*[V|v][E|e][R|r][S|s][C|c][H|h][O|o][B|b][E|e][N|n].*"
 
   - name: BrauereiOerlikon
     url: https://www.brauerei-oerlikon.ch/events/
