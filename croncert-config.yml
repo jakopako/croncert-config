@@ -1589,8 +1589,8 @@ scrapers:
         selector: ".pager__item--next a"
 
   - name: 30cc
-    url: https://www.30cc.be/nl/programma?seizoen=2022-2023&discipline=3
-    item: body.page-programma > div.page-wrap > div.page-main > div.section.section--content.js-filter > div.container > div.section__content > div.grid > div.grid__12.grid--bp-med__8 > div.block.js-load-more > div.block > div.grid.grid--flex.js-load-more-results > div.grid__12.is-view-list > div.excerpt.excerpt--event.excerpt--link.excerpt--clickable
+    url: https://www.30cc.be/nl/programma?discipline=3
+    item: body.page-programma > div.page-wrap > div.js-filter.page-main > div.section.section--content.section--default > div.container > div.section__content > div.grid > div.grid--bp-med__8.grid__12 > div.block.js-load-more > div.block > div.grid.grid--flex.js-load-more-results > div.grid__12.is-view-list > div.excerpt.excerpt--clickable.excerpt--event.excerpt--link > div.excerpt__main
     fields:
       - name: "type"
         value: "concert"
@@ -1602,15 +1602,15 @@ scrapers:
         value: "https://www.30cc.be/nl/programma?seizoen=2022-2023&discipline=3"
       - name: title
         location:
-          selector: div.excerpt__main > div.excerpt__header > h3.excerpt__title > a
+          selector: div.excerpt__header > h3.excerpt__title > a
       - name: comment
         location:
-          selector: div.excerpt__main > div.excerpt__header > div.excerpt__intro
+          selector: div.excerpt__header > div.excerpt__intro
         can_be_empty: true
       - name: url
         type: url
         location:
-          selector: div.excerpt__main > div.excerpt__header > h3.excerpt__title > a
+          selector: div.excerpt__header > h3.excerpt__title > a
       - name: "date"
         type: "date"
         components:
@@ -1619,17 +1619,21 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.excerpt__main > div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta
+              selector: div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta
               regex_extract:
                 exp: "([0-9]{2}/){2}[0-9]{4}"
             layout: ["02/01/2006"]
           - covers:
               time: true
             location:
-              selector: div.excerpt__main > div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta > span.excerpt__time
+              selector: div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta > span.excerpt__time
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "nl_BE"
+    paginator:
+      location:
+        selector: "a.next"
+        attr: href
 
   - name: Lemmens
     url: https://www.luca-arts.be/nl/concerten-evenementen
@@ -1711,6 +1715,56 @@ scrapers:
             layout: ["2.1.2006"]
         date_location: "Europe/Berlin"
         date_language: "nl_BE"
+
+  - name: LeuvenJazz
+    url: https://www.leuvenjazz.be/nl/programma?discipline=3
+    item: div.container > div.section__content > div.grid > div.grid__12.grid--bp-med__8 > div.block.js-load-more > div.block > div.grid.grid--flex.js-load-more-results > div.grid__12.is-view-list > div.excerpt.excerpt--event > div.excerpt__main
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Leuven
+      - name: location
+        value: Leuven Jazz
+      - name: sourceUrl
+        value: https://www.leuvenjazz.be/nl/programma?discipline=3
+      - name: url
+        type: url
+        location:
+          selector: div.excerpt__header > h3.excerpt__title > a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: div.excerpt__header > h3.excerpt__title > a
+      - name: comment
+        type: text
+        location:
+          selector: div.excerpt__header > div.excerpt__intro
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta
+              regex_extract:
+                exp: "([0-9]{2}/){2}[0-9]{4}"
+            layout: ["02/01/2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta > span.excerpt__time
+            layout: ["15:04"]
+        date_location: CET
+        date_language: "nl_BE"
+    paginator:
+      location:
+        selector: "a.next"
+        attr: href
 
   ##########
   # London
