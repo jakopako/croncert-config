@@ -298,7 +298,7 @@ scrapers:
               selector: ".qt-eventtable tr td"
               regex_extract:
                 exp: "Data:.*"
-              child_index: -1 # -1 means: 'apply the regex until a child matches'
+              entire_subtree: true
             layout: ["Data: 2 January 2006"]
           - covers:
               time: true
@@ -307,7 +307,7 @@ scrapers:
               node_index: 2
               regex_extract:
                 exp: "Inizio concerto: .*"
-              child_index: -1 # -1 means: 'apply the regex until a child matches'
+              entire_subtree: true
             layout: ["Inizio concerto: 3:04 pm"]
         date_location: "Europe/Berlin"
         date_language: "it_IT"
@@ -414,7 +414,7 @@ scrapers:
               selector: ".node-type-event__timing"
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2}"
-              child_index: -1
+              entire_subtree: true
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "en_US"
@@ -2236,7 +2236,7 @@ scrapers:
               month: true
             location:
               selector: ".hover-in .center"
-              child_index: -1
+              entire_subtree: true
               regex_extract:
                 exp: "([0-9]{2}\\.){2}"
             layout: ["02.01."]
@@ -2252,7 +2252,7 @@ scrapers:
               time: true
             location:
               selector: ".hover-in .center"
-              child_index: -1
+              entire_subtree: true
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2}"
             layout: ["15:04"]
@@ -4046,7 +4046,7 @@ scrapers:
               time: true
             location:
               selector: ".content p"
-              child_index: -1 # This setting searches for a regex match in all children of the respective node AND sets a default of 20:00 if no match is found.
+              entire_subtree: true
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2}"
                 index: 0
