@@ -1157,6 +1157,8 @@ scrapers:
         location:
           selector: div.header > .artist
           entire_subtree: true
+          all_nodes: true
+          separator: ", "
       - name: date
         type: date
         components:
