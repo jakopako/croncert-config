@@ -2188,8 +2188,8 @@ scrapers:
         date_language: de_DE
 
   - name: Milla
-    url: "https://www.milla-club.de/category/event/"
-    item: ".preview-box-outline"
+    url: "https://milla-club.de/"
+    item: body.blog.home > main > section.events > div.columns.is-4.is-multiline.is-variable > div.column.event.is-narrow > div.columns.is-1.is-mobile.is-multiline.is-variable
     fields:
       - name: "type"
         value: "concert"
@@ -2198,44 +2198,33 @@ scrapers:
       - name: "location"
         value: "Milla"
       - name: "sourceUrl"
-        value: "https://www.milla-club.de/category/event/"
-      - name: "url"
-        type: "url"
-        location:
-          selector: ".post-title a"
-      - name: "title"
-        location:
-          selector: ".post-title a"
-      - name: "date"
-        type: "date"
+        value: "https://milla-club.de/"
+      - name: date
+        type: date
         components:
           - covers:
               day: true
-            location:
-              selector: ".post-date-day"
-            layout: ["02"]
-          - covers:
               month: true
             location:
-              selector: ".post-date-month"
-            layout: ["Jan"]
+              selector: div.column.is-12-tablet.is-three-quarters-mobile > div.columns.is-align-items-center.is-gapless.is-mobile > div.column.is-date
+            layout: ["Jan 2"]
           - covers:
-              year: true
+              time: true
             location:
-              selector: ".post-date-year"
-            layout: ["2006"]
-        date_location: "Europe/Berlin"
-        date_language: "de_DE"
-    filters:
-      - field: "title"
-        regex: ".*[A|a][B|b][G|g][E|e][S|s][A|a][G|g][T|t].*"
-        match: false
-      - field: "title"
-        regex: ".*verlegt.*"
-        match: false
-      - field: "title"
-        regex: ".*verschoben.*"
-        match: false
+              selector: div.column.is-12-tablet.is-three-quarters-mobile > div.columns.is-align-items-center.is-gapless.is-mobile > div.column:nth-child(2)
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2}"
+            layout: ["15.04"]
+        date_location: CET
+      - name: url
+        type: url
+        location:
+          - selector: div.column.is-12-tablet.is-three-quarters-mobile > div.event__title > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.column.is-12-tablet.is-three-quarters-mobile > div.event__title > a > h3
 
   - name: Backstage
     url: "https://backstage.eu/veranstaltungen/live.html"
@@ -4702,3 +4691,46 @@ scrapers:
             layout: ["2.1.06"]
       - name: url
         value: http://brickbar.ch/ueber-mich/
+
+  - name: AlteKaserne
+    url: https://www.altekaserne.com/events
+    item: body.unknown.other > div.container > div > main > div.inside > div.mod_article.first.last.block > div.ce_metamodel_content.first.block > div.row.party > div.col-sm-8.col-lg-9 > div.text-block
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Zurich"
+      - name: "location"
+        value: "Alte Kaserne"
+      - name: "sourceUrl"
+        value: "https://www.altekaserne.com/events"
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: date-component-day-month-year
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: a > div.datum
+            layout: ["Mon. 2. Jan. 2006"]
+          - covers:
+              time: true
+            location:
+              selector: a > div.datum > span.zeit.ztop
+            layout: ["ab 15 Uhr", "ab 15:04 Uhr"]
+        date_location: CET
+        date_language: de_DE
+      - name: title
+        type: text
+        location:
+          - selector: a > h3.name
+      - name: comment
+        type: text
+        location:
+          - selector: p
