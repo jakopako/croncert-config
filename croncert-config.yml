@@ -483,7 +483,9 @@ scrapers:
       - name: title
         type: text
         location:
-          selector: div.card-body.d-flex.flex-column > a > h4.card-title
+          - selector: div.card-body.d-flex.flex-column > a > h4.card-title
+          - selector: div.card-body.d-flex.flex-column > div.tessera-additionalArtists
+        separator: ", "
       - name: comment
         type: text
         location:
