@@ -2005,7 +2005,9 @@ scrapers:
               selector: ".wrapper .standard-content ul.single-article__list > li"
               node_index: 1
               child_index: 1
-            layout: ["15:04 "]
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
         date_location: "Europe/London"
         date_language: "en_GB"
 
@@ -4425,6 +4427,9 @@ scrapers:
         match: false
       - field: "title"
         regex: ".*Cancelled!"
+        match: false
+      - field: "title"
+        regex: ".*[C|c][A|a][N|n][C|c][E|e][L|l][L|l][E|e][D|d].*"
         match: false
 
   - name: Photobastei
