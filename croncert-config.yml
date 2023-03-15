@@ -4806,7 +4806,7 @@ scrapers:
         location:
           - selector: a
             attr: href
-      - name: date-component-day-month-year
+      - name: date
         type: date
         components:
           - covers:
