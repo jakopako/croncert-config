@@ -654,7 +654,7 @@ scrapers:
       - name: comment
         type: text
         location:
-          selector: div.card-body.d-flex.flex-column > div.tessera-additionalArtists
+          selector: div.card-body.d-flex.flex-column > div.tessera-primaryBandAppend
         can_be_empty: true
       - name: location
         type: text
