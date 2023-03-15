@@ -2636,6 +2636,76 @@ scrapers:
         regex: "Konzert"
         match: true
 
+  - name: Feierwerk
+    url: https://www.feierwerk.de/konzert-kulturprogramm/kkp/
+    item: body.page-1390.pidir-150 > div > div.outercontainer > div.container960 > div.row-fluid > div.maincontent.span9 > div.row-fluid > div.span12 > div.event
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Munich
+      - name: sourceUrl
+        value: https://www.feierwerk.de/konzert-kulturprogramm/kkp/
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.event-date-location > span > a
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}[0-9]{4}"
+            layout: ["02.01.2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.event-date-location > span > a
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+      - name: location
+        location:
+          selector: div.event-date-location > span > a
+          regex_extract:
+            exp: "[^| ]{2}[^|]+"
+            index: 2
+      - name: url
+        type: url
+        location:
+          - selector: div.event-date-location > span > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: h3.event-collection-name, .event-name
+          - selector: div.event-short-desc > a.event-linker > h2.event-artist-name
+            regex_extract:
+              exp: "[^» ]{1}.*"
+            all_nodes: true
+            separator: ", "
+        separator: ", "
+      - name: status
+        hide: true
+        location:
+          selector: p.alert-heading
+        can_be_empty: true
+    filters:
+      - field: location
+        regex: Technikum
+        match: false
+      - field: location
+        regex: Farbenladen
+        match: false
+      - field: status
+        regex: Abgesagt
+        match: false
+    paginator:
+      location:
+        selector: li.next > a
+
   ############
   # Neuchâtel
   ############
