@@ -327,6 +327,57 @@ scrapers:
         node_index: -1
       max_pages: 4
 
+  ##########
+  # Boston
+  ##########
+
+  - name: Scullers
+    url: https://scullersjazz.com/upcoming-events/
+    item: body.page.page-id-138.page-template.page-template-page-eventslist.page-template-page-eventslist-php > div.cf > div.container > section.fullWidth > article.hentry.page.post-138.status-publish.type-page > div.blackBack.cf.musicidb-events-integration > div.cf.inside > div.musicidb-tabs > div.current.musicidb-tab > div.musicidb-tabs.ui-tabs-nav > div.musicidb-tab > ul.cf.eventsList > li.cf.listEvent.listItem.summaryContent
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Boston
+      - name: sourceUrl
+        value: https://scullersjazz.com/upcoming-events/
+      - name: location
+        value: Scullers
+      - name: date
+        type: date
+        components:
+          - covers:
+              month: true
+            location:
+              selector: h3.date > span.monthName:nth-child(2)
+            layout: ["Jan"]
+          - covers:
+              day: true
+            location:
+              selector: h3.date > span.dayNum
+            layout: ["2"]
+          - covers:
+              year: true
+            location:
+              selector: h3.date > span.yearNum
+            layout: ["2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.listingBody > div.eventInfoArea > div.eventInfoWide > p.eventLogistics
+            layout: ["15:04 PM"]
+        date_location: America/New_York
+      - name: url
+        type: url
+        location:
+          - selector: div.eventPosterArea > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.listingBody > h3.titleofevent > div.cardFloater > span.hoverArtist
+    renderJs: true
+
   #############
   # Bratislava
   #############
