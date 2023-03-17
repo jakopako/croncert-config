@@ -1188,6 +1188,49 @@ scrapers:
         location:
           selector: div.col.col-12.col-md-4.cp-meta > span.cp-room
 
+  - name: Uebelundgefaehrlich
+    url: https://www.uebelundgefaehrlich.com/
+    item: body > div > main.grid-container > ul.event > li.stack > a.history
+    fields:
+      - name: "location"
+        value: "Uebel & Gefährlich"
+      - name: "city"
+        value: "Hamburg"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.uebelundgefaehrlich.com/
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.grid-70.grid-parent.mobile-grid-70.tablet-grid-70 > time
+            layout:
+              - Monday, den 2. January 2006
+          - covers:
+              time: true
+            location:
+              selector: div.grid-70.grid-parent.mobile-grid-70.tablet-grid-70
+              child_index: 4
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+                index: 1
+            layout: ["15:04"]
+        date_location: CET
+        date_language: de_DE
+      - name: title
+        type: text
+        location:
+          - selector: div.grid-70.grid-parent.mobile-grid-70.tablet-grid-70 > h1
+          
   ############
   # Krakow
   ############
