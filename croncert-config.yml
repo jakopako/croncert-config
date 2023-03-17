@@ -800,6 +800,57 @@ scrapers:
         regex: ".*ABGESAGT.*"
         match: false
 
+  - name: Kantine
+    url: https://kantine.com/eventliste/
+    item: body.et-db.et-tb-has-footer.et-tb-has-template.et_cover_background.et_divi_theme.et_fixed_nav.et_header_style_left.et_no_sidebar.et_pb_button_helper_class.et_pb_gutter.et_pb_gutters3.et_pb_pagebuilder_layout.et_primary_nav_dropdown_animation_fade.et_secondary_nav_dropdown_animation_fade.et_show_nav.page.page-id-5470.page-template-default.tribe-no-js > div > div.et-boc > div > div > article.hentry.page.post-5470.status-publish.type-page > div.entry-content > div.et-l.et-l--post > div.et_builder_inner_content.et_pb_gutters3 > div.et_pb_section.et_pb_section_1.et_section_regular > div.et_pb_row.et_pb_row_1 > div.et-last-child.et_pb_column.et_pb_column_1.et_pb_column_4_4.et_pb_css_mix_blend_mode_passthrough > div.decm_event_display.decm_event_display_0.et_pb_bg_layout_.et_pb_module.et_pb_with_border > div.et_pb_module_inner > div > div > div.append_events.ecs-event-list.event-display_style.row.row_equal > div.clearfix.col-lg-12.col-sm-12.col-xs-12.ecs-event.ecs-event-posts > article.act-post.et_pb_with_border > div.row > div.col-6.col-md-6 > div.decm-events-details
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Cologne"
+      - name: "sourceUrl"
+        value: https://kantine.com/eventliste/
+      - name: url
+        type: url
+        location:
+          - selector: h4.entry-title.summary > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: h4.entry-title.summary > a
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.decm-show-detail-center > span.decm-show-data-display-block.duration.ecs-eventDate.eventDate-ecs-icon.time > span.decm_date
+            layout:
+              - 2.1.2006
+          - covers:
+              time: true
+            location:
+              selector: div.decm-show-detail-center > span.decm-show-data-display-block.duration.ecs-eventTime.eventTime-ecs-icon.time > span.decm_time
+            layout:
+              - "15:04"
+        date_location: CET
+      - name: location
+        type: text
+        location:
+          - selector: div.decm-show-detail-center > span.decm-show-data-display-block.duration.ecs-eventTime.eventTime-ecs-icon.time > span.decm-show-data-display-block.duration.ecs-venue.venue.venue-ecs-icon > span.decm_venue
+            regex_extract:
+              exp: "[a-zA-Z]+( [a-zA-Z]+)?"
+    filters:
+      - field: "title"
+        regex: ".*[A|a][B|b][G|g][E|e][S|s][A|a][G|g][T|t].*"
+        match: false
+      - field: title
+        regex: ".*Party.*"
+        match: false
+
   ############
   # Cully
   ############
