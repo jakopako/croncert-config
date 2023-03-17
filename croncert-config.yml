@@ -166,6 +166,40 @@ scrapers:
         regex: ".*CANCELLED"
         match: false
 
+  - name: HuxleysNeueWelt
+    url: https://huxleysneuewelt.com/shows
+    item: body.custom-background.page.page-id-22.page-template.page-template-page-event-thumbs.page-template-page-event-thumbs-php > div.bg-page > div.container.site > div.clearfix.row > div.clearfix.col.col-lg-12 > div.thumbs > article.clearfix.hentry.page.post-22.status-publish.type-page > section.clearfix.post_content > div.css-events-list > a.col-md-3.col-sm-4.col-xs-12.event-item
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "location"
+        value: "Huxleys Neue Welt"
+      - name: "sourceUrl"
+        value: https://huxleysneuewelt.com/shows
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: title
+        type: text
+        location:
+          - selector: span
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: p
+            layout:
+              - 2.1.2006 · 15:04
+        date_location: CET
+
   #######
   # Bern
   #######
