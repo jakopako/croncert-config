@@ -1190,7 +1190,7 @@ scrapers:
 
   - name: Uebelundgefaehrlich
     url: https://www.uebelundgefaehrlich.com/
-    item: body > div > main.grid-container > ul.event > li.stack > a.history
+    item: body > div > main.grid-container > ul.event > li.konzert > a.history
     fields:
       - name: "location"
         value: "Uebel & Gefährlich"
@@ -1230,7 +1230,7 @@ scrapers:
         type: text
         location:
           - selector: div.grid-70.grid-parent.mobile-grid-70.tablet-grid-70 > h1
-          
+
   ############
   # Krakow
   ############
