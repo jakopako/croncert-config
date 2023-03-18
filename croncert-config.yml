@@ -1443,6 +1443,56 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
 
+  - name: DukesBar
+    url: https://www.dukes-bar.ch/evenements/
+    item: div.event
+    fields:
+      - name: type
+        type: text
+        value: concert
+      - name: "sourceUrl"
+        value: "https://www.dukes-bar.ch/evenements/"
+      - name: title
+        type: text
+        location:
+          selector: div.evo_event_schema > span
+      - name: location # this is currently an itinerant venue
+        type: text
+        location:
+          selector: div.evo_event_schema > span
+          regex_extract:
+            exp: "(?i)(lounge bar|tacos bar|restaurant la rive)"
+      - name: city # this is currently an itinerant venue
+        type: text
+        location:
+          selector: div.evo_event_schema > span
+          regex_extract:
+            exp: "(?i)(lausanne|morges|mex)"
+      - name: url
+        type: url
+        location:
+          selector: div.evo_event_schema > a
+        attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.evo_event_schema > script
+              regex_extract: 
+                exp: "[0-9]{4}(-[0-9]{1,2}){2}"
+            layout: ["2006-1-2"]
+          - covers:
+              time: true
+            location:
+              selector: div.evo_event_schema > script
+              regex_extract: 
+                exp: "(-[0-9]{2}){3}"
+            layout: ["-15-04-00"]
+
   - name: SalleMetropole
     url: https://sallemetropole.ch/les-spectacles/
     item: body.is-loading.page.page-id-35.page-template.page-template-concerts.page-template-layouts.page-template-layoutsconcerts-php > div.main-wrap > section.page-concerts > div.inner-page > section.spectacles-section > div.container > div.spectacles > div.spectacles__in > a.spectacles__item
