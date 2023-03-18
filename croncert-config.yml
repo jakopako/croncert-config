@@ -991,6 +991,62 @@ scrapers:
     renderJs: true
 
   ###########
+  # Fribourg
+  ###########
+  - name: FriSon
+    url: https://fri-son.ch/de/programm
+    item: div.view-programm-sapi > div.view-content > div.views-row
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Fribourg"
+      - name: "location"
+        value: "Fri-Son"
+      - name: "sourceUrl"
+        value: https://fri-son.ch/de/programm
+      - name: date
+        on_subpage: url
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.field.field-name-field-event-date > span.date-display-single
+            layout:
+              - Monday, 2. January 2006
+          - covers:
+              time: true
+            location:
+              selector: div.field.field-name-field-event-doors
+              child_index: 1
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: CET
+        date_language: de_DE
+      - name: genre
+        type: text
+        location:
+          - selector: div.field.field-name-field-event-event-name
+      - name: title
+        type: text
+        location:
+          - selector: div.field.field-name-field-event-artists > h1
+            all_nodes: true
+            separator: ", "
+      - name: url
+        type: url
+        location:
+          selector: div.node.node-event
+          attr: about
+    paginator:
+      location:
+        selector: li.pager__item > a
+
+  ###########
   # Ghent
   ###########
 
