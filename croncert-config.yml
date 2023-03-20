@@ -1086,10 +1086,9 @@ scrapers:
   ############
   # Hamburg
   ############
-
   - name: Fabrik
     url: https://fabrik.de/programm
-    item: body > div.page > article > div.programm_termin > div.programm_termin_lh > div.programm_termin_lh_hinten
+    item: body > div.page > article > div.programm_termin > div.programm_termin_lh
     fields:
       - name: "location"
         value: "Fabrik"
@@ -1113,6 +1112,11 @@ scrapers:
         type: text
         location:
           selector: a.tdcn > div.programm_termin_titel
+      - name: category
+        location:
+          selector: div.programm_termin_lh_vorne > div.programm_kategorie
+        can_be_empty: true
+        hide: true
       - name: date
         type: date
         components:
@@ -1131,6 +1135,10 @@ scrapers:
               child_index: 2
             layout: ["Beginn: 15:04 Uhr"]
         date_location: "Europe/Berlin"
+    filters:
+      - field: category
+        regex: Konzert
+        match: true
 
   - name: Knust
     url: https://www.knusthamburg.de/programm/
@@ -1961,6 +1969,75 @@ scrapers:
               selector: p.time > time
               attr: datetime
             layout: ["2006-01-02T15:04:05-07:00"]
+
+  - name: Werk2
+    url: https://www.werk-2.de/
+    item: body.programm.aktuell > div > div > div > div > div#vorschaukasten > ul > li:not(.monat)
+    fields:
+      - name: location
+        value: Werk 2
+      - name: city
+        value: Leipzig
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.werk-2.de/
+      - name: url
+        type: url
+        location:
+          - selector: p.veranstaltung > span > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: p.veranstaltung > span > a
+      - name: category
+        on_subpage: url
+        location:
+          selector: div.vak_info > div.ueber_container > p.typen > font > b
+        hide: true
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              month: true
+            location:
+              selector: div.vak_datum_links > div.monat
+            layout:
+              - January
+          - covers:
+              day: true
+            location:
+              selector: div.vak_datum_links > div.tag
+            layout:
+              - 2
+          - covers:
+              time: true
+            location:
+              selector: div.vak_info > div.text_container_ohne_bild > p.infos
+              regex_extract:
+                exp: "Beginn: [0-9]{2}"
+            layout:
+              - "Beginn: 15"
+        date_location: CET
+        date_language: de_DE
+    filters:
+      - field: category
+        regex: "Lesung.*"
+        match: false
+      - field: category
+        regex: Party
+        match: false
+      - field: category
+        regex: Film
+        match: false
+      - field: category
+        regex: Podiumsdiskussion
+        match: false
+      - field: category
+        regex: "Theater.*"
+        match: false
 
   ##########
   # Leuven
