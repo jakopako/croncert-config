@@ -143,6 +143,48 @@ scrapers:
         date_location: CET
         date_language: nl_BE
 
+  - name: Bitterzoet
+    url: https://www.bitterzoet.com/agenda/
+    item: div.agenda-page.page > div.page__block.page__block--sm > div.agenda-page__agenda-item > div.agenda-item.agenda-item--lg > div.agenda-item__container--text.agenda-item__container--text--lg:nth-child(3) > div.agenda-item__container--text--inner
+    fields:
+      - name: "location"
+        value: Bitterzoet
+      - name: "city"
+        value: "Amsterdam"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.bitterzoet.com/agenda/
+      - name: url
+        type: url
+        location:
+          - selector: div.agenda-item__buy-tickets > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: a > div.agenda-item__title:nth-child(4) > div.title-component
+      - name: comment
+        type: text
+        location:
+          - selector: a > div.agenda-item__subtitle:nth-child(5)
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: a > div.agenda-item__date-time-price.agenda-item__date-time-price--phone:nth-child(2)
+            layout:
+              - Monday 2 January  2006 / 15:04
+        date_location: CET
+        date_language: nl_BE
+    renderJs: true
+
   ########
   # Basel
   ########
