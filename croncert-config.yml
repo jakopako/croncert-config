@@ -185,6 +185,45 @@ scrapers:
         date_language: nl_BE
     renderJs: true
 
+  - name: MaloeMelo
+    url: https://www.maloemelo.com/events/
+    item: div > div > div > div > div > div > div.tribe-events-calendar-list > div.tribe-events-calendar-list__event-row
+    fields:
+      - name: "location"
+        value: Maloe Melo
+      - name: "city"
+        value: "Amsterdam"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.maloemelo.com/events/
+      - name: comment
+        type: text
+        location:
+          - selector: div.tribe-common-a11y-hidden.tribe-common-b2.tribe-events-calendar-list__event-description > p
+      - name: title
+        type: text
+        location:
+          - selector: header.tribe-events-calendar-list__event-header > h3.tribe-common-h4--min-medium.tribe-common-h6.tribe-events-calendar-list__event-title > a.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+      - name: url
+        type: url
+        location:
+          - selector: header.tribe-events-calendar-list__event-header > h3.tribe-common-h4--min-medium.tribe-common-h6.tribe-events-calendar-list__event-title > a.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: header.tribe-events-calendar-list__event-header > div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.tribe-events-calendar-list__event-datetime > span.tribe-event-date-start
+            layout:
+              - January 2 @ 15:04
+        date_location: CET
+        date_language: en_US
+
   ########
   # Basel
   ########
@@ -4113,6 +4152,49 @@ scrapers:
       - field: ticketing
         regex: "Ticket"
         match: true
+
+  # This one is a bit hackey because events that we actually want to exclude because they're old
+  # are excluded because of a differently formatted date and hence a resulting date parsing error.
+  - name: VeveySpringClassics
+    url: https://veveyspringclassic.ch/en/schedule/concerts-publics/
+    item: div.site-main > section.pt-4.section > div.row > div.col-sm-3 > div.concert-item > a
+    fields:
+      - name: "sourceUrl"
+        value: https://veveyspringclassic.ch/en/schedule/concerts-publics/
+      - name: city
+        location:
+          - selector: div.concert-date.transition-fast:nth-child(4)
+            regex_extract:
+              exp: "[A-Za-z]+"
+              index: -1
+      - name: location
+        type: text
+        location:
+          - selector: div.concert-date.transition-fast:nth-child(4)
+            regex_extract:
+              exp: "[^,]+"
+      - name: title
+        type: text
+        location:
+          - selector: h2.concert-title.transition-fast
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.concert-date.transition-fast:nth-child(3)
+            layout:
+              - Monday 2 January 2006, 15:04
+        date_location: CET
+        date_language: en_US
 
   ##########
   # Vienna
