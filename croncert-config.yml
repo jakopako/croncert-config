@@ -4567,6 +4567,47 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
 
+  - name: Musikfestwochen
+    url: https://musikfestwochen.ch/programm/programm-nach-datum/
+    item: main.columns.first.large-8.medium-8 > section.programmlist-container > article.act-item.info-invisible
+    fields:
+      - name: "city"
+        value: "Winterthur"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://musikfestwochen.ch/programm/programm-nach-datum/
+      - name: comment
+        type: text
+        location:
+          - selector: div.programm-infos > div:nth-child(7)
+      - name: location
+        type: text
+        location:
+          - selector: div.programm-infos > h5:nth-child(3)
+      - name: url
+        type: url
+        location:
+          - selector: div.columns.large-4.medium-6.small-12 > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.row > div.columns.large-10.medium-8 > a > h3
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.act-extend.row:nth-child(2) > div:nth-child(2) > div.programm-infos > h5
+            layout:
+              - Monday, 2. January 2006, 15:04
+        date_location: CET
+
   ##########
   # Zurich
   ##########
