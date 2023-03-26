@@ -338,6 +338,53 @@ scrapers:
         regex: "Beitragsabend"
         match: false
 
+  - name: Offbeat
+    url: https://www.offbeat-concert.ch/
+    item: body.resource-1.template-1 > div.section > div.row > div.columns.medium-10.medium-offset-2.small-12 > div.event__listing > div.event__item > a
+    fields:
+      - name: "city"
+        value: "Basel"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.offbeat-concert.ch/
+      - name: location
+        type: text
+        location:
+          - selector: span.nowrap
+            regex_extract:
+              exp: "[A-Z]+[A-Z ]+"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: span.nowrap
+              regex_extract:
+                exp: "[^\\n]+"
+            layout: ["2. January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: span.nowrap
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_language: de_DE
+        date_location: CET
+      - name: title
+        type: text
+        location:
+          - selector: h2.event__title
+            entire_subtree: true
+      - name: url
+        type: url
+        location:
+          - attr: href
+
   #########
   # Berlin
   #########
@@ -1876,7 +1923,7 @@ scrapers:
     item: section#programme > ul > li
     fields:
       - name: "location"
-        value: "Le Romandie Club" 
+        value: "Le Romandie Club"
       - name: "city"
         value: "Lausanne"
       - name: "type"
