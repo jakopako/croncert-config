@@ -4159,6 +4159,8 @@ scrapers:
     url: https://veveyspringclassic.ch/en/schedule/concerts-publics/
     item: div.site-main > section.pt-4.section > div.row > div.col-sm-3 > div.concert-item > a
     fields:
+      - name: type
+        value: concert
       - name: "sourceUrl"
         value: https://veveyspringclassic.ch/en/schedule/concerts-publics/
       - name: city
