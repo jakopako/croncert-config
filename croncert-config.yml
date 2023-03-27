@@ -224,6 +224,58 @@ scrapers:
         date_location: CET
         date_language: en_US
 
+  - name: DeNieuweAnita
+    url: https://denieuweanita.nl/
+    item: main.l-main > section.height_full.l-section.parallax_fixed.us_custom_fdcab3db.valign_top.with_img.wpb_row > div.i-cf.l-section-h > div.g-cols.type_default.valign_top.vc_row > div.scrolling1.vc_col-sm-6.vc_column_container.wpb_column > div.us_custom_79f120a2.vc_column-inner > div.wpb_wrapper > div.g-cols.type_default.valign_top.vc_inner.wpb_row > div.vc_col-sm-12.vc_column_container.wpb_column > div.us_custom_45b98367.vc_column-inner > div.wpb_wrapper > div.vc_clearfix.vc_grid-container-wrapper > div.vc_basic_grid.vc_clearfix.vc_grid-container.wpb_content_element > div.vc_grid.vc_grid-gutter-30px.vc_hook_hover.vc_pageable-wrapper.vc_row > div.vc_clearfix.vc_pageable-slide-wrapper > div.vc_clearfix.vc_col-sm-12.vc_grid-item > div.vc_clearfix.vc_grid-item-mini > div.vc_gitem-animated-block > div.vc_custom_1621945833714.vc_gitem-zone.vc_gitem-zone-a > div.vc_gitem-zone-mini > div.vc_gitem-row-position-top.vc_gitem_row.vc_row
+    fields:
+      - name: "location"
+        value: De Nieuwe Anita
+      - name: "city"
+        value: "Amsterdam"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://denieuweanita.nl/
+      - name: title
+        type: text
+        location:
+          - selector: div.vc_col-sm-6.vc_custom_1623678230940.vc_gitem-col.vc_gitem-col-align-:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
+      - name: url
+        type: url
+        location:
+          - selector: div.vc_col-sm-6.vc_custom_1623678230940.vc_gitem-col.vc_gitem-col-align-:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
+            attr: href
+      - name: eventType
+        type: text
+        location:
+          - selector: div.vc_col-sm-2.vc_custom_1621260411052.vc_gitem-col.vc_gitem-col-align-:nth-child(2) > div.field_60a23a847bcea.font-icon.vc_gitem-acf.vc_gitem-align-center
+        hide: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.vc_col-sm-4.vc_gitem-col.vc_gitem-col-align- > div.field_60a26624c6c72.time-agenda.vc_gitem-acf.vc_gitem-align-center:nth-child(2)
+            layout:
+              - 15:04 pm
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.vc_col-sm-4.vc_gitem-col.vc_gitem-col-align- > div.date-agenda.field_60a2681523738.vc_gitem-acf.vc_gitem-align-center
+            layout:
+              - January 2
+        date_location: CET
+        date_language: en_US
+    filters:
+      - field: eventType
+        regex: b
+        match: false
+      - field: eventType
+        regex: 1
+        match: false
+
   ########
   # Basel
   ########
@@ -4581,6 +4633,7 @@ scrapers:
         type: text
         location:
           - selector: div.programm-infos > div:nth-child(7)
+        can_be_empty: true
       - name: location
         type: text
         location:
