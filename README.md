@@ -1,5 +1,7 @@
 # Croncert configuration
 
+[![GitHub issues](https://img.shields.io/github/issues/jakopako/croncert-config/good%20first%20issue.svg?label=good%20first%20issue&color=purple)](https://github.com/jakopako/croncert-config/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+
 This repository contains the configuration for [CrONCERT](https://croncert.ch). CrONCERT is a website that helps you find concerts worldwide. The data is gathered with [goskyr](https://github.com/jakopako/goskyr), a configurable command-line
 scraper written in go. Once a week goskyr runs through a Github action using `croncert-config.yml` as configuration file and updates the concert database.
 
