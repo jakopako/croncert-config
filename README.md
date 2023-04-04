@@ -32,7 +32,7 @@ We'll demonstrate the process for the location "Konzerthaus Schüür" with the u
 
         ![screenshot field extraction](schuur-extract.png)
 
-        In your terminal run `./goskyr -g  https://www.schuur.ch/programm/ -model croncert-20230314-mod` You'll be presented with a table that shows different fields from the website with corresponding examples. In case you don't see the fields you'd expect from looking at the website there might be a couple of things you can try. Adding the option `-m` allows you to set a minimum number of occurences of the extracted fields (default is 20). Only fields that occur at least this many times are added to the table to filter out noise. In some cases though a list of items on a website may be shorter so you may want to decrease that number accordingly. A second thing that you could try is using the `-d` flag to render js. Note, that chrome needs to be installed for this to work.
+        In your terminal run `./goskyr -g  https://www.schuur.ch/programm/ -model croncert-20230327-mod` You'll be presented with a table that shows different fields from the website with corresponding examples. In case you don't see the fields you'd expect from looking at the website there might be a couple of things you can try. Adding the option `-m` allows you to set a minimum number of occurences of the extracted fields (default is 20). Only fields that occur at least this many times are added to the table to filter out noise. In some cases though a list of items on a website may be shorter so you may want to decrease that number accordingly. A second thing that you could try is using the `-d` flag to render js. Note, that chrome needs to be installed for this to work.
 
     1. Select fields
 
