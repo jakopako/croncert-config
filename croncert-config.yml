@@ -1327,6 +1327,7 @@ scrapers:
               selector: div.event-info > div.event-info-up > span.event-hour
             layout: ["15:04"]
         date_language: fr_FR
+        date_location: CET
       - name: location
         type: text
         location:
