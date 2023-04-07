@@ -3118,10 +3118,6 @@ scrapers:
         on_subpage: url
         date_location: "Europe/Berlin"
         date_language: "en_GB"
-      - name: field-10
-        type: text
-        location:
-          - selector: div.programme__details > dl.programme__schedule-list > dt
       - name: url
         type: url
         location:
