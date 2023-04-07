@@ -276,6 +276,56 @@ scrapers:
         regex: 1
         match: false
 
+  - name: Paradiso
+    url: https://www.paradiso.nl/nl/
+    item: div.event-list__items > a.event-list__item
+    fields:
+      - name: "city"
+        value: "Amsterdam"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.paradiso.nl/nl/
+      - name: title
+        type: text
+        location:
+          - selector: span.event-list__item-row.row > span.col-lg-9.col-sm-10.col-xs-8.event-list__item-info-container > span.event-list__item-subtitle.ng-binding.ng-scope:nth-child(2)
+      - name: title
+        type: text
+        location:
+          - selector: span.event-list__item-row.row > span.col-lg-9.col-sm-10.col-xs-8.event-list__item-info-container > span.event-list__item-title.ng-binding.ng-scope
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: location
+        on_subpage: url
+        location:
+          selector: div.header-template-2__subcontent.loadedTextColor.ng-scope > span.ng-scope > span:nth-child(1) > span.ng-scope > span
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.header-template-2__subcontent.loadedTextColor.ng-scope > span.date.capitalize-letter > span:nth-child(2)
+            layout: ["2 January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.header-template-2__subcontent.loadedTextColor.ng-scope > span.ng-scope > span:nth-child(4) > span:nth-child(2)
+            layout: ["15:04"]
+        date_language: nl_BE
+        date_location: CET
+    renderJs: true
+    filters:
+      - field: location
+        regex: Bitterzoet # already covered by a different scraper
+        match: false
+
   ##########
   # Atlanta
   ##########
