@@ -15,6 +15,8 @@ scrapers:
         value: "Jazz Café Alto"
       - name: "city"
         value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -68,6 +70,8 @@ scrapers:
         value: "Bourbon Street"
       - name: "city"
         value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -105,6 +109,8 @@ scrapers:
         value: BIMHUIS
       - name: "city"
         value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -151,6 +157,8 @@ scrapers:
         value: Bitterzoet
       - name: "city"
         value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -193,6 +201,8 @@ scrapers:
         value: Maloe Melo
       - name: "city"
         value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -232,6 +242,8 @@ scrapers:
         value: De Nieuwe Anita
       - name: "city"
         value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -282,6 +294,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -617,6 +631,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Berlin"
+      - name: "country"
+        value: "Germany"
       - name: "location"
         value: "Gretchen"
       - name: "sourceUrl"
@@ -662,6 +678,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Berlin"
+      - name: "country"
+        value: "Germany"
       - name: "location"
         value: "Huxleys Neue Welt"
       - name: "sourceUrl"
@@ -861,6 +879,8 @@ scrapers:
         value: concert
       - name: city
         value: Boston
+      - name: country
+        value: United States
       - name: sourceUrl
         value: https://scullersjazz.com/upcoming-events/
       - name: location
@@ -948,6 +968,8 @@ scrapers:
         value: "27 Bflat"
       - name: "city"
         value: "Bruges"
+      - name: "country"
+        value: "Belgium"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -988,6 +1010,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Brussels"
+      - name: country
+        value: Belgium
       - name: "location"
         value: "Botanique"
       - name: "sourceUrl"
@@ -1348,6 +1372,8 @@ scrapers:
     fields:
       - name: city
         value: Cully
+      - name: country
+        value: Switzerland
       - name: type
         value: concert
       - name: sourceUrl
@@ -1397,7 +1423,7 @@ scrapers:
       - name: "location"
         value: "Bad Bonn"
       - name: "city"
-        value: "Düdingen/Guin"
+        value: "Düdingen"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -1449,6 +1475,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Feldkirch"
+      - name: "country"
+        value: "Austria"
       - name: "location"
         value: "Poolbar Festival"
       - name: "sourceUrl"
@@ -1547,6 +1575,8 @@ scrapers:
         value: "Hot Club"
       - name: "city"
         value: "Ghent"
+      - name: "country"
+        value: "Belgium"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -1581,6 +1611,8 @@ scrapers:
         value: Charlatan
       - name: "city"
         value: "Ghent"
+      - name: "country"
+        value: "Belgium"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -1623,6 +1655,8 @@ scrapers:
         value: Missy Sippy
       - name: "city"
         value: "Ghent"
+      - name: "country"
+        value: "Belgium"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -1671,6 +1705,8 @@ scrapers:
         value: "Fabrik"
       - name: "city"
         value: "Hamburg"
+      - name: "country"
+        value: "Germany"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -1725,6 +1761,8 @@ scrapers:
         value: "Knust"
       - name: "city"
         value: "Hamburg"
+      - name: "country"
+        value: "Germany"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -1785,6 +1823,8 @@ scrapers:
         value: "Hafenklang"
       - name: "city"
         value: "Hamburg"
+      - name: "country"
+        value: "Germany"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -1837,6 +1877,8 @@ scrapers:
         value: "Uebel & Gefährlich"
       - name: "city"
         value: "Hamburg"
+      - name: "country"
+        value: "Germany"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -3140,6 +3182,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Montreux"
+      - name: "country"
+        value: "Switzerland"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -3191,6 +3235,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "location"
         value: "Unterfahrt"
       - name: "sourceUrl"
@@ -3235,6 +3281,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "location"
         value: "ImportExport"
       - name: "sourceUrl"
@@ -3275,6 +3323,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "location"
         value: "Milla"
       - name: "sourceUrl"
@@ -3314,6 +3364,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "location"
         value: "Backstage"
       - name: "sourceUrl"
@@ -3367,6 +3419,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "location"
         value: "Strom"
       - name: "sourceUrl"
@@ -3411,6 +3465,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "sourceUrl"
         value: "https://www.muffatwerk.de/de/events/concert"
       - name: "title"
@@ -3479,6 +3535,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "sourceUrl"
         value: "https://www.eventfabrik-muenchen.de/events?s=&tribe_events_cat=konzert&tribe_events_venue=&tribe_events_month="
       - name: "title"
@@ -3536,6 +3594,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "sourceUrl"
         value: "https://muenchen.motorworld.de/"
       - name: "title"
@@ -3593,6 +3653,8 @@ scrapers:
         value: "Glockenbachwerkstatt"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -3628,6 +3690,8 @@ scrapers:
         value: "Heppel & Ettlich"
       - name: "city"
         value: "Munich"
+      - name: "country"
+        value: "Germany"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -3671,6 +3735,8 @@ scrapers:
         value: concert
       - name: city
         value: Munich
+      - name: "country"
+        value: "Germany"
       - name: sourceUrl
         value: https://www.feierwerk.de/konzert-kulturprogramm/kkp/
       - name: date
@@ -4321,6 +4387,8 @@ scrapers:
         value: "The Catalyst"
       - name: "city"
         value: "Santa Cruz"
+      - name: country
+        value: United States
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -4654,6 +4722,8 @@ scrapers:
         value: "Rhiz"
       - name: "city"
         value: "Vienna"
+      - name: "country"
+        value: "Austria"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -4699,6 +4769,8 @@ scrapers:
         value: "Flex"
       - name: "city"
         value: "Vienna"
+      - name: "country"
+        value: "Austria"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -4741,6 +4813,8 @@ scrapers:
         value: "Konzerthaus"
       - name: "city"
         value: "Vienna"
+      - name: "country"
+        value: "Austria"
       - name: "type"
         value: "concert"
       - name: "sourceUrl" # This is needed to uniquely identify this scraper
@@ -4795,6 +4869,8 @@ scrapers:
         value: "Porgy & Bess"
       - name: "city"
         value: "Vienna"
+      - name: "country"
+        value: "Austria"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -4832,6 +4908,8 @@ scrapers:
         value: Arena
       - name: city
         value: Vienna
+      - name: "country"
+        value: "Austria"
       - name: type
         value: concert
       - name: sourceUrl
@@ -4886,6 +4964,8 @@ scrapers:
         value: "Salzhaus"
       - name: "city"
         value: "Winterthur"
+      - name: "country"
+        value: "Switzerland"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -4932,6 +5012,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Winterthur"
+      - name: "country"
+        value: "Switzerland"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
