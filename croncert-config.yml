@@ -1270,6 +1270,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Cologne"
+      - name: "country"
+        value: "Germany"
       - name: "location"
         value: "Luxor"
       - name: "sourceUrl"
@@ -1320,6 +1322,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Cologne"
+      - name: "country"
+        value: "Germany"
       - name: "sourceUrl"
         value: https://kantine.com/eventliste/
       - name: url
