@@ -799,6 +799,50 @@ scrapers:
           selector: div.contentbox > div.content > div.textblock > div.text > p
         can_be_empty: true
 
+  - name: Dachstock
+    url: https://www.dachstock.ch/events
+    item: div.event-teaser-info
+    fields:
+      - name: "location"
+        value: "Dachstock"
+      - name: "city"
+        value: "Bern"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.dachstock.ch/events
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: a.event-date
+              regex_extract:
+                exp: "[0-9]{2}.[0-9]{2}.[0-9]{4} - [0-9]{2}:[0-9]{2}"
+            layout: ["02.01.2006 - 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+      - name: "url"
+        type: url
+        location:
+          selector: div.event-teaser-top > a
+          attr: href
+      - name: "title"
+        type: text
+        location:
+          selector: div.artist-name
+          all_nodes: true
+          separator: ", "
+      - name: "comment"
+        type: text
+        location:
+          selector: div.event-title
+        can_be_empty: true
+
   ##########
   # Bologna
   ##########
