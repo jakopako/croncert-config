@@ -4923,20 +4923,26 @@ scrapers:
         type: url
         location:
           selector: div.col-md-7.event_list.event_list_item > div.title > a
+      # - name: datestring
+      #   type: text
+      #   location:
+      #     selector: div.date
+      #   on_subpage: url
       - name: date
         type: date
+        on_subpage: url
         components:
           - covers:
               day: true
               month: true
               year: true
             location:
-              selector: div.col-md-3.event_list > div.date
-            layout: ["Mon 2. January 2006"]
+              selector: div.date
+            layout: ["Mon 2. January 2006", "Mon 02 January 2006"]
           - covers:
               time: true
             location:
-              selector: div.col-md-2.event_list > div.time
+              selector: div.time
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
