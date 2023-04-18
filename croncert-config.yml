@@ -1303,6 +1303,231 @@ scrapers:
           selector: div.card-footer.text-start.align-items-center > span.tessera-venue
           child_index: 1
 
+  - name: Subterranean
+    url: https://www.subt.net/calendar/
+    item: main > div.container > div > div.flexdisplay.flexdisplay--artistevents > div.flexmedia.flexmedia--artistevents > div.eventinfo
+    fields:
+      - name: location
+        value: Subterranean
+      - name: city
+        value: Chicago
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.subt.net/calendar/
+      - name: title
+        type: text
+        location:
+          - selector: a > span.artisteventsname
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.artisteventdatetime > span.artisteventshowtime:nth-child(2)
+            layout:
+              - 15:04 PM
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.artisteventdatetime > span.artisteventdate
+            layout:
+              - Mon January 2, 2006
+        date_location: America/Chicago
+        date_language: en_US
+    paginator:
+      location:
+        selector: div.tw-paginate > span > span.next > a
+      max_pages: 10
+
+  - name: BeatKitchen
+    url: https://www.beatkitchen.com/calendar/
+    item: main > div.container > div > div > div.tw-plugin-upcoming-event-list > div.container > div.tw-section > div.row > div.columns.six:nth-child(3)
+    fields:
+      - name: location
+        value: Beat Kitchen
+      - name: city
+        value: Chicago
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.beatkitchen.com/calendar/
+      - name: title
+        type: text
+        location:
+          - selector: div.tw-name > a
+      - name: url
+        type: url
+        location:
+          - selector: div.tw-name > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.tw-date-time:nth-child(2) > span.tw-event-time-complete:nth-child(3) > span.tw-event-time
+            layout:
+              - 15:04 pm
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.tw-date-time:nth-child(2) > span.tw-event-date-complete:nth-child(2) > span.tw-event-date
+            layout:
+              - January 2, 2006
+        date_location: America/Chicago
+        date_language: en_US
+    paginator:
+      location:
+        selector: div.tw-paginate > span > span.next > a
+
+  - name: Metro
+    url: https://metrochicago.com/events/
+    item: div.generalView.list > div.col-12.eventWrapper.px-0.py-4.rhpSingleEvent > div.g-0.row
+    fields:
+      - name: location
+        value: Metro
+      - name: city
+        value: Chicago
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://metrochicago.com/events/
+      - name: title
+        type: text
+        location:
+          - selector: a.url > h2
+      - name: url
+        type: url
+        location:
+          - selector: a.url
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.col-12.col-md-3 > div.g-0.row > div.col-sm-12.p-0 > div.rhp-event-thumb > a.url > div.eventDateListTop > div.eventMonth.mb-0.singleEventDate.text-uppercase
+            layout:
+              - Mon, January 2
+              - Mon, Jan 2
+            transform:
+              - type: regex-replace
+                regex: Sept
+                replace: Sep
+          - covers:
+              time: true
+            location:
+              selector: div.d-block.eventDoorStartDate.eventsColor > span
+              regex_extract:
+                exp: "[0-9]{1,2}[0-9:]*[ap]{1}m"
+                index: -1
+            layout:
+              - 15pm
+              - 15:04pm
+        date_location: America/Chicago
+        date_language: en_US
+
+  - name: ThaliaHall
+    url: https://www.thaliahallchicago.com/shows
+    item: div.thalia > div.eb-item > div.content-front > div.show-details
+    fields:
+      - name: location
+        value: Thalia Hall
+      - name: city
+        value: Chicago
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.thaliahallchicago.com/shows
+      - name: url
+        value: https://www.thaliahallchicago.com/shows
+      - name: title
+        type: text
+        location:
+          - selector: ul.performing > li
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.date-time-outer > div.start-time:nth-child(2)
+            layout:
+              - "Doors: 15:04PM"
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.date-time-outer > div.date
+            layout:
+              - Mon January 2
+        date_location: America/Chicago
+        date_language: en_US
+    renderJs: true
+
+  - name: SleepingVillage
+    url: https://sleeping-village.com/events/
+    item: div.generalView.list > div.col-12.eventWrapper.rhpSingleEvent > div.g-0.row
+    fields:
+      - name: location
+        value: Sleeping Village
+      - name: city
+        value: Chicago
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://sleeping-village.com/events/
+      - name: title
+        type: text
+        location:
+          - selector: div.col-12.eventTitleDiv.px-0 > a.url > h2
+      - name: url
+        type: url
+        location:
+          - selector: div.col-12.eventTitleDiv.px-0 > a.url
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: a.url > div.eventDateList:nth-child(3) > div.eventMonth.mb-0.singleEventDate.text-uppercase
+            layout:
+              - Mon, Jan 2
+              - Mon, January 2
+            transform:
+              - type: regex-replace
+                regex: Sept
+                replace: Sep
+          - covers:
+              time: true
+            location:
+              selector: div.d-block.eventDoorStartDate.eventsColor > span
+              regex_extract:
+                exp: "[0-9]{1,2}[0-9:]*[ap]{1}m"
+                index: -1
+            layout:
+              - 15pm
+              - 15:04pm
+        date_location: America/Chicago
+        date_language: en_US
+
   ############
   # Cologne
   ############
