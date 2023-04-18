@@ -672,7 +672,7 @@ scrapers:
 
   - name: HuxleysNeueWelt
     url: https://huxleysneuewelt.com/shows
-    item: body.custom-background.page.page-id-22.page-template.page-template-page-event-thumbs.page-template-page-event-thumbs-php > div.bg-page > div.container.site > div.clearfix.row > div.clearfix.col.col-lg-12 > div.thumbs > article.clearfix.hentry.page.post-22.status-publish.type-page > section.clearfix.post_content > div.css-events-list > a.col-md-3.col-sm-4.col-xs-12.event-item
+    item: div.em-events-list.em-events-list-grouped.em-list > a.col-md-3.col-sm-4.col-xs-12.event-item
     fields:
       - name: "type"
         value: "concert"
@@ -3636,7 +3636,7 @@ scrapers:
 
   - name: Motorworld
     url: "https://muenchen.motorworld.de/"
-    item: "article.veranstaltungen"
+    item: div.status-publish.type-veranstaltungen.veranstaltungen > a.e-con.e-con-boxed.elementor-element
     fields:
       - name: "type"
         value: "concert"
@@ -3646,18 +3646,23 @@ scrapers:
         value: "Germany"
       - name: "sourceUrl"
         value: "https://muenchen.motorworld.de/"
-      - name: "title"
+      - name: location
+        type: text
         location:
-          selector: ".elementor-heading-title a"
-      - name: "comment"
-        location:
-          selector: ".elementor-widget-container"
-          node_index: 3
+          - selector: div.e-con-inner > div.e-con.e-con-boxed.elementor-element.elementor-element-5cee072:nth-child(2) > div.e-con-inner > div.elementor-element.elementor-element-a977703.elementor-widget.elementor-widget-shortcode:nth-child(3) > div.elementor-widget-container > div.elementor-shortcode
+      - name: comment
+        type: text
         can_be_empty: true
-      - name: "url"
-        type: "url"
         location:
-          selector: ".elementor-heading-title a"
+          - selector: div.e-con-inner > div.e-con.e-con-boxed.elementor-element.elementor-element-5cee072:nth-child(2) > div.e-con-inner > div.elementor-element.elementor-element-3080f34.elementor-widget.elementor-widget-text-editor:nth-child(2) > div.elementor-widget-container
+      - name: title
+        type: text
+        location:
+          - selector: div.e-con-inner > div.e-con.e-con-boxed.elementor-element.elementor-element-5cee072:nth-child(2) > div.e-con-inner > div.elementor-element.elementor-element-53d396b.elementor-page-title.elementor-widget.elementor-widget-heading.elementor-widget-theme-post-title > div.elementor-widget-container > h1.elementor-heading-title.elementor-size-default
+      - name: url
+        type: url
+        location:
+          - attr: href
       - name: "location"
         on_subpage: "url"
         location:
