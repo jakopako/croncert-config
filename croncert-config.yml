@@ -3422,6 +3422,8 @@ scrapers:
         type: text
         location:
           - selector: div.oz-table > div.oz-cell > p
+      - name: country
+        value: Switzerland
       - name: location
         type: text
         location:
