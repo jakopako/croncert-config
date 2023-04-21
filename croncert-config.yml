@@ -706,6 +706,58 @@ scrapers:
               - 2.1.2006 · 15:04
         date_location: CET
 
+  - name: Metropol
+    url: https://metropol-berlin.de/events
+    item: div.wrapper > div.pagecontent > div.container.grid-container.grid-parent.hfeed.site > div.site-content > div.content-area.grid-100.grid-parent.mobile-grid-100.tablet-grid-100 > main.site-main > article.has-post-thumbnail.page.post-11.status-publish.type-page > div.inside-article > div.entry-content > div > div.em.em-view-container > div.em-events-list.em-list > ul.eventlist > li.event
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Metropol"
+      - name: "sourceUrl"
+        value: https://metropol-berlin.de/events
+      - name: title
+        type: text
+        location:
+          - selector: div.main:nth-child(2) > a.title > h2.artist
+      - name: url
+        type: url
+        location:
+          - selector: div.main:nth-child(2) > a.title
+            attr: href
+      - name: comment
+        type: text
+        location:
+          - selector: div.date > ul.event-categories > li > a
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.date > span.time
+            layout:
+              - "15:04"
+          - covers:
+              month: true
+              year: true
+            location:
+              selector: div.date > span.monthyear
+            layout:
+              - Jan. 2006
+          - covers:
+              day: true
+            location:
+              selector: div.date > span.day
+            layout:
+              - 2/
+        date_location: CET
+        date_language: de_DE
+
   #######
   # Bern
   #######
@@ -1584,6 +1636,50 @@ scrapers:
         date_location: America/Chicago
         date_language: en_US
 
+  - name: GoldenDagger
+    url: https://goldendagger.com/
+    item: div.site > div.wrapper > div.container > div.row > div.col-md-9.content-area > main.site-main > article.hentry.page.post-18.status-publish.type-page > div.entry-content > div > div.tw-plugin-upcoming-event-list > div.container > div.tw-section > div.row > div.columns.six:nth-child(2)
+    fields:
+      - name: location
+        value: Golden Dagger
+      - name: city
+        value: Chicago
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://goldendagger.com/
+      - name: title
+        type: text
+        location:
+          - selector: div.tw-name > a
+      - name: url
+        type: url
+        location:
+          - selector: div.tw-name > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.tw-date-time:nth-child(3) > div.tw-date-time > span.tw-event-time-complete:nth-child(2) > span.tw-event-time
+            layout:
+              - 15:04 pm
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.tw-date-time:nth-child(3) > span.tw-event-date-complete:nth-child(2) > span.tw-event-date
+            layout:
+              - January 2, 2006
+        date_location: America/Chicago
+        date_language: en_US
+    paginator:
+      location:
+        selector: div.entry-content > div.tw-paginate > span > span.next > a
+
   ############
   # Cologne
   ############
@@ -2022,6 +2118,52 @@ scrapers:
               - Jan
         date_location: CET
         date_language: en_US
+
+  ############
+  # Glarus
+  ############
+
+  - name: SoundOfGlarus
+    url: https://soundofglarus.ch/programm/
+    item: div > div.fusion-layout-column.fusion_builder_column.fusion_builder_column_1_3.\31 _3.fusion-flex-column.fusion-column-inner-bg-wrapper
+    fields:
+      - name: "location"
+        value: Zaunplatz
+      - name: "city"
+        value: "Glarus"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://soundofglarus.ch/programm/
+      - name: url
+        type: url
+        location:
+          - selector: span.fusion-column-inner-bg.hover-type-none > a.fusion-column-anchor
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.fusion-column-wrapper.fusion-content-layout-column.fusion-flex-justify-content-flex-start > div.fusion-text > h3
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              time: true
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div > div.fusion-title.title.fusion-title-1.fusion-title-text.fusion-title-size-four > h4
+              regex_extract:
+                exp: ".+/.+/"
+            layout:
+              - "2. January 2006 / 15.04 /"
+              - "2. January 2006 / 15.0 /"
+        date_location: CET
+        date_language: de_DE
 
   ############
   # Hamburg
