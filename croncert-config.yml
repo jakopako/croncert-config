@@ -599,7 +599,7 @@ scrapers:
             location:
               selector: span.nowrap
               regex_extract:
-                exp: "[^\\n]+"
+                exp: "[0-9]{1,2}. [A-Z][a-z]+ [0-9]{4}"
             layout: ["2. January 2006"]
           - covers:
               time: true
