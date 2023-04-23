@@ -3596,6 +3596,52 @@ scrapers:
         match: true
 
   ###########
+  # Malmö
+  ###########
+
+  - name: https://www.victoria.se/en/program
+    url: https://www.victoria.se/en/program
+    item: body.programlisting > main > div.container.lrg > div.flex.listingEvents.margin.tabs > div.animated.fadeIn.flex.listingEvent.twelve.wow > div.flex.s-eight.twelve:nth-child(2) > div.listingEvent-text
+    fields:
+      - name: "location"
+        value: "Victoria Teatern"
+      - name: "city"
+        value: "Malmö"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.victoria.se/en/program
+      - name: comment
+        type: text
+        location:
+          - selector: p
+      - name: title
+        type: text
+        location:
+          - selector: h2 > a
+      - name: url
+        type: url
+        location:
+          - selector: h2 > a
+            attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.event__details.flex.col.margin > div.event__datetime > p.event__date-text.no-grow.align.center
+            layout: ["Monday 2 January"]
+          - covers:
+              time: true
+            location:
+              selector: div.event__datetime > p.event__time.flex.space-around > span.event__onstagetime.no-grow.align.center > span
+            layout: ["15:04"]
+        date_language: en_US
+
+  ###########
   # Martigny
   ###########
   # not entirely correct here because this festival takes place in multiple cities
