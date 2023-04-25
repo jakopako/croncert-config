@@ -4732,7 +4732,7 @@ scrapers:
 
   - name: KasarnaKarlin
     url: "https://www.kasarnakarlin.cz/en/program"
-    item: ".event"
+    item: main > div > div.views-element-container > div > div > div > div.content-type-event > a
     fields:
       - name: "location"
         value: "Kasárna Karlín"
@@ -4742,39 +4742,33 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://www.kasarnakarlin.cz/en/program"
-      - name: "title"
+      - name: title
+        type: text
         location:
-          selector: ".event-title"
-      - name: "eventType"
+          - selector: span.leading-4.overflow-hidden.text-ellipsis.text-xl.tile-title.uppercase
+      - name: url
+        type: url
         location:
-          selector: ".field--type-string"
-        hide: true
-      - name: "url"
-        type: "url"
-        location:
-          selector: "article a"
-      - name: "date"
-        type: "date"
-        on_subpage: "url"
+          - attr: href
+      - name: date
+        type: date
+        on_subpage: url
         components:
           - covers:
               day: true
               month: true
+              year: true
             location:
-              selector: ".field--name-field-date-range"
-            layout: ["2. 1."]
+              selector: article > div > div > div > div > time
+            layout:
+              - 2. 1. 2006
           - covers:
               time: true
             location:
-              selector: ".field--name-field-text-time"
-              regex_extract:
-                exp: "[0-9]{2}[\\.:]{1}[0-9]{2}"
-            layout: ["15.04", "15:04"]
-        date_location: "Europe/Berlin"
-    filters:
-      - field: "eventType"
-        regex: "Koncert"
-        match: true
+              selector: article > div > div > div > div
+              child_index: 1
+            layout: [" 15.04"]
+        date_location: CET
 
   - name: MeetFactory
     url: "http://www.meetfactory.cz/en/program/hudba"
@@ -5030,6 +5024,66 @@ scrapers:
       location:
         selector: a.tribe-events-c-nav__next
 
+  #########
+  # Ulm
+  #########
+
+  - name: RoxyUlm
+    url: https://www.roxy.ulm.de/programm/programm.php
+    item: div.kalausgabe > div.veranstaltung:nth-child(2) > div.text:nth-child(2) > a
+    fields:
+      - name: "location"
+        value: "Roxy"
+      - name: "city"
+        value: "Ulm"
+      - name: country
+        value: Germany
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.roxy.ulm.de/programm/programm.php
+      - name: comment
+        type: text
+        location:
+          - selector: div.beschreibung:nth-child(3) > em
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.titel:nth-child(2)
+      - name: eventType
+        type: text
+        location:
+          - selector: div.reihe
+        hide: true
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.detailzusatz > div:nth-child(2)
+            layout: ["Mon. 2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.detailzusatz > div:nth-child(2)
+              child_index: 2
+            layout: ["15:04 H"]
+        date_location: CET
+        date_language: de_DE
+    filters:
+      - field: eventType
+        regex: "Treffpunkt"
+        match: false
+
   ##########
   # Vevey
   ##########
@@ -5177,11 +5231,6 @@ scrapers:
         location:
           selector: span.ticketing
         can_be_empty: true
-        hide: true
-    filters:
-      - field: ticketing
-        regex: "Ticket"
-        match: true
 
   # This one is a bit hackey because events that we actually want to exclude because they're old
   # are excluded because of a differently formatted date and hence a resulting date parsing error.
@@ -6472,7 +6521,7 @@ scrapers:
 
   - name: BrauereiOerlikon
     url: https://www.brauerei-oerlikon.ch/events/
-    item: div.E6jjcn > div.VM7gjN > div.Zc7IjY > div.comp-kwuqdcms2.YzqVVZ > div > div
+    item: div.E6jjcn > div.VM7gjN > div.Zc7IjY > div.comp-kwuqdcms2.YzqVVZ > div:nth-child(2) > div
     fields:
       - name: "location"
         value: "Brauerei Oerlikon"
@@ -6488,12 +6537,11 @@ scrapers:
           selector: div.comp-kwuqdcnd1.R6ex7N > a.kuTaGy.zKbzSQ
       - name: comment
         location:
-          selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn91.wixui-text > p.font_8 > span > span
+          selector: div:nth-child(3) > p.font_8 > span.wixui-rich-text__text > span.wixui-rich-text__text
         can_be_empty: true
-        hide: false
       - name: title
         location:
-          selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn51.wixui-text > h3.font_3
+          selector: div > h3
       - name: date
         type: date
         components:
@@ -6503,7 +6551,7 @@ scrapers:
               year: true
               time: true
             location:
-              selector: div.BaOVQ8.tz5f0K.comp-kwuqdcn2.wixui-text > p.font_8 > span > span > span
+              selector: div.wixui-rich-text > p.font_8 > span > span > span
             layout: ["2.1.06, 15:04"]
 
   - name: ZumWarmeWerni
@@ -6821,3 +6869,54 @@ scrapers:
             layout: ["15:04"]
         date_location: CET
     renderJs: true
+
+  - name: GzHoengg
+    url: https://gz-zh.ch/gz-hoengg/programm/
+    item: div.wrap > div > div.grid.no-gutters.row > article
+    fields:
+      - name: "city"
+        value: "Zurich"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://gz-zh.ch/gz-hoengg/programm/
+      - name: url
+        value: https://gz-zh.ch/gz-hoengg/programm/
+      - name: location
+        value: GZ Höngg
+      - name: title
+        type: text
+        location:
+          - selector: div.square > div.innerbox > h2.entry-title.m-0
+      - name: category
+        type: text
+        location:
+          - selector: div.square > div.innerbox > div.cat-title
+        can_be_empty: true
+        hide: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.square > div.innerbox > div.place-time:nth-child(3)
+            layout:
+              - Mon 2.1.2006
+          - covers:
+              time: true
+            location:
+              selector: div.square > div.innerbox > div.place-time:nth-child(3)
+              child_index: 2
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+        date_location: CET
+        date_language: de_DE
+    filters:
+      - field: category
+        regex: "^Events.*"
+        match: true
