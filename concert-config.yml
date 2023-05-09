@@ -3547,6 +3547,41 @@ scrapers:
         date_language: "en_GB"
     renderJs: true
 
+  - name: TheGeorgeTavern
+    url: https://dice.fm/venue/the-george-tavern-kx88
+    item: div.EventsListMultiColumn__EventsList-sc-1mneapl-1 > div.EventParts__EventBlock-sc-12dip7s-9 > a.EventParts__EventName-sc-12dip7s-0
+    fields:
+      - name: "location"
+        value: "The George Tavern"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://dice.fm/venue/the-george-tavern-kx88"
+      - name: title
+        type: text
+        location:
+          - {}
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: div.EventDetailsTitle__Container-v4l5yy-5 > div.EventDetailsTitle__Date-v4l5yy-2
+            layout:
+              - Mon, 2 Jan, 15:04 pm
+        date_location: Europe/London
+        date_language: en_GB
+
   ###########
   # Lucerne
   ###########
