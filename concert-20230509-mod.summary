@@ -1,0 +1,17 @@
+Reference Classne                       True Positives  False Positives True Negatives  Precision       Recall  F1 Score
+---------------                         --------------  --------------- --------------  ---------       ------  --------
+date-component-day                      372             100             18561           0.7881          0.8815  0.8322
+date-component-month-year               26              7               19044           0.7879          0.8125  0.8000
+title                                   4356            459             13427           0.9047          0.8382  0.8702
+comment                                 2355            709             15635           0.7686          0.8598  0.8116
+date-component-month                    369             35              18676           0.9134          0.9919  0.9510
+location                                424             103             18430           0.8046          0.7709  0.7874
+date-component-day-month-year           910             83              18060           0.9164          0.9681  0.9415
+date-component-day-month-time           105             24              18954           0.8140          1.0000  0.8974
+date-component-day-month-year-time      427             26              18565           0.9426          0.8679  0.9037
+date-component-year                     298             48              18647           0.8613          0.7680  0.8120
+city                                    10              5               19057           0.6667          0.4762  0.5556
+url                                     4975            9               14083           0.9982          0.9968  0.9975
+date-component-day-month                747             20              18305           0.9739          0.9855  0.9797
+date-component-time                     2037            44              16963           0.9789          0.9812  0.9800
+Overall accuracy: 0.9124
