@@ -6912,3 +6912,39 @@ scrapers:
       - field: category
         regex: "^Events.*"
         match: true
+
+  - name: GitarrenTotal
+    url: https://www.gitarrentotal.ch/live-at-the-guitar-store/
+    item: div.alignwide > div.is-layout-flow.wp-block-column
+    fields:
+      - name: location
+        value: Gitarren Total
+      - name: city
+        value: Zurich
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.gitarrentotal.ch/live-at-the-guitar-store/
+      - name: url
+        value: https://www.gitarrentotal.ch/live-at-the-guitar-store/
+      - name: title
+        location:
+          selector: strong
+          entire_subtree: true
+      - name: date
+        location:
+          selector: p:nth-child(2)
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: p:nth-child(2)
+            layout:
+              - 02.01.2006 – 15:04
+        date_location: CET
+        date_language: de_DE
