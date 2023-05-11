@@ -4711,9 +4711,11 @@ scrapers:
       - field: "status"
         regex: "Annulé"
         match: false
-    paginator:
-      location:
-        selector: "div.after.right > a"
+    ## commented for now because goskyr version 0.4.13 has some issues with completing the event-specific urls for events on the following pages.
+    # paginator:
+    #   location:
+    #     selector: "div.after.right > a"
+    #   max_pages: 2
 
   ##########
   # Prague
@@ -7030,3 +7032,194 @@ scrapers:
               - 02.01.2006 – 15:04
         date_location: CET
         date_language: de_DE
+
+  - name: Kulturmarkt
+    url: https://www.kulturmarkt.ch/veranstaltungen/
+    item: div.wrap > div.content > main.main > div.container-fluid > div.mt-5 > article.events.has-post-thumbnail.hentry.mb-4.status-publish.type-events > div.row
+    fields:
+      - name: "city"
+        value: "Zurich"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.kulturmarkt.ch/veranstaltungen/
+      - name: location
+        value: Kulturmarkt
+      - name: title
+        type: text
+        location:
+          - selector: div.col-md-5.order-md-2:nth-child(2) > h2.entry-title.mt-md-2 > a.stretched-link
+      - name: url
+        type: url
+        location:
+          - selector: div.col-md-5.order-md-2:nth-child(2) > h2.entry-title.mt-md-2 > a.stretched-link
+            attr: href
+      - name: eventType
+        type: text
+        location:
+          - selector: div.col-md-2 > div.row > div.col.col-md-12.mt-2:nth-child(2) > div.h4.kategorie.text-right
+        hide: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.col-md-5.order-md-2:nth-child(2) > div.d-md-block.d-none.h4.time > span.js-filter-time
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.col-md-2 > div.row > div.col-auto.col-md-12 > div.datum.h2.text-md-right > span.js-filter-date
+            layout:
+              - Mon 2. Jan
+        date_location: CET
+        date_language: de_DE
+    filters:
+      - field: eventType
+        regex: Ausstellung
+        match: false
+      - field: eventType
+        regex: Theater
+        match: false
+
+  - name: BarAmEgge
+    url: https://baramegge.ch/programm/konzerte/
+    item: div.uk-margin-remove-bottom.uk-margin-remove-top.uk-margin-small.uk-text-center > div.uk-child-width-1-1.uk-grid-small > div > div.el-item
+    fields:
+      - name: "city"
+        value: "Zurich"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://baramegge.ch/programm/konzerte/
+      - name: url
+        value: https://baramegge.ch/programm/konzerte/
+      - name: location
+        value: Bar Am Egge
+      - name: comment
+        type: text
+        location:
+          - selector: div.el-content.uk-panel:nth-child(3) > p
+      - name: title
+        type: text
+        location:
+          - selector: h4.el-title.uk-margin-remove-bottom.uk-margin-remove-top
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.el-meta
+            layout:
+              - Mon 2.1.2006 / 15:04
+        date_location: CET
+        date_language: de_DE
+
+  - name: GotthardBar
+    url: https://www.gotthard-bar.ch/
+    item: main > article > div.post-inner.thin > div.entry-content > div.mec-skin-list-container.mec-wrap > div.mec-skin-list-events-container > div.colorskin-custom.mec-wrap > div.mec-event-list-standard > article.mec-clear.mec-divider-toggle.mec-event-article > div.mec-topsec
+    fields:
+      - name: "city"
+        value: "Zurich"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.gotthard-bar.ch/
+      - name: location
+        value: Gotthard Bar
+      - name: title
+        type: text
+        location:
+          - selector: h3.mec-event-title > a.mec-color-hover
+      - name: url
+        type: url
+        location:
+          - selector: h3.mec-event-title > a.mec-color-hover
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.mec-color-before.mec-event-meta > div.mec-time-details:nth-child(2) > span.mec-start-time
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.mec-color-before.mec-event-meta > div.mec-date-details > span.mec-event-d
+            layout:
+              - 2.1.2006
+        date_location: CET
+    filters:
+      - field: title
+        regex: "Live:.*"
+        match: true
+
+  - name: PavillonLeCorbusier
+    url: https://pavillon-le-corbusier.ch/en/vermittlung/
+    item: body.en.page.page-id-2971.page-template-default > div.main-content > div.container-fluid > div.row > div.col-sm-12.main-content-inner > div.normal-agenda > div.agenda-row.row > div.col-sm-12 > div.agenda-event.plc > a.agenda-event-link
+    fields:
+      - name: "city"
+        value: "Zurich"
+      - name: location
+        value: Pavillon Le Corbusier
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://pavillon-le-corbusier.ch/en/vermittlung/
+      - name: eventType
+        type: text
+        location:
+          - selector: div.row > div.col-sm-6:nth-child(3) > div.event-title-info > div.desktop.event-type
+        hide: true
+      - name: title
+        type: text
+        location:
+          - selector: div.row > div.col-sm-2 > div.event-title-mobile:nth-child(2)
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.row > div.col-sm-2.time-desktop-column > div.desktop
+              regex_extract:
+                exp: "[0-9\\.]+–"
+            transform:
+              - type: regex-replace
+                regex: –
+                replace: pm
+            layout:
+              - 15pm
+              - 15.04pm
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.row > div.col-sm-2 > div.event-date:nth-child(3)
+              regex_extract:
+                exp: "[0-9\\.]+"
+            layout:
+              - "2.1.2006"
+        date_location: CET
+        date_language: en_US
+    filters:
+      - field: eventType
+        regex: Concert
+        match: true
