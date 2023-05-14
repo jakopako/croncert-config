@@ -1,6 +1,8 @@
 writer:
-  type: "api"
-  # The other parameters are defined as env variables.
+  # type: "api"
+  # # The other parameters are defined as env variables.
+  type: file
+  filepath: "events.json"
 
 # Scraper configs are grouped by city and cities are sorted alphabetically.
 scrapers:
@@ -1741,7 +1743,7 @@ scrapers:
 
   - name: Kantine
     url: https://kantine.com/eventliste/
-    item: body.et-db.et-tb-has-footer.et-tb-has-template.et_cover_background.et_divi_theme.et_fixed_nav.et_header_style_left.et_no_sidebar.et_pb_button_helper_class.et_pb_gutter.et_pb_gutters3.et_pb_pagebuilder_layout.et_primary_nav_dropdown_animation_fade.et_secondary_nav_dropdown_animation_fade.et_show_nav.page.page-id-5470.page-template-default.tribe-no-js > div > div.et-boc > div > div > article.hentry.page.post-5470.status-publish.type-page > div.entry-content > div.et-l.et-l--post > div.et_builder_inner_content.et_pb_gutters3 > div.et_pb_section.et_pb_section_1.et_section_regular > div.et_pb_row.et_pb_row_1 > div.et-last-child.et_pb_column.et_pb_column_1.et_pb_column_4_4.et_pb_css_mix_blend_mode_passthrough > div.decm_event_display.decm_event_display_0.et_pb_bg_layout_.et_pb_module.et_pb_with_border > div.et_pb_module_inner > div > div > div.append_events.ecs-event-list.event-display_style.row.row_equal > div.clearfix.col-lg-12.col-sm-12.col-xs-12.ecs-event.ecs-event-posts > article.act-post.et_pb_with_border > div.row > div.col-6.col-md-6 > div.decm-events-details
+    item: div.row > div.col-6.col-md-6 > div.decm-events-details
     fields:
       - name: "type"
         value: "concert"
@@ -1784,6 +1786,12 @@ scrapers:
           - selector: div.decm-show-detail-center > span.decm-show-data-display-block.duration.ecs-eventTime.eventTime-ecs-icon.time > span.decm-show-data-display-block.duration.ecs-venue.venue.venue-ecs-icon > span.decm_venue
             regex_extract:
               exp: "[a-zA-Z]+( [a-zA-Z]+)?"
+    renderJs: true
+    interaction:
+      type: click
+      selector: div.et_pb_section.et_pb_section_1.et_section_regular > div > div > div > div > div > div > div.event_ajax_load.et_pb_button_wrapper > a
+      count: 3
+      delay: 3000
     filters:
       - field: "title"
         regex: ".*(?i)(abgesagt).*"
@@ -5587,11 +5595,17 @@ scrapers:
               year: true
             location:
               selector: span.col-md-1.suite_EvenDate > span.suite_datePlate > span.suite_year
-            layout: ["Jan. | 2006"]
+            layout: ["Jan. | 2006", "Jan | 2006"]
             transform:
               - type: regex-replace
                 regex: MRZ
                 replace: Mär
+              - type: regex-replace
+                regex: SEPT
+                replace: Sep
+              - type: regex-replace
+                regex: FEBR
+                replace: Feb
           - covers:
               day: true
             location:
@@ -5600,6 +5614,10 @@ scrapers:
         date_location: "Europe/Berlin"
         date_language: "de_DE"
     renderJs: true
+    paginator:
+      location:
+        selector: "#dnn_ctr1076_ViewEventListDirectTicketing_ctl01 > div:nth-child(4) > div > p:nth-child(3) > a:nth-child(3)"
+      max_pages: 5 # we have to set a max because the selector is always there, even if there are no more pages
     filters:
       - field: "title"
         regex: ".*ABGESAGT.*"
@@ -5901,6 +5919,11 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
+    renderJs: true
+    interaction:
+      type: click
+      selector: main > section:nth-child(4) > div.justify-between > div > button:nth-child(2)
+      count: 1
 
   - name: ElLokal
     url: "http://www.ellokal.ch/?lang=de&details=9"
@@ -7039,7 +7062,7 @@ scrapers:
 
   - name: Kulturmarkt
     url: https://www.kulturmarkt.ch/veranstaltungen/
-    item: div.wrap > div.content > main.main > div.container-fluid > div.mt-5 > article.events.has-post-thumbnail.hentry.mb-4.status-publish.type-events > div.row
+    item: div.wrap > div.content > main.main > div.container-fluid > div.mt-5 > article.type-events > div.row
     fields:
       - name: "city"
         value: "Zurich"
@@ -7081,6 +7104,10 @@ scrapers:
               - Mon 2. Jan
         date_location: CET
         date_language: de_DE
+    renderJs: true
+    interaction:
+      type: click
+      selector: body > div.wrap > div > main > div.container-fluid > button
     filters:
       - field: eventType
         regex: Ausstellung
@@ -7165,6 +7192,11 @@ scrapers:
             layout:
               - 2.1.2006
         date_location: CET
+    renderJs: true
+    interaction:
+      type: click
+      selector: div.mec-load-more-wrap > div
+      count: 2
     filters:
       - field: title
         regex: "Live:.*"
