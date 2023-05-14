@@ -1077,7 +1077,7 @@ scrapers:
   #############
   - name: Majestic
     url: http://www.majestic.sk/program
-    item: body > div.container-fixed > div.container-item > section.upcoming-events > div > table.event-list-simple > tbody > tr.event-list-simple-item > td.event-list-simple-info
+    item: div.elementor-align-left.elementor-align-left.elementor-widget-tootoot-event-list > div.elementor-widget-container > div.tt-layout-tiles > div.tt-entity-list-container.tt-event-list > div.tt-evt-li > div.tt-evt-li__event-info
     fields:
       - name: "type"
         value: "concert"
@@ -1087,14 +1087,15 @@ scrapers:
         value: "Majestic"
       - name: "sourceUrl"
         value: "http://www.majestic.sk/program"
+      - name: title
+        type: text
+        location:
+          - selector: a.tt-evt-li__name > span.clickable--ProfileName
       - name: url
         type: url
         location:
-          selector: a.event-list-simple-title
-          attr: href
-      - name: title
-        location:
-          selector: a.event-list-simple-title
+          - selector: a.tt-evt-li__name
+            attr: href
       - name: date
         type: date
         components:
@@ -1104,10 +1105,13 @@ scrapers:
               year: true
               time: true
             location:
-              selector: div.event-list-simple-start
-              child_index: 2
-            layout: ["2. 1. 2006\n\t\t\t\t@ 15:04"]
-        date_location: "Europe/Berlin"
+              selector: div.elementor-repeater-item-ff3fa99.tt-evt-li__sub-info.tt-evt-li__sub-info--BeginDate
+              # sk_SK not supported by goodsign/monday. Therefore, we need to strip the day of the week
+              regex_extract:
+                exp: "[0-9\\.@: ]+"
+            layout:
+              - " 2.1.2006 @15:04"
+        date_location: CET
 
   ##########
   # Bruges
