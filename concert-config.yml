@@ -7259,3 +7259,44 @@ scrapers:
       - field: eventType
         regex: Concert
         match: true
+
+  - name: Barfussbar
+    url: https://barfussbar.ch/de/live-am-mittwuch/
+    item: section > div:nth-child(7) > div > div > div > div > div > div > div > div > div:nth-child(1) > div > div > div.grid-item > div.manage-spacings
+    fields:
+      - name: "city"
+        value: "Zurich"
+      - name: location
+        value: Barfussbar
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://barfussbar.ch/de/live-am-mittwuch/
+      - name: title
+        type: text
+        location:
+          - selector: div.heading-container:nth-child(2) > h2.heading > a
+      - name: url
+        type: url
+        location:
+          - selector: div.heading-container:nth-child(2) > h2.heading > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.date-container
+            layout:
+              - 2. January 2006, ab 15 Uhr
+        date_location: CET
+        date_language: de_DE
+    renderJs: true
+    interaction:
+      type: click
+      selector: section > div:nth-child(7) > div > div > div > div > div > div > div > div > div.load-more-container > a > span
+      count: 2
