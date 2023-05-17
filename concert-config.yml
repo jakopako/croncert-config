@@ -1,8 +1,6 @@
 writer:
-  # type: "api"
+  type: "api"
   # # The other parameters are defined as env variables.
-  type: file
-  filepath: "events.json"
 
 # Scraper configs are grouped by city and cities are sorted alphabetically.
 scrapers:
