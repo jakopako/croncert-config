@@ -7298,3 +7298,51 @@ scrapers:
       type: click
       selector: section > div:nth-child(7) > div > div > div > div > div > div > div > div > div.load-more-container > a > span
       count: 2
+
+  - name: ZoaCity
+    url: https://zoacity.ch/
+    item: div.hfeed.site > div.site-content > div.col-full > div.version-2020 > div.card-panel > div.card-row.row-drop-shadow > div.card.card-img.flex-col > div.card-middle:nth-child(2) > div.event-home-infos > div.fuhkg > div.infos-wrap > a
+    fields:
+      - name: city
+        value: "Zurich"
+      - name: location
+        value: Zoa City
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://zoacity.ch/
+      - name: title
+        type: text
+        location:
+          - selector: p.line1.title
+          - selector: p.support:nth-child(3)
+        separator: ", "
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: p.einlass:nth-child(5)
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2} UHR"
+            layout:
+              - 15.04 UHR
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: p.datum:nth-child(4)
+            layout:
+              - Monday 2.1.2006
+        date_location: CET
+        date_language: de_DE
+    filters:
+      - field: title
+        regex: ARTBAT
+        match: false
