@@ -6971,57 +6971,6 @@ scrapers:
         date_location: CET
     renderJs: true
 
-  - name: GzHoengg
-    url: https://gz-zh.ch/gz-hoengg/programm/
-    item: div.wrap > div > div.grid.no-gutters.row > article
-    fields:
-      - name: "city"
-        value: "Zurich"
-      - name: "type"
-        value: "concert"
-      - name: "sourceUrl"
-        value: https://gz-zh.ch/gz-hoengg/programm/
-      - name: url
-        value: https://gz-zh.ch/gz-hoengg/programm/
-      - name: location
-        value: GZ Höngg
-      - name: title
-        type: text
-        location:
-          - selector: div.square > div.innerbox > h2.entry-title.m-0
-      - name: category
-        type: text
-        location:
-          - selector: div.square > div.innerbox > div.cat-title
-        can_be_empty: true
-        hide: true
-      - name: date
-        type: date
-        components:
-          - covers:
-              day: true
-              month: true
-              year: true
-            location:
-              selector: div.square > div.innerbox > div.place-time:nth-child(3)
-            layout:
-              - Mon 2.1.2006
-          - covers:
-              time: true
-            location:
-              selector: div.square > div.innerbox > div.place-time:nth-child(3)
-              child_index: 2
-              regex_extract:
-                exp: "[0-9]{2}:[0-9]{2}"
-            layout:
-              - 15:04
-        date_location: CET
-        date_language: de_DE
-    filters:
-      - field: category
-        regex: "^Events.*"
-        match: true
-
   - name: GitarrenTotal
     url: https://www.gitarrentotal.ch/live-at-the-guitar-store/
     item: div.alignwide > div.is-layout-flow.wp-block-column
@@ -7346,3 +7295,65 @@ scrapers:
       - field: title
         regex: ARTBAT
         match: false
+
+  - name: GzZh
+    url: https://gz-zh.ch/?zielgruppen=erwachsene&sparte=events,musik
+    item: div.wrap > div > div.grid.no-gutters.row > article.col-6.col-lg-3.col-md-4.col-xl-2.grid-item.has-image > div.loaded.square > div.innerbox
+    fields:
+      - name: city
+        value: "Zurich"
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://gz-zh.ch/?zielgruppen=erwachsene&sparte=events,musik
+      - name: location
+        type: text
+        location:
+          - selector: div.place-time:nth-child(3)
+            child_index: 2
+      - name: title
+        type: text
+        location:
+          - selector: h2.entry-title.m-0
+      - name: eventType
+        type: text
+        location:
+          - selector: div.cat-title
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.place-time:nth-child(3) > div.filter-date
+              child_index: 2
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.place-time:nth-child(3) > div.filter-date
+            layout:
+              - Mon 2.1.2006
+        date_location: CET
+        date_language: de_DE
+    renderJs: true
+    interaction:
+      type: click
+      selector: "#container-async > button"
+      count: 3
+      delay: 3000
+    filters:
+      - field: eventType
+        regex: "^Musik$"
+        match: true
+      - field: title
+        regex: ".*Konzert.*"
+        match: true
+      - field: eventType
+        regex: "^Events, Musik$"
+        match: true
