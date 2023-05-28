@@ -7306,6 +7306,8 @@ scrapers:
         value: concert
       - name: sourceUrl
         value: https://gz-zh.ch/?zielgruppen=erwachsene&sparte=events,musik
+      - name: url
+        value: https://gz-zh.ch/?zielgruppen=erwachsene&sparte=events,musik
       - name: location
         type: text
         location:
