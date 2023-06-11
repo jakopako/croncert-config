@@ -658,8 +658,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.gig_main > div.scroll.nano > div.text.nano-content > span.lineup
-              node_index: 1
+              selector: div.gig_top > span.date
               regex_extract:
                 exp: "Show: [0-9\\.]+"
               entire_subtree: true
@@ -1417,7 +1416,7 @@ scrapers:
 
   - name: Subterranean
     url: https://www.subt.net/calendar/
-    item: main > div.container > div > div.flexdisplay.flexdisplay--artistevents > div.flexmedia.flexmedia--artistevents > div.eventinfo
+    item: main > div.container > div > div > div.tw-plugin-calendar-list > div.tw-cal-event > div.row
     fields:
       - name: location
         value: Subterranean
@@ -1430,11 +1429,11 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: a > span.artisteventsname
+          - selector: div.columns.ten > div.tw-name:nth-child(2) > a
       - name: url
         type: url
         location:
-          - selector: a
+          - selector: div.columns.ten > div.tw-name:nth-child(2) > a
             attr: href
       - name: date
         type: date
@@ -1442,27 +1441,23 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.artisteventdatetime > span.artisteventshowtime:nth-child(2)
+              selector: div.columns.two:nth-child(3) > a.tw-cal-button > span.tw-event-time-complete:nth-child(2) > span.tw-event-time
             layout:
-              - 15:04 PM
+              - 15:04 pm
           - covers:
               day: true
               month: true
               year: true
             location:
-              selector: div.artisteventdatetime > span.artisteventdate
+              selector: div.tw-date:nth-child(2) > span.tw-event-date-complete:nth-child(2) > span.tw-event-date
             layout:
-              - Mon January 2, 2006
+              - January 2, 2006
         date_location: America/Chicago
         date_language: en_US
-    paginator:
-      location:
-        selector: div.tw-paginate > span > span.next > a
-      max_pages: 10
 
   - name: BeatKitchen
     url: https://www.beatkitchen.com/calendar/
-    item: main > div.container > div > div > div.tw-plugin-upcoming-event-list > div.container > div.tw-section > div.row > div.columns.six:nth-child(3)
+    item: main > div.container > div > div > div.tw-plugin-calendar-list > div.tw-cal-event > div.row
     fields:
       - name: location
         value: Beat Kitchen
@@ -1475,11 +1470,11 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.tw-name > a
+          - selector: div.columns.ten > div.tw-name:nth-child(2) > a
       - name: url
         type: url
         location:
-          - selector: div.tw-name > a
+          - selector: div.columns.ten > div.tw-name:nth-child(2) > a
             attr: href
       - name: date
         type: date
@@ -1487,7 +1482,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.tw-date-time:nth-child(2) > span.tw-event-time-complete:nth-child(3) > span.tw-event-time
+              selector: div.columns.two:nth-child(3) > a.tw-cal-button > span.tw-event-time-complete:nth-child(2) > span.tw-event-time
             layout:
               - 15:04 pm
           - covers:
@@ -1495,14 +1490,11 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.tw-date-time:nth-child(2) > span.tw-event-date-complete:nth-child(2) > span.tw-event-date
+              selector: div.tw-date:nth-child(2) > span.tw-event-date-complete:nth-child(2) > span.tw-event-date
             layout:
               - January 2, 2006
         date_location: America/Chicago
         date_language: en_US
-    paginator:
-      location:
-        selector: div.tw-paginate > span > span.next > a
 
   - name: Metro
     url: https://metrochicago.com/events/
