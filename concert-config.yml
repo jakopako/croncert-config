@@ -2560,7 +2560,7 @@ scrapers:
 
   - name: BleuLezard
     url: https://stadtkonzerte.ch/locations/bleu-lezard-lausanne
-    item: body.body > div.page > div.page__column.page__column--left > div.container > div.content > div.sk_gig-day-container > div.gig_day
+    item: body > div.page > div.page__column.page__column--left > div.container > div.content > div.sk_gig-day-container > div.gig_day
     fields:
       - name: location
         value: La Cave du Bleu Lézard
@@ -5401,8 +5401,8 @@ scrapers:
         match: false
 
   - name: Flex
-    url: "http://flex.at/flex_frontend/index.php?selected=programm"
-    item: "#programmWatchList .overview tr table"
+    url: https://flex.at/
+    item: div.elementor-widget-container > div.ectbe-list-wrapper.ectbe-wrapper > div.ectbe-content > div.ectbe-inner-wrapper.ectbe-simple-event
     fields:
       - name: "location"
         value: "Flex"
@@ -5413,36 +5413,59 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "http://flex.at/flex_frontend/index.php?selected=programm"
-      - name: "title"
+        value: https://flex.at/
+      - name: title
+        type: text
         location:
-          selector: ".watchListInfo a"
-          child_index: 2
-      - name: "comment"
+          - selector: div.ectbe-nested-content:nth-child(2) > h2
+      - name: cat
+        type: text
         location:
-          selector: ".contentBoldYellow"
-      - name: "url"
-        type: "url"
+          - selector: div.ectbe-nested-content:nth-child(2) > div.ectbe-ev-cate.elementor-repeater-item-bf40761 > ul.ectbe-evt-category > li.ectbe-each-cate > a
+            all_nodes: true
+            separator: ", "
+        hide: true
+      - name: url
+        type: url
         location:
-          selector: ".watchListInfo a"
-      - name: "date"
-        type: "date"
+          - selector: div.ectbe-evt-more-box > a
+            attr: href
+      - name: date
+        type: date
         components:
-          - covers:
-              day: true
-              month: true
-              year: true
-            location:
-              selector: ".contentBoldWhite a"
-            layout: ["02.01.2006"]
           - covers:
               time: true
             location:
-              selector: ".watchListInfo a"
+              selector: div.ectbe-nested-content:nth-child(2) > div.ectbe-evt-time:nth-child(3)
+              child_index: 1
               regex_extract:
-                exp: "[0-9]{2}:[0-9]{2}"
-            layout: ["15:04"]
-        date_location: "Europe/Berlin"
+                exp: "[0-9]{1,2}:[0-9]{2}"
+            layout:
+              - 15:04
+          - covers:
+              month: true
+            location:
+              selector: div.ectbe-date-wrp > span.ectbe-ev-mo:nth-child(2)
+            layout:
+              - Jan
+          - covers:
+              day: true
+            location:
+              selector: div.ectbe-date-wrp > span.ectbe-ev-day
+            layout:
+              - "2"
+        date_location: CET
+        date_language: de_DE
+    renderJs: true
+    interaction:
+      type: click
+      selector: div.ectbe-pagination > div > a > span
+      count: 2
+      delay: 3000
+    filters:
+      - field: cat
+        regex: ".*Live.*"
+        match: true
 
   - name: Konzerthaus
     url: "https://konzerthaus.at/kalender"
@@ -7138,7 +7161,7 @@ scrapers:
 
   - name: PavillonLeCorbusier
     url: https://pavillon-le-corbusier.ch/en/vermittlung/
-    item: body.en.page.page-id-2971.page-template-default > div.main-content > div.container-fluid > div.row > div.col-sm-12.main-content-inner > div.normal-agenda > div.agenda-row.row > div.col-sm-12 > div.agenda-event.plc > a.agenda-event-link
+    item: body > div.main-content > div.container-fluid > div.row > div.col-sm-12.main-content-inner > div.normal-agenda > div.agenda-row.row > div.col-sm-12 > div.agenda-event.plc > a.agenda-event-link
     fields:
       - name: "city"
         value: "Zurich"
