@@ -1585,7 +1585,7 @@ scrapers:
 
   - name: SleepingVillage
     url: https://sleeping-village.com/events/
-    item: div.generalView.list > div.col-12.eventWrapper.rhpSingleEvent > div.g-0.row
+    item: div > div.siteWrap > div > div.maxWidth > div.listings-block > div.listings-block__inner > div.listings-block-list > div.listings-block-list__wrapper > div.listings-block-list__listing > div.listing__details:nth-child(2) > div
     fields:
       - name: location
         value: Sleeping Village
@@ -1595,14 +1595,18 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: https://sleeping-village.com/events/
+      - name: comment
+        type: text
+        location:
+          - selector: div.listing__description:nth-child(4) > p
       - name: title
         type: text
         location:
-          - selector: div.col-12.eventTitleDiv.px-0 > a.url > h2
+          - selector: a.listing__title-link > h3.listing__title
       - name: url
         type: url
         location:
-          - selector: div.col-12.eventTitleDiv.px-0 > a.url
+          - selector: a.listing__title-link
             attr: href
       - name: date
         type: date
@@ -1610,27 +1614,18 @@ scrapers:
           - covers:
               day: true
               month: true
-            location:
-              selector: a.url > div.eventDateList:nth-child(3) > div.eventMonth.mb-0.singleEventDate.text-uppercase
-            layout:
-              - Mon, Jan 2
-              - Mon, January 2
-            transform:
-              - type: regex-replace
-                regex: Sept
-                replace: Sep
-          - covers:
               time: true
             location:
-              selector: div.d-block.eventDoorStartDate.eventsColor > span
-              regex_extract:
-                exp: "[0-9]{1,2}[0-9:]*[ap]{1}m"
-                index: -1
+              selector: p.listing-date-time > span.listing-date-time__date > span
             layout:
-              - 15pm
-              - 15:04pm
+              - Mon, Jan 2 15:04PM
         date_location: America/Chicago
         date_language: en_US
+    renderJs: true
+    paginator:
+      location:
+        selector: body > div:nth-child(1) > div > div:nth-child(2) > div > div > div:nth-child(4) > div > a.pagination-next.pagination-prev-next
+      max_pages: 3
 
   - name: GoldenDagger
     url: https://goldendagger.com/
