@@ -5420,6 +5420,7 @@ scrapers:
           - selector: div.ectbe-nested-content:nth-child(2) > h2
       - name: cat
         type: text
+        can_be_empty: true
         location:
           - selector: div.ectbe-nested-content:nth-child(2) > div.ectbe-ev-cate.elementor-repeater-item-bf40761 > ul.ectbe-evt-category > li.ectbe-each-cate > a
             all_nodes: true
