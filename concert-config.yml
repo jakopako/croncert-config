@@ -501,8 +501,8 @@ scrapers:
         date_location: "Europe/Berlin"
 
   - name: KaserneBasel
-    url: https://www.kaserne-basel.ch/en/programme
-    item: body > div > div.app.app--splash > div.app__scroller > div.app__content > div.page > div.page__content > div.events > section.events__day > div.events__day-events > article.events__event
+    url: https://kaserne-basel.ch/en
+    item: body > div > main > div.container > div.index > details
     fields:
       - name: "location"
         value: Kaserne Basel
@@ -511,66 +511,49 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://www.kaserne-basel.ch/en/programme"
+        value: "https://kaserne-basel.ch/en"
+      - name: eventType
+        type: text
+        location:
+          - selector: summary > div.event-container > div.event-content > div.category
+      - name: comment
+        can_be_empty: true
+        type: text
+        location:
+          - selector: summary > div.event-container > div.event-content > h3.subtitle
+      - name: title
+        type: text
+        location:
+          - selector: summary > div.event-container > div.event-content > h2
+      - name: url
+        type: url
+        location:
+          - selector: div.spotlight > a.button:nth-child(5)
+            attr: href
       - name: date
         type: date
         components:
           - covers:
               day: true
               month: true
-              year: true
-            location:
-              selector: div.events__event-image > div.events__event-image-inner > a.events__event-link
-              attr: href
-              regex_extract:
-                exp: "([0-9]{2}-){2}[0-9]{4}"
-            layout: ["02-01-2006"]
-          - covers:
               time: true
             location:
-              selector: div.events__event-content > div.events__event-text > div.events__event-time
-              regex_extract:
-                exp: "[0-9]{2}:[0-9]{2}h"
-            layout: ["15:04h"]
+              selector: summary > div.event-container > div.event-content > time
+            layout:
+              - 2. January 15:04
         date_location: CET
-      - name: url
-        type: url
-        location:
-          selector: div.events__event-image > div.events__event-image-inner > a.events__event-link
-          attr: href
-      - name: eventType
-        type: text
-        location:
-          selector: div.events__event-content > div.events__event-tags > div.events__event-tag
-        hide: true
-      - name: title
-        type: text
-        location:
-          selector: div.events__event-content > div.events__event-text > div.events__event-author
-      - name: comment
-        on_subpage: url
-        location:
-          selector: article > div.event__boxes > div > div:nth-child(1) > div > div > p
-        can_be_empty: true
+        date_language: en_US
+        guess_year: true
     renderJs: true
     filters:
       - field: "eventType"
-        regex: "Lesung"
+        regex: "Theatre"
         match: false
       - field: "eventType"
-        regex: "Schulvorstellungen"
+        regex: ".*Lecture.*"
         match: false
       - field: "eventType"
-        regex: "Austausch"
-        match: false
-      - field: "eventType"
-        regex: "Theater"
-        match: false
-      - field: "eventType"
-        regex: "Podiumsdiskussion"
-        match: false
-      - field: "eventType"
-        regex: "Beitragsabend"
+        regex: "Workshop"
         match: false
 
   - name: Offbeat
