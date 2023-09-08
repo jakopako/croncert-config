@@ -510,6 +510,7 @@ scrapers:
               - FR 02.01.2006
               - SA 02.01.2006
               - SO 02.01.2006
+        date_location: "Europe/Berlin"
       - name: url
         type: url
         location:
@@ -520,7 +521,7 @@ scrapers:
         location:
           - selector: div.grid-item > div.event-title > div.event-title-wrapper > h4
             child_index: 2
-  
+
   - name: ParterreOne
     url: "https://www.parterre.net/de/musik-kultur/one-music/programm?category=1"
     item: "section.oneprog .upcomingprev"
