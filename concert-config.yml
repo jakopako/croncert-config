@@ -6534,15 +6534,15 @@ scrapers:
         type: "url"
         location:
           selector: "h2 a"
-      - name: "comment" # FIXME
+      - name: "comment"
         location:
-          selector: ".col-md-8 p"
-          node_index: 2
+          selector: "div.col-md-8 > p:nth-child(6)"
         can_be_empty: true
       - name: "eventType"
         location:
           selector: ".col-md-8 div.pt-0.pb-2.mb-2"
           entire_subtree: true
+        hide: true
       - name: "date"
         type: "date"
         components:
