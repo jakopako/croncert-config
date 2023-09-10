@@ -260,7 +260,8 @@ scrapers:
       - name: eventType
         type: text
         location:
-          - selector: div.vc_col-sm-2.vc_custom_1621260411052.vc_gitem-col.vc_gitem-col-align-:nth-child(2) > div.field_60a23a847bcea.font-icon.vc_gitem-acf.vc_gitem-align-center
+          # - selector: div.vc_col-sm-2.vc_custom_1621260411052.vc_gitem-col.vc_gitem-col-align-:nth-child(2) > div.field_60a23a847bcea.font-icon.vc_gitem-acf.vc_gitem-align-center
+          - selector: div.vc_col-sm-2.vc_gitem-col.vc_gitem-col-align-.vc_custom_1621260411052 > div
         hide: true
       - name: date
         type: date
@@ -268,14 +269,14 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.vc_col-sm-4.vc_gitem-col.vc_gitem-col-align- > div.field_60a26624c6c72.time-agenda.vc_gitem-acf.vc_gitem-align-center:nth-child(2)
+              selector: div.vc_col-sm-4.vc_gitem-col.vc_gitem-col-align- > div.vc_gitem-acf.time-agenda.vc_gitem-align-center
             layout:
               - 15:04 pm
           - covers:
               day: true
               month: true
             location:
-              selector: div.vc_col-sm-4.vc_gitem-col.vc_gitem-col-align- > div.date-agenda.field_60a2681523738.vc_gitem-acf.vc_gitem-align-center
+              selector: div.vc_col-sm-4.vc_gitem-col.vc_gitem-col-align- > div.vc_gitem-post-meta-field-_agenda_short_date.date-agenda.vc_gitem-align-center
             layout:
               - January 2
         date_location: CET
