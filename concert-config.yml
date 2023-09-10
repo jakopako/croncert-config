@@ -6516,7 +6516,7 @@ scrapers:
         match: false
 
   - name: Photobastei
-    url: "https://www.photobastei.ch/site/program?next=12"
+    url: "https://www.photobastei.ch/site/program?prev=3&next=36"
     item: ".event-summary"
     fields:
       - name: "location"
@@ -6526,7 +6526,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://www.photobastei.ch/site/program?next=12"
+        value: "https://www.photobastei.ch/site/program?prev=3&next=21"
       - name: "title"
         location:
           selector: "h2 a"
@@ -6534,11 +6534,15 @@ scrapers:
         type: "url"
         location:
           selector: "h2 a"
-      - name: "comment"
+      - name: "comment" # FIXME
         location:
           selector: ".col-md-8 p"
           node_index: 2
         can_be_empty: true
+      - name: "eventType"
+        location:
+          selector: ".col-md-8 div.pt-0.pb-2.mb-2"
+          entire_subtree: true
       - name: "date"
         type: "date"
         components:
@@ -6548,7 +6552,6 @@ scrapers:
               year: true
             location:
               selector: ".col-md-8"
-              node_index: 0
               regex_extract:
                 exp: "([0-9]{2}\\.){2}[0-9]{2}"
               entire_subtree: true
@@ -6557,12 +6560,16 @@ scrapers:
               time: true
             location:
               selector: ".col-md-8"
-              node_index: 0
               entire_subtree: true
               regex_extract:
-                exp: "[0-9]{2}:[0-9]{2}"
-            layout: ["15:04"]
+                exp: "[0-9]{2}[:\\.]{1}[0-9]{2}"
+                index: -1
+            layout: ["15:04", "15.04"]
         date_location: "Europe/Berlin"
+    filters:
+      - field: eventType
+        regex: Konzert
+        match: true
 
   - name: Komplex457
     url: "https://komplex-457.ch/event/"
@@ -6613,6 +6620,7 @@ scrapers:
         match: false
       - field: title
         regex: ".*(?i)(verschoben).*"
+        match: false
 
   - name: BrauereiOerlikon
     url: https://www.brauerei-oerlikon.ch/events/
