@@ -463,6 +463,79 @@ scrapers:
   ########
   # Basel
   ########
+  - name: Humbug
+    url: https://www.humbug.club/programm
+    item: body > div.content-wrapper > div.programm-grid > a
+    fields:
+      - name: "location"
+        value: "Humbug"
+      - name: city
+        value: "Basel"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.humbug.club/programm
+      - name: title
+        type: text
+        location:
+          - selector: div.grid-item > div.event-title > div.event-title-wrapper > h4
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.grid-item > div.event-title > p.event-date
+            layout:
+              - MI 02-01-06
+              - DO 02-01-06
+              - FR 02-01-06
+              - SA 02-01-06
+              - SO 02-01-06
+              - MO 02.01.06
+              - DI 02.01.06
+              - MI 02.01.06
+              - DO 02.01.06
+              - FR 02.01.06
+              - SA 02.01.06
+              - SO 02.01.06
+              - MI 02-01-2006
+              - DO 02-01-2006
+              - FR 02-01-2006
+              - SA 02-01-2006
+              - SO 02-01-2006
+              - MI 02.01.2006
+              - DO 02.01.2006
+              - FR 02.01.2006
+              - SA 02.01.2006
+              - SO 02.01.2006
+              - MO-02.01.2006
+              - DI-02.01.2006
+              - MI-02.01.2006
+              - DO-02.01.2006
+              - FR-02.01.2006
+              - SA-02.01.2006
+              - SO-02.01.2006
+        date_location: "Europe/Berlin"
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: comment
+        type: text
+        can_be_empty: true
+        location:
+          - selector: div.grid-item > div.event-title > div.event-title-wrapper > h4
+            child_index: 2
+    filters:
+      - field: "title"
+        regex: ".*(?i)(abgesagt).*"
+        match: false
+
   - name: ParterreOne
     url: "https://www.parterre.net/de/musik-kultur/one-music/programm?category=1"
     item: "section.oneprog .upcomingprev"
