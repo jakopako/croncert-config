@@ -4601,6 +4601,201 @@ scrapers:
         date_location: "Europe/Berlin"
         date_language: "nl_NL"
 
+  #############
+  # Nuremberg
+  #############
+
+  - name: Loewensaal
+    url: https://www.loewensaal.com/programm.html
+    item: body > div.page > div.content-wrapper > section.main-content > div.block.mod_article > div.ce_rsce_tao_centered_wrapper_start.centered-wrapper > div.centered-wrapper-inner > div.block.hirscheventlistprogramm.mod_eventlist > div.even.eventListItem.first.last.upcoming
+    fields:
+      - name: "location"
+        value: Löwensaal
+      - name: "city"
+        value: "Nuremberg"
+      - name: "country"
+        value: "Germany"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.loewensaal.com/programm.html
+      - name: title
+        type: text
+        location:
+          - selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h1
+      - name: comment
+        type: text
+        location:
+          - selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > p.eventMotto
+        can_be_empty: true
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2 > span.daytime
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2} Uhr"
+            layout:
+              - "15:04 Uhr"
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2
+            layout:
+              - 2.1.2006
+        date_location: CET
+        date_language: de_DE
+
+  - name: ClubStereo
+    url: https://www.club-stereo.net/category/konzert/
+    item: body > div.site > div.site-content > div.content-area > main.site-main > div > div.overview > ul > a
+    fields:
+      - name: "city"
+        value: "Nuremberg"
+      - name: "country"
+        value: "Germany"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.club-stereo.net/category/konzert/
+      - name: location
+        type: text
+        location:
+          - selector: div.archive-row > div.archive-column-info:nth-child(2) > ul > li:nth-child(3) > span.spielort
+      - name: title
+        type: text
+        location:
+          - selector: div.archive-row > div.archive-column-info:nth-child(2) > ul > li > h3 > span.post-title
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.archive-row > div.archive-column-info:nth-child(2) > ul > li:nth-child(2) > span.datum > span
+            layout:
+              - // 15:04 Uhr
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.archive-row > div.archive-column-info:nth-child(2) > ul > li:nth-child(2) > span.datum
+            layout:
+              - 2.1.2006
+        date_location: CET
+
+  - name: JazzStudio
+    url: https://www.jazzstudio.de/veranstaltungen/
+    item: body > main.clearfix > section > div.container-fluid > ul.targets > li.kalender-uebersicht
+    fields:
+      - name: "location"
+        value: JAZZ Studio
+      - name: "city"
+        value: "Nuremberg"
+      - name: "country"
+        value: "Germany"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.jazzstudio.de/veranstaltungen/
+      - name: title
+        type: text
+        location:
+          - selector: div.konzert-termin-vorschau.row > div.col-12 > div.termin-details-band:nth-child(3)
+      - name: comment
+        type: text
+        location:
+          - selector: div.konzert-termin-vorschau.row > div > div.termin-details-genre
+      - name: url
+        type: url
+        location:
+          - selector: div.konzert-termin-details.row:nth-child(2) > div.col-12.col-sm-8.mb-3 > div.my-1.row > div.col:nth-child(2) > div.termin-details-ticket > button.btn.btn-warning > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.konzert-termin-vorschau.row > div.col-12 > div.termin-details-uhrzeit:nth-child(2)
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2} Uhr"
+            layout:
+              - "15:04 Uhr"
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.konzert-termin-vorschau.row > div.col-12 > div.termin-details-datum
+            layout:
+              - 2.1.2006
+        date_location: CET
+
+  - name: Hirsch
+    url: https://www.der-hirsch.com/programm.html
+    item: div.centered-wrapper > div.centered-wrapper-inner > div.block.mod_eventlist > div.eventListItem.upcoming
+    fields:
+      - name: "location"
+        value: Hirsch
+      - name: "city"
+        value: "Nuremberg"
+      - name: "country"
+        value: "Germany"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.der-hirsch.com/programm.html
+      - name: title
+        type: text
+        location:
+          - selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h1
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: comment
+        type: text
+        location:
+          - selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > p.eventMotto
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2 > span.daytime
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2} Uhr"
+            layout:
+              - "15:04 Uhr"
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2
+            layout:
+              - 2.1.2006
+        date_location: CET
+        date_language: de_DE
+
   ##########
   # Nyon
   ##########
