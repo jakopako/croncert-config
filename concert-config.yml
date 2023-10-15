@@ -283,10 +283,10 @@ scrapers:
         date_language: en_US
     filters:
       - field: eventType
-        regex: b
+        exp: b
         match: false
       - field: eventType
-        regex: 1
+        exp: 1
         match: false
 
   - name: Paradiso
@@ -338,7 +338,7 @@ scrapers:
     renderJs: true
     filters:
       - field: location
-        regex: Bitterzoet # already covered by a different scraper
+        exp: Bitterzoet # already covered by a different scraper
         match: false
 
   ##########
@@ -533,8 +533,11 @@ scrapers:
             child_index: 2
     filters:
       - field: "title"
-        regex: ".*(?i)(abgesagt).*"
+        exp: ".*(?i)(abgesagt).*"
         match: false
+      - field: date
+        exp: "> now"
+        match: true
 
   - name: ParterreOne
     url: "https://www.parterre.net/de/musik-kultur/one-music/programm?category=1"
@@ -621,13 +624,13 @@ scrapers:
     renderJs: true
     filters:
       - field: "eventType"
-        regex: "Theatre"
+        exp: "Theatre"
         match: false
       - field: "eventType"
-        regex: ".*Lecture.*"
+        exp: ".*Lecture.*"
         match: false
       - field: "eventType"
-        regex: "Workshop"
+        exp: "Workshop"
         match: false
 
   - name: Offbeat
@@ -723,7 +726,7 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: "title"
-        regex: ".*CANCELLED"
+        exp: ".*CANCELLED"
         match: false
 
   - name: HuxleysNeueWelt
@@ -1061,13 +1064,13 @@ scrapers:
         date_language: "it_IT"
     filters:
       - field: "title"
-        regex: ".*CANCELED.*"
+        exp: ".*CANCELED.*"
         match: false
       - field: "title"
-        regex: "ANNULLATO!.*"
+        exp: "ANNULLATO!.*"
         match: false
       - field: "title"
-        regex: ".*Postponed.*"
+        exp: ".*Postponed.*"
         match: false
     paginator:
       location:
@@ -1272,10 +1275,10 @@ scrapers:
         selector: ".pager__item a"
     filters:
       - field: "title"
-        regex: ".*POSTPONED.*"
+        exp: ".*POSTPONED.*"
         match: false
       - field: "title"
-        regex: ".*CANCELLED.*"
+        exp: ".*CANCELLED.*"
         match: false
 
   ###########
@@ -1327,7 +1330,7 @@ scrapers:
           - selector: section.eventCard__details.isprice > div.eventCard__details__description > p
     filters:
       - field: title
-        regex: "Canceled.*"
+        exp: "Canceled.*"
         match: false
 
   ############
@@ -1777,10 +1780,10 @@ scrapers:
         date_language: "de_DE"
     filters:
       - field: "eventType"
-        regex: "Konzerte & Events"
+        exp: "Konzerte & Events"
         match: true
       - field: "title"
-        regex: ".*ABGESAGT.*"
+        exp: ".*ABGESAGT.*"
         match: false
 
   - name: Kantine
@@ -1836,10 +1839,10 @@ scrapers:
       delay: 3000
     filters:
       - field: "title"
-        regex: ".*(?i)(abgesagt).*"
+        exp: ".*(?i)(abgesagt).*"
         match: false
       - field: title
-        regex: ".*Party.*"
+        exp: ".*Party.*"
         match: false
 
   ############
@@ -2275,7 +2278,7 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: category
-        regex: Konzert
+        exp: Konzert
         match: true
 
   - name: Knust
@@ -3000,10 +3003,10 @@ scrapers:
     renderJs: true
     filters:
       - field: "eventType"
-        regex: "Concert"
+        exp: "Concert"
         match: true
       - field: "eventType"
-        regex: "Spectacle"
+        exp: "Spectacle"
         match: true
 
   - name: Premices
@@ -3207,19 +3210,19 @@ scrapers:
         date_language: de_DE
     filters:
       - field: category
-        regex: "Lesung.*"
+        exp: "Lesung.*"
         match: false
       - field: category
-        regex: Party
+        exp: Party
         match: false
       - field: category
-        regex: Film
+        exp: Film
         match: false
       - field: category
-        regex: Podiumsdiskussion
+        exp: Podiumsdiskussion
         match: false
       - field: category
-        regex: "Theater.*"
+        exp: "Theater.*"
         match: false
 
   ##########
@@ -3998,10 +4001,10 @@ scrapers:
         date_language: "de_DE"
     filters:
       - field: "title"
-        regex: ".*(?i)(abgesagt).*"
+        exp: ".*(?i)(abgesagt).*"
         match: false
       - field: "title"
-        regex: ".*(?i)(verlegt).*"
+        exp: ".*(?i)(verlegt).*"
         match: false
     paginator:
       location:
@@ -4115,16 +4118,16 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: "location"
-        regex: "Zenith" # duplicate (also present on Motorworld website)
+        exp: "Zenith" # duplicate (also present on Motorworld website)
         match: false
       - field: "location"
-        regex: "Strom" # duplicate
+        exp: "Strom" # duplicate
         match: false
       - field: "location"
-        regex: "Tonhalle" # duplicate
+        exp: "Tonhalle" # duplicate
         match: false
       - field: "location"
-        regex: "TonHalle" # duplicate
+        exp: "TonHalle" # duplicate
         match: false
 
   - name: Eventfabrik
@@ -4180,10 +4183,10 @@ scrapers:
         selector: ".pagination .next"
     filters:
       - field: "title"
-        regex: ".*VERLEGT"
+        exp: ".*VERLEGT"
         match: false
       - field: "title"
-        regex: ".*ABGESAGT"
+        exp: ".*ABGESAGT"
         match: false
 
   - name: Motorworld
@@ -4247,7 +4250,7 @@ scrapers:
         hide: true
     filters:
       - field: "status"
-        regex: "Abgesagt"
+        exp: "Abgesagt"
         match: false
 
   - name: Glockenbachwerkstatt
@@ -4329,7 +4332,7 @@ scrapers:
           selector: div.event-meta > h1.entry-title.event-name
     filters:
       - field: "eventType"
-        regex: "Konzert"
+        exp: "Konzert"
         match: true
 
   - name: Feierwerk
@@ -4392,13 +4395,13 @@ scrapers:
         can_be_empty: true
     filters:
       - field: location
-        regex: Technikum
+        exp: Technikum
         match: false
       - field: location
-        regex: Farbenladen
+        exp: Farbenladen
         match: false
       - field: status
-        regex: Abgesagt
+        exp: Abgesagt
         match: false
     paginator:
       location:
@@ -4459,7 +4462,7 @@ scrapers:
         date_language: de_DE
     filters:
       - field: genre
-        regex: ".*Dancefloor.*"
+        exp: ".*Dancefloor.*"
         match: false
     paginator:
       location:
@@ -4842,7 +4845,7 @@ scrapers:
             layout: ["15:04"]
     filters:
       - field: "title"
-        regex: "ANECDOTES" # the eventType isn't used consitantly, so I'm explicity removing the improv comedy
+        exp: "ANECDOTES" # the eventType isn't used consitantly, so I'm explicity removing the improv comedy
         match: false
 
   ##########
@@ -4899,10 +4902,10 @@ scrapers:
         hide: true
     filters:
       - field: "status"
-        regex: "cancelled"
+        exp: "cancelled"
         match: false
       - field: "status"
-        regex: "delayed"
+        exp: "delayed"
         match: false
 
   - name: NewMorning
@@ -4958,7 +4961,7 @@ scrapers:
         date_location: "Europe/Paris"
     filters:
       - field: "status"
-        regex: "Annulé"
+        exp: "Annulé"
         match: false
     ## commented for now because goskyr version 0.4.13 has some issues with completing the event-specific urls for events on the following pages.
     # paginator:
@@ -5089,10 +5092,10 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: "eventStatus"
-        regex: ".*Cancelled"
+        exp: ".*Cancelled"
         match: false
       - field: "eventStatus"
-        regex: ".*Rescheduled"
+        exp: ".*Rescheduled"
         match: false
     paginator:
       location:
@@ -5406,7 +5409,7 @@ scrapers:
         date_language: de_DE
     filters:
       - field: eventType
-        regex: "Treffpunkt"
+        exp: "Treffpunkt"
         match: false
 
   ##########
@@ -5462,7 +5465,7 @@ scrapers:
           attr: href
     filters:
       - field: "eventType"
-        regex: "Jeux"
+        exp: "Jeux"
         match: false
 
   - name: CafeLitteraire
@@ -5509,13 +5512,13 @@ scrapers:
         can_be_empty: true # this location seems to contain events without comment. We should still scrape those.
     filters:
       - field: "title"
-        regex: ".*Brunch"
+        exp: ".*Brunch"
         match: false
       - field: "title"
-        regex: ".*Saint-Valentin"
+        exp: ".*Saint-Valentin"
         match: false
       - field: "title"
-        regex: ".*Reveillon"
+        exp: ".*Reveillon"
         match: false
 
   - name: TheRockingChair
@@ -5646,10 +5649,10 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: "title"
-        regex: "ABGESAGT.*"
+        exp: "ABGESAGT.*"
         match: false
       - field: "title"
-        regex: "CANCELLED.*"
+        exp: "CANCELLED.*"
         match: false
 
   - name: Flex
@@ -5717,7 +5720,7 @@ scrapers:
       delay: 3000
     filters:
       - field: cat
-        regex: ".*Live.*"
+        exp: ".*Live.*"
         match: true
 
   - name: Konzerthaus
@@ -5773,7 +5776,7 @@ scrapers:
         date_language: "de_DE"
     filters:
       - field: "title"
-        regex: ".*ABGESAGT"
+        exp: ".*ABGESAGT"
         match: false
 
   - name: PorgyAndBess
@@ -5881,7 +5884,7 @@ scrapers:
       max_pages: 5 # we have to set a max because the selector is always there, even if there are no more pages
     filters:
       - field: "title"
-        regex: ".*ABGESAGT.*"
+        exp: ".*ABGESAGT.*"
         match: false
 
   ##############
@@ -6320,10 +6323,10 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: "title"
-        regex: "Verschoben.*"
+        exp: "Verschoben.*"
         match: false
       - field: "title"
-        regex: "Abgesagt.*"
+        exp: "Abgesagt.*"
         match: false
 
   - name: Tonhalle
@@ -6467,10 +6470,10 @@ scrapers:
         date_language: "de_DE"
     filters:
       - field: "event-type"
-        regex: "live"
+        exp: "live"
         match: true
       - field: "title"
-        regex: ".*(?i)(abgesagt).*"
+        exp: ".*(?i)(abgesagt).*"
         match: false
 
   - name: Papiersaal
@@ -6526,13 +6529,13 @@ scrapers:
         selector: ".pull-right"
     filters:
       - field: "title"
-        regex: ".*Abgesagt.*"
+        exp: ".*Abgesagt.*"
         match: false
       - field: "title"
-        regex: ".*Verschoben.*"
+        exp: ".*Verschoben.*"
         match: false
       - field: "title"
-        regex: ".*VERSCHOBEN.*"
+        exp: ".*VERSCHOBEN.*"
         match: false
 
   - name: X-TRA
@@ -6673,13 +6676,13 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: "event-type"
-        regex: "(?i)konzert"
+        exp: "(?i)konzert"
         match: true
       - field: "event-status"
-        regex: "VERSCHOBEN.*"
+        exp: "VERSCHOBEN.*"
         match: false
       - field: "event-status"
-        regex: "ABGESAGT"
+        exp: "ABGESAGT"
         match: false
 
   - name: BogenF
@@ -6728,10 +6731,10 @@ scrapers:
           selector: ".sold-out"
     filters:
       - field: "event-status"
-        regex: "Abgesagt"
+        exp: "Abgesagt"
         match: false
       - field: "event-status"
-        regex: "Verschoben.*"
+        exp: "Verschoben.*"
         match: false
 
   - name: Dynamo
@@ -6778,10 +6781,10 @@ scrapers:
         date_language: "de_DE"
     filters:
       - field: "title"
-        regex: ".*(?i)(abgesagt).*"
+        exp: ".*(?i)(abgesagt).*"
         match: false
       - field: "title"
-        regex: ".*(?i)(cancelled).*"
+        exp: ".*(?i)(cancelled).*"
         match: false
 
   - name: Photobastei
@@ -6837,7 +6840,7 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: eventType
-        regex: Konzert
+        exp: Konzert
         match: true
 
   - name: Komplex457
@@ -6885,10 +6888,10 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: "title"
-        regex: ".*(?i)(abgesagt).*"
+        exp: ".*(?i)(abgesagt).*"
         match: false
       - field: title
-        regex: ".*(?i)(verschoben).*"
+        exp: ".*(?i)(verschoben).*"
         match: false
 
   - name: BrauereiOerlikon
@@ -6998,10 +7001,10 @@ scrapers:
         date_location: "Europe/Berlin"
     filters:
       - field: "title"
-        regex: "Abgesagt.*"
+        exp: "Abgesagt.*"
         match: false
       - field: "title"
-        regex: "ABGESAGT.*"
+        exp: "ABGESAGT.*"
         match: false
 
   - name: RoteFabrik
@@ -7084,7 +7087,7 @@ scrapers:
     renderJs: true
     filters:
       - field: "eventType"
-        regex: ".*Concert.*"
+        exp: ".*Concert.*"
         match: true
 
   - name: GZRiesbach
@@ -7328,10 +7331,10 @@ scrapers:
       selector: body > div.wrap > div > main > div.container-fluid > button
     filters:
       - field: eventType
-        regex: Ausstellung
+        exp: Ausstellung
         match: false
       - field: eventType
-        regex: Theater
+        exp: Theater
         match: false
 
   - name: BarAmEgge
@@ -7417,7 +7420,7 @@ scrapers:
       count: 2
     filters:
       - field: title
-        regex: "Live:.*"
+        exp: "Live:.*"
         match: true
 
   - name: PavillonLeCorbusier
@@ -7475,7 +7478,7 @@ scrapers:
         date_language: en_US
     filters:
       - field: eventType
-        regex: Concert
+        exp: Concert
         match: true
 
   - name: Barfussbar
@@ -7564,7 +7567,7 @@ scrapers:
         date_language: de_DE
     filters:
       - field: title
-        regex: ARTBAT
+        exp: ARTBAT
         match: false
 
   - name: GzZh
@@ -7623,13 +7626,13 @@ scrapers:
       delay: 3000
     filters:
       - field: eventType
-        regex: "^Musik$"
+        exp: "^Musik$"
         match: true
       - field: title
-        regex: ".*Konzert.*"
+        exp: ".*Konzert.*"
         match: true
       - field: eventType
-        regex: "^Events, Musik$"
+        exp: "^Events, Musik$"
         match: true
 
   - name: AmbossRampe
@@ -7681,5 +7684,5 @@ scrapers:
         date_language: de_DE
     filters:
       - field: room
-        regex: Rampe
+        exp: Rampe
         match: true
