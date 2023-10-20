@@ -2838,17 +2838,13 @@ scrapers:
         location:
           - selector: div.program:nth-child(5) > span
             regex_extract:
-              exp: "(Atrium de l'EJM|Auditorium de l'EJMA|BCV Concert Hall|Espace Jazz|EspaceJazz|La Datcha|Salle Paderewski|Théâtre de l’Octogone )"
-            transform:
-              - type: regex-replace
-                regex: EspaceJazz 
-                replace: Espace Jazz
-      - name: time
-        type: text
-        location:
-          - selector: div.program:nth-child(5) > span
-            regex_extract:
-              exp: "[0-9]{1,2}h"
+              exp: "(Atrium de l'EJM|Auditorium de l'EJMA|BCV Concert Hall|Espace Jazz|EspaceJazz|La Datcha|Salle Paderewski|Théâtre de l’Octogone|Les Docks)"
+            # the following doesn't work yet. Currently, 'transform' is only supported for dates.
+            # see https://github.com/jakopako/goskyr/issues/242
+            # transform:
+            #   - type: regex-replace
+            #     regex: EspaceJazz
+            #     replace: Espace Jazz
       - name: title
         type: text
         location:
@@ -2858,6 +2854,10 @@ scrapers:
         location:
           - selector: a.rfp-mask
             attr: href
+    filters:
+      - field: location
+        exp: Les Docks
+        match: false
 
   - name: LeRomandie
     url: https://leromandie.ch/programme/
