@@ -547,6 +547,8 @@ scrapers:
         value: "Parterre One"
       - name: "city"
         value: "Basel"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -585,6 +587,8 @@ scrapers:
         value: Kaserne Basel
       - name: "city"
         value: "Basel"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -639,6 +643,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Basel"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -828,6 +834,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Bern"
+      - name: country
+        value: Switzerland
       - name: "location"
         value: "Bierhuebeli"
       - name: "sourceUrl"
@@ -872,6 +880,8 @@ scrapers:
         value: "Gaskessel"
       - name: "city"
         value: "Bern"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -918,6 +928,8 @@ scrapers:
         value: "Dachstock"
       - name: "city"
         value: "Bern"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -960,6 +972,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Bern"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -1906,6 +1920,8 @@ scrapers:
         value: "Bad Bonn"
       - name: "city"
         value: "Düdingen"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -2506,6 +2522,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Lausanne"
+      - name: country
+        value: Switzerland
       - name: "location"
         value: "Théatre de Beaulieu"
       - name: "sourceUrl"
@@ -2548,6 +2566,8 @@ scrapers:
         value: "Chorus"
       - name: "city"
         value: "Lausanne"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl" # This is needed to uniquely identify this scraper
@@ -2592,6 +2612,8 @@ scrapers:
         value: Base Bar
       - name: city
         value: Lausanne
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl" # This is needed to uniquely identify this scraper
@@ -2626,6 +2648,8 @@ scrapers:
         value: La Cave du Bleu Lézard
       - name: city
         value: Lausanne
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -2660,6 +2684,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Lausanne"
+      - name: country
+        value: Switzerland
       - name: "location"
         value: "D! Club"
       - name: "sourceUrl"
@@ -2715,6 +2741,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Lausanne"
+      - name: country
+        value: Switzerland
       - name: "location"
         value: "Docks"
       - name: "sourceUrl"
@@ -2867,6 +2895,8 @@ scrapers:
         value: "Le Romandie Club"
       - name: "city"
         value: "Lausanne"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -2906,6 +2936,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Lausanne"
+      - name: country
+        value: Switzerland
       - name: "location"
         value: "Salle Métropole"
       - name: "sourceUrl"
@@ -2943,6 +2975,8 @@ scrapers:
     fields:
       - name: city
         value: Lausanne
+      - name: country
+        value: Switzerland
       - name: type
         value: concert
       - name: sourceUrl
@@ -3002,6 +3036,8 @@ scrapers:
         value: Pôle Sud
       - name: city
         value: Lausanne
+      - name: country
+        value: Switzerland
       - name: type
         value: concert
       - name: "sourceUrl"
@@ -3711,6 +3747,8 @@ scrapers:
         value: "Schüür"
       - name: "city"
         value: "Lucerne"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -4602,6 +4640,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Neuchâtel"
+      - name: country
+        value: Switzerland
       - name: "location"
         value: "Case à Chocs"
       - name: "sourceUrl"
@@ -5602,6 +5642,8 @@ scrapers:
         value: "Le Bout Du Monde"
       - name: city
         value: Vevey
+      - name: country
+        value: Switzerland
       - name: "sourceUrl"
         value: "https://www.leboutdumonde.ch"
       - name: type
@@ -5707,6 +5749,8 @@ scrapers:
         value: "The Rocking Chair"
       - name: city
         value: Vevey
+      - name: country
+        value: Switzerland
       - name: "sourceUrl"
         value: "https://www.rocking-chair.ch/"
       - name: url
@@ -6173,6 +6217,8 @@ scrapers:
         value: "Helsinki"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "url"
@@ -6210,6 +6256,8 @@ scrapers:
         value: "Mehrspur"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6255,6 +6303,8 @@ scrapers:
         value: "Umbo"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6290,6 +6340,8 @@ scrapers:
         value: "Sender"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6329,6 +6381,8 @@ scrapers:
         value: "Moods"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6375,6 +6429,8 @@ scrapers:
         value: "ElLokal"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6420,6 +6476,8 @@ scrapers:
         value: "Mascotte"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6467,6 +6525,8 @@ scrapers:
         value: "Kaufleuten"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6515,6 +6575,8 @@ scrapers:
         value: "Tonhalle"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6589,6 +6651,8 @@ scrapers:
         value: "Heldenbar"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6602,6 +6666,8 @@ scrapers:
         value: "Exil"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6662,6 +6728,8 @@ scrapers:
         value: "Papiersaal"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6724,6 +6792,8 @@ scrapers:
         value: "X-TRA"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6773,6 +6843,8 @@ scrapers:
         value: "Walcheturm"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6816,6 +6888,8 @@ scrapers:
         value: "Volkshaus"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6871,6 +6945,8 @@ scrapers:
         value: "BogenF"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6923,6 +6999,8 @@ scrapers:
         value: "Dynamo"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -6973,6 +7051,8 @@ scrapers:
         value: "Photobastei"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7029,6 +7109,8 @@ scrapers:
         value: "Komplex457"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7080,6 +7162,8 @@ scrapers:
         value: "Brauerei Oerlikon"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7115,6 +7199,8 @@ scrapers:
         value: "Zum Warme Werni"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7151,6 +7237,8 @@ scrapers:
         value: "Plaza Klub"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7194,6 +7282,8 @@ scrapers:
         value: "Rote Fabrik"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7230,6 +7320,8 @@ scrapers:
         value: "Zentralwäscherei"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7276,6 +7368,8 @@ scrapers:
         value: GZ Riesbach
       - name: city
         value: Zurich
+      - name: country
+        value: Switzerland
       - name: type
         value: concert
       - name: sourceUrl
@@ -7310,6 +7404,8 @@ scrapers:
         value: Brick
       - name: city
         value: Zurich
+      - name: country
+        value: Switzerland
       - name: type
         value: concert
       - name: sourceUrl
@@ -7342,6 +7438,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "location"
         value: "Alte Kaserne"
       - name: "sourceUrl"
@@ -7383,6 +7481,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7431,6 +7531,8 @@ scrapers:
         value: Gitarren Total
       - name: city
         value: Zurich
+      - name: country
+        value: Switzerland
       - name: type
         value: concert
       - name: sourceUrl
@@ -7465,6 +7567,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7521,6 +7625,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7558,6 +7664,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
@@ -7607,6 +7715,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: location
         value: Pavillon Le Corbusier
       - name: type
@@ -7665,6 +7775,8 @@ scrapers:
     fields:
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: location
         value: Barfussbar
       - name: type
@@ -7706,6 +7818,8 @@ scrapers:
     fields:
       - name: city
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: location
         value: Zoa City
       - name: type
@@ -7754,6 +7868,8 @@ scrapers:
     fields:
       - name: city
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: type
         value: concert
       - name: sourceUrl
@@ -7819,6 +7935,8 @@ scrapers:
     fields:
       - name: city
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: location
         value: Amboss Rampe
       - name: type
@@ -7873,6 +7991,8 @@ scrapers:
         value: "Lebewohlfabrik"
       - name: "city"
         value: "Zurich"
+      - name: country
+        value: Switzerland
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
