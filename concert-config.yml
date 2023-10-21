@@ -2801,6 +2801,8 @@ scrapers:
           selector: div.evo_event_schema > span
           regex_extract:
             exp: "(?i)(lausanne|morges|mex)"
+      - name: country
+        value: Switzerland
       - name: url
         type: url
         location:
