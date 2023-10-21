@@ -5446,8 +5446,8 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.artistes:nth-child(3) > div.artiste.tete-affiche
-          - selector: div.artistes:nth-child(3) > div.artiste.level1:nth-child(2)
+          - selector: div.artistes > div.artiste.tete-affiche
+          - selector: div.artistes > div.artiste.level1:nth-child(2)
             child_index: 1
         separator: ", "
       - name: location
@@ -5463,7 +5463,7 @@ scrapers:
               year: true
             location:
               selector: div.date > span.date-display-single
-            layout: 
+            layout:
               - "Monday 2 January 2006"
           - covers:
               time: true
@@ -5481,8 +5481,7 @@ scrapers:
             attr: href
     paginator:
       location:
-        selector: div.pager > a:last-child
-      max_pages: 8
+        selector: div.pager > a.next
 
   ##########
   # Toronto
