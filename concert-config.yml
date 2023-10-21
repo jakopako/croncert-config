@@ -2794,7 +2794,7 @@ scrapers:
         location:
           selector: div.evo_event_schema > span
           regex_extract:
-            exp: "(?i)(lounge bar|tacos bar|restaurant la rive)"
+            exp: "(?i)(lounge bar|tacos bar|taco's bar|restaurant la rive)"
       - name: city # this is currently an itinerant venue
         type: text
         location:
