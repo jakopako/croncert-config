@@ -347,7 +347,7 @@ scrapers:
 
   - name: TerminalWest
     url: https://terminalwestatl.com/
-    item: body > div.o-layout > div.o-layout__content > div.c-axs-events.c-axs-events7121 > div.c-axs-events__container.js-axs-events-section > div.c-axs-events-months-details > div.c-axs-events-months-flex-container.o-container > div.c-axs-event-card__wrapper > a.c-axs-event-card__header.c-axs-event-card__header7121
+    item: div.c-axs-events.c-axs-events7121 > div.c-axs-events__container.js-axs-events-section > div.c-axs-events-months-details > div.c-axs-events-months-flex-container.o-container > div.c-axs-event-card__wrapper > a.c-axs-event-card__header.c-axs-event-card__header7121
     fields:
       - name: "location"
         value: Terminal West
@@ -375,6 +375,7 @@ scrapers:
               time: true
             location:
               selector: div.c-axs-event-card__details.c-axs-event-card__details7121:nth-child(3) > div.c-axs-event-card__date.c-axs-event-card__date7121.u-font-20 > p.c-axs-event-card__date--showtime7121
+              entire_subtree: true
             layout:
               - Mon, Jan 2, 2006 15:04 PM
         date_location: America/New_York
@@ -454,6 +455,7 @@ scrapers:
               time: true
             location:
               selector: div.c-axs-event-card__date.c-axs-event-card__date7215.u-font-20 > p.c-axs-event-card__date--showtime7215
+              entire_subtree: true
             layout:
               - Mon, Jan 2, 2006 15:04 PM
         date_location: America/New_York
@@ -1098,7 +1100,7 @@ scrapers:
 
   - name: Scullers
     url: https://scullersjazz.com/upcoming-events/
-    item: body.page.page-id-138.page-template.page-template-page-eventslist.page-template-page-eventslist-php > div.cf > div.container > section.fullWidth > article.hentry.page.post-138.status-publish.type-page > div.blackBack.cf.musicidb-events-integration > div.cf.inside > div.musicidb-tabs > div.current.musicidb-tab > div.musicidb-tabs.ui-tabs-nav > div.musicidb-tab > ul.cf.eventsList > li.cf.listEvent.listItem.summaryContent
+    item: div.blackBack.cf.musicidb-events-integration > div.cf.inside > div.musicidb-tabs > div.current.musicidb-tab > div.musicidb-tabs.ui-tabs-nav > div.musicidb-tab > ul.cf.eventsList > li.cf.listEvent.listItem.summaryContent
     fields:
       - name: type
         value: concert
@@ -1131,8 +1133,10 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.listingBody > div.eventInfoArea > div.eventInfoWide > p.eventLogistics
-            layout: ["15:04 PM"]
+              selector: div.listingBody > div.h4.subtitleEvent
+              regex_extract:
+                exp: "[0-9]{1}(\\s)?pm"
+            layout: ["15 pm", "15pm"]
         date_location: America/New_York
       - name: url
         type: url
@@ -1142,8 +1146,12 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.listingBody > h3.titleofevent > div.cardFloater > span.hoverArtist
+          - selector: div.listingBody > h3 > a
     renderJs: true
+    filters:
+      - field: date
+        exp: "> now"
+        match: true
 
   #############
   # Bratislava
@@ -1836,6 +1844,8 @@ scrapers:
               time: true
             location:
               selector: div.decm-show-detail-center > span.decm-show-data-display-block.duration.ecs-eventTime.eventTime-ecs-icon.time > span.decm_time
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
             layout:
               - "15:04"
         date_location: CET
@@ -3572,7 +3582,8 @@ scrapers:
               time: true
             location:
               selector: div.each-header > p
-            layout: ["Monday 2 January 2006, 3pm"] # adapt according to actual format
+            layout:
+              ["Monday 2 January 2006, 3pm", "Monday 2 January 2006, 3.04pm"]
         date_location: "Europe/London" # example
         date_language: "en_GB" # example
       - name: url
@@ -6760,7 +6771,7 @@ scrapers:
               selector: ".col-sm-8 h3"
               regex_extract:
                 exp: "[A-Za-z]+,\\s[0-9]{1,2}\\.\\s[\u00e4A-Za-z]{3,4}\\s[0-9]{4}"
-            layout: ["Monday, 2. Jan 2006"]
+            layout: ["Monday, 2. Jan 2006", "Monday, 2. January 2006"]
           - covers:
               time: true
             location:
