@@ -8129,3 +8129,59 @@ scrapers:
       - field: title
         exp: "KARAOKE.*"
         match: false
+
+  - name: JazzNoJazz
+    url: https://jazznojazz.ch/Programm-Tickets
+    item: body > main.hauptinhalt > div.bg-white.col-lg-12.main_cont > div.content_programm.txt_blau > div.program_list > div.programm_tabelle > div.col-lg-10.col-md-11.col-sm-11.col-xs-9.programm_info
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://jazznojazz.ch/Programm-Tickets
+      - name: location
+        type: text
+        location:
+          - selector: div.col-lg-7.col-md-7.col-xs-7.programm_artist:nth-child(3) > a > p.programm_ort > strong
+      - name: title
+        type: text
+        location:
+          - selector: div.col-lg-7.col-md-7.col-xs-7.programm_artist:nth-child(3) > a > h4.txt_blau
+      - name: url
+        type: url
+        location:
+          - selector: div.col-lg-7.col-md-7.col-xs-7.programm_artist:nth-child(3) > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.programm_zeit > p
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.programm_artist > a
+              attr: href
+              regex_extract:
+                exp: "[0-9]{2}-[0-9]{2}-[0-9]{4}"
+            layout:
+              - 2-1-2006
+        date_location: CET
+    filters:
+      - field: title
+        exp: Festivalpass.*
+        match: false
+      - field: title
+        exp: Tagespass.*
+        match: false
