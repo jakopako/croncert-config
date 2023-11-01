@@ -8087,7 +8087,7 @@ scrapers:
 
   - name: RoxyMusikbar
     url: https://www.roxymusikbar.ch/
-    item: main.PAGES_CONTAINER > div.JshATs.SITE_PAGES > div.fcNEqv > div.dBAkHi.tuckg > div.HT5ybB > div.Containertuckg.SPY_vo > div > div > section.Oqnisf.comp-lfwdlld41.wixui-section > div > div > section.CohWsy.comp-kzv35u31.wixui-column-strip > div.V5AUxf > div.YzqVVZ.comp-kzv35u4m.wixui-column-strip__column > div > div > div.TWFxr5 > div.comp-kzplzxp5 > div._SbO6q > div.AjaWjx.a1O8Os.iM2jMk > ul > li.LFRKo9.Lgwamt
+    item: main.PAGES_CONTAINER > div.SITE_PAGES > div > div > div > div.Containertuckg > div > div > section.wixui-section > div > div > section.wixui-column-strip > div > div.wixui-column-strip__column > div > div > div > div > div > div > ul > li
     fields:
       - name: "city"
         value: "Zurich"
@@ -8102,12 +8102,12 @@ scrapers:
       - name: url
         type: url
         location:
-          - selector: div.WkHEH7 > div.VGkHj_:nth-child(2) > a.DjQEyU.aUkG34.m022zm
+          - selector: div > div:nth-child(2) > a
             attr: href
       - name: title
         type: text
         location:
-          - selector: div.WkHEH7 > div.Rw70bT > div.ZIdReU > a.c0ZbU3 > div.KWD2Z5 > div.AinsX6.AqK082.ZA3KKX.xgQ8vn
+          - selector: div > div > div > a > div > div
       - name: date
         type: date
         components:
@@ -8116,7 +8116,7 @@ scrapers:
               month: true
               time: true
             location:
-              selector: div:nth-child(2) > div > div.S8fAXH.undefined > div.JmvqG4.MUY9S5.zymPrj > div.ygDbc4 > div.zbdMFh > div.JYRUwV.cJgefi > div > div.I_kVM1
+              selector: div:nth-child(2) > div > div > div > div > div > div > div > div
               regex_extract:
                 exp: "[0-9]{2}\\. [A-Za-z]+\\., [0-9]{2}:[0-9]{2}"
             layout:
@@ -8185,3 +8185,154 @@ scrapers:
       - field: title
         exp: Tagespass.*
         match: false
+
+  # The following three locations are actually just one location. This workaround is needed to capture all events of this venue.
+  - name: AmRank1
+    url: https://amrank.ch/buehne/
+    item: article > section.container > div.card > header.accordionItemHeading > div.card-header-content.concert-group
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Rank
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://amrank.ch/buehne/?fakeparam=1
+      - name: comment
+        type: text
+        location:
+          - selector: div:nth-child(3) > div > p
+      - name: url
+        type: url
+        location:
+          - selector: div:nth-child(3) > h3 > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.first-line > h3
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div:nth-child(3) > time
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.first-line > span.date:nth-child(3)
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}"
+            layout:
+              - 2.1.
+        date_location: CET
+        guess_year: true
+
+  - name: AmRank2
+    url: https://amrank.ch/buehne/
+    item: article > section.container > div.card > header.accordionItemHeading > div.card-header-content.concert-group
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Rank
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://amrank.ch/buehne/?fakeparam=2
+      - name: comment
+        type: text
+        location:
+          - selector: div:nth-child(3) > div > p
+      - name: url
+        type: url
+        location:
+          - selector: div:nth-child(3) > h3 > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.first-line > h3
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div:nth-child(3) > time
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.first-line > span.date:nth-child(4)
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}"
+            layout:
+              - 2.1.
+        date_location: CET
+        guess_year: true
+
+  - name: AmRank3
+    url: https://amrank.ch/buehne/
+    item: article > section.container > div.card > header.accordionItemHeading > div.card-header-content.concert-group
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Rank
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://amrank.ch/buehne/?fakeparam=3
+      - name: comment
+        type: text
+        location:
+          - selector: div:nth-child(3) > div > p
+      - name: url
+        type: url
+        location:
+          - selector: div:nth-child(3) > h3 > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.first-line > h3
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div:nth-child(3) > time
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.first-line > span.date:nth-child(5)
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}"
+            layout:
+              - 2.1.
+        date_location: CET
+        guess_year: true
