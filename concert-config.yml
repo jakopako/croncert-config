@@ -8336,3 +8336,45 @@ scrapers:
               - 2.1.
         date_location: CET
         guess_year: true
+
+  - name: Zauberpark
+    url: https://zauberpark.ch/programm/?filter=acts-kategorie-78
+    item: div.pro.wpex-post-cards.wpex-post-cards-zauberpark-acts.wpex-relative > div.wpex-post-cards-inner > div.wpex-clr.wpex-post-cards-grid.wpex-post-cards-loop.wpex-row > div.acts-kategorie-78 > div.wpex-card.wpex-card-zauberpark-acts > div.acts-card-wrapper > a.acts-detail-wrapper.wpex-block
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Zauberpark
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://zauberpark.ch/programm/?filter=acts-kategorie-78
+      - name: title
+        type: text
+        location:
+          - selector: h3.acts-titel-gross.wpex-card-title.wpex-mb-10
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: p.wpex-mb-0:nth-child(3)
+            layout:
+              - 15:04 Uhr
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: p.wpex-mb-0
+            layout:
+              - Mon, 2. January 2006
+        date_location: CET
+        date_language: de_DE
