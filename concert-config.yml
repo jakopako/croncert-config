@@ -4119,6 +4119,10 @@ scrapers:
         type: text
         location:
           - selector: div.column.is-12-tablet.is-three-quarters-mobile > div.event__title > a > h3
+    filters:
+      - field: title
+        exp: .*(?i)(abgesagt).*
+        match: false
 
   - name: Backstage
     url: "https://backstage.eu/veranstaltungen/live.html"
@@ -4236,6 +4240,7 @@ scrapers:
       - name: "title"
         location:
           selector: ".hover-in .center span"
+          entire_subtree: true
       - name: "url"
         type: "url"
         location:
@@ -4246,7 +4251,7 @@ scrapers:
           selector: ".entry-info"
           child_index: 10
           regex_extract:
-            exp: "[^:(]+"
+            exp: "[^ ]{1}[^:(]+[^ (]+"
             index: 1
       - name: "date"
         type: "date"
@@ -4532,7 +4537,7 @@ scrapers:
         location:
           selector: div.event-date-location > span > a
           regex_extract:
-            exp: "[^| ]{2}[^|]+"
+            exp: "[^| ]{2}[^|]+[^ |]+"
             index: 2
       - name: url
         type: url
@@ -4556,7 +4561,7 @@ scrapers:
         can_be_empty: true
     filters:
       - field: location
-        exp: Technikum
+        exp: ".*Technikum.*"
         match: false
       - field: location
         exp: Farbenladen
@@ -4626,7 +4631,7 @@ scrapers:
         exp: Import Export # already covered
         match: false
       - field: location
-        exp: Milla Club # already covered
+        exp: Milla( Club)? # already covered
         match: false
 
   ############
