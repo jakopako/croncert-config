@@ -3341,11 +3341,11 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "city"
-        value: "Lausanne"
+        value: "Pully"
       - name: country
         value: Switzerland
       - name: "location"
-        value: "L’Octogone Theatre De Pully"
+        value: "L’Octogone"
       - name: "sourceUrl"
         value: "https://theatre-octogone.ch/categorie/musique/"
       - name: comment
