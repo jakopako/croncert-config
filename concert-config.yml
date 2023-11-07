@@ -6492,7 +6492,7 @@ scrapers:
     item: "#maincontent > .commingupEventsList_0,.commingupEventsList_1"
     fields:
       - name: "location"
-        value: "ElLokal"
+        value: "El Lokal"
       - name: "city"
         value: "Zurich"
       - name: country
@@ -7008,7 +7008,7 @@ scrapers:
     item: ".concert-month-container .separator-bottom"
     fields:
       - name: "location"
-        value: "BogenF"
+        value: "Bogen F"
       - name: "city"
         value: "Zurich"
       - name: country
@@ -7172,7 +7172,7 @@ scrapers:
     item: ".portfolio"
     fields:
       - name: "location"
-        value: "Komplex457"
+        value: "Komplex 457"
       - name: "city"
         value: "Zurich"
       - name: country
