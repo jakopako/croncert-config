@@ -3798,6 +3798,52 @@ scrapers:
         date_location: Europe/London
         date_language: en_GB
 
+  - name: JazzCafeLondon
+    url: https://thejazzcafelondon.com/whats-on/
+    item: body > main.site-main > div > ul.events.list-unstyled > li.event.mix > div:nth-child(1) > div:nth-child(1)
+    fields:
+      - name: "location"
+        value: "Jazz Cafe"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://thejazzcafelondon.com/whats-on/"
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: a > ul > li
+      - name: comment
+        type: text
+        location:
+          - selector: h2.event-title > span.host
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              month: true
+            location:
+              selector: div.alt-font.event-date
+              child_index: 2
+            layout:
+              - Jan
+          - covers:
+              day: true
+            location:
+              selector: div.alt-font.event-date > span
+            layout:
+              - "2"
+        date_location: Europe/London
+        date_language: en_US
+        guess_year: true
+
   ###########
   # Lucerne
   ###########
