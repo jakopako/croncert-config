@@ -5685,7 +5685,7 @@ scrapers:
 
   - name: RoxyUlm
     url: https://www.roxy.ulm.de/programm/programm.php
-    item: div.kalausgabe > div.veranstaltung:nth-child(2) > div.text:nth-child(2) > a
+    item: body > div.bg_transp > div.inhalt > div.group.row > div.col.col_9 > div.kalausgabe > div.veranstaltung > div.text:nth-child(2) > a
     fields:
       - name: "location"
         value: "Roxy"
@@ -5697,11 +5697,6 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: https://www.roxy.ulm.de/programm/programm.php
-      - name: comment
-        type: text
-        location:
-          - selector: div.beschreibung:nth-child(3) > em
-        can_be_empty: true
       - name: title
         type: text
         location:
@@ -5724,12 +5719,12 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.detailzusatz > div:nth-child(2)
+              selector: div.detailzusatz > div.detail-col.col-location
             layout: ["Mon. 2.1.2006"]
           - covers:
               time: true
             location:
-              selector: div.detailzusatz > div:nth-child(2)
+              selector: div.detailzusatz > div.detail-col.col-location
               child_index: 2
             layout: ["15:04 H"]
         date_location: CET
@@ -5737,6 +5732,9 @@ scrapers:
     filters:
       - field: eventType
         exp: "Treffpunkt"
+        match: false
+      - field: eventType
+        exp: "Theater"
         match: false
 
   ##########
