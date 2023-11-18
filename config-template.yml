@@ -3,7 +3,7 @@ scrapers:
     url: https://url.to/events
     item: "<event-selector>"
     fields:
-    # static
+      # static
       - name: "location"
         value: "LocationName" # This field can also be a dynamic field, if a website serves info about different event locations.
       - name: "city"
@@ -12,7 +12,7 @@ scrapers:
         value: "concert"
       - name: "sourceUrl" # This is needed to uniquely identify this scraper
         value: "https://url.to/events"
-    # dynamic
+      # dynamic
       - name: "title"
         location:
           selector: "<title-selector>"
@@ -48,8 +48,8 @@ scrapers:
           selector: "<event-status-selector>"
     filters:
       - field: "event-status"
-        regex: "Abgesagt"
+        exp: "Abgesagt"
         match: false # this means that matching events will be removed.
       - field: "event-status"
-        regex: "Verschoben.*"
+        exp: "Verschoben.*"
         match: false
