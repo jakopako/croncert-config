@@ -3719,7 +3719,7 @@ scrapers:
 
   - name: Koko
     url: https://www.koko.co.uk/whats-on
-    item: body > div > main.container > section.icvcuZ.mb-16.sc-abcdbf7d-0.section.snap-start.xl\:mb-28 > div.coMJmY.sc-abcdbf7d-1 > div.grid.lg\:grid-cols-3.md\:gap-4.md\:grid-cols-2.md\:px-10.px-2 > div.card-container.dQWGpo.light.sc-2d98b054-0 > div.XpFti.card-body.light.sc-2d98b054-3
+    item: main.Main_component__I_485 > div.Container_component__V9ZBu > div.whats-on_page__v7BAY > div.Events_component__GVsv_ > div.Events_eventsWrapper__AtzS6 > div.Events_component__GVsv_.Events_events__Izhv1 > div > div.Event_component__Ip5vk
     fields:
       - name: "location"
         value: "Koko"
@@ -3732,35 +3732,40 @@ scrapers:
       - name: url
         type: url
         location:
-          selector: div.cta-buttons.flex.flex-wrap > a.mr-2
-          attr: href
-      - name: title
+          - selector: div.Event_image__Q7hsG > a
+            attr: href
+      - name: comment
+        type: text
         location:
-          selector: h1
+          - selector: div.Event_text__VxzRh > div:nth-child(3)
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.Event_text__VxzRh > div:nth-child(2)
       - name: date
         type: date
         on_subpage: url
         components:
           - covers:
-              day: true
-              month: true
-              year: true
-            location:
-              selector: section.g-ui-box-content > p time
-              regex_extract:
-                exp: "[0-9]{1,2}\\s[a-zA-Z]+\\s[0-9]{4}"
-            layout: [2 January 2006]
-          - covers:
               time: true
             location:
-              selector: section.g-ui-box-content > p time
+              selector: div.EventDetail_timings__Zo2OA > div:nth-child(1)
+              entire_subtree: true
               regex_extract:
-                exp: "[0-9]{2}:[0-9]{2}"
-                index: 0
-            layout: ["15:04"]
+                exp: "[0-9]{1,2}:[0-9]{2} (a|p)m"
+            layout: ["3:04 pm", "3:04 am"]
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.EventDetail_component__cZXP9 > div > div > div.EventDetail_date__IpYw0 > p
+              regex_extract:
+                exp: "[0-9]{1,2} [a-z]+"
+            layout: ["2 Jan"]
         date_location: "Europe/London"
         date_language: "en_GB"
-    renderJs: true
+        guess_year: true
 
   - name: TheGeorgeTavern
     url: https://dice.fm/venue/the-george-tavern-kx88
