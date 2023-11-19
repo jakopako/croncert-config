@@ -4684,6 +4684,60 @@ scrapers:
         exp: Milla( Club)? # already covered
         match: false
 
+  - name: Schlachthof
+    url: https://im-schlachthof.de/programm/
+    item: div.tribe-events-calendar-list > div.tribe-events-calendar-list__event-row > div.tribe-common-g-col.tribe-events-calendar-list__event-wrapper > article.has-post-thumbnail.hentry.status-publish.tribe-events-calendar-list__event.tribe_events.type-tribe_events > div.tribe-events-calendar-list__event-details:nth-child(2) > header.tribe-events-calendar-list__event-header > div.flex.flex-col.grow.h-full
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: https://im-schlachthof.de/programm/
+      - name: comment
+        type: text
+        location:
+          - selector: div:nth-child(2) > h4.font-size-base > a
+      - name: title
+        type: text
+        location:
+          - selector: div:nth-child(2) > h3.font-size-lg.tribe-events-calendar-list__event-title > a.font-bold.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            child_index: 2
+      - name: url
+        type: url
+        location:
+          - selector: div:nth-child(2) > h3.font-size-lg.tribe-events-calendar-list__event-title > a.font-bold.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.flex.flex-wrap.font-size-xs.gap-2.lg\:gap-5.tribe-events-calendar-list__event-datetime > div.flex.gap-x-1.items-center
+              child_index: 2
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}"
+            layout:
+              - 2.1.
+          - covers:
+              time: true
+            location:
+              selector: div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.flex.flex-wrap.font-size-xs.gap-2.lg\:gap-5.tribe-events-calendar-list__event-datetime > div.flex.gap-x-1.items-center:nth-child(2)
+              child_index: 2
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+        date_location: CET
+        guess_year: true
+    paginator:
+      location:
+        selector: div.tribe-common-l-container.tribe-events-l-container > nav > ul > li.tribe-events-c-nav__list-item.tribe-events-c-nav__list-item--next > a
+
   ############
   # Münster
   ############
