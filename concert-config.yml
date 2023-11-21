@@ -4738,6 +4738,61 @@ scrapers:
       location:
         selector: div.tribe-common-l-container.tribe-events-l-container > nav > ul > li.tribe-events-c-nav__list-item.tribe-events-c-nav__list-item--next > a
 
+  - name: Bahnwaerterthiel
+    url: https://www.bahnwaerterthiel.de/
+    item: div.wrap-collabsible > div.collapsible-content > div.content-inner > div.wrap-collabsible > label.events-toggle
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: https://www.bahnwaerterthiel.de/
+      - name: title
+        type: text
+        location:
+          - selector: p
+            child_index: 0
+          - selector: p
+            child_index: 2
+          - selector: p
+            child_index: 4
+          - selector: p
+            child_index: 6
+        separator: ", "
+      - name: comment
+        type: text
+        location:
+          - selector:
+            child_index: 2
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector:
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}[0-9]{4}"
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector:
+              regex_extract:
+                exp: "[0-9]{2}-"
+            layout: ["15-"]
+        date_location: CET
+    filters:
+      - field: date
+        exp: "> now"
+        match: true
+
   ############
   # Münster
   ############
