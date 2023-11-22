@@ -4696,6 +4696,8 @@ scrapers:
         value: "Germany"
       - name: "sourceUrl"
         value: https://im-schlachthof.de/programm/
+      - name: location
+        value: Schlachthof
       - name: comment
         type: text
         location:
@@ -4749,6 +4751,10 @@ scrapers:
       - name: "country"
         value: "Germany"
       - name: "sourceUrl"
+        value: https://www.bahnwaerterthiel.de/
+      - name: location
+        value: Bahnwärter Thiel
+      - name: url
         value: https://www.bahnwaerterthiel.de/
       - name: title
         type: text
