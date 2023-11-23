@@ -7065,8 +7065,13 @@ scrapers:
         match: false
 
   - name: X-TRA
-    url: "https://www.x-tra.ch/en/agenda/concerts/"
+    url: "https://www.x-tra.ch/en/program/concerts/"
     item: ".events .tile li"
+    # renderJs: true
+    # interaction:
+    #   type: click
+    #   selector: div.events > a.more
+    #   count: 1
     fields:
       - name: "location"
         value: "X-TRA"
@@ -7304,7 +7309,7 @@ scrapers:
               month: true
               year: true
             location:
-              selector: ".date-display-single"
+              selector: ".date-display-single, .date-display-start"
               regex_extract:
                 exp: "[0-9]{1,2}\\. [\u00e4A-Za-z]{3,9} [0-9]{4}"
             layout: ["2. January 2006"]
@@ -7312,6 +7317,8 @@ scrapers:
               time: true
             location:
               selector: ".date-display-start"
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
