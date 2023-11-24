@@ -236,7 +236,7 @@ scrapers:
 
   - name: DeNieuweAnita
     url: https://denieuweanita.nl/
-    item: main.l-main > section.height_full.l-section.parallax_fixed.us_custom_fdcab3db.valign_top.with_img.wpb_row > div.i-cf.l-section-h > div.g-cols.type_default.valign_top.vc_row > div.scrolling1.vc_col-sm-6.vc_column_container.wpb_column > div.us_custom_79f120a2.vc_column-inner > div.wpb_wrapper > div.g-cols.type_default.valign_top.vc_inner.wpb_row > div.vc_col-sm-12.vc_column_container.wpb_column > div.us_custom_45b98367.vc_column-inner > div.wpb_wrapper > div.vc_clearfix.vc_grid-container-wrapper > div.vc_basic_grid.vc_clearfix.vc_grid-container.wpb_content_element > div.vc_grid.vc_grid-gutter-30px.vc_hook_hover.vc_pageable-wrapper.vc_row > div.vc_clearfix.vc_pageable-slide-wrapper > div.vc_clearfix.vc_col-sm-12.vc_grid-item > div.vc_clearfix.vc_grid-item-mini > div.vc_gitem-animated-block > div.vc_custom_1621945833714.vc_gitem-zone.vc_gitem-zone-a > div.vc_gitem-zone-mini > div.vc_gitem-row-position-top.vc_gitem_row.vc_row
+    item: div.vc_column_container.wpb_column > div.vc_column-inner > div.wpb_wrapper > div.vc_clearfix > div.vc_basic_grid.vc_grid-container.wpb_content_element > div.vc_row > div.vc_pageable-slide-wrapper > div.vc_clearfix.vc_grid-item > div.vc_grid-item-mini > div.vc_gitem-animated-block > div > div > div.vc_row
     fields:
       - name: "location"
         value: De Nieuwe Anita
@@ -251,17 +251,16 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.vc_col-sm-6.vc_custom_1623678230940.vc_gitem-col.vc_gitem-col-align-:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
+          - selector: div:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
       - name: url
         type: url
         location:
-          - selector: div.vc_col-sm-6.vc_custom_1623678230940.vc_gitem-col.vc_gitem-col-align-:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
+          - selector: div:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
             attr: href
       - name: eventType
         type: text
         location:
-          # - selector: div.vc_col-sm-2.vc_custom_1621260411052.vc_gitem-col.vc_gitem-col-align-:nth-child(2) > div.field_60a23a847bcea.font-icon.vc_gitem-acf.vc_gitem-align-center
-          - selector: div.vc_col-sm-2.vc_gitem-col.vc_gitem-col-align-.vc_custom_1621260411052 > div
+          - selector: div.vc_col-sm-1.vc_gitem-col.vc_custom_1697709766737 > div
         hide: true
       - name: date
         type: date
@@ -269,14 +268,14 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.vc_col-sm-4.vc_gitem-col.vc_gitem-col-align- > div.vc_gitem-acf.time-agenda.vc_gitem-align-center
+              selector: div > div.vc_gitem-acf.time-agenda.vc_gitem-align-center
             layout:
               - 15:04 pm
           - covers:
               day: true
               month: true
             location:
-              selector: div.vc_col-sm-4.vc_gitem-col.vc_gitem-col-align- > div.vc_gitem-post-meta-field-_agenda_short_date.date-agenda.vc_gitem-align-center
+              selector: div > div.vc_gitem-post-meta-field-_agenda_short_date.date-agenda.vc_gitem-align-center
             layout:
               - January 2
         date_location: CET
@@ -3719,7 +3718,7 @@ scrapers:
 
   - name: Koko
     url: https://www.koko.co.uk/whats-on
-    item: body > div > main.container > section.icvcuZ.mb-16.sc-abcdbf7d-0.section.snap-start.xl\:mb-28 > div.coMJmY.sc-abcdbf7d-1 > div.grid.lg\:grid-cols-3.md\:gap-4.md\:grid-cols-2.md\:px-10.px-2 > div.card-container.dQWGpo.light.sc-2d98b054-0 > div.XpFti.card-body.light.sc-2d98b054-3
+    item: main.Main_component__I_485 > div.Container_component__V9ZBu > div.whats-on_page__v7BAY > div.Events_component__GVsv_ > div.Events_eventsWrapper__AtzS6 > div.Events_component__GVsv_.Events_events__Izhv1 > div > div.Event_component__Ip5vk
     fields:
       - name: "location"
         value: "Koko"
@@ -3732,35 +3731,40 @@ scrapers:
       - name: url
         type: url
         location:
-          selector: div.cta-buttons.flex.flex-wrap > a.mr-2
-          attr: href
-      - name: title
+          - selector: div.Event_image__Q7hsG > a
+            attr: href
+      - name: comment
+        type: text
         location:
-          selector: h1
+          - selector: div.Event_text__VxzRh > div:nth-child(3)
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.Event_text__VxzRh > div:nth-child(2)
       - name: date
         type: date
         on_subpage: url
         components:
           - covers:
-              day: true
-              month: true
-              year: true
-            location:
-              selector: section.g-ui-box-content > p time
-              regex_extract:
-                exp: "[0-9]{1,2}\\s[a-zA-Z]+\\s[0-9]{4}"
-            layout: [2 January 2006]
-          - covers:
               time: true
             location:
-              selector: section.g-ui-box-content > p time
+              selector: div.EventDetail_timings__Zo2OA > div:nth-child(1)
+              entire_subtree: true
               regex_extract:
-                exp: "[0-9]{2}:[0-9]{2}"
-                index: 0
-            layout: ["15:04"]
+                exp: "[0-9]{1,2}:[0-9]{2} (a|p)m"
+            layout: ["3:04 pm", "3:04 am"]
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.EventDetail_component__cZXP9 > div > div > div.EventDetail_date__IpYw0 > p
+              regex_extract:
+                exp: "[0-9]{1,2} [a-z]+"
+            layout: ["2 Jan"]
         date_location: "Europe/London"
         date_language: "en_GB"
-    renderJs: true
+        guess_year: true
 
   - name: TheGeorgeTavern
     url: https://dice.fm/venue/the-george-tavern-kx88
@@ -3796,6 +3800,52 @@ scrapers:
               - Mon, 2 Jan, 15:04 pm
         date_location: Europe/London
         date_language: en_GB
+
+  - name: JazzCafeLondon
+    url: https://thejazzcafelondon.com/whats-on/
+    item: body > main.site-main > div > ul.events.list-unstyled > li.event.mix > div:nth-child(1) > div:nth-child(1)
+    fields:
+      - name: "location"
+        value: "Jazz Cafe"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://thejazzcafelondon.com/whats-on/"
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: a > ul > li
+      - name: comment
+        type: text
+        location:
+          - selector: h2.event-title > span.host
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              month: true
+            location:
+              selector: div.alt-font.event-date
+              child_index: 2
+            layout:
+              - Jan
+          - covers:
+              day: true
+            location:
+              selector: div.alt-font.event-date > span
+            layout:
+              - "2"
+        date_location: Europe/London
+        date_language: en_US
+        guess_year: true
 
   ###########
   # Lucerne
@@ -4633,6 +4683,121 @@ scrapers:
         exp: Milla( Club)? # already covered
         match: false
 
+  - name: Schlachthof
+    url: https://im-schlachthof.de/programm/
+    item: div.tribe-events-calendar-list > div.tribe-events-calendar-list__event-row > div.tribe-common-g-col.tribe-events-calendar-list__event-wrapper > article.has-post-thumbnail.hentry.status-publish.tribe-events-calendar-list__event.tribe_events.type-tribe_events > div.tribe-events-calendar-list__event-details:nth-child(2) > header.tribe-events-calendar-list__event-header > div.flex.flex-col.grow.h-full
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: https://im-schlachthof.de/programm/
+      - name: location
+        value: Schlachthof
+      - name: comment
+        type: text
+        location:
+          - selector: div:nth-child(2) > h4.font-size-base > a
+      - name: title
+        type: text
+        location:
+          - selector: div:nth-child(2) > h3.font-size-lg.tribe-events-calendar-list__event-title > a.font-bold.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            child_index: 2
+      - name: url
+        type: url
+        location:
+          - selector: div:nth-child(2) > h3.font-size-lg.tribe-events-calendar-list__event-title > a.font-bold.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.flex.flex-wrap.font-size-xs.gap-2.lg\:gap-5.tribe-events-calendar-list__event-datetime > div.flex.gap-x-1.items-center
+              child_index: 2
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}"
+            layout:
+              - 2.1.
+          - covers:
+              time: true
+            location:
+              selector: div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.flex.flex-wrap.font-size-xs.gap-2.lg\:gap-5.tribe-events-calendar-list__event-datetime > div.flex.gap-x-1.items-center:nth-child(2)
+              child_index: 2
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+        date_location: CET
+        guess_year: true
+    paginator:
+      location:
+        selector: div.tribe-common-l-container.tribe-events-l-container > nav > ul > li.tribe-events-c-nav__list-item.tribe-events-c-nav__list-item--next > a
+
+  - name: Bahnwaerterthiel
+    url: https://www.bahnwaerterthiel.de/
+    item: div.wrap-collabsible > div.collapsible-content > div.content-inner > div.wrap-collabsible > label.events-toggle
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: https://www.bahnwaerterthiel.de/
+      - name: location
+        value: Bahnwärter Thiel
+      - name: url
+        value: https://www.bahnwaerterthiel.de/
+      - name: title
+        type: text
+        location:
+          - selector: p
+            child_index: 0
+          - selector: p
+            child_index: 2
+          - selector: p
+            child_index: 4
+          - selector: p
+            child_index: 6
+        separator: ", "
+      - name: comment
+        type: text
+        location:
+          - selector:
+            child_index: 2
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector:
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}[0-9]{4}"
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector:
+              regex_extract:
+                exp: "[0-9]{2}-"
+            layout: ["15-"]
+        date_location: CET
+    filters:
+      - field: date
+        exp: "> now"
+        match: true
+
   ############
   # Münster
   ############
@@ -5080,60 +5245,58 @@ scrapers:
   # Paris
   ##########
   - name: LaCigale
-    url: "http://www.lacigale.fr/en/"
-    item: ".spectacle-infos"
+    url: "https://lacigale.fr/en/lineup/"
+    item: ul.artiste-event.artiste-event--prog > li.artiste-event__item > a.artiste-event__link
     fields:
       - name: "type"
         value: "concert"
       - name: "city"
         value: "Paris"
       - name: "location"
-        value: "LaCigale"
+        value: "La Cigale"
       - name: "sourceUrl"
-        value: "http://www.lacigale.fr/en/"
-      - name: "title"
+        value: "https://lacigale.fr/en/lineup/"
+      - name: title
+        type: text
         location:
-          selector: ".title .text-white"
-      - name: "url"
-        type: "url"
+          - selector: div.artiste-event__content:nth-child(2) > p.artiste-event__title
+      - name: comment
+        type: text
         location:
-          selector: ".mobile a"
-      - name: "comment"
-        location:
-          selector: ".c-m-7 .infos-wrapper .text-grey"
-        on_subpage: "url"
+          - selector: div.artiste-event__content:nth-child(2) > ul.list-date.list-date--no-margin > li.list-date__item:nth-child(2) > p
         can_be_empty: true
-      - name: "date"
-        type: "date"
-        on_subpage: "url"
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: status
+        location:
+          - selector: div.artiste-event__content-img > p
+        can_be_empty: true
+      - name: date
+        type: date
         components:
-          - covers:
-              day: true
-              month: true
-              year: true
-            location:
-              selector: ".c-m-7 .date-wrapper .text-grey"
-            layout: ["02 January 2006"]
           - covers:
               time: true
             location:
-              selector: ".c-m-6 .hour"
-              regex_extract:
-                exp: "[0-9]{2}H[0-9]{2}"
-            layout: ["15H04"]
-        date_location: "Europe/Paris"
+              selector: div.artiste-event__content:nth-child(2) > ul.list-date.list-date--no-margin:nth-child(3) > li.list-date__item:nth-child(2) > p
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.artiste-event__content:nth-child(2) > ul.list-date.list-date--no-margin:nth-child(3) > li.list-date__item > p
+            layout:
+              - Mon 2 Jan
+        date_location: CET
         date_language: en_US
-      - name: "status"
-        location:
-          selector: ".dates .text-grey span"
-        can_be_empty: true
-        hide: true
     filters:
       - field: "status"
-        exp: "cancelled"
+        exp: CANCELED
         match: false
       - field: "status"
-        exp: "delayed"
+        exp: POSTPONED
         match: false
 
   - name: NewMorning
@@ -5589,6 +5752,59 @@ scrapers:
       location:
         selector: div.pager > a.next
 
+  ############
+  # Stuttgart
+  ############
+  - name: Kiste
+    url: https://www.kiste-stuttgart.de/programm
+    item: body > div > div > div > div > table > tbody > tr > td > div.all-events > div.event-teaser
+    fields:
+      - name: "location"
+        value: "Jazzclub Kiste"
+      - name: "city"
+        value: "Stuttgart"
+      - name: "country"
+        value: "Germany"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.kiste-stuttgart.de/programm
+      - name: comment
+        type: text
+        location:
+          - selector: div.body:nth-child(3) > div.artists:nth-child(2)
+        can_be_empty: true
+      - name: url
+        type: url
+        location:
+          - selector: ""
+            attr: onclick
+            regex_extract:
+              exp: "/event/[0-9\\-]{10}"
+      - name: title
+        type: text
+        location:
+          - selector: div.body:nth-child(3) > div.title
+            entire_subtree: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.date-time:nth-child(2) > span.time
+            layout:
+              - 15:04 Uhr
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.date-time:nth-child(2) > strong
+            layout:
+              - 2.1.06
+        date_location: CET
+
   ##########
   # Toronto
   ##########
@@ -5641,7 +5857,7 @@ scrapers:
 
   - name: RoxyUlm
     url: https://www.roxy.ulm.de/programm/programm.php
-    item: div.kalausgabe > div.veranstaltung:nth-child(2) > div.text:nth-child(2) > a
+    item: body > div.bg_transp > div.inhalt > div.group.row > div.col.col_9 > div.kalausgabe > div.veranstaltung > div.text:nth-child(2) > a
     fields:
       - name: "location"
         value: "Roxy"
@@ -5653,11 +5869,6 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: https://www.roxy.ulm.de/programm/programm.php
-      - name: comment
-        type: text
-        location:
-          - selector: div.beschreibung:nth-child(3) > em
-        can_be_empty: true
       - name: title
         type: text
         location:
@@ -5680,12 +5891,12 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.detailzusatz > div:nth-child(2)
+              selector: div.detailzusatz > div.detail-col.col-location
             layout: ["Mon. 2.1.2006"]
           - covers:
               time: true
             location:
-              selector: div.detailzusatz > div:nth-child(2)
+              selector: div.detailzusatz > div.detail-col.col-location
               child_index: 2
             layout: ["15:04 H"]
         date_location: CET
@@ -5693,6 +5904,9 @@ scrapers:
     filters:
       - field: eventType
         exp: "Treffpunkt"
+        match: false
+      - field: eventType
+        exp: "Theater"
         match: false
 
   ##########
@@ -6850,8 +7064,13 @@ scrapers:
         match: false
 
   - name: X-TRA
-    url: "https://www.x-tra.ch/en/agenda/concerts/"
+    url: "https://www.x-tra.ch/en/program/concerts/"
     item: ".events .tile li"
+    # renderJs: true
+    # interaction:
+    #   type: click
+    #   selector: div.events > a.more
+    #   count: 1
     fields:
       - name: "location"
         value: "X-TRA"
@@ -7089,7 +7308,7 @@ scrapers:
               month: true
               year: true
             location:
-              selector: ".date-display-single"
+              selector: ".date-display-single, .date-display-start"
               regex_extract:
                 exp: "[0-9]{1,2}\\. [\u00e4A-Za-z]{3,9} [0-9]{4}"
             layout: ["2. January 2006"]
@@ -7097,6 +7316,8 @@ scrapers:
               time: true
             location:
               selector: ".date-display-start"
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
