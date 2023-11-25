@@ -10,7 +10,7 @@ Despite the fact that there are other websites that offer an overview about conc
 ## Idea
 
 The idea of making this repository public is to enable others to contribute to the configuration file and hence expand
-the data available on [concertcloud.live](https://concertcloud.live). I might have a good knowledge about concert locations in my home town but there are other poeple (you?) that know better about other towns. Everyone that has a basic understanding of programming and html/css should be able to extend the configuration file in order for the scraper to include more concert locations.
+the data available on [concertcloud.live](https://concertcloud.live). I might have a good knowledge about concert locations in my home town but there are other people (you?) that know better about other towns. Everyone that has a basic understanding of programming and html/css should be able to extend the configuration file in order for the scraper to include more concert locations.
 
 ## How to contribute
 
