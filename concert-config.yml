@@ -2037,11 +2037,15 @@ scrapers:
               day: true
               month: true
               year: true
-              time: true
             location:
               selector: time
               attr: datetime
             layout: ["2006-01-02T15:04:05Z"]
+          - covers:
+              time: true
+            location:
+              selector: div.field.field--name-field-time-doors.field--type-time.field--label-hidden.field__item
+            layout: ["04:05"]
         date_location: CET
         date_language: fr_FR
       - name: genre
@@ -2050,6 +2054,7 @@ scrapers:
           - selector: div.genre-wrapper > div.field > div.field__item > span
             all_nodes: true
             separator: ", "
+        can_be_empty: true
       - name: title
         type: text
         location:
@@ -5758,7 +5763,7 @@ scrapers:
     item: body.culture > div.site > main.site-main > article.is_page.culture.is_parent > div.entry-content > div.wp-block-getwid-section > div.wp-block-getwid-section__wrapper > div.wp-block-getwid-section__inner-wrapper > div.wp-block-getwid-section__content > div.wp-block-getwid-section__inner-content > ul.list.evenements > li
     fields:
       - name: "location"
-        value: "Café Litteraire"
+        value: "Café Littéraire"
       - name: "city"
         value: "Vevey"
       - name: "type"
