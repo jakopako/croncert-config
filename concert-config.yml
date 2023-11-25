@@ -2065,7 +2065,7 @@ scrapers:
         location:
           selector: article.node > a
           attr: href
-      - name: image_url
+      - name: imageUrl
         type: url
         location:
           selector: picture > img
