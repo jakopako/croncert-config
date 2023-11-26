@@ -7616,7 +7616,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: " https://zentralwaescherei.space/en"
+        value: "https://zentralwaescherei.space/en"
       - name: title
         type: text
         location:
