@@ -2044,7 +2044,7 @@ scrapers:
               time: true
             location:
               selector: div.field.field--name-field-time-doors.field--type-time.field--label-hidden.field__item
-            layout: ["04:05"]
+            layout: ["15:04"]
         date_location: CET
         date_language: fr_FR
       - name: genre
@@ -7616,7 +7616,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: " https://zentralwaescherei.space/en"
+        value: "https://zentralwaescherei.space/en"
       - name: title
         type: text
         location:
