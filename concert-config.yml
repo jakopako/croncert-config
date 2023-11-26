@@ -2011,7 +2011,7 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.block.block-views.block-views-blockevents-view-block-agenda-list.views-element-container > div > div.js-view-dom-id-1b9c8dff9270e3c6aacef0f8d33d7c9197033f86073023e5c9064ec0405d6015.view.view-display-id-view_block_agenda_list.view-events.view-id-events > div.view-content > div.views-row > article.node.node--type-event.node--view-mode-teaser-large > a > div.grid-x.node__content > div.main-wrapper:nth-child(2) > div.date-wrapper:nth-child(2) > div.field.field--label-hidden.field--name-field-time-doors.field--type-time.field__item:nth-child(2)
+          selector: div.row_events > a.event.w-inline-block > div.event-lead > div.event-title-alt > h3.event-title-text
     renderJs: true
 
   ###########
