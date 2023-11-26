@@ -2018,8 +2018,8 @@ scrapers:
   # Fribourg
   ###########
   - name: FriSon
-    url: https://fri-son.ch/de/programm
-    item: div.view-programm-sapi > div.view-content > div.views-row
+    url: https://fri-son.ch/fr/programme
+    item: article.node
     fields:
       - name: "type"
         value: "concert"
@@ -2028,9 +2028,8 @@ scrapers:
       - name: "location"
         value: "Fri-Son"
       - name: "sourceUrl"
-        value: https://fri-son.ch/de/programm
+        value: https://fri-son.ch/fr/programme
       - name: date
-        on_subpage: url
         type: date
         components:
           - covers:
@@ -2038,34 +2037,39 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.field.field-name-field-event-date > span.date-display-single
-            layout:
-              - Monday, 2. January 2006
+              selector: time
+              attr: datetime
+            layout: ["2006-01-02T15:04:05Z"]
           - covers:
               time: true
             location:
-              selector: div.field.field-name-field-event-doors
-              child_index: 1
-              regex_extract:
-                exp: "[0-9]{2}:[0-9]{2}"
+              selector: div.field.field--name-field-time-doors.field--type-time.field--label-hidden.field__item
             layout: ["15:04"]
         date_location: CET
-        date_language: de_DE
+        date_language: fr_FR
       - name: genre
         type: text
         location:
-          - selector: div.field.field-name-field-event-event-name
+          - selector: div.genre-wrapper > div.field > div.field__item > span
+            all_nodes: true
+            separator: ", "
+        can_be_empty: true
       - name: title
         type: text
         location:
-          - selector: div.field.field-name-field-event-artists > h1
+          - selector: div.performer
             all_nodes: true
             separator: ", "
       - name: url
         type: url
         location:
-          selector: div.node.node-event
-          attr: about
+          selector: article.node > a
+          attr: href
+      - name: imageUrl
+        type: url
+        location:
+          selector: picture > img
+          attr: src
     paginator:
       location:
         selector: li.pager__item > a
@@ -5973,7 +5977,7 @@ scrapers:
     item: body.culture > div.site > main.site-main > article.is_page.culture.is_parent > div.entry-content > div.wp-block-getwid-section > div.wp-block-getwid-section__wrapper > div.wp-block-getwid-section__inner-wrapper > div.wp-block-getwid-section__content > div.wp-block-getwid-section__inner-content > ul.list.evenements > li
     fields:
       - name: "location"
-        value: "Café Litteraire"
+        value: "Café Littéraire"
       - name: "city"
         value: "Vevey"
       - name: "type"
