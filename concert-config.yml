@@ -6974,6 +6974,7 @@ scrapers:
         location:
           selector: .block-image > img
           attr: src
+        can_be_empty: true
       - name: "event-type"
         location:
           selector: ".type.float"
