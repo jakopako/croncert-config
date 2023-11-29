@@ -6968,6 +6968,12 @@ scrapers:
           selector: ".text > .block.block-text > p"
           max_length: 200
         can_be_empty: true
+      - name: "imageUrl"
+        type: url
+        on_subpage: "url"
+        location:
+          selector: .block-image > img
+          attr: src
       - name: "event-type"
         location:
           selector: ".type.float"
