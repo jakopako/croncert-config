@@ -2714,6 +2714,14 @@ scrapers:
         location:
           selector: a.main
           attr: href
+      - name: imageUrl
+        type: text
+        can_be_empty: true
+        location:
+          selector: a.image > picture > source
+          attr: data-lazy-srcset
+          regex_extract:
+            exp: "[^ ]+"
       - name: title
         type: text
         location:
