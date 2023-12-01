@@ -7888,7 +7888,11 @@ scrapers:
         type: text
         location:
           - selector: div.col-md-2 > div.row > div.col.col-md-12.mt-2:nth-child(2) > div.h4.kategorie.text-right
-        hide: true
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.col-md-3 > a.loaded > div.img-wrap
+            attr: data-background-image
       - name: date
         type: date
         components:
