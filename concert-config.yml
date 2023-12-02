@@ -6644,11 +6644,11 @@ scrapers:
         location:
           selector: "" # An empty string means that we look in the event node itself for an href
       - name: "imageUrl"
-        type: "text"
+        type: "url"
         location:
           selector: .event-preview__image > source:nth-child(1)
           attr: data-srcset
-          regex_extract: 
+          regex_extract:
             exp: "[^ ]+"
             index: 0
       - name: "date"
