@@ -7891,7 +7891,7 @@ scrapers:
       - name: imageUrl
         type: url
         location:
-          - selector: div.col-md-3 > a.loaded > div.img-wrap
+          - selector: div.col-md-3 > a > div
             attr: data-background-image
       - name: date
         type: date
