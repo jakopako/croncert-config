@@ -6965,7 +6965,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://exil.cl/programm" # a hack to make sure the events are deleted before being readded
+        value: "https://exil.club"
       - name: "title"
         location:
           selector: ".content .topbar h2"
@@ -6975,6 +6975,13 @@ scrapers:
         location:
           selector: ".text > .block.block-text > p"
           max_length: 200
+        can_be_empty: true
+      - name: "imageUrl"
+        type: url
+        on_subpage: "url"
+        location:
+          selector: .block-image > img
+          attr: src
         can_be_empty: true
       - name: "event-type"
         location:
