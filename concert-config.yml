@@ -7570,8 +7570,13 @@ scrapers:
       - name: url
         value: "https://www.plaza-zurich.ch/nu/events/event_list_type/2"
       - name: title
+        type: url
         location:
           selector: div.nu-e-innerwrap > div.nu-e-mobitop > div.nu-e-titleblock > h2
+      - name: imageUrl
+        location:
+          selector: div.nu-e-innerwrap > div.nu-e-mobidetails > div.nu-e-flyer > a
+          attr: href
       - name: comment
         location:
           selector: a.addtocalendar
