@@ -2586,7 +2586,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "http://www.jazz-cafe-alto.nl/"
+        value: https://bleu-lezard.ch/programmation/
       - name: url
         type: url
         location:
