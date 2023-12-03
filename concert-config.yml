@@ -2027,6 +2027,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Fribourg"
+      - name: country
+        value: Switzerland
       - name: "location"
         value: "Fri-Son"
       - name: "sourceUrl"
