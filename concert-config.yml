@@ -2769,6 +2769,14 @@ scrapers:
         location:
           selector: a.main
           attr: href
+      - name: imageUrl
+        type: url
+        can_be_empty: true
+        location:
+          selector: a.image > picture > source
+          attr: data-lazy-srcset
+          regex_extract:
+            exp: "[^ ]+"
       - name: title
         type: text
         location:
@@ -6700,6 +6708,14 @@ scrapers:
         type: "url"
         location:
           selector: "" # An empty string means that we look in the event node itself for an href
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: .event-preview__image > source:nth-child(1)
+          attr: data-srcset
+          regex_extract:
+            exp: "[^ ]+"
+            index: 0
       - name: "date"
         type: "date"
         components:
@@ -7012,7 +7028,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://exil.cl/programm" # a hack to make sure the events are deleted before being readded
+        value: "https://exil.club"
       - name: "title"
         location:
           selector: ".content .topbar h2"
@@ -7943,7 +7959,11 @@ scrapers:
         type: text
         location:
           - selector: div.col-md-2 > div.row > div.col.col-md-12.mt-2:nth-child(2) > div.h4.kategorie.text-right
-        hide: true
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.col-md-3 > a > div
+            attr: data-background-image
       - name: date
         type: date
         components:
