@@ -2078,7 +2078,6 @@ scrapers:
       location:
         selector: li.pager__item > a
 
-scrapers:
   - name: LaSpirale
     url: https://laspirale.ch/programme/
     item: div.prog_concert
@@ -2122,17 +2121,17 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.droite > p 
+              selector: div.droite > p
               regex_extract:
                 exp: "^[A-z]+ [0-9]{1,2}(er)? [A-zé]+ [0-9]{4}"
-            layout: [ "Monday 2 January 2006", "Monday 2er January 2006" ]
+            layout: ["Monday 2 January 2006", "Monday 2er January 2006"]
           - covers:
               time: true
             location:
-              selector: div.droite > p 
+              selector: div.droite > p
               regex_extract:
                 exp: "[0-9]{2}h[0-9]{0,2}"
-            layout: [ "15h04", "15h" ]
+            layout: ["15h04", "15h"]
         date_language: fr_FR
         date_location: CET
 
