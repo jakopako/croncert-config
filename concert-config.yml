@@ -2078,6 +2078,64 @@ scrapers:
       location:
         selector: li.pager__item > a
 
+scrapers:
+  - name: LaSpirale
+    url: https://laspirale.ch/programme/
+    item: div.prog_concert
+    fields:
+      - name: "location"
+        value: "La Spirale"
+      - name: "city"
+        value: "Fribourg"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://laspirale.ch/programme/"
+      - name: title
+        type: text
+        location:
+          - selector: div.droite > h2
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: src
+      - name: url
+        type: url
+        location:
+          - selector: a.masterlink
+            attr: href
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          - selector: div.gauche > p
+            all_nodes: true
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.droite > p 
+              regex_extract:
+                exp: "^[A-z]+ [0-9]{1,2}(er)? [A-zé]+ [0-9]{4}"
+            layout: [ "Monday 2 January 2006", "Monday 2er January 2006" ]
+          - covers:
+              time: true
+            location:
+              selector: div.droite > p 
+              regex_extract:
+                exp: "[0-9]{2}h[0-9]{0,2}"
+            layout: [ "15h04", "15h" ]
+        date_language: fr_FR
+        date_location: CET
+
   ###########
   # Ghent
   ###########
