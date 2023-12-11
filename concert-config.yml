@@ -2613,6 +2613,10 @@ scrapers:
               selector: body > div.type-programmation > div:nth-child(3) > div:nth-child(2) > div.elementor-element-864bc90 > div> p
             layout:
               - "15:04"
+            transform:
+              - type: regex-replace
+                regex: 00:00
+                replace: 11:59
         date_language: fr_FR
         date_location: CET
       - name: imageUrl
