@@ -2632,6 +2632,65 @@ scrapers:
         date_location: Europe/Berlin
         date_language: fr_FR
 
+  - name: BleuLézard
+    url: https://bleu-lezard.ch/programmation/
+    item: body > div.elementor.elementor-2718.elementor-location-archive > div.e-con.e-con-full.e-flex.e-parent.elementor-element.elementor-element-834f8ee > div.e-child.e-con.e-con-full.e-flex.elementor-element.elementor-element-0875475 > div.elementor-element.elementor-element-279f0bd.elementor-widget.elementor-widget-jet-listing-grid.elementor-widget-mobile__width-initial > div.elementor-widget-container > div.jet-listing.jet-listing-grid > div.grid-col-desk-1.grid-col-mobile-1.grid-col-tablet-1.jet-listing-grid--1508.jet-listing-grid__items > div.jet-listing-grid__item > div.elementor.elementor-1508 > div.e-con.e-con-full.e-flex.e-parent.elementor-element.elementor-element-f30e838
+    fields:
+      - name: "location"
+        value: "Bleu Lézard"
+      - name: "city"
+        value: "Lausanne"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://bleu-lezard.ch/programmation/
+      - name: url
+        type: url
+        location:
+          - selector: div.e-child.e-con.e-con-full.e-flex.elementor-element.elementor-element-2fb9c7f > div.elementor-align-justify.elementor-element.elementor-element-f6dd3ef.elementor-widget.elementor-widget-button > div.elementor-widget-container > div.elementor-button-wrapper > a.elementor-button.elementor-button-link.elementor-size-sm
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.e-child.e-con.e-con-full.e-flex.elementor-element.elementor-element-3d6810c:nth-child(2) > div.elementor-element.elementor-element-8ea3d8b.elementor-widget.elementor-widget-heading.elementor-widget__width-initial:nth-child(2) > div.elementor-widget-container > h2.elementor-heading-title.elementor-size-default > a
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              month: true
+              day: true
+            location:
+              selector: body > div.type-programmation > div:nth-child(3) > div:nth-child(3) > div > div > div > div > div
+            layout:
+              - "Monday 2 January 2006"
+          - covers:
+              time: true
+            location:
+              selector: body > div.type-programmation > div:nth-child(3) > div:nth-child(2) > div.elementor-element-864bc90 > div> p
+            layout:
+              - "15:04"
+            transform:
+              - type: regex-replace
+                regex: 00:00
+                replace: 11:59
+        date_language: fr_FR
+        date_location: CET
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.e-child.e-con.e-con-full.e-flex.elementor-element.elementor-element-fce7e92:nth-child(1) > div > div > a > img
+            attr: src
+      - name: comment
+        type: text
+        on_subpage: url
+        entire_subtree: true
+        location:
+          - selector: body > div.type-programmation > div:nth-child(3) > div:nth-child(3) > div:nth-child(3)
+        can_be_empty: true
+
   - name: Chorus
     url: https://chorus.ch/programme/
     item: body.page-template-default.page.page-id-12 > div.body-outer-wrapper > div.body-wrapper.boxed-style > div.content-wrapper.container.main > div.post-12.page.type-page.status-publish.hentry > div.page-wrapper.single-page.single-sidebar.left-sidebar > div.row.gdl-page-row-wrapper > div.gdl-page-left.mb0.twelve.columns > div.row > div.gdl-page-item.mb0.eight.columns > div.row > div.twelve.columns.mb30 > div.gdl-page-content > div.gdl-tab > ul.gdl-tab-content > li > ul.eme_events_list > code > li
