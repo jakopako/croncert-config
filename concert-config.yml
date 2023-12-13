@@ -2675,7 +2675,7 @@ scrapers:
             transform:
               - type: regex-replace
                 regex: 00:00
-                replace: 11:59
+                replace: 23:59
         date_language: fr_FR
         date_location: CET
       - name: imageUrl
