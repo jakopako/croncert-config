@@ -1009,13 +1009,13 @@ scrapers:
           - covers:
               month: true
             location:
-              selector: div.month
+              selector: div.ym-gbox > div.month
             layout:
               - Jan
           - covers:
               year: true
             location:
-              selector: div.year
+              selector: div.ym-gbox > div.year
             layout:
               - "2006"
           - covers:
