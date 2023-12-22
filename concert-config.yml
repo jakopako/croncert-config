@@ -7235,7 +7235,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://www.x-tra.ch/en/agenda/concerts/"
+        value: "https://www.x-tra.ch/en/program/concerts/"
       - name: "title"
         location:
           selector: ".text h2"
