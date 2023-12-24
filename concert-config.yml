@@ -3359,6 +3359,61 @@ scrapers:
         date_language: "fr_FR"
         date_location: "Europe/Berlin"
 
+  - name: JumeauxJazzClub
+    url: https://www.jumeaux.club/programmation-complete
+    item: body > section.section > div.container.w-container.w-layout-blockcontainer > div.w-dyn-list > div.events-grid.w-dyn-items > div.w-dyn-item > div.nextevent
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: "location"
+        value: "Jumeaux Jazz Club"
+      - name: "sourceUrl"
+        value: "https://www.newmorning.com/programmation"
+      - name: price
+        type: text
+        location:
+          - selector: div.concert__meta > div.concert__detail > div.event__number
+      - name: style
+        type: text
+        location:
+          - selector: div.w-dyn-list:nth-child(3) > div.concert__bands__media.w-dyn-items > div.concert__band.small.w-dyn-item > div.event__band__style:nth-child(3)
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.w-dyn-list:nth-child(3) > div.concert__bands__media.w-dyn-items > div.concert__band.small.w-dyn-item > img
+            attr: src
+      - name: title
+        type: text
+        location:
+          - selector: div.nextevent__meta > a.event__link.w-inline-block > h2.event__title.small
+      - name: url
+        type: url
+        location:
+          - selector: div.nextevent__meta > a.event__link.w-inline-block
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              year: true
+              month: true
+              day: true
+            location:
+              selector: div.nextevent__meta > div.nextevent__info__wrapper > div.concert__date.small
+            layout:
+              - "2/1/2006"
+          - covers:
+              time: true
+            location:
+              selector: div.concert__meta:nth-child(4) > div.concert__detail:nth-child(3) > div.event__number:nth-child(5)
+            layout:
+              - "15h04"
+              - "15h"
+        date_language: fr_FR
+        date_location: CET
+
   ##########
   # Leipzig
   ##########
