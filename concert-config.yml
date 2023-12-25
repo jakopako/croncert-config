@@ -3370,7 +3370,7 @@ scrapers:
       - name: "location"
         value: "Jumeaux Jazz Club"
       - name: "sourceUrl"
-        value: "https://www.newmorning.com/programmation"
+        value: "https://www.jumeaux.club/programmation-complete"
       - name: price
         type: text
         location:
