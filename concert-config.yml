@@ -6767,6 +6767,7 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
+        guess_year: true
 
   - name: Umbo
     url: "https://www.umbo.wtf"
