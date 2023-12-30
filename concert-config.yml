@@ -7998,6 +7998,9 @@ scrapers:
       - field: date
         exp: "> now"
         match: true
+      - field: title
+        exp: ".*(?i)(geschlossen).*"
+        match: false
 
   - name: AlteKaserne
     url: https://www.altekaserne.com/events
