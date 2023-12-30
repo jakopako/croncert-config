@@ -494,40 +494,32 @@ scrapers:
         components:
           - covers:
               day: true
+            location:
+              selector: div.grid-item > div.event-title > p.event-date
+              regex_extract:
+                exp: "[0-9]{2}"
+                index: 0
+            layout:
+              - 2
+          - covers:
               month: true
+            location:
+              selector: div.grid-item > div.event-title > p.event-date
+              regex_extract:
+                exp: "[0-9]{2}"
+                index: 1
+            layout:
+              - 1
+          - covers:
               year: true
             location:
               selector: div.grid-item > div.event-title > p.event-date
+              regex_extract:
+                exp: "[0-9]{2,4}"
+                index: 2
             layout:
-              - MI 02-01-06
-              - DO 02-01-06
-              - FR 02-01-06
-              - SA 02-01-06
-              - SO 02-01-06
-              - MO 02.01.06
-              - DI 02.01.06
-              - MI 02.01.06
-              - DO 02.01.06
-              - FR 02.01.06
-              - SA 02.01.06
-              - SO 02.01.06
-              - MI 02-01-2006
-              - DO 02-01-2006
-              - FR 02-01-2006
-              - SA 02-01-2006
-              - SO 02-01-2006
-              - MI 02.01.2006
-              - DO 02.01.2006
-              - FR 02.01.2006
-              - SA 02.01.2006
-              - SO 02.01.2006
-              - MO-02.01.2006
-              - DI-02.01.2006
-              - MI-02.01.2006
-              - DO-02.01.2006
-              - FR-02.01.2006
-              - SA-02.01.2006
-              - SO-02.01.2006
+              - 06
+              - 2006
         date_location: "Europe/Berlin"
       - name: url
         type: url
@@ -542,6 +534,9 @@ scrapers:
     filters:
       - field: "title"
         exp: ".*(?i)(abgesagt).*"
+        match: false
+      - field: title
+        exp: ".*UshaltBAR.*"
         match: false
       - field: date
         exp: "> now"
