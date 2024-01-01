@@ -1,0 +1,117 @@
+scrapers:
+  - name: TerminalWest
+    url: https://terminalwestatl.com/
+    item: div.c-axs-events.c-axs-events7121 > div.c-axs-events__container.js-axs-events-section > div.c-axs-events-months-details > div.c-axs-events-months-flex-container.o-container > div.c-axs-event-card__wrapper > a.c-axs-event-card__header.c-axs-event-card__header7121
+    fields:
+      - name: "location"
+        value: Terminal West
+      - name: "city"
+        value: "Atlanta"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://terminalwestatl.com/
+      - name: title
+        type: text
+        location:
+          - selector: div.c-axs-event-card__title--grow-wrapper:nth-child(2) > div.c-axs-event-card__title.c-axs-event-card__title7121
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.c-axs-event-card__details.c-axs-event-card__details7121:nth-child(3) > div.c-axs-event-card__date.c-axs-event-card__date7121.u-font-20 > p.c-axs-event-card__date--showtime7121
+              entire_subtree: true
+            layout:
+              - Mon, Jan 2, 2006 15:04 PM
+        date_location: America/New_York
+        date_language: en_US
+    render_js: true
+
+  - name: CenterStage
+    url: https://www.centerstage-atlanta.com/
+    item: body.csa-body.home.page.page-id-70.page-template-default > div.csa-site-wrap > div.csa-main-content > section.content-area > main.site-main > section.events-section > div.events-listing > div.events-listing__inner > div.event-item.popup-event
+    fields:
+      - name: "city"
+        value: "Atlanta"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.centerstage-atlanta.com/
+      - name: title
+        type: text
+        location:
+          - selector: div.event-action > div.event-item-content > div.event-info > h3.event-name
+      - name: location
+        type: text
+        location:
+          - selector: div.event-action > div.event-item-content > div.event-info > h4.event-venue
+      - name: url
+        type: url
+        location:
+          - selector: a.event-link
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.event-action > div.event-item-content > div.event-info > div.event-details:nth-child(5) > div.event-show_time:nth-child(4)
+            layout:
+              - Show 15:04 pm
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.event-action > div.event-item-content > div.event-info > span.event-date
+            layout:
+              - Mon Jan 2
+        date_location: America/New_York
+        date_language: en_US
+    render_js: true
+
+  - name: VarietyPlayhouse
+    url: https://www.variety-playhouse.com/
+    item: body > div.o-layout > div.o-layout__content > div.c-axs-events.c-axs-events7215 > div.c-axs-events__container.js-axs-events-section > div.c-axs-events-months-details > div.c-axs-events-months-flex-container.o-container > div.c-axs-event-card__wrapper > a.c-axs-event-card__header.c-axs-event-card__header7215
+    fields:
+      - name: "location"
+        value: Variety Playhouse
+      - name: "city"
+        value: "Atlanta"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.variety-playhouse.com/
+      - name: title
+        type: text
+        location:
+          - selector: div.c-axs-event-card__title--grow-wrapper:nth-child(2) > div.c-axs-event-card__title.c-axs-event-card__title7215
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.c-axs-event-card__date.c-axs-event-card__date7215.u-font-20 > p.c-axs-event-card__date--showtime7215
+              entire_subtree: true
+            layout:
+              - Mon, Jan 2, 2006 15:04 PM
+        date_location: America/New_York
+        date_language: en_US
+    render_js: true

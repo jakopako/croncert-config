@@ -1,0 +1,134 @@
+scrapers:
+  - name: Gretchen
+    url: https://www.gretchen-club.de/
+    item: body.normal.start > div.block > div.start > div > div.dates > div.gig
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Gretchen"
+      - name: "sourceUrl"
+        value: "https://www.gretchen-club.de/"
+      - name: title
+        location:
+          selector: div.gig_main > div.scroll.nano > div.text.nano-content > span.title > h2 > a
+      - name: url
+        type: url
+        location:
+          selector: div.gig_main > div.scroll.nano > div.text.nano-content > span.title > h2 > a
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.gig_top > span.date > strong
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.gig_top > span.date
+              regex_extract:
+                exp: "Show: [0-9\\.]+"
+              entire_subtree: true
+            layout: ["Show: 15", "Show: 15.04"]
+        date_location: "Europe/Berlin"
+    filters:
+      - field: "title"
+        exp: ".*CANCELLED"
+        match: false
+
+  - name: HuxleysNeueWelt
+    url: https://huxleysneuewelt.com/shows
+    item: div.em-events-list.em-events-list-grouped.em-list > a.col-md-3.col-sm-4.col-xs-12.event-item
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Huxleys Neue Welt"
+      - name: "sourceUrl"
+        value: https://huxleysneuewelt.com/shows
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: title
+        type: text
+        location:
+          - selector: span
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: p
+            layout:
+              - 2.1.2006 · 15:04
+        date_location: CET
+
+  - name: Metropol
+    url: https://metropol-berlin.de/events
+    item: div.wrapper > div.pagecontent > div.container.grid-container.grid-parent.hfeed.site > div.site-content > div.content-area.grid-100.grid-parent.mobile-grid-100.tablet-grid-100 > main.site-main > article.has-post-thumbnail.page.post-11.status-publish.type-page > div.inside-article > div.entry-content > div > div.em.em-view-container > div.em-events-list.em-list > ul.eventlist > li.event
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Metropol"
+      - name: "sourceUrl"
+        value: https://metropol-berlin.de/events
+      - name: title
+        type: text
+        location:
+          - selector: div.main:nth-child(2) > a.title > h2.artist
+      - name: url
+        type: url
+        location:
+          - selector: div.main:nth-child(2) > a.title
+            attr: href
+      - name: comment
+        type: text
+        location:
+          - selector: div.date > ul.event-categories > li > a
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.date > span.time
+            layout:
+              - "15:04"
+          - covers:
+              month: true
+              year: true
+            location:
+              selector: div.date > span.monthyear
+            layout:
+              - Jan. 2006
+          - covers:
+              day: true
+            location:
+              selector: div.date > span.day
+            layout:
+              - 2/
+        date_location: CET
+        date_language: de_DE

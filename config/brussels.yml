@@ -1,0 +1,64 @@
+scrapers:
+  - name: Botanique
+    url: "https://botanique.be/en/concerts"
+    item: ".views-content .event-type-concert"
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Brussels"
+      - name: country
+        value: Belgium
+      - name: "location"
+        value: "Botanique"
+      - name: "sourceUrl"
+        value: "https://botanique.be/en/concerts"
+      - name: "title"
+        location:
+          selector: ".node-type-event__title h2 a span"
+      - name: "comment"
+        can_be_empty: true
+        location:
+          selector: ".location-list li"
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".node-type-event__title h2 a"
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+            location:
+              selector: ".node-date__day"
+            layout: ["02"]
+          - covers:
+              month: true
+            location:
+              selector: ".node-date__month"
+            layout: ["Jan"]
+          - covers:
+              year: true
+            location:
+              selector: ".node-date__year"
+            layout: ["2006"]
+          - covers:
+              time: true
+            location:
+              selector: ".node-type-event__timing"
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+              entire_subtree: true
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "en_US"
+    paginator:
+      location:
+        selector: ".pager__item a"
+    filters:
+      - field: "title"
+        exp: ".*POSTPONED.*"
+        match: false
+      - field: "title"
+        exp: ".*CANCELLED.*"
+        match: false

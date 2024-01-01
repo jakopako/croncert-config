@@ -1,0 +1,9 @@
+writer:
+  # type: file
+  # filepath: concerts.json
+  # type: api
+  # uri: "http://localhost:5001/api/events"
+  # user: croncert
+  # password: croncert
+  type: "api"
+  # The other parameters are defined as env variables.

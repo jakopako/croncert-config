@@ -1,0 +1,49 @@
+scrapers:
+  - name: A38
+    url: https://www.a38.hu/en/programs
+    item: body > div.ng-scope > div.l-content > section > div.l-content-inner > section.l-constrained.l-gutterSection > ul.list.list--ofcards.list--filtered > li > a.event.eventCard
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Budapest"
+      - name: "location"
+        value: "A38"
+      - name: "sourceUrl"
+        value: https://www.a38.hu/en/programs
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              month: true
+            location:
+              selector: section.eventCard__head > div.eventCard__head__date > div.dateBox.dateBox--listItem > div.dateBox-item.dateBox-item--from > div.l-verticalCenter > div
+            layout: ["January"]
+          - covers:
+              day: true
+            location:
+              selector: section.eventCard__head > div.eventCard__head__date > div.dateBox.dateBox--listItem > div.dateBox-item.dateBox-item--from > div.l-verticalCenter > div.dateBox-item-day
+            layout: ["2"]
+          - covers:
+              time: true
+            location:
+              selector: section.eventCard__head > div.eventCard__head__date > div.dateBox.dateBox--listItem > div.dateBox-item.dateBox-item--from > div.l-verticalCenter > div > span.show-for-tablet
+            layout: ["15:04"]
+        date_location: CET
+      - name: title
+        type: text
+        location:
+          - selector: section.eventCard__details.isprice > header > h2.eventCard__details__title > div
+            entire_subtree: true
+      - name: comment
+        type: text
+        location:
+          - selector: section.eventCard__details.isprice > div.eventCard__details__description > p
+    filters:
+      - field: title
+        exp: "Canceled.*"
+        match: false

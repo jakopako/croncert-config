@@ -1,0 +1,198 @@
+scrapers:
+  - name: Bierhuebeli
+    url: "https://bierhuebeli.ch/konzerte/"
+    item: div.elementor-widget-container > div.js-wpv-view-layout.js-wpv-layout-responsive.js-wpv-view-layout-11026 > a.datumlink
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Bern"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Bierhuebeli"
+      - name: "sourceUrl"
+        value: "https://bierhuebeli.ch/konzerte/"
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: div.datumswrapper > div.event-upperpart > div.eventtitel
+      - name: comment
+        type: text
+        can_be_empty: true
+        location:
+          selector: div.datumswrapper > div.byline
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            layout: ["Mon, 2.1.06"]
+            location:
+              selector: div.billboard-big > div > div.billboard-datum > font
+          - covers:
+              time: true
+            location:
+              selector: div.eventinfos > b:nth-child(3)
+            layout: ["15:04"]
+        date_language: de_DE
+        date_location: "Europe/Berlin"
+
+  - name: Gaskessel
+    url: https://gaskessel.ch/programm/
+    item: article.eventpreview
+    fields:
+      - name: "location"
+        value: "Gaskessel"
+      - name: "city"
+        value: "Bern"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://gaskessel.ch/programm/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: a.previewlink > span.eventdatum
+            layout: ["Mon 2.1.06"]
+          - covers:
+              time: true
+            location:
+              selector: div.contentbox > div.content > div.textblock > div.infobox > div.table > div.trow > div.tcell
+              node_index: 1
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+      - name: title
+        type: text
+        location:
+          selector: a.previewlink > h2.eventname
+          entire_subtree: true
+      - name: url
+        type: url
+        location:
+          selector: div.contentbox > div.content > div.textblock > div.infobox > div.btns > a.ticketlink
+          attr: href
+      - name: comment
+        type: text
+        location:
+          selector: div.contentbox > div.content > div.textblock > div.text > p
+        can_be_empty: true
+
+  - name: Dachstock
+    url: https://www.dachstock.ch/events
+    item: div.event-teaser-info
+    fields:
+      - name: "location"
+        value: "Dachstock"
+      - name: "city"
+        value: "Bern"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.dachstock.ch/events
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: a.event-date
+              regex_extract:
+                exp: "[0-9]{2}.[0-9]{2}.[0-9]{4} - [0-9]{2}:[0-9]{2}"
+            layout: ["02.01.2006 - 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+      - name: "url"
+        type: url
+        location:
+          selector: div.event-teaser-top > a
+          attr: href
+      - name: "title"
+        type: text
+        location:
+          selector: div.artist-name
+          all_nodes: true
+          separator: ", "
+      - name: "comment"
+        type: text
+        location:
+          selector: div.event-title
+        can_be_empty: true
+
+  - name: BeJazz
+    url: https://www.bejazz.ch/de/bejazz-aktueller-jazz-in-bern/programm-80.html
+    item: body > div.bjz-wrapper.ym-wrapper > div.wbox.ym-wrapper-inner > div.bjz-action.ym-column > div.bjz-action-marginal.ym-col1 > div.ym-gbox > div.bjz-component-marginal > div.bjz-component-marginal-inner > div.bjz-component-marginal-items > ul > li > a.bjz-component-marginal-eventitem
+    fields:
+      - name: "city"
+        value: "Bern"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.bejazz.ch/de/bejazz-aktueller-jazz-in-bern/programm-80.html
+      - name: title
+        type: text
+        location:
+          - selector: div.info > div.name
+      - name: location
+        type: text
+        location:
+          - selector: div.info > div.location
+            regex_extract:
+              exp: "[^: ]+[^:]+"
+              index: -1
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+            location:
+              selector: div.ym-gbox > div.date
+            layout:
+              - "2"
+          - covers:
+              month: true
+            location:
+              selector: div.ym-gbox > div.month
+            layout:
+              - Jan
+          - covers:
+              year: true
+            location:
+              selector: div.ym-gbox > div.year
+            layout:
+              - "2006"
+          - covers:
+              time: true
+            location:
+              selector: div > p.bjz-t-overline > span
+            layout:
+              - 15:04 Uhr
+        date_location: CET
+        date_language: de_DE
