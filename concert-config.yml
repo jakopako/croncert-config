@@ -1899,6 +1899,18 @@ scrapers:
         type: text
         location:
           selector: h2 > span
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.event-img > figure > img
+            attr: srcset
+            regex_extract:
+              exp: "[^ ]+"
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          selector: div.artist-content
       - name: date
         type: date
         components:
