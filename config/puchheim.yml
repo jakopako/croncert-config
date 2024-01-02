@@ -1,0 +1,43 @@
+scrapers:
+  - name: PUC
+    url: https://www.rce-event.de/output.php?id=1171&mode=L
+    item: body > div.container-fluid.my-2.px-0 > div > article.mb-5.pb-3.row > div.col-sm-7.col-xs-12.mt-xs-2.pl-sm-3:nth-child(2)
+    fields:
+      - name: "location"
+        value: "PUC"
+      - name: "city"
+        value: "Puchheim"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.rce-event.de/output.php?id=1171&mode=L"
+      - name: country
+        value: Germany
+      - name: comment
+        type: text
+        location:
+          - selector: p.text-justify
+      - name: title
+        type: text
+        location:
+          - selector: header > div.row > div.col.col-xs-12.pr-sm-3 > h2.font-weight-normal > a
+      - name: url
+        type: url
+        location:
+          - selector: header > div.row > div.col.col-xs-12.pr-sm-3 > h2.font-weight-normal > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: header > div.row > div.col-auto.col-xs-12.text-sm-right:nth-child(2) > strong
+            layout:
+              - Mon, 2.1.2006, 15:04 Uhr
+        date_location: CET
+        date_language: de_DE
+    render_js: true

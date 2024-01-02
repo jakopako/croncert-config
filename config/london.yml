@@ -1,0 +1,241 @@
+scrapers:
+  - name: CafeOto
+    url: https://www.cafeoto.co.uk/events/
+    item: body.event-overview > div.content-push > div.activity-container.events.clearfix > div.container-fluid > div.row > div.activity-container-inner > div.each-activity
+    fields:
+      # static
+      - name: "location"
+        value: "Cafe Oto" # This field can also be a dynamic field, if a website serves info about different event locations.
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.cafeoto.co.uk/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.each-header > p
+            layout:
+              ["Monday 2 January 2006, 3pm", "Monday 2 January 2006, 3.04pm"]
+        date_location: "Europe/London" # example
+        date_language: "en_GB" # example
+      - name: url
+        type: url
+        location:
+          selector: div.each-image > a
+          attr: href
+      - name: comment
+        type: text
+        location:
+          selector: div.each-header > p > span.prefix
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          selector: div.each-header > p > a
+      - name: doorPrice
+        type: text
+        location:
+          selector: div.each-price.each-meta > div.member_price > span
+        can_be_empty: true
+      - name: advancePrice
+        type: text
+        location:
+          selector: div.each-price.each-meta > div.member_price > span > a.active
+        can_be_empty: true
+      - name: memberPrice
+        type: text
+        location:
+          selector: div.each-price.each-meta > div.member_price > span > a > span
+        can_be_empty: true
+    paginator:
+      location:
+        selector: "div#iscroll_other a"
+        attr: href
+
+  - name: OsloHackney
+    url: https://www.oslohackney.com/events/
+    item: body.page-template.page-template-templates.page-template-template_gig-guide.page-template-templatestemplate_gig-guide-php.page.page-id-490.body-site-header--standard.body-site-header--logo-left.body-site-header--no-sticky-links > section.section.section--spacing-above-standard.section--spacing-below-standard.section--centered.guide.js-guide-section > div.wrapper > div.js-guide-container.guide__container > div.js-guide-post-grid.guide__post-grid > div.guide__month > div.grid.guide__grid > div.grid__col.guide__grid-col > div.card.card--full.card--alt-layout > div.card__inside > div.card__grid > div.card__grid-content.text__reset
+    fields:
+      - name: "location"
+        value: "Oslo Hackney"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.oslohackney.com/events/"
+      - name: url
+        type: url
+        location:
+          selector: a.card__heading.card__heading--last.card__heading--gig.h4.text-link.text-link--color
+          attr: href
+      - name: title
+        location:
+          selector: a.card__heading.card__heading--last.card__heading--gig.h4.text-link.text-link--color
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: ".wrapper .standard-content ul.single-article__list > li"
+              child_index: 1
+            layout: [
+                "Mon 2st January 2006",
+                "Mon 2nd January 2006",
+                "Mon 2rd January 2006",
+                "Mon 2th January 2006",
+              ] # hack
+          - covers:
+              time: true
+            location:
+              selector: ".wrapper .standard-content ul.single-article__list > li"
+              node_index: 1
+              child_index: 1
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: "Europe/London"
+        date_language: "en_GB"
+
+  - name: Koko
+    url: https://www.koko.co.uk/whats-on
+    item: main.Main_component__I_485 > div.Container_component__V9ZBu > div.whats-on_page__v7BAY > div.Events_component__GVsv_ > div.Events_eventsWrapper__AtzS6 > div.Events_component__GVsv_.Events_events__Izhv1 > div > div.Event_component__Ip5vk
+    fields:
+      - name: "location"
+        value: "Koko"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.koko.co.uk/whats-on"
+      - name: url
+        type: url
+        location:
+          - selector: div.Event_image__Q7hsG > a
+            attr: href
+      - name: comment
+        type: text
+        location:
+          - selector: div.Event_text__VxzRh > div:nth-child(3)
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.Event_text__VxzRh > div:nth-child(2)
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.EventDetail_timings__Zo2OA > div:nth-child(1)
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{1,2}:[0-9]{2} (a|p)m"
+            layout: ["3:04 pm", "3:04 am"]
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.EventDetail_component__cZXP9 > div > div > div.EventDetail_date__IpYw0 > p
+              regex_extract:
+                exp: "[0-9]{1,2} [a-z]+"
+            layout: ["2 Jan"]
+        date_location: "Europe/London"
+        date_language: "en_GB"
+        guess_year: true
+
+  - name: TheGeorgeTavern
+    url: https://dice.fm/venue/the-george-tavern-kx88
+    item: div.EventsListMultiColumn__EventsList-sc-1mneapl-1 > div.EventParts__EventBlock-sc-12dip7s-9 > a.EventParts__EventName-sc-12dip7s-0
+    fields:
+      - name: "location"
+        value: "The George Tavern"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://dice.fm/venue/the-george-tavern-kx88"
+      - name: title
+        type: text
+        location:
+          - {}
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: div.EventDetailsTitle__Container-v4l5yy-5 > div.EventDetailsTitle__Date-v4l5yy-2
+            layout:
+              - Mon, 2 Jan, 15:04 pm
+        date_location: Europe/London
+        date_language: en_GB
+
+  - name: JazzCafeLondon
+    url: https://thejazzcafelondon.com/whats-on/
+    item: body > main.site-main > div > ul.events.list-unstyled > li.event.mix > div:nth-child(1) > div:nth-child(1)
+    fields:
+      - name: "location"
+        value: "Jazz Cafe"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://thejazzcafelondon.com/whats-on/"
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: a > ul > li
+      - name: comment
+        type: text
+        location:
+          - selector: h2.event-title > span.host
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              month: true
+            location:
+              selector: div.alt-font.event-date
+              child_index: 2
+            layout:
+              - Jan
+          - covers:
+              day: true
+            location:
+              selector: div.alt-font.event-date > span
+            layout:
+              - "2"
+        date_location: Europe/London
+        date_language: en_US
+        guess_year: true

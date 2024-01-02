@@ -1,0 +1,42 @@
+scrapers:
+  - name: SoundOfGlarus
+    url: https://soundofglarus.ch/programm/
+    item: div > div.fusion-layout-column.fusion_builder_column.fusion_builder_column_1_3.\31 _3.fusion-flex-column.fusion-column-inner-bg-wrapper
+    fields:
+      - name: "location"
+        value: Zaunplatz
+      - name: "city"
+        value: "Glarus"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://soundofglarus.ch/programm/
+      - name: url
+        type: url
+        location:
+          - selector: span.fusion-column-inner-bg.hover-type-none > a.fusion-column-anchor
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.fusion-column-wrapper.fusion-content-layout-column.fusion-flex-justify-content-flex-start > div.fusion-text > h3
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              time: true
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div > div.fusion-title.title.fusion-title-1.fusion-title-text.fusion-title-size-four > h4
+              regex_extract:
+                exp: ".+/.+/"
+            layout:
+              - "2. January 2006 / 15.04 /"
+              - "2. January 2006 / 15.0 /"
+        date_location: CET
+        date_language: de_DE

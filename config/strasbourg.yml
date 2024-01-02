@@ -1,0 +1,52 @@
+scraper:
+  - name: LaLaiterie
+    url: https://www.artefact.org/la-laiterie/programmation
+    item: div.event-block.table-row.with-image > div.desc
+    fields:
+      - name: city
+        value: Strasbourg
+      - name: type
+        value: concert
+      - name: country
+        value: France
+      - name: sourceUrl
+        value: https://www.artefact.org/la-laiterie/programmation
+      - name: title
+        type: text
+        location:
+          - selector: div.artistes > div.artiste.tete-affiche
+          - selector: div.artistes > div.artiste.level1:nth-child(2)
+            child_index: 1
+        separator: ", "
+      - name: location
+        type: text
+        location:
+          - selector: div.date > span:nth-child(2)
+      - name: date
+        type: date
+        components:
+          - covers:
+              month: true
+              day: true
+              year: true
+            location:
+              selector: div.date > span.date-display-single
+            layout:
+              - "Monday 2 January 2006"
+          - covers:
+              time: true
+            location:
+              selector: div.date
+              child_index: 1
+            layout:
+              - "| 15h04 |"
+        date_language: fr_FR
+        date_location: CET
+      - name: url
+        type: url
+        location:
+          - selector: a.desc-link
+            attr: href
+    paginator:
+      location:
+        selector: div.pager > a.next

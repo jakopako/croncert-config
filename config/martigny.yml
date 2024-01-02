@@ -1,0 +1,48 @@
+scrapers:
+  # not entirely correct here because this festival takes place in multiple cities
+  # - name: PalpFestival
+  #   url: https://palpfestival.ch/en/line-up/
+  #   item: body.animsition.dark-skin.page.page-id-5820.page-template-default.royal_preloader.vc_responsive.wpb-js-composer > div.section-imp.w-section > div.main-content.w-container > div.vc_custom_1580730294093.vc_row.vc_row-fluid.wpb_row > div.vc_col-sm-12.vc_column_container.wpb_column > div.vc_column-inner > div.wpb_wrapper > div.mec-skin-grid-container.mec-wrap > div.mec-skin-grid-events-container > div.mec-wrap > div.mec-event-grid-clean > div.row > div.col-lg-3.col-md-6.col-sm-6.col-xl-3 > article.mec-clear.mec-event-article.palp_EventScheduled > div.mec-event-content
+  #   fields:
+  #     - name: "type"
+  #       value: "concert"
+  #     - name: "sourceUrl"
+  #       value: https://palpfestival.ch/en/line-up/
+  #     - name: url
+  #       type: url
+  #       location:
+  #         - selector: h4.mec-event-title > a.mec-color-hover
+  #           attr: href
+  #     - name: title
+  #       type: text
+  #       location:
+  #         - selector: h4.mec-event-title > a.mec-color-hover
+  #     - name: city
+  #       type: text
+  #       location:
+  #         - selector: div.oz-table > div.oz-cell > p
+  #     - name: country
+  #       value: Switzerland
+  #     - name: location
+  #       type: text
+  #       location:
+  #         - selector: div.oz-table > div.align-right.oz-cell > p > a.mec-color-hover
+  #     - name: date
+  #       type: date
+  #       on_subpage: url
+  #       components:
+  #         - covers:
+  #             day: true
+  #             month: true
+  #             year: true
+  #           location:
+  #             selector: dd > abbr.mec-events-abbr > span.mec-start-date-label
+  #           layout: ["02 01 2006"]
+  #         - covers:
+  #             time: true
+  #           location:
+  #             selector: div.mec-single-event-time abbr.mec-events-abbr
+  #             regex_extract:
+  #               exp: "[0-9]{2} h [0-9]{2}"
+  #           layout: ["15 h 04"]
+  #       date_location: CET

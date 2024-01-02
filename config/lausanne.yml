@@ -1,0 +1,834 @@
+scrapers:
+  - name: BeaulieuLausanne
+    url: https://beaulieu-lausanne.com/agenda/categorie/theatre/
+    item: article
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Théatre de Beaulieu"
+      - name: "sourceUrl"
+        value: "https://beaulieu-lausanne.com/agenda/"
+      - name: url
+        type: url
+        location:
+          selector: a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: h3.excerpt-title
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers: # FIXME: this only gets the last date in a multi-day run
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.content-wrapper > header > time
+              regex_extract:
+                exp: "[0-9]{1,2} [a-z]+ [0-9]{4}"
+            layout: ["2 January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: article > div > div.col-xl-4.col-lg-5.col-md-12.col-sm-12.col-12.offset-lg-1 > aside > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(2) > span
+            layout: [15h04]
+        date_location: Europe/Berlin
+        date_language: fr_FR
+
+  - name: BleuLézard
+    url: https://bleu-lezard.ch/programmation/
+    item: body > div.elementor.elementor-2718.elementor-location-archive > div.e-con.e-con-full.e-flex.e-parent.elementor-element.elementor-element-834f8ee > div.e-child.e-con.e-con-full.e-flex.elementor-element.elementor-element-0875475 > div.elementor-element.elementor-element-279f0bd.elementor-widget.elementor-widget-jet-listing-grid.elementor-widget-mobile__width-initial > div.elementor-widget-container > div.jet-listing.jet-listing-grid > div.grid-col-desk-1.grid-col-mobile-1.grid-col-tablet-1.jet-listing-grid--1508.jet-listing-grid__items > div.jet-listing-grid__item > div.elementor.elementor-1508 > div.e-con.e-con-full.e-flex.e-parent.elementor-element.elementor-element-f30e838
+    fields:
+      - name: "location"
+        value: "Bleu Lézard"
+      - name: "city"
+        value: "Lausanne"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://bleu-lezard.ch/programmation/
+      - name: url
+        type: url
+        location:
+          - selector: div.e-child.e-con.e-con-full.e-flex.elementor-element.elementor-element-2fb9c7f > div.elementor-align-justify.elementor-element.elementor-element-f6dd3ef.elementor-widget.elementor-widget-button > div.elementor-widget-container > div.elementor-button-wrapper > a.elementor-button.elementor-button-link.elementor-size-sm
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.e-child.e-con.e-con-full.e-flex.elementor-element.elementor-element-3d6810c:nth-child(2) > div.elementor-element.elementor-element-8ea3d8b.elementor-widget.elementor-widget-heading.elementor-widget__width-initial:nth-child(2) > div.elementor-widget-container > h2.elementor-heading-title.elementor-size-default > a
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              month: true
+              day: true
+            location:
+              selector: body > div.type-programmation > div:nth-child(3) > div:nth-child(3) > div > div > div > div > div
+            layout:
+              - "Monday 2 January 2006"
+          - covers:
+              time: true
+            location:
+              selector: body > div.type-programmation > div:nth-child(3) > div:nth-child(2) > div.elementor-element-864bc90 > div> p
+            layout:
+              - "15:04"
+            transform:
+              - type: regex-replace
+                regex: 00:00
+                replace: 23:59
+        date_language: fr_FR
+        date_location: CET
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.e-child.e-con.e-con-full.e-flex.elementor-element.elementor-element-fce7e92:nth-child(1) > div > div > a > img
+            attr: src
+      - name: comment
+        type: text
+        on_subpage: url
+        entire_subtree: true
+        location:
+          - selector: body > div.type-programmation > div:nth-child(3) > div:nth-child(3) > div:nth-child(3)
+        can_be_empty: true
+
+  - name: Chorus
+    url: https://chorus.ch/programme/
+    item: body.page-template-default.page.page-id-12 > div.body-outer-wrapper > div.body-wrapper.boxed-style > div.content-wrapper.container.main > div.post-12.page.type-page.status-publish.hentry > div.page-wrapper.single-page.single-sidebar.left-sidebar > div.row.gdl-page-row-wrapper > div.gdl-page-left.mb0.twelve.columns > div.row > div.gdl-page-item.mb0.eight.columns > div.row > div.twelve.columns.mb30 > div.gdl-page-content > div.gdl-tab > ul.gdl-tab-content > li > ul.eme_events_list > code > li
+    fields:
+      - name: "location"
+        value: "Chorus"
+      - name: "city"
+        value: "Lausanne"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://chorus.ch/programme/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: strong
+              regex_extract:
+                exp: "[A-Za-z]+\\s[0-9]{1,2}\\s[éA-Za-z]{3,4}\\s-\\s[0-9]{2}:[0-9]{2}"
+            layout: ["Mon 2 Jan - 15:04"]
+            transform:
+              - type: regex-replace
+                regex: Fév
+                replace: févr
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
+        guess_year: true
+      - name: url
+        type: url
+        location:
+          selector: a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: a
+      - name: comment
+        type: text
+        location:
+          selector: p
+      - name: tagline # kind of fun, but I'm not sure what to do with it
+        type: text
+        location:
+          selector: div > em
+
+  - name: BaseBar
+    url: https://stadtkonzerte.ch/locations/base-bar-lausanne
+    item: body.body > div.page > div.page__column.page__column--left > div.container > div.content > div.sk_gig-day-container > div.gig_day
+    fields:
+      - name: location
+        value: Base Bar
+      - name: city
+        value: Lausanne
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl" # This is needed to uniquely identify this scraper
+        value: https://basebarlausanne.ch/evenements/
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.row.visible-xs.visible-sm.sticky-div > h2.col-xs-12.col-md-offset-1.col-md-10.date-header > span.day
+            layout: ["Mon 2. January 2006"] # adapt according to actual format
+        date_location: "Europe/Berlin" # example
+        date_language: "de_DE" # example
+      - name: title
+        type: text
+        location:
+          selector: div.row.sk_indent.gig.xs-card > div.col-xs-12.col-sm-8.col-md-7.card > div.artist > a
+      - name: url
+        type: url
+        location:
+          selector: div.row.sk_indent.gig.xs-card > div.col-xs-12.col-sm-8.col-md-7.card > div.hidden-xs > div.tickets > a.boxoffice.ticket_link.information
+          attr: href
+
+  - name: BleuLezard
+    url: https://stadtkonzerte.ch/locations/bleu-lezard-lausanne
+    item: body > div.page > div.page__column.page__column--left > div.container > div.content > div.sk_gig-day-container > div.gig_day
+    fields:
+      - name: location
+        value: La Cave du Bleu Lézard
+      - name: city
+        value: Lausanne
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://bleu-lezard.ch/la-cave/
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.row.visible-xs.visible-sm.sticky-div > h2.col-xs-12.col-md-offset-1.col-md-10.date-header > span.day
+            layout: ["Mon 2. January 2006"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+      - name: title
+        type: text
+        location:
+          selector: div.row.sk_indent.gig.xs-card > div.col-xs-12.col-sm-8.col-md-7.card > div.artist > a
+      - name: url
+        type: url
+        location:
+          selector: div.row.sk_indent.gig.xs-card > div.col-xs-12.col-sm-8.col-md-7.card > div.hidden-xs > div.tickets > a.boxoffice.ticket_link.information
+          attr: href
+
+  - name: DClub
+    url: https://dclub.ch/agenda/
+    item: div.dclub-agenda > div.date_container > div.events_container > div.event
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "D! Club"
+      - name: "sourceUrl"
+        value: "https://dclub.ch/agenda/"
+      - name: style
+        type: text
+        location:
+          selector: div.info > div.details > p.style
+      - name: url
+        type: url
+        location:
+          selector: a.main
+          attr: href
+      - name: imageUrl
+        type: url
+        can_be_empty: true
+        location:
+          selector: a.image > picture > source
+          attr: data-lazy-srcset
+          regex_extract:
+            exp: "[^ ]+"
+      - name: title
+        type: text
+        location:
+          selector: div.header > .artist
+          entire_subtree: true
+          all_nodes: true
+          separator: ", "
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: a.main
+              attr: href
+              regex_extract:
+                exp: "[0-9]{8}"
+            layout: ["20060102"]
+          - covers:
+              time: true
+            location:
+              selector: div.details > p.door
+            layout: ["Porte: 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
+      - name: comment
+        type: text
+        on_subpage: "url"
+        can_be_empty: true
+        location:
+          selector: div.dclub-date-content > div > p
+
+  - name: Docks
+    url: https://www.docks.ch/programme/
+    item: body.page-template.page-template-page-programme.page-template-page-programme-php.page.page-id-3652 > div.wrapper.wrapper-programme > div.container-fluid > div.home-program.position-relative > div.row.programme-container > div.col-xxl-10 > div.row.special-row > div.mix.col-sm-6.col-md-5.col-lg-4.col-xl-4.col-xxl-4.concerts
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Docks"
+      - name: "sourceUrl"
+        value: "https://www.docks.ch/programme/"
+      - name: title
+        location:
+          selector: a > div.position-relative > div.event-item-title.programme-item-title
+      - name: url
+        type: url
+        location:
+          selector: a
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: span.event-info-date
+            layout: ["02.01.2006"]
+          - covers:
+              time: true
+            location:
+              selector: span.event-info-door
+              node_index: 1
+              child_index: 1
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+
+  - name: DukesBar
+    url: https://www.dukes-bar.ch/evenements/
+    item: div.event
+    fields:
+      - name: type
+        type: text
+        value: concert
+      - name: "sourceUrl"
+        value: "https://www.dukes-bar.ch/evenements/"
+      - name: title
+        type: text
+        location:
+          selector: div.evo_event_schema > span
+      - name: location # this is currently an itinerant venue
+        type: text
+        location:
+          selector: div.evo_event_schema > span
+          regex_extract:
+            exp: "(?i)(lounge bar|tacos bar|taco's bar|restaurant la rive)"
+      - name: city # this is currently an itinerant venue
+        type: text
+        location:
+          selector: div.evo_event_schema > span
+          regex_extract:
+            exp: "(?i)(lausanne|morges|mex)"
+      - name: country
+        value: Switzerland
+      - name: url
+        type: url
+        location:
+          selector: div.evo_event_schema > a
+        attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.evo_event_schema > script
+              regex_extract:
+                exp: "[0-9]{4}(-[0-9]{1,2}){2}"
+            layout: ["2006-1-2"]
+          - covers:
+              time: true
+            location:
+              selector: div.evo_event_schema > script
+              regex_extract:
+                exp: "(-[0-9]{2}){3}"
+            layout: ["-15-04-00"]
+
+  - name: JazzOnze
+    url: https://jazzonzeplus.ch/
+    item: body > div.hfeed.site > div.site-content > section.blank_template.clearfix.parallax-section > div.mid-content > div.rfp-shortcode-6346.rfp-wrapper > div.rfp-grids.rfp-posts > div.edition-2023.item.md3.rfp-grid.rfp-item.sm4.xs12
+    fields:
+      - name: "city"
+        value: "Lausanne"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://jazzonzeplus.ch/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.program:nth-child(5) > span
+              regex_extract:
+                exp: "(31|1er|2|3|4|5) (octobre|novembre)"
+            layout:
+              - "2 January"
+              - "2er January"
+          - covers:
+              time: true
+            location:
+              selector: div.program:nth-child(5) > span
+              regex_extract:
+                exp: "[0-9]{1,2}h"
+            layout:
+              - "15h"
+        date_language: fr_FR
+        date_location: "Europe/Paris"
+      - name: location
+        type: text
+        location:
+          - selector: div.program:nth-child(5) > span
+            regex_extract:
+              exp: "(Atrium de l'EJM|Auditorium de l'EJMA|BCV Concert Hall|Espace Jazz|EspaceJazz|La Datcha|Salle Paderewski|Théâtre de l’Octogone|Les Docks)"
+            # the following doesn't work yet. Currently, 'transform' is only supported for dates.
+            # see https://github.com/jakopako/goskyr/issues/242
+            # transform:
+            #   - type: regex-replace
+            #     regex: EspaceJazz
+            #     replace: Espace Jazz
+      - name: title
+        type: text
+        location:
+          - selector: h2 > div.rfp-item-title
+      - name: url
+        type: url
+        location:
+          - selector: a.rfp-mask
+            attr: href
+    filters:
+      - field: location
+        exp: Les Docks
+        match: false
+      - field: date
+        exp: "> now"
+        match: true
+
+  - name: LeRomandie
+    url: https://leromandie.ch/programme/
+    item: section#programme > ul > li
+    fields:
+      - name: "location"
+        value: "Le Romandie Club"
+      - name: "city"
+        value: "Lausanne"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://leromandie.ch/programme/"
+      - name: url
+        type: url
+        location:
+          - selector: section.clearfix.content-block > ul.clearfix.list-articles > li > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: section.programme-list.clearfix.col.col9.content-block.col-left > ul.list-articles.grid-4.clearfix > li > a > p.label > span.date
+            layout: ["02.01.06"]
+          - covers:
+              time: true
+            location:
+              selector: section.programme-list.clearfix.col.col9.content-block.col-left > ul.list-articles.grid-4.clearfix > li > a > div.content > p.infos.clearfix > span.hours > strong
+            layout: ["15:04"]
+        date_language: fr_FR
+        date_location: "Europe/Berlin"
+      - name: title
+        type: text
+        location:
+          - selector: section.programme-list.clearfix.col.col9.content-block.col-left > ul.list-articles.grid-4.clearfix > li > a > div.content > h2
+
+  - name: SalleMetropole
+    url: https://sallemetropole.ch/les-spectacles/
+    item: body.is-loading.page.page-id-35.page-template.page-template-concerts.page-template-layouts.page-template-layoutsconcerts-php > div.main-wrap > section.page-concerts > div.inner-page > section.spectacles-section > div.container > div.spectacles > div.spectacles__in > a.spectacles__item
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Salle Métropole"
+      - name: "sourceUrl"
+        value: "https://sallemetropole.ch/les-spectacles/"
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: span.spectacles__item__head
+      - name: comment
+        type: text
+        location:
+          selector: div.performance__info__content > p
+        on_subpage: url
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: span.spectacles__item__date
+            layout: ["Mon. 02.01.06"]
+        date_language: fr_FR
+        date_location: Europe/Berlin
+
+  - name: Salopard
+    url: http://salopard.ch/
+    item: a.eventItem
+    fields:
+      - name: city
+        value: Lausanne
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: http://salopard.ch/
+      - name: title
+        type: text
+        location:
+          selector: .eventItem__title
+          entire_subtree: true
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: comment
+        type: text
+        location:
+          selector: .eventItem__description
+          entire_subtree: true
+        can_be_empty: true
+      - name: location
+        type: text
+        location:
+          selector: .eventItem__infoMobile div
+          node_index: 0
+      - name: eventType
+        type: text
+        location:
+          selector: .eventItem__infoMobile div
+          node_index: 1
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: .eventItem__date
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: .eventItem__date
+              regex_extract:
+                exp: "([0-9]{1,2}\\.){2}[0-9]{2}"
+            layout: ["02.01.06"]
+        date_location: Europe/Berlin
+        date_language: fr_FR
+
+  - name: PoleSud
+    url: https://polesud.ch/evenements-a-venir/
+    item: body.ast-header-break-point.ast-hfb-header.ast-inherit-site-logo-transparent.ast-no-sidebar.ast-normal-title-enabled.ast-separate-container.ast-single-post.ast-two-container.astra-child.page.page-id-29052.page-parent.page-template.page-template-template-events.page-template-template-events-php.wp-custom-logo > div.hfeed.site > div.site-content > div.ast-container > div.content-area.primary > div.event_listings > div.event_listings.wpem-event-listing-box-view.wpem-event-listings.wpem-main.wpem-row > div.wpem-col.wpem-col-12.wpem-col-lg-3.wpem-col-md-6.wpem-event-box-col > div.wpem-event-layout-wrapper > div.event_listing.has-post-thumbnail.hentry.status-publish.type-event_listing
+    fields:
+      - name: location
+        value: Pôle Sud
+      - name: city
+        value: Lausanne
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: "sourceUrl"
+        value: "https://polesud.ch/evenements-a-venir/"
+      - name: url
+        type: url
+        location:
+          selector: a.event-style-color.wpem-event-action-url
+          attr: href
+      - name: eventType
+        type: text
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-category > a > span.event-category.wpem-event-category-text
+      - name: title
+        type: text
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-title > p.wpem-heading-text
+      - name: evenTypeURL
+        type: url
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-type > a
+          attr: href
+      - name: style
+        type: text
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-type > a > span.event-type.wpem-event-type-text
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+            location:
+              selector: div.wpem-event-infomation > div.wpem-event-date > div.wpem-event-date-type > div.wpem-from-date > div.wpem-date
+            layout: ["02"]
+          - covers:
+              month: true
+            location:
+              selector: div.wpem-event-infomation > div.wpem-event-date > div.wpem-event-date-type > div.wpem-from-date > div.wpem-month
+            layout: ["Jan"]
+            transform:
+              - type: regex-replace
+                regex: Fév
+                replace: févr
+          - covers:
+              time: true
+            location:
+              selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-date-time > span.wpem-event-date-time-text > div.wpem-event-date-time > span.wpem-event-date-time-text
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+                index: 0
+            layout: ["15:04"]
+            can_be_empty: true
+        date_language: fr_FR
+        date_location: "Europe/Berlin"
+      - name: textDate # for testing
+        location:
+          selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-date-time > span.wpem-event-date-time-text > div.wpem-event-date-time > span.wpem-event-date-time-text
+        can_be_empty: true
+    render_js: true
+    filters:
+      - field: "eventType"
+        exp: "Concert"
+        match: true
+      - field: "eventType"
+        exp: "Spectacle"
+        match: true
+
+  - name: Premices
+    url: https://www.premices.ch/programme
+    item: body > div.page-content > div.section.wf-section > div > div.container > div.w-dyn-list > div._4-column-grid.w-dyn-items > div.w-dyn-item > div
+    fields:
+      - name: "city"
+        value: "Lausanne"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.premices.ch"
+      - name: url
+        type: url
+        location:
+          selector: a.w-inline-block
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: h2.heading-6
+      - name: style
+        type: text
+        location:
+          selector: div > div.text-block-7
+        can_be_empty: true
+      - name: location
+        type: text
+        location:
+          selector: div:nth-child(5)
+        can_be_empty: true
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div:nth-child(4)
+            transform:
+              - type: regex-replace
+                regex: Vendredi
+                replace: 17-3-2023
+              - type: regex-replace
+                regex: Samedi
+                replace: 18-3-2023
+            layout: ["2-1-2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.text-block-8
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
+
+  # This one is a bit messy, but better than nothing for now. Unfortunately we'r missing a couple of events.
+  # See discussion here: https://github.com/jakopako/croncert-config/discussions/174
+  - name: Datcha
+    url: https://la-datcha.ch/
+    item: body.home.page-template-default.page.page-id-28887.no-sidebar.has-header-image.raw-image.hero-image > div.site > div.content-area > main.main-content > div.wrapper.content-wrapper > article.post-28887.page.type-page.status-publish.has-post-thumbnail.hentry > div.post-wrapper > div.post-content > p
+    fields:
+      - name: "location"
+        value: "La Datcha"
+      - name: "city"
+        value: "Lausanne"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://la-datcha.ch/"
+      - name: "url"
+        value: "https://la-datcha.ch/"
+      - name: title
+        type: text
+        location:
+          selector: span > strong
+          entire_subtree: true
+          regex_extract:
+            exp: "(concert de|soirée) [^–]*"
+      - name: comment
+        type: text
+        location:
+          selector: span > strong
+          entire_subtree: true
+          regex_extract:
+            exp: "– .*"
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: span > strong
+              entire_subtree: true
+              regex_extract:
+                exp: "[A-Za-z]+\\s[0-9]{1,2}\\s[\u00e4A-Za-z]+,"
+            layout: ["Monday 2 January,"]
+          - covers:
+              time: true
+            location:
+              selector: span > strong
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}h[0-9]{0,2}"
+            layout: ["15h", "15h04"]
+        date_language: "fr_FR"
+        date_location: "Europe/Berlin"
+
+  - name: JumeauxJazzClub
+    url: https://www.jumeaux.club/programmation-complete
+    item: body > section.section > div.container.w-container.w-layout-blockcontainer > div.w-dyn-list > div.events-grid.w-dyn-items > div.w-dyn-item > div.nextevent
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: "location"
+        value: "Jumeaux Jazz Club"
+      - name: "sourceUrl"
+        value: "https://www.jumeaux.club/programmation-complete"
+      - name: price
+        type: text
+        location:
+          - selector: div.concert__meta > div.concert__detail > div.event__number
+      - name: style
+        type: text
+        location:
+          - selector: div.w-dyn-list:nth-child(3) > div.concert__bands__media.w-dyn-items > div.concert__band.small.w-dyn-item > div.event__band__style:nth-child(3)
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.w-dyn-list:nth-child(3) > div.concert__bands__media.w-dyn-items > div.concert__band.small.w-dyn-item > img
+            attr: src
+      - name: title
+        type: text
+        location:
+          - selector: div.nextevent__meta > a.event__link.w-inline-block > h2.event__title.small
+      - name: url
+        type: url
+        location:
+          - selector: div.nextevent__meta > a.event__link.w-inline-block
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              year: true
+              month: true
+              day: true
+            location:
+              selector: div.nextevent__meta > div.nextevent__info__wrapper > div.concert__date.small
+            layout:
+              - "2/1/2006"
+          - covers:
+              time: true
+            location:
+              selector: div.concert__meta:nth-child(4) > div.concert__detail:nth-child(3) > div.event__number:nth-child(5)
+            layout:
+              - "15h04"
+              - "15h"
+        date_language: fr_FR
+        date_location: CET

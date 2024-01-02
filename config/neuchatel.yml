@@ -1,0 +1,44 @@
+scrapers:
+  - name: CaseAChocs
+    url: https://case-a-chocs.ch/programme/
+    item: article
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Neuchâtel"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Case à Chocs"
+      - name: "sourceUrl"
+        value: "https://case-a-chocs.ch/"
+      - name: title
+        type: text
+        location:
+          selector: a h1
+      - name: comment
+        type: text
+        location:
+          selector: div.description
+          max_length: 200
+          entire_subtree: true
+        on_subpage: "url"
+      - name: url
+        type: url
+        location:
+          selector: a
+        attr: href
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: time
+            layout: ["Monday 2 January 2006 • 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"

@@ -1,0 +1,43 @@
+scrapers:
+  - name: Smallslive
+    url: https://www.smallslive.com/events/calendar/
+    item: .day-list .day-event
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: New York
+      - name: sourceUrl
+        value: https://www.smallslive.com/events/calendar/
+      - name: title
+        type: text
+        location:
+          - selector: .day_event_title
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: .event-date
+            layout: ["Mon Jan 2"]
+          - covers:
+              time: true
+            location:
+              selector: .event-sets
+              regex_extract:
+                exp: "[0-9]{1,2}:[0-9]{2} PM"
+            layout: ["3:04 PM"]
+        date_location: America/New_York
+        date_language: en_US
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: location
+        type: text
+        location:
+          - selector: div.text2

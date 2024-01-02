@@ -1,0 +1,117 @@
+scrapers:
+  - name: LaCigale
+    url: "https://lacigale.fr/en/lineup/"
+    item: ul.artiste-event.artiste-event--prog > li.artiste-event__item > a.artiste-event__link
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Paris"
+      - name: "location"
+        value: "La Cigale"
+      - name: "sourceUrl"
+        value: "https://lacigale.fr/en/lineup/"
+      - name: title
+        type: text
+        location:
+          - selector: div.artiste-event__content:nth-child(2) > p.artiste-event__title
+      - name: comment
+        type: text
+        location:
+          - selector: div.artiste-event__content:nth-child(2) > ul.list-date.list-date--no-margin > li.list-date__item:nth-child(2) > p
+        can_be_empty: true
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: status
+        location:
+          - selector: div.artiste-event__content-img > p
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.artiste-event__content:nth-child(2) > ul.list-date.list-date--no-margin:nth-child(3) > li.list-date__item:nth-child(2) > p
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.artiste-event__content:nth-child(2) > ul.list-date.list-date--no-margin:nth-child(3) > li.list-date__item > p
+            layout:
+              - Mon 2 Jan
+        date_location: CET
+        date_language: en_US
+        guess_year: true
+    filters:
+      - field: "status"
+        exp: CANCELED
+        match: false
+      - field: "status"
+        exp: POSTPONED
+        match: false
+
+  - name: NewMorning
+    url: https://www.newmorning.com/programmation
+    item: body > div > section > div.fragment > section.clear-all.page > section.ligne-programmation.shadow > div.evenement > div.contenu
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Paris"
+      - name: "location"
+        value: "New Morning"
+      - name: "sourceUrl"
+        value: "https://www.newmorning.com/programmation"
+      - name: title
+        location:
+          selector: a.item > div.info > div.formation
+      - name: status
+        location:
+          selector: a.item > div.info > ul.infos > li.alert
+        can_be_empty: true
+        hide: true
+      - name: comment
+        location:
+          selector: a.item > div.info > div.baseline
+        can_be_empty: true
+      - name: url
+        type: url
+        location:
+          selector: a.item
+          attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: section.evenement > div > div.date.left
+            layout: ["Monday 2/1/2006"]
+          - covers:
+              time: true
+            location:
+              selector: section.evenement > div > div.date.left > span
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+                index: -1
+            layout: ["15:04"]
+        date_language: fr_FR
+        date_location: "Europe/Paris"
+    filters:
+      - field: "status"
+        exp: "Annulé"
+        match: false
+    ## commented for now because goskyr version 0.4.13 has some issues with completing the event-specific urls for events on the following pages.
+    # paginator:
+    #   location:
+    #     selector: "div.after.right > a"
+    #   max_pages: 2

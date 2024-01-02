@@ -1,0 +1,53 @@
+scrapers:
+  - name: TheatreOctogone
+    url: https://theatre-octogone.ch/categorie/musique/
+    item: body > div.mm-page.mm-slideout > div.wrapper > div.container.programm > div.col-sm-9 > div.event.musique.row
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Pully"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "L’Octogone Théâtre de Pully"
+      - name: "sourceUrl"
+        value: "https://theatre-octogone.ch/categorie/musique/"
+      - name: comment
+        type: text
+        location:
+          - selector: div.col-sm-8:nth-child(2) > p.large
+      - name: title
+        type: text
+        location:
+          - selector: div.col-sm-8:nth-child(2) > a > h1
+      - name: url
+        type: url
+        location:
+          - selector: div.col-sm-8:nth-child(2) > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.col-sm-4 > p.large:nth-child(2)
+              child_index: 2
+            layout:
+              - 15h04
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.col-sm-4 > p.large:nth-child(2)
+            layout:
+              - Mon. 2.1.2006
+        date_location: CET
+        date_language: fr_FR
+    render_js: true
+    filters:
+      - field: date
+        exp: "> now"
+        match: true

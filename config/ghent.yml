@@ -1,0 +1,139 @@
+scrapers:
+  - name: HotClub
+    url: https://www.hotclub.gent/programma.php
+    item: body > div > div > div.dustCt.Font > div.DnT
+    fields:
+      - name: "location"
+        value: "Hot Club"
+      - name: "city"
+        value: "Ghent"
+      - name: "country"
+        value: "Belgium"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.hotclub.gent/programma.php"
+      - name: url
+        value: https://www.hotclub.gent/programma.php
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: div
+            layout: ["Monday, 2 January om 15u04"]
+        date_location: CET
+      - name: title
+        type: text
+        location:
+          selector: div:nth-child(2)
+    paginator:
+      location:
+        selector: "a.Nxt.drk"
+      max_pages: 3
+    filters:
+      - field: title
+        exp: CLOSED
+        match: false
+      - field: title
+        exp: ".*(?i)(no concert).*"
+        match: false
+      - field: date
+        exp: "> now"
+        match: true
+
+  - name: Charlatan
+    url: https://www.charlatan.be/agenda
+    item: body > div.container.wrapper > div.content > div.main > div.events-overview > div.box.event-description
+    fields:
+      - name: "location"
+        value: Charlatan
+      - name: "city"
+        value: "Ghent"
+      - name: "country"
+        value: "Belgium"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.charlatan.be/agenda
+      - name: title
+        type: text
+        location:
+          - selector: h2 > a
+      - name: url
+        type: url
+        location:
+          - selector: h2 > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.event-info:nth-child(2) > span.hour:nth-child(2)
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.event-info:nth-child(2) > span.date-short
+            layout:
+              - 2/1
+        date_location: CET
+        guess_year: true
+    paginator:
+      location:
+        selector: li.next > a
+
+  - name: MissySippy
+    url: https://www.missy-sippy.be/
+    item: article.wfea-card-list-item > div.wfea-card-item > div.eaw-content-wrap
+    fields:
+      - name: "location"
+        value: Missy Sippy
+      - name: "city"
+        value: "Ghent"
+      - name: "country"
+        value: "Belgium"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.missy-sippy.be/
+      - name: title
+        type: text
+        location:
+          - selector: div.eaw-content-block:nth-child(2) > h3 > a
+      - name: url
+        type: url
+        location:
+          - selector: div.eaw-content-block:nth-child(2) > h3 > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.eaw-content-block:nth-child(2) > time.eaw-time.published
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+            location:
+              selector: div.eaw-calendar-date > div.eaw-calendar-date-day:nth-child(2)
+            layout:
+              - "2"
+          - covers:
+              month: true
+            location:
+              selector: div.eaw-calendar-date > div.eaw-calendar-date-month
+            layout:
+              - Jan
+        date_location: CET
+        date_language: en_US
+        guess_year: true

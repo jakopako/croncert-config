@@ -1,0 +1,50 @@
+scrapers:
+  - name: Kiste
+    url: https://www.kiste-stuttgart.de/programm
+    item: body > div > div > div > div > table > tbody > tr > td > div.all-events > div.event-teaser
+    fields:
+      - name: "location"
+        value: "Jazzclub Kiste"
+      - name: "city"
+        value: "Stuttgart"
+      - name: "country"
+        value: "Germany"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.kiste-stuttgart.de/programm
+      - name: comment
+        type: text
+        location:
+          - selector: div.body:nth-child(3) > div.artists:nth-child(2)
+        can_be_empty: true
+      - name: url
+        type: url
+        location:
+          - selector: ""
+            attr: onclick
+            regex_extract:
+              exp: "/event/[0-9\\-]{10}"
+      - name: title
+        type: text
+        location:
+          - selector: div.body:nth-child(3) > div.title
+            entire_subtree: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.date-time:nth-child(2) > span.time
+            layout:
+              - 15:04 Uhr
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.date-time:nth-child(2) > strong
+            layout:
+              - 2.1.06
+        date_location: CET

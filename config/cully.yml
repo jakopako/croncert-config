@@ -1,0 +1,60 @@
+scrapers:
+  - name: CullyJazz
+    url: https://cullyjazz.ch/fr/programme
+    item: body > div > main > div > div > div > section.row > div.event-box-wrapper > div.paid-events > div.event-box > div.event-box-inner > a
+    fields:
+      - name: city
+        value: Cully
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://cullyjazz.ch/fr/programme
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: h2 > span
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.event-img > figure > img
+            attr: srcset
+            regex_extract:
+              exp: "[^ ]+"
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          selector: div.artist-content
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.event-info > div.event-info-up > span.event-date
+              regex_extract:
+                exp: "[0-9]{1,2}\\s[a-zA-Z]+"
+            layout: ["2 January"]
+          - covers:
+              time: true
+            location:
+              selector: div.event-info > div.event-info-up > span.event-hour
+            layout: ["15:04"]
+        date_language: fr_FR
+        date_location: CET
+        guess_year: true
+      - name: location
+        type: text
+        location:
+          selector: div.event-info > div.event-info-down > span.venue-name
+      - name: price # right now (21.2.2023) this is being ignored by the event api. But might be added in the future.
+        type: text
+        location:
+          selector: div.event-info > div.event-info-down > span.event-price

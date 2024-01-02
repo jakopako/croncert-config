@@ -1,0 +1,60 @@
+scrapers:
+  - name: HotJazzClub
+    url: https://www.hotjazzclub.de/events/
+    item: body.archive.events-archive.events-list.post-type-archive.post-type-archive-tribe_events.tribe-events-page-template.tribe-events-style-full.tribe-events-style-theme.tribe-no-js.tribe-theme-child-theater-child.tribe-theme-parent-theater > div.cmsmasters_heading_under_header.cmsmasters_liquid.csstransition.fixed_header.hfeed.site > div > div > div.middle_inner > div.content_wrap.fullwidth > div.entry.middle_content > div.clearfix > div.tribe-no-js > div.tribe-clearfix > div.tribe-events-list > div.tribe-events-loop > div.tribe-clearfix.type-tribe_events > div.cmsmasters_events_list_event_wrap
+    fields:
+      - name: "location"
+        value: Hot Jazz Club
+      - name: "city"
+        value: Münster
+      - name: "country"
+        value: Germany
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.hotjazzclub.de/events/
+      - name: title
+        type: text
+        location:
+          - selector: div.cmsmasters_events_list_event_info > h2.entry-title.summary.tribe-events-list-event-title > a.url
+      - name: genre
+        type: text
+        location:
+          - selector: div.cmsmasters_events_list_event_info > div.tribe-events-event-meta.vcard > div.author.location > div.published.time-details.updated
+            child_index: 2
+      - name: url
+        type: url
+        location:
+          - selector: div.cmsmasters_events_more > a.button.tribe-events-read-more
+            attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.tribe-events-meta-group.tribe-events-meta-group-details > div > div:nth-child(2) > span.cmsmasters_event_meta_info_item_descr > abbr
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.tribe-events-meta-group.tribe-events-meta-group-details > div > div:nth-child(1) > span.cmsmasters_event_meta_info_item_descr > abbr
+            layout: ["Mon, 2. Jan 2006"]
+            transform:
+              - type: regex-replace
+                regex: Mrz
+                replace: Mär
+        date_location: CET
+        date_language: de_DE
+    filters:
+      - field: genre
+        exp: ".*Dancefloor.*"
+        match: false
+    paginator:
+      location:
+        selector: li.tribe-events-nav-next > a
