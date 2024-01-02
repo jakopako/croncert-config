@@ -1,0 +1,355 @@
+scrapers:
+  - name: JazzCafeAlto
+    url: http://www.jazz-cafe-alto.nl/
+    item: div.entry-content > div.event-list > ul.event-list-view > li.event
+    fields:
+      - name: "location"
+        value: "Jazz Café Alto"
+      - name: "city"
+        value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "http://www.jazz-cafe-alto.nl/"
+      - name: title
+        type: text
+        location:
+          - selector: div.event-info.single-day:nth-child(2) > div.event-title > h3 > a
+      - name: url
+        type: url
+        location:
+          - selector: div.event-info.single-day:nth-child(2) > div.event-title > h3 > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.event-info.single-day:nth-child(2) > span.event-time
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2}"
+            layout:
+              - "15.04"
+          - covers:
+              year: true
+            location:
+              selector: div.event-date > div.start-date > div.event-year:nth-child(4)
+            layout:
+              - "2006"
+          - covers:
+              month: true
+            location:
+              selector: div.event-date > div.start-date > div.event-month:nth-child(3)
+            layout:
+              - Jan
+          - covers:
+              day: true
+            location:
+              selector: div.event-date > div.start-date > div.event-day:nth-child(2)
+            layout:
+              - "2"
+        date_location: CET
+        date_language: en_US
+
+  - name: BourbonStreet
+    url: https://www.bourbonstreet.nl/shows
+    item: div#wix-events-widget > div > ul > li
+    fields:
+      - name: "location"
+        value: "Bourbon Street"
+      - name: "city"
+        value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.bourbonstreet.nl/shows
+      - name: url
+        type: url
+        location:
+          - selector: div.VGkHj_ > div > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div > div > div > a > div > div
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.I_kVM1
+              regex_extract:
+                exp: "[0-9]{1,2} [A-Za-z]{3} [0-9]{4}, [0-9]{2}:[0-9]{2}"
+                index: 0
+            layout:
+              - 2 Jan 2006, 15:04
+        date_location: CET
+        date_language: en_US
+
+  - name: Bimhuis
+    url: https://www.bimhuis.nl/?agenda=true
+    item: section#agenda > div.center > section#agenda-listing > ul.items > li > a.agenda-item
+    fields:
+      - name: "location"
+        value: BIMHUIS
+      - name: "city"
+        value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.bimhuis.nl/?agenda=true
+      - name: comment
+        type: text
+        location:
+          - selector: div.content div.sub-title
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.content > h3
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div > div > div.col-3.col-md-12.col-sm-12.info.agenda-info > div > h3
+              child_index: 2
+            layout:
+              - 2 January 2006
+          - covers:
+              time: true
+            location:
+              selector: div > div > div.col-3.col-md-12.col-sm-12.info.agenda-info > div > table > tbody > tr:nth-child(4) > td:nth-child(2) > b
+            layout: ["15:04u"]
+        date_location: CET
+        date_language: nl_BE
+
+  - name: Bitterzoet
+    url: https://www.bitterzoet.com/agenda/
+    item: div.agenda-page__agenda-item > div.agenda-item.agenda-item--lg > div.agenda-item__container--text > div.agenda-item__container--text--inner
+    fields:
+      - name: "location"
+        value: Bitterzoet
+      - name: "city"
+        value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.bitterzoet.com/agenda/
+      - name: url
+        type: url
+        location:
+          - selector: div.agenda-item__buy-tickets > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: a > div.agenda-item__title:nth-child(4) > div.title-component
+      - name: comment
+        type: text
+        location:
+          - selector: a > div.agenda-item__subtitle:nth-child(5)
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: a > div.agenda-item__date-time-price.agenda-item__date-time-price--phone:nth-child(2)
+            layout:
+              - Monday 2 January  2006 / 15:04
+        date_location: CET
+        date_language: nl_BE
+    render_js: true
+
+  - name: MaloeMelo
+    url: https://www.maloemelo.com/events/
+    item: div > div > div > div > div > div > div.tribe-events-calendar-list > div.tribe-events-calendar-list__event-row
+    fields:
+      - name: "location"
+        value: Maloe Melo
+      - name: "city"
+        value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.maloemelo.com/events/
+      - name: title
+        type: text
+        location:
+          - selector: header.tribe-events-calendar-list__event-header > h3.tribe-common-h4--min-medium.tribe-common-h6.tribe-events-calendar-list__event-title > a.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+      - name: comment
+        type: text
+        location:
+          - selector: div.tribe-common-a11y-hidden.tribe-common-b2.tribe-events-calendar-list__event-description > p
+        can_be_empty: true
+      - name: url
+        type: url
+        location:
+          - selector: header.tribe-events-calendar-list__event-header > h3.tribe-common-h4--min-medium.tribe-common-h6.tribe-events-calendar-list__event-title > a.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: header.tribe-events-calendar-list__event-header > div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.tribe-events-calendar-list__event-datetime > span.tribe-event-date-start
+            layout:
+              - January 2 @ 15:04
+        date_location: CET
+        date_language: en_US
+
+  - name: DeNieuweAnita
+    url: https://denieuweanita.nl/
+    item: div.vc_column_container.wpb_column > div.vc_column-inner > div.wpb_wrapper > div.vc_clearfix > div.vc_basic_grid.vc_grid-container.wpb_content_element > div.vc_row > div.vc_pageable-slide-wrapper > div.vc_clearfix.vc_grid-item > div.vc_grid-item-mini > div.vc_gitem-animated-block > div > div > div.vc_row
+    fields:
+      - name: "location"
+        value: De Nieuwe Anita
+      - name: "city"
+        value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://denieuweanita.nl/
+      - name: title
+        type: text
+        location:
+          - selector: div:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
+      - name: url
+        type: url
+        location:
+          - selector: div:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
+            attr: href
+      - name: eventType
+        type: text
+        location:
+          - selector: div.vc_col-sm-1.vc_gitem-col.vc_custom_1697709766737 > div
+        hide: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div > div.vc_gitem-acf.time-agenda.vc_gitem-align-center
+            layout:
+              - 15:04 pm
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div > div.vc_gitem-post-meta-field-_agenda_short_date.date-agenda.vc_gitem-align-center
+            layout:
+              - January 2
+        date_location: CET
+        date_language: en_US
+        guess_year: true
+    filters:
+      - field: eventType
+        exp: b
+        match: false
+      - field: eventType
+        exp: 1
+        match: false
+
+  # this venue website would benefit from a scrolling function to be able to scrape more events
+  - name: Paradiso
+    url: https://www.paradiso.nl/nl/
+    item: div.css-16y59pb a.css-1agutam
+    fields:
+      - name: "city"
+        value: "Amsterdam"
+      - name: "country"
+        value: "Netherlands"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.paradiso.nl/nl/
+      - name: title
+        type: text
+        location:
+          - selector: h2.chakra-heading
+      - name: comment
+        type: text
+        location:
+          - selector: p.chakra-text
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: location
+        on_subpage: url
+        location:
+          selector: div.css-8itx08 > div.css-7po6wk > div > div > div.css-65enbk > p:nth-child(2)
+          entire_subtree: true
+          regex_extract:
+            exp: "[A-Za-z]+"
+            index: 1
+      - name: time
+        type: text
+        on_subpage: url
+        location:
+          selector: body > main > div > div.css-1n97teq > div > div > div.css-e46pf6 > div > div.css-8itx08 > div.css-7po6wk > div > div > div.css-65enbk > p:nth-child(3)
+          entire_subtree: true
+          regex_extract:
+            exp: "[0-9]{2}:[0-9]{2}"
+            index: -1
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: body > main > div > div.css-1n97teq > div > div > div.css-e46pf6 > div > div.css-8itx08 > div.css-7po6wk > div > div > div.css-65enbk > p.chakra-text.css-tkkldl
+            layout: ["Monday 2 January"]
+          - covers:
+              time: true
+            location:
+              selector: body > main > div > div.css-1n97teq > div > div > div.css-e46pf6 > div > div.css-8itx08 > div.css-7po6wk > div > div > div.css-65enbk > p:nth-child(3)
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+                index: -1
+            layout: ["15:04"]
+        date_language: nl_BE
+        date_location: CET
+        guess_year: true
+    render_js: true
+    filters:
+      - field: location
+        exp: Bitterzoet # already covered by a different scraper
+        match: false

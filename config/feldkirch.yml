@@ -1,0 +1,40 @@
+scrapers:
+  - name: PoolbarFestival
+    url: https://www.poolbar.at/timetable
+    item: body.custom > div.feed.zeiten > div.w-dyn-list > div.w-dyn-items > div.w-dyn-item > div.event-row
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Feldkirch"
+      - name: "country"
+        value: "Austria"
+      - name: "location"
+        value: "Poolbar Festival"
+      - name: "sourceUrl"
+        value: "https://www.poolbar.at/timetable"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.row_events > div.datealt > h6.eventinfotext
+            layout: ["Jan 2"]
+          - covers:
+              time: true
+            location:
+              selector: h6.eventinfotext.time
+            layout: ["15:04"]
+        date_location: CET
+      - name: url
+        type: url
+        location:
+          selector: div.row_events > a.event.w-inline-block
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: div.row_events > a.event.w-inline-block > div.event-lead > div.event-title-alt > h3.event-title-text
+    render_js: true

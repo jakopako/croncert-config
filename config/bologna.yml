@@ -1,0 +1,65 @@
+scrapers:
+  - name: LocomotivClub
+    url: "https://www.locomotivclub.it/eventtype/calendario/"
+    item: ".qt-item-event"
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Bologna"
+      - name: "location"
+        value: "LocomotivClub"
+      - name: "sourceUrl"
+        value: "https://www.locomotivclub.it/eventtype/calendario/"
+      - name: "title"
+        location:
+          selector: ".qt-text-shadow"
+      - name: "comment"
+        location:
+          selector: ".qt-the-content div"
+        can_be_empty: true
+        on_subpage: "url"
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".qt-text-shadow"
+      - name: "date"
+        type: "date"
+        on_subpage: "url"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: ".qt-eventtable tr td"
+              regex_extract:
+                exp: "Data:.*"
+              entire_subtree: true
+            layout: ["Data: 2 January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: ".qt-eventtable tr td"
+              node_index: 2
+              regex_extract:
+                exp: "Inizio concerto: .*"
+              entire_subtree: true
+            layout: ["Inizio concerto: 3:04 pm"]
+        date_location: "Europe/Berlin"
+        date_language: "it_IT"
+    filters:
+      - field: "title"
+        exp: ".*CANCELED.*"
+        match: false
+      - field: "title"
+        exp: "ANNULLATO!.*"
+        match: false
+      - field: "title"
+        exp: ".*Postponed.*"
+        match: false
+    paginator:
+      location:
+        selector: ".pagination .qt-btn-primary"
+        node_index: -1
+      max_pages: 4

@@ -1,0 +1,284 @@
+scrapers:
+  - name: Rhiz
+    url: https://rhiz.wien/programm/
+    item: ".grid-item.live"
+    fields:
+      - name: "location"
+        value: "Rhiz"
+      - name: "city"
+        value: "Vienna"
+      - name: "country"
+        value: "Austria"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://rhiz.wien/programm/"
+      - name: "title"
+        location:
+          selector: ".ev-body h3 a"
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".ev-body h3 a"
+      - name: "comment"
+        location:
+          selector: ".ev-body h4 a"
+        can_be_empty: true
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: ".event-date a"
+              regex_extract:
+                exp: "[0-9]{6} [0-9]{2}:[0-9]{2}"
+            layout: ["020106 15:04"]
+        date_location: "Europe/Berlin"
+    filters:
+      - field: "title"
+        exp: "ABGESAGT.*"
+        match: false
+      - field: "title"
+        exp: "CANCELLED.*"
+        match: false
+
+  - name: Flex
+    url: https://flex.at/
+    item: div.elementor-widget-container > div.ectbe-list-wrapper.ectbe-wrapper > div.ectbe-content > div.ectbe-inner-wrapper.ectbe-simple-event
+    fields:
+      - name: "location"
+        value: "Flex"
+      - name: "city"
+        value: "Vienna"
+      - name: "country"
+        value: "Austria"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://flex.at/
+      - name: title
+        type: text
+        location:
+          - selector: div.ectbe-nested-content:nth-child(2) > h2
+      - name: cat
+        type: text
+        can_be_empty: true
+        location:
+          - selector: div.ectbe-nested-content:nth-child(2) > div.ectbe-ev-cate.elementor-repeater-item-bf40761 > ul.ectbe-evt-category > li.ectbe-each-cate > a
+            all_nodes: true
+            separator: ", "
+        hide: true
+      - name: url
+        type: url
+        location:
+          - selector: div.ectbe-evt-more-box > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.ectbe-nested-content:nth-child(2) > div.ectbe-evt-time:nth-child(3)
+              child_index: 1
+              regex_extract:
+                exp: "[0-9]{1,2}:[0-9]{2}"
+            layout:
+              - 15:04
+          - covers:
+              month: true
+            location:
+              selector: div.ectbe-date-wrp > span.ectbe-ev-mo:nth-child(2)
+            layout:
+              - Jan
+            transform:
+              - type: regex-replace
+                regex: Mrz
+                replace: Mär
+          - covers:
+              day: true
+            location:
+              selector: div.ectbe-date-wrp > span.ectbe-ev-day
+            layout:
+              - "2"
+        date_location: CET
+        date_language: de_DE
+        guess_year: true
+    render_js: true
+    interaction:
+      type: click
+      selector: div.ectbe-pagination > div > a > span
+      count: 2
+      delay: 3000
+    filters:
+      - field: cat
+        exp: ".*Live.*"
+        match: true
+
+  - name: Konzerthaus
+    url: "https://konzerthaus.at/kalender"
+    item: "#dnn_ctr418_ViewProgrammlist_programmlist_pnlPlc .RowGroup .calendar_event"
+    fields:
+      - name: "location"
+        value: "Konzerthaus"
+      - name: "city"
+        value: "Vienna"
+      - name: "country"
+        value: "Austria"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl" # This is needed to uniquely identify this scraper
+        value: "https://konzerthaus.at/kalender"
+      - name: "title"
+        location:
+          selector: ".event_title"
+          child_index: 2
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".event_coreData a"
+      - name: "comment"
+        location:
+          selector: ".calendar_eventVenue"
+        can_be_empty: true
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+            location:
+              selector: ".calendarEventDaynumber"
+            layout: ["2"]
+          - covers:
+              month: true
+            location:
+              selector: ".calendarEventMonthname"
+            layout: ["January"]
+          - covers:
+              year: true
+            location:
+              selector: ".calendarEventYear"
+            layout: ["2006"]
+          - covers:
+              time: true
+            location:
+              selector: ".calendar_eventTime"
+            layout: [15:04 Uhr]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+    filters:
+      - field: "title"
+        exp: ".*ABGESAGT"
+        match: false
+
+  - name: PorgyAndBess
+    url: https://www.porgy.at/events/upcoming
+    item: body > div.main > div.main_content > div.container > div.row.events > div.col-md-9.event_list > div.row.event_list
+    fields:
+      - name: "location"
+        value: "Porgy & Bess"
+      - name: "city"
+        value: "Vienna"
+      - name: "country"
+        value: "Austria"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.porgy.at/events/upcoming"
+      - name: title
+        location:
+          selector: div.col-md-7.event_list.event_list_item > div.title > a
+      - name: url
+        type: url
+        location:
+          selector: div.col-md-7.event_list.event_list_item > div.title > a
+      # - name: datestring
+      #   type: text
+      #   location:
+      #     selector: div.date
+      #   on_subpage: url
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.date
+            layout: ["Mon 2. January 2006", "Mon 02 January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.time
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+
+  - name: ArenaWien
+    url: https://arena.wien/Home/Programm#data_abonnement=-1&data_month=-1&data_year=-1&data_event_category=-1&searchTerm=&data_mode=DATE&data_pagenumber=0&page_header=alle+Monate
+    item: body > form > div.container.theme-showcase > div.row > div.DnnModule.DnnModule-EventListDirectTicketing.DnnModule-1076.col-md-12 > div > div > div.DNNModuleContent.ModEventListDirectTicketingC > div > div.row > div.col-md-12 > div.VAlist > div.suite_calRowContainer > a
+    fields:
+      - name: location
+        value: Arena
+      - name: city
+        value: Vienna
+      - name: "country"
+        value: "Austria"
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://arena.wien/Home/Programm#data_abonnement=-1&data_month=-1&data_year=-1&data_event_category=-1&searchTerm=&data_mode=DATE&data_pagenumber=0&page_header=alle+Monate
+      - name: title
+        location:
+          selector: span.col-md-5.suite_Eventitle > span.Event_H1
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: span.col-md-2.suite_EvenTime > span
+              child_index: 4
+            layout: ["15:04"]
+          - covers:
+              month: true
+              year: true
+            location:
+              selector: span.col-md-1.suite_EvenDate > span.suite_datePlate > span.suite_year
+            layout: ["Jan. | 2006", "Jan | 2006"]
+            transform:
+              - type: regex-replace
+                regex: MRZ
+                replace: Mär
+              - type: regex-replace
+                regex: SEPT
+                replace: Sep
+              - type: regex-replace
+                regex: FEBR
+                replace: Feb
+          - covers:
+              day: true
+            location:
+              selector: span.col-md-1.suite_EvenDate > span.suite_datePlate > span.suite_day-number
+            layout: ["02"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+    render_js: true
+    paginator:
+      location:
+        selector: "#dnn_ctr1076_ViewEventListDirectTicketing_ctl01 > div:nth-child(4) > div > p:nth-child(3) > a:nth-child(3)"
+      max_pages: 5 # we have to set a max because the selector is always there, even if there are no more pages
+    filters:
+      - field: "title"
+        exp: ".*ABGESAGT.*"
+        match: false

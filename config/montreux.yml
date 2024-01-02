@@ -1,0 +1,48 @@
+scrapers:
+  - name: MontreuxJazz
+    url: https://www.montreuxjazzfestival.com/en/programme/
+    item: body.page.page-page.page-programme > div.page__wrapper.swup > main.page__main > div.programme.has-tabs.is-ready > div.programme__grid > div.programme__content-column > div.wrapper > div.day > div.programme__schedule
+    fields:
+      - name: "city"
+        value: "Montreux"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.montreuxjazzfestival.com/en/programme/"
+      - name: location
+        type: text
+        location:
+          - selector: div.programme__stage > div.programme__stage-name > p > strong
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.card-event__title
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2} [A-z]+"
+            layout: ["02 January"]
+          - covers:
+              time: true
+            location:
+              selector: dl.card-event__schedules > dt
+            layout: ["15:04"]
+        on_subpage: url
+        date_location: "Europe/Berlin"
+        date_language: "en_GB"
+      - name: url
+        type: url
+        location:
+          - selector: div.programme__details > dl.programme__schedule-list > dd > p > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.programme__details > dl.programme__schedule-list > dd > p > a > strong
+            all_nodes: true
+            separator: ", "

@@ -1,0 +1,219 @@
+scrapers:
+  - name: HetDepot
+    url: "https://www.hetdepot.be/programma"
+    item: ".calendar-item"
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Leuven"
+      - name: "location"
+        value: "HetDepot"
+      - name: "sourceUrl"
+        value: "https://www.hetdepot.be/programma"
+      - name: "title"
+        location:
+          selector: ".calendar-item__title"
+      - name: "comment"
+        location:
+          selector: ".calendar-item__intro p"
+        can_be_empty: true
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".calendar-item__inner a"
+      - name: "date"
+        type: "date"
+        on_subpage: "url"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: ".concert__date time"
+            layout: ["Monday 2 Jan 2006 - 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "nl_BE"
+    paginator:
+      location:
+        selector: ".pager__item--next a"
+
+  - name: 30cc
+    url: https://www.30cc.be/nl/programma?discipline=3
+    item: body.page-programma > div.page-wrap > div.js-filter.page-main > div.section.section--content.section--default > div.container > div.section__content > div.grid > div.grid--bp-med__8.grid__12 > div.block.js-load-more > div.block > div.grid.grid--flex.js-load-more-results > div.grid__12.is-view-list > div.excerpt.excerpt--clickable.excerpt--event.excerpt--link > div.excerpt__main
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Leuven"
+      - name: "location"
+        value: "30cc"
+      - name: "sourceUrl"
+        value: "https://www.30cc.be/nl/programma?discipline=3"
+      - name: title
+        location:
+          selector: div.excerpt__header > h3.excerpt__title > a
+      - name: comment
+        location:
+          selector: div.excerpt__header > div.excerpt__intro
+        can_be_empty: true
+      - name: url
+        type: url
+        location:
+          selector: div.excerpt__header > h3.excerpt__title > a
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta
+              regex_extract:
+                exp: "([0-9]{2}/){2}[0-9]{4}"
+            layout: ["02/01/2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta > span.excerpt__time
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "nl_BE"
+    paginator:
+      location:
+        selector: "a.next"
+        attr: href
+
+  - name: Lemmens
+    url: https://www.luca-arts.be/nl/concerten-evenementen
+    item: article > div > div.teaser__content
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Leuven"
+      - name: "location"
+        value: "Lemmens"
+      - name: "sourceUrl"
+        value: "https://www.luca-arts.be/nl/concerten-evenementen"
+      - name: comment
+        type: text
+        location:
+          selector: div.field-name-field-short-description > p
+      - name: url
+        type: url
+        location:
+          selector: div.field.field-name-node-title > h3 > a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: div.field.field-name-node-title > h3 > a
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.event-specs > div.field.field--name-field-event-date.field__items > div
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}[0-9]{4}"
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.event-specs > div.field.field--name-field-event-date.field__items > div
+              regex_extract:
+                exp: "[0-9]{2}u([0-9]{2})?"
+            layout: ["15u", "15u04"]
+        date_location: "Europe/Berlin"
+        date_language: "nl_BE"
+
+  - name: BlauweKater
+    url: http://www.blauwekater.be/events.html
+    item: .rTable .rTableRow
+    render_js: true
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Leuven"
+      - name: "location"
+        value: "Blauwe Kater"
+      - name: "sourceUrl"
+        value: "http://www.blauwekater.be/events.html"
+      - name: url
+        value: "http://www.blauwekater.be/events.html"
+      - name: title
+        type: text
+        location:
+          selector: .rTableCell strong
+          entire_subtree: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: .rTableCell
+            layout: ["2.1.2006"]
+        date_location: "Europe/Berlin"
+        date_language: "nl_BE"
+
+  - name: LeuvenJazz
+    url: https://www.leuvenjazz.be/nl/programma?discipline=3
+    item: div.container > div.section__content > div.grid > div.grid__12.grid--bp-med__8 > div.block.js-load-more > div.block > div.grid.grid--flex.js-load-more-results > div.grid__12.is-view-list > div.excerpt.excerpt--event > div.excerpt__main
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Leuven
+      - name: location
+        value: Leuven Jazz
+      - name: sourceUrl
+        value: https://www.leuvenjazz.be/nl/programma?discipline=3
+      - name: url
+        type: url
+        location:
+          selector: div.excerpt__header > h3.excerpt__title > a
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: div.excerpt__header > h3.excerpt__title > a
+      - name: comment
+        type: text
+        location:
+          selector: div.excerpt__header > div.excerpt__intro
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta
+              regex_extract:
+                exp: "([0-9]{2}/){2}[0-9]{4}"
+            layout: ["02/01/2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.excerpt__ct.js-show-more > div.excerpt--eventperformance.js-show-more-child > span.excerpt__meta > span.excerpt__time
+            layout: ["15:04"]
+        date_location: CET
+        date_language: "nl_BE"
+    paginator:
+      location:
+        selector: "a.next"
+        attr: href

@@ -1,0 +1,209 @@
+scrapers:
+  - name: "CafeVLese"
+    url: "https://cafevlese.cz/kompletni-program/#"
+    item: "article.mec-event-article"
+    exclude_with_selector:
+      - ".mec-past-event"
+    fields:
+      - name: "location"
+        value: "Café V Lese"
+      - name: "city"
+        value: "Prague"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://cafevlese.cz/kompletni-program/#"
+      - name: "title"
+        location:
+          selector: "h4.mec-event-title a"
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".mec-event-content a"
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: ".mec-start-date-label"
+            layout: ["2 Jan"]
+          - covers:
+              time: true
+            location:
+              selector: ".mec-event-time"
+              child_index: 1
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "cs_CZ"
+
+  - name: KasarnaKarlin
+    url: "https://www.kasarnakarlin.cz/en/program"
+    item: main > div > div.views-element-container > div > div > div > div.content-type-event > a
+    fields:
+      - name: "location"
+        value: "Kasárna Karlín"
+      - name: "city"
+        value: "Prague"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.kasarnakarlin.cz/en/program"
+      - name: title
+        type: text
+        location:
+          - selector: span.leading-4.overflow-hidden.text-ellipsis.text-xl.tile-title.uppercase
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: article > div > div > div > div > time
+            layout:
+              - 2. 1. 2006
+          - covers:
+              time: true
+            location:
+              selector: article > div > div > div > div
+              child_index: 1
+            layout: [" 15.04"]
+        date_location: CET
+    filters:
+      - field: date
+        exp: "> now"
+        match: true
+
+  - name: MeetFactory
+    url: "http://www.meetfactory.cz/en/program/hudba"
+    item: "#a-content .action-boxes > div"
+    fields:
+      - name: "location"
+        value: "MeetFactory"
+      - name: "city"
+        value: "Prague"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "http://www.meetfactory.cz/en/program/hudba"
+      - name: "title"
+        location:
+          selector: ".abb-text h3 a"
+          attr: title
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".abb-text h3 a"
+      - name: "eventStatus"
+        location:
+          selector: ".abb-text h3 a span"
+          node_index: 1
+        can_be_empty: true
+        hide: true
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: ".abb-date meta"
+              attr: "content"
+            layout: ["2006-01-02T15:04"]
+        date_location: "Europe/Berlin"
+    filters:
+      - field: "eventStatus"
+        exp: ".*Cancelled"
+        match: false
+      - field: "eventStatus"
+        exp: ".*Rescheduled"
+        match: false
+    paginator:
+      location:
+        selector: "a.endless_more"
+
+  # reactivate as soon as bug https://github.com/jakopako/goskyr/issues/264 is fixed
+  # - name: Reduta
+  #   url: http://www.redutajazzclub.cz/program-en
+  #   item: body > div.container.frontpage > div.row.textpage.programpage > div.col.s12.row.nopadding > div.row > div.progitem.col.s12.row.hl2
+  #   fields:
+  #     - name: "location"
+  #       value: "Reduta Jazz Club"
+  #     - name: "city"
+  #       value: "Prague"
+  #     - name: "type"
+  #       value: "concert"
+  #     - name: "sourceUrl"
+  #       value: "http://www.redutajazzclub.cz/program-en"
+  #     - name: title
+  #       location:
+  #         selector: div.col.s12.row > div.col.program > div.progheader > a
+  #     - name: comment
+  #       location:
+  #         selector: div.col.s12.row > div.col.program > div.progaddtext > p
+  #       can_be_empty: true
+  #     - name: url
+  #       type: url
+  #       location:
+  #         selector: div.col.s12.row > div.col.program > div.progheader > a
+  #     - name: date
+  #       type: date
+  #       components:
+  #         - covers:
+  #             day: true
+  #             month: true
+  #           location:
+  #             selector: div.col.s12.row > div.col.datum > div.date
+  #           layout: ["2/1"]
+  #         - covers:
+  #             time: true
+  #           location:
+  #             selector: div.col.s12.row > div.col.datum > div.time
+  #           layout: ["15:04"]
+  #       date_location: "Europe/Berlin"
+  #       guess_year: true
+
+  - name: Roxy
+    url: https://www.roxy.cz/en/#program
+    item: body.home > div.wrapper.schedule > div.event-list > a.item
+    fields:
+      - name: "location"
+        value: "Roxy"
+      - name: "city"
+        value: "Prague"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.roxy.cz/en/#program"
+      - name: title
+        location:
+          selector: article.wrap > div.front > h2.title
+      - name: url
+        type: url
+        location:
+          selector: ""
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: article.wrap > div.front > time.date
+              attr: datetime
+            layout: ["2006-01-02 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"

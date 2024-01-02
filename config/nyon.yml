@@ -1,0 +1,48 @@
+scrapers:
+  - name: Parenthese
+    url: http://www.bar-laparenthese.ch/
+    item: div.event
+    fields:
+      - name: location
+        value: La Parenthèse
+      - name: city
+        value: Nyon
+      - name: country
+        value: "Switzerland"
+      - name: type
+        value: concert
+      - name: "sourceUrl"
+        value: "http://www.bar-laparenthese.ch/"
+      - name: title
+        type: text
+        location:
+          selector: div.event_title > h3 > a
+      - name: url
+        type: url
+        location:
+          attr: href
+          selector: div.event_title > h3 > a
+      - name: date
+        type: "date"
+        on_subpage: url
+        date_language: fr_FR
+        date_location: "Europe/Paris"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.post > div.entry > p
+              child_index: 1
+            layout: ["January 2, 2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.post > div.entry > p:nth-child(3)
+              child_index: 1
+            layout: ["15:04"]
+    filters:
+      - field: "title"
+        exp: "ANECDOTES" # the eventType isn't used consitantly, so I'm explicity removing the improv comedy
+        match: false

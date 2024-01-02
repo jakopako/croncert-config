@@ -1,0 +1,39 @@
+scrapers:
+  - name: 27bflat
+    url: https://www.27bflat.be/en/agenda
+    item: body > main.parallax > div.parallax__group.topgroup > section.firstblock.rich-content > div.inner > section.agenda > article.agenda__item > a
+    fields:
+      - name: "location"
+        value: "27 Bflat"
+      - name: "city"
+        value: "Bruges"
+      - name: "country"
+        value: "Belgium"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.27bflat.be/en/agenda"
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: title
+        type: text
+        location:
+          selector: div.text > h3
+      - name: comment
+        type: text
+        location:
+          selector: div.text > p
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.text > p.date
+            layout: ["02-01-2006 15:04"]
+        date_location: CET

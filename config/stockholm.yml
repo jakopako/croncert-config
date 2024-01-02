@@ -1,0 +1,36 @@
+scrapers:
+  - name: Fasching
+    url: https://www.fasching.se/?date=0&artist=all&view=default&c=9
+    item: body.is-front-page > div.site-wrapper > div.site-content > div.page > main.page__main > div.page__content > div.page__wrapper.has-filter > div.page__grid > ul.list-card > li.card.js-grid-item
+    fields:
+      - name: "location"
+        value: Fasching
+      - name: "city"
+        value: Stockholm
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.fasching.se/?date=0&artist=all&view=default&c=9
+      - name: url
+        type: url
+        location:
+          - attr: href
+            selector: a.card__img.hash-target
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              attr: data-date-end
+            layout:
+              - 2006-01-02 15:04
+        date_location: CET
+      - name: title
+        type: text
+        location:
+          - selector: h2.card__title.h3
+    render_js: true

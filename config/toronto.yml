@@ -1,0 +1,43 @@
+scrapers:
+  - name: JazzBistro
+    url: https://jazzbistro.ca/performance_calendar/list/
+    item: body.archive.post-type-archive.post-type-archive-tribe_events.tribe-events-page-template.tribe-filter-live.tribe-js.vc_responsive.wpb-js-composer > div.tribe-common.tribe-common--breakpoint-medium.tribe-common--breakpoint-xsmall.tribe-events.tribe-events-view.tribe-events-view--list > div.tribe-common-l-container.tribe-events-l-container > div.tribe-events-calendar-list > div.tribe-common-g-row.tribe-events-calendar-list__event-row > div.tribe-common-g-col.tribe-events-calendar-list__event-wrapper > article.hentry.status-publish.tribe-common-g-row.tribe-common-g-row--gutters.tribe-events-calendar-list__event.tribe_events.type-tribe_events > div.tribe-common-g-col.tribe-events-calendar-list__event-details
+    fields:
+      - name: "location"
+        value: "Jazz Bistro"
+      - name: "city"
+        value: "Toronto"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://jazzbistro.ca/performance_calendar/list/
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: header.tribe-events-calendar-list__event-header > div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.tribe-events-calendar-list__event-datetime > span.tribe-event-date-start
+            layout:
+              - January 2 @ 15:04 pm
+        date_location: America/Toronto
+        date_language: en_US
+      - name: url
+        type: url
+        location:
+          - selector: header.tribe-events-calendar-list__event-header > h3.tribe-common-h4--min-medium.tribe-common-h6.tribe-events-calendar-list__event-title > a.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: header.tribe-events-calendar-list__event-header > h3.tribe-common-h4--min-medium.tribe-common-h6.tribe-events-calendar-list__event-title > a.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+      - name: comment
+        type: text
+        location:
+          - selector: div.tribe-common-a11y-hidden.tribe-common-b2.tribe-events-calendar-list__event-description > p
+    render_js: true
+    paginator:
+      location:
+        selector: a.tribe-events-c-nav__next

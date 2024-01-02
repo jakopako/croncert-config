@@ -1,0 +1,764 @@
+scrapers:
+  - name: Unterfahrt
+    url: "https://www.unterfahrt.de/programm.php"
+    item: ".b-slider__el"
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Unterfahrt"
+      - name: "sourceUrl"
+        value: "https://www.unterfahrt.de/programm.php"
+      - name: "title"
+        location:
+          selector: ".b-highlight__text-title"
+      - name: "comment"
+        location:
+          selector: ".b-text-one-col__col_1 p"
+          max_length: 200
+        on_subpage: "url"
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".o-btn-hex__link"
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: ".b-highlight__text-date"
+            layout: ["2•1•06"]
+          - covers:
+              time: true
+            location:
+              selector: ".b-highlight__text-time"
+            layout: ["15••04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+
+  - name: ImportExport
+    url: "https://import-export.cc/"
+    item: ".events a"
+    exclude_with_selector:
+      - ".old" # events that have a node with this class will be excluded from the results.
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "ImportExport"
+      - name: "sourceUrl"
+        value: "https://import-export.cc/"
+      - name: "url"
+        type: "url"
+        location:
+          selector: ""
+      - name: "title"
+        location:
+          selector: ".io-title"
+      - name: "date"
+        type: "date"
+        on_subpage: "url"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: ".event .event-info .io-big"
+              # node_index: 0
+            layout: ["Mon. 2.1.06"]
+          - covers:
+              time: true
+            location:
+              selector: ".event .event-info > div:nth-child(2) > p.io-big:nth-child(2)"
+              # node_index: 3 # We need this in case there are multiple nodes that would be selected with the given selector
+            layout: ["Beginn: 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: de_DE
+
+  - name: Milla
+    url: "https://milla-club.de/"
+    item: body.blog.home > main > section.events > div.columns.is-4.is-multiline.is-variable > div.column.event.is-narrow > div.columns.is-1.is-mobile.is-multiline.is-variable
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Milla"
+      - name: "sourceUrl"
+        value: "https://milla-club.de/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.column.is-12-tablet.is-three-quarters-mobile > div.columns.is-align-items-center.is-gapless.is-mobile > div.column.is-date
+            layout: ["Jan 2"]
+          - covers:
+              time: true
+            location:
+              selector: div.column.is-12-tablet.is-three-quarters-mobile > div.columns.is-align-items-center.is-gapless.is-mobile > div.column:nth-child(2)
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2}"
+            layout: ["15.04"]
+        date_location: CET
+        guess_year: true
+      - name: url
+        type: url
+        location:
+          - selector: div.column.is-12-tablet.is-three-quarters-mobile > div.event__title > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.column.is-12-tablet.is-three-quarters-mobile > div.event__title > a > h3
+    filters:
+      - field: title
+        exp: .*(?i)(abgesagt).*
+        match: false
+
+  - name: Backstage
+    url: "https://backstage.eu/veranstaltungen/live.html"
+    item: ".products .items .product-item"
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Backstage"
+      - name: "sourceUrl"
+        value: "https://backstage.eu/veranstaltungen/live.html"
+      - name: "title"
+        location:
+          selector: ".product-item-link"
+      - name: "comment"
+        location:
+          selector: ".details h6"
+        can_be_empty: true
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".product-item-link"
+      - name: "date"
+        type: "date"
+        on_subpage: "url"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: ".col-sm-12 .act .items .content"
+              attr: id
+            layout: ["2006-01-02-15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+    filters:
+      - field: "title"
+        exp: ".*(?i)(abgesagt).*"
+        match: false
+      - field: "title"
+        exp: ".*(?i)(verlegt).*"
+        match: false
+    paginator:
+      location:
+        selector: ".pages-item-next .next"
+      max_pages: 6
+
+  - name: Strom
+    url: "https://strom-muc.de/"
+    item: ".gdlr-event-item"
+    exclude_with_selector:
+      - ".cancelled-button"
+      - ".coming-soon"
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Strom"
+      - name: "sourceUrl"
+        value: "https://strom-muc.de/"
+      - name: "title"
+        location:
+          selector: ".event-title a"
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".event-title a"
+      - name: "date"
+        type: "date"
+        on_subpage: "url"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: ".gdlr-info-date"
+              child_index: 1
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}[0-9]{4}"
+            layout: ["02.01.2006"]
+          - covers:
+              time: true
+            location:
+              selector: ".gdlr-info-time"
+              child_index: 1
+              regex_extract:
+                exp: "[0-9]{2}(\\.|:)[0-9]{2}"
+                index: -1
+            layout: ["15.04", "15:04"]
+        date_location: "Europe/Berlin"
+
+  - name: Muffatwerk
+    url: "https://www.muffatwerk.de/de/events/concert"
+    item: ".row .event"
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: "https://www.muffatwerk.de/de/events/concert"
+      - name: "title"
+        location:
+          selector: ".hover-in .center span"
+          entire_subtree: true
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".hover-in .right a"
+      - name: "location"
+        on_subpage: "url"
+        location:
+          selector: ".entry-info"
+          child_index: 10
+          regex_extract:
+            exp: "[^ ]{1}[^:(]+[^ (]+"
+            index: 1
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: ".hover-in .center"
+              entire_subtree: true
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}"
+            layout: ["02.01."]
+          - covers:
+              year: true
+            location:
+              selector: ".date"
+              child_index: 4
+              regex_extract:
+                exp: "[0-9]{2}"
+            layout: ["06"] # the whitespace in this string is a tab.
+          - covers:
+              time: true
+            location:
+              selector: ".hover-in .center"
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+    filters:
+      - field: "location"
+        exp: "Zenith" # duplicate (also present on Motorworld website)
+        match: false
+      - field: "location"
+        exp: "Strom" # duplicate
+        match: false
+      - field: "location"
+        exp: "Tonhalle" # duplicate
+        match: false
+      - field: "location"
+        exp: "TonHalle" # duplicate
+        match: false
+      - field: date
+        exp: "> now"
+        match: true
+
+  - name: Eventfabrik
+    url: "https://www.eventfabrik-muenchen.de/events?s=&tribe_events_cat=konzert&tribe_events_venue=&tribe_events_month="
+    item: ".archive-card"
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: "https://www.eventfabrik-muenchen.de/events?s=&tribe_events_cat=konzert&tribe_events_venue=&tribe_events_month="
+      - name: "title"
+        location:
+          selector: ".archive-card--title span"
+          node_index: 1
+      - name: "comment"
+        location:
+          selector: ".subtitle"
+        can_be_empty: true
+      - name: "location"
+        location:
+          selector: ".archive-card--meta-venue"
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".archive-card--title a"
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: ".archive-card--title span"
+              node_index: 0
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}[0-9]{4}"
+            layout: ["02.01.2006"]
+          - covers:
+              time: true
+            location:
+              selector: ".archive-card--meta-starttime"
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+    paginator:
+      location:
+        selector: ".pagination .next"
+    filters:
+      - field: "title"
+        exp: ".*VERLEGT"
+        match: false
+      - field: "title"
+        exp: ".*ABGESAGT"
+        match: false
+
+  - name: Motorworld
+    url: "https://muenchen.motorworld.de/"
+    item: div.status-publish.type-veranstaltungen.veranstaltungen > a.e-con.e-con-boxed.elementor-element
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: "https://muenchen.motorworld.de/"
+      - name: location
+        type: text
+        location:
+          - selector: div.e-con-inner > div.e-con.e-con-boxed.elementor-element.elementor-element-5cee072:nth-child(2) > div.e-con-inner > div.elementor-element.elementor-element-a977703.elementor-widget.elementor-widget-shortcode:nth-child(3) > div.elementor-widget-container > div.elementor-shortcode
+      - name: comment
+        type: text
+        can_be_empty: true
+        location:
+          - selector: div.e-con-inner > div.e-con.e-con-boxed.elementor-element.elementor-element-5cee072:nth-child(2) > div.e-con-inner > div.elementor-element.elementor-element-3080f34.elementor-widget.elementor-widget-text-editor:nth-child(2) > div.elementor-widget-container
+      - name: title
+        type: text
+        location:
+          - selector: div.e-con-inner > div.e-con.e-con-boxed.elementor-element.elementor-element-5cee072:nth-child(2) > div.e-con-inner > div.elementor-element.elementor-element-53d396b.elementor-page-title.elementor-widget.elementor-widget-heading.elementor-widget-theme-post-title > div.elementor-widget-container > h1.elementor-heading-title.elementor-size-default
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: "location"
+        on_subpage: "url"
+        location:
+          selector: "div.elementor-element.elementor-element-5eb36ff.elementor-widget.elementor-widget-text-editor > div"
+          child_index: 2
+      - name: "date"
+        type: "date"
+        on_subpage: "url"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: ".elementor-element-6254285 .elementor-widget-container h2"
+            layout: ["02.01.2006"]
+          - covers:
+              time: true
+            location:
+              selector: ".elementor-element-d2a1061.dc-has-condition.dc-condition-empty.elementor-widget.elementor-widget-text-editor > div"
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+              child_index: 2
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+      - name: "status"
+        location:
+          selector: ".elementor-element-75d1969 div"
+        can_be_empty: true
+        hide: true
+    filters:
+      - field: "status"
+        exp: "Abgesagt"
+        match: false
+
+  - name: Glockenbachwerkstatt
+    url: "https://www.glockenbachwerkstatt.de/veranstaltungen/?date&category=konzert"
+    item: ".event"
+    fields:
+      - name: "location"
+        value: "Glockenbachwerkstatt"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.glockenbachwerkstatt.de/veranstaltungen/?date&category=konzert"
+      - name: "title"
+        location:
+          selector: ".event__title span"
+      - name: "url"
+        type: "url"
+        location:
+          selector: ".event__title a"
+      - name: "date"
+        type: "date"
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: ".imgdate"
+            layout: ["2.1."]
+          - covers:
+              time: true
+            location:
+              selector: ".eventtime"
+            layout: ["15:04 Uhr"]
+        date_location: "Europe/Berlin"
+        guess_year: true
+
+  - name: HeppelEttlich
+    url: https://heppel-ettlich.de/
+    item: body > div > div > div.container-fluid > div.row.align-items-start > div.col.col-xl-3.col-lg-4.col-sm-6.col-12 > div.mypost
+    fields:
+      - name: "location"
+        value: "Heppel & Ettlich"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://heppel-ettlich.de/
+      - name: url
+        type: url
+        location:
+          selector: div.event-image-container > a
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.event-meta > span
+            layout: ["Mon, 02.01."]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
+        guess_year: true
+      - name: eventType
+        type: text
+        hide: true
+        location:
+          selector: div.event-meta > span
+          node_index: 1
+      - name: title
+        type: text
+        location:
+          selector: div.event-meta > h1.entry-title.event-name
+    filters:
+      - field: "eventType"
+        exp: "Konzert"
+        match: true
+
+  - name: Feierwerk
+    url: https://www.feierwerk.de/konzert-kulturprogramm/kkp/
+    item: body.page-1390.pidir-150 > div > div.outercontainer > div.container960 > div.row-fluid > div.maincontent.span9 > div.row-fluid > div.span12 > div.event
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Munich
+      - name: "country"
+        value: "Germany"
+      - name: sourceUrl
+        value: https://www.feierwerk.de/konzert-kulturprogramm/kkp/
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.event-date-location > span > a
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}[0-9]{4}"
+            layout: ["02.01.2006"]
+          - covers:
+              time: true
+            location:
+              selector: div.event-date-location > span > a
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+      - name: location
+        location:
+          selector: div.event-date-location > span > a
+          regex_extract:
+            exp: "[^| ]{2}[^|]+[^ |]+"
+            index: 2
+      - name: url
+        type: url
+        location:
+          - selector: div.event-date-location > span > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: h3.event-collection-name, .event-name
+          - selector: div.event-short-desc > a.event-linker > h2.event-artist-name
+            regex_extract:
+              exp: "[^» ]{1}.*"
+            all_nodes: true
+            separator: ", "
+        separator: ", "
+      - name: status
+        hide: true
+        location:
+          selector: p.alert-heading
+        can_be_empty: true
+    filters:
+      - field: location
+        exp: ".*Technikum.*"
+        match: false
+      - field: location
+        exp: Farbenladen
+        match: false
+      - field: status
+        exp: Abgesagt
+        match: false
+    paginator:
+      location:
+        selector: li.next > a
+
+  - name: Clubzwei
+    url: https://www.clubzwei.de/
+    item: "#wix-events-widget > div > ul > li > div > div:nth-child(2) > div:nth-child(1)"
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: https://www.clubzwei.de/
+      - name: url
+        type: url
+        location:
+          - selector: div > a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div > a
+      - name: location
+        type: text
+        location:
+          - selector: div:nth-child(2) > div > div:nth-child(3)
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div:nth-child(3) > div > div
+              regex_extract:
+                exp: "[0-9]{1,2}\\. [A-Za-zä]{3,4}"
+            layout:
+              - 2. Jan
+              - 2. January
+          - covers:
+              time: true
+            location:
+              selector: div:nth-child(3) > div > div
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+        date_location: CET
+        date_language: de_DE
+        guess_year: true
+    render_js: true
+    filters:
+      - field: location
+        exp: Ampere # already covered
+        match: false
+      - field: location
+        exp: Import Export # already covered
+        match: false
+      - field: location
+        exp: Milla( Club)? # already covered
+        match: false
+
+  - name: Schlachthof
+    url: https://im-schlachthof.de/programm/
+    item: div.tribe-events-calendar-list > div.tribe-events-calendar-list__event-row > div.tribe-common-g-col.tribe-events-calendar-list__event-wrapper > article.has-post-thumbnail.hentry.status-publish.tribe-events-calendar-list__event.tribe_events.type-tribe_events > div.tribe-events-calendar-list__event-details:nth-child(2) > header.tribe-events-calendar-list__event-header > div.flex.flex-col.grow.h-full
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: https://im-schlachthof.de/programm/
+      - name: location
+        value: Schlachthof
+      - name: comment
+        type: text
+        location:
+          - selector: div:nth-child(2) > h4.font-size-base > a
+      - name: title
+        type: text
+        location:
+          - selector: div:nth-child(2) > h3.font-size-lg.tribe-events-calendar-list__event-title > a.font-bold.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            child_index: 2
+      - name: url
+        type: url
+        location:
+          - selector: div:nth-child(2) > h3.font-size-lg.tribe-events-calendar-list__event-title > a.font-bold.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.flex.flex-wrap.font-size-xs.gap-2.lg\:gap-5.tribe-events-calendar-list__event-datetime > div.flex.gap-x-1.items-center
+              child_index: 2
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}"
+            layout:
+              - 2.1.
+          - covers:
+              time: true
+            location:
+              selector: div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.flex.flex-wrap.font-size-xs.gap-2.lg\:gap-5.tribe-events-calendar-list__event-datetime > div.flex.gap-x-1.items-center:nth-child(2)
+              child_index: 2
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
+        date_location: CET
+        guess_year: true
+    paginator:
+      location:
+        selector: div.tribe-common-l-container.tribe-events-l-container > nav > ul > li.tribe-events-c-nav__list-item.tribe-events-c-nav__list-item--next > a
+
+  - name: Bahnwaerterthiel
+    url: https://www.bahnwaerterthiel.de/
+    item: div.wrap-collabsible > div.collapsible-content > div.content-inner > div.wrap-collabsible > label.events-toggle
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: https://www.bahnwaerterthiel.de/
+      - name: location
+        value: Bahnwärter Thiel
+      - name: url
+        value: https://www.bahnwaerterthiel.de/
+      - name: title
+        type: text
+        location:
+          - selector: p
+            child_index: 0
+          - selector: p
+            child_index: 2
+          - selector: p
+            child_index: 4
+          - selector: p
+            child_index: 6
+        separator: ", "
+      - name: comment
+        type: text
+        location:
+          - selector:
+            child_index: 2
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector:
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}[0-9]{4}"
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              selector:
+              regex_extract:
+                exp: "[0-9]{2}-"
+            layout: ["15-"]
+        date_location: CET
+    filters:
+      - field: date
+        exp: "> now"
+        match: true
