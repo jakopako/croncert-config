@@ -2167,3 +2167,54 @@ scrapers:
               - Mon, 2. January 2006
         date_location: CET
         date_language: de_DE
+
+  - name: DasGleis
+    url: https://www.dasgleis.ch/
+    item: div.EventList_accordionContainer___80KQ > div.EventList_eventWrapper__CYnc7
+    fields:
+      - name: city
+        value: "Zurich"
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Gleis
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.dasgleis.ch/
+      - name: url
+        value: https://www.dasgleis.ch/
+      - name: title
+        type: text
+        location:
+          - selector: div.EventList_eventHeader__eiGxm > div.EventList_eventTitle__1kBIp:nth-child(2) > h2
+            regex_extract:
+              exp: "[A-Za-z]+( [A-Za-z]+)*"
+              index: 1
+      - name: category
+        location:
+          - selector: div.EventList_eventHeader__eiGxm > div.EventList_eventTitle__1kBIp:nth-child(2) > h2
+            regex_extract:
+              exp: "[A-Z]+"
+        hide: true
+      - name: comment
+        type: text
+        location:
+          - selector: div.EventList_eventContent__9i_Dl:nth-child(2) > div.EventList_eventCollapsedParent__X_i3M > div.EventList_eventText__8spHV:nth-child(2) > div > p
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.EventList_eventHeader__eiGxm > div.EventList_eventTime__oXEFW > h2
+            layout:
+              - 2.1.2006, 15:04
+        date_location: CET
+    filters:
+      - field: category
+        exp: KONZERT
+        match: true
