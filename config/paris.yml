@@ -110,8 +110,7 @@ scrapers:
       - field: "status"
         exp: "Annulé"
         match: false
-    ## commented for now because goskyr version 0.4.13 has some issues with completing the event-specific urls for events on the following pages.
-    # paginator:
-    #   location:
-    #     selector: "div.after.right > a"
-    #   max_pages: 2
+    paginator:
+      location:
+        selector: "div.after.right > a"
+      max_pages: 4
