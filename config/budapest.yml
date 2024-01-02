@@ -34,6 +34,7 @@ scrapers:
               selector: section.eventCard__head > div.eventCard__head__date > div.dateBox.dateBox--listItem > div.dateBox-item.dateBox-item--from > div.l-verticalCenter > div > span.show-for-tablet
             layout: ["15:04"]
         date_location: CET
+        guess_year: true
       - name: title
         type: text
         location:

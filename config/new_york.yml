@@ -2,6 +2,7 @@ scrapers:
   - name: Smallslive
     url: https://www.smallslive.com/events/calendar/
     item: .day-list .day-event
+    render_js: true
     fields:
       - name: type
         value: concert
@@ -32,6 +33,7 @@ scrapers:
             layout: ["3:04 PM"]
         date_location: America/New_York
         date_language: en_US
+        guess_year: true
       - name: url
         type: url
         location:
