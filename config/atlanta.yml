@@ -1,7 +1,7 @@
 scrapers:
   - name: TerminalWest
     url: https://terminalwestatl.com/
-    item: div.c-axs-events.c-axs-events7121 > div.c-axs-events__container.js-axs-events-section > div.c-axs-events-months-details > div.c-axs-events-months-flex-container.o-container > div.c-axs-event-card__wrapper > a.c-axs-event-card__header.c-axs-event-card__header7121
+    item: div.c-axs-events__container.js-axs-events-section > div.c-axs-events-months-details > div.c-axs-events-months-flex-container.o-container > div.c-axs-event-card__wrapper > a.c-axs-event-card__header.c-axs-event-card__header7121
     fields:
       - name: "location"
         value: Terminal West
@@ -35,6 +35,7 @@ scrapers:
         date_location: America/New_York
         date_language: en_US
     render_js: true
+    page_load_wait: 3000
 
   - name: CenterStage
     url: https://www.centerstage-atlanta.com/
@@ -78,6 +79,11 @@ scrapers:
         date_location: America/New_York
         date_language: en_US
     render_js: true
+    interaction:
+      type: click
+      selector: "#main > section.events-section > div.events-listing > div > div.view-more-shows-wrap > a"
+      count: 4
+      delay: 1000
 
   - name: VarietyPlayhouse
     url: https://www.variety-playhouse.com/
@@ -115,3 +121,4 @@ scrapers:
         date_location: America/New_York
         date_language: en_US
     render_js: true
+    page_load_wait: 3000
