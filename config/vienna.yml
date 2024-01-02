@@ -158,6 +158,10 @@ scrapers:
             location:
               selector: ".calendarEventMonthname"
             layout: ["January"]
+            transform:
+              - type: regex-replace
+                regex: Jänner
+                replace: Januar
           - covers:
               year: true
             location:
@@ -173,6 +177,9 @@ scrapers:
     filters:
       - field: "title"
         exp: ".*ABGESAGT"
+        match: false
+      - field: "title"
+        exp: ".*Führung in.*"
         match: false
 
   - name: PorgyAndBess
@@ -196,11 +203,6 @@ scrapers:
         type: url
         location:
           selector: div.col-md-7.event_list.event_list_item > div.title > a
-      # - name: datestring
-      #   type: text
-      #   location:
-      #     selector: div.date
-      #   on_subpage: url
       - name: date
         type: date
         on_subpage: url
@@ -266,6 +268,9 @@ scrapers:
               - type: regex-replace
                 regex: FEBR
                 replace: Feb
+              - type: regex-replace
+                regex: JÄN
+                replace: Jan
           - covers:
               day: true
             location:
