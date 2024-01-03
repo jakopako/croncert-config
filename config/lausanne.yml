@@ -786,6 +786,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Lausanne"
+      - name: country
+        value: Switzerland
       - name: "location"
         value: "Jumeaux Jazz Club"
       - name: "sourceUrl"
