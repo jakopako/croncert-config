@@ -116,6 +116,8 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://chorus.ch/programme/"
+      - name: "imageUrl"
+        value: "https://chorus.ch/wp-content/uploads/2023/08/Logo_Chorus_36.jpg"
       - name: date
         type: date
         components:
