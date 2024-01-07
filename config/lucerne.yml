@@ -4,7 +4,7 @@ scrapers:
     item: body.layout-standard > div > div > div > div > div.frame.frame-default.frame-type-list.frame-layout-0 > div.event-list > section.event-list-box.event-link-to-details.lazyload-event-background > article
     fields:
       - name: "location"
-        value: "Schüür"
+        value: "Konzerthaus Schüür"
       - name: "city"
         value: "Lucerne"
       - name: country
