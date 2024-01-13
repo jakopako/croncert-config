@@ -8,7 +8,7 @@ scrapers:
       - name: "city"
         value: "Bologna"
       - name: "location"
-        value: "LocomotivClub"
+        value: "Locomotiv Club"
       - name: "sourceUrl"
         value: "https://www.locomotivclub.it/eventtype/calendario/"
       - name: "title"
