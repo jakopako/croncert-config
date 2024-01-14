@@ -41,7 +41,7 @@ scrapers:
 
   - name: Mehrspur
     url: "https://www.mehrspur.ch/veranstaltungen"
-    item: ".post-holder"
+    item: ".post-content-holder"
     fields:
       - name: "location"
         value: "Mehrspur"
@@ -75,6 +75,9 @@ scrapers:
             transform:
               - type: regex-replace
                 regex: Mrz
+                replace: Mär
+              - type: regex-replace
+                regex: März
                 replace: Mär
             layout: ["Mon 2.Jan."]
           - covers:
