@@ -666,6 +666,11 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://walcheturm.ch/agenda/"
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: div.thumbnail img
+          attr: src
       - name: "title"
         location:
           selector: ".content h1"
