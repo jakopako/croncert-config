@@ -16,6 +16,11 @@ scrapers:
       - name: "title"
         location:
           selector: ".sHInfo a"
+      - name: "imageUrl"
+        type: url
+        location:
+          selector: ".sHImg > a > img"
+          attr: data-src
       - name: "comment"
         location:
           selector: ".sHInfo h2"
