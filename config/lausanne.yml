@@ -405,13 +405,18 @@ scrapers:
           - covers:
               day: true
               month: true
+              year: true
             location:
               selector: div.program:nth-child(5) > span
               regex_extract:
                 exp: "(31|1er|2|3|4|5) (octobre|novembre)"
+            transform:
+              - type: regex-replace
+                regex: "$"
+                replace: " 2023"
             layout:
-              - "2 January"
-              - "2er January"
+              - "2 January 2006"
+              - "2er January 2006"
           - covers:
               time: true
             location:
