@@ -293,6 +293,11 @@ scrapers:
         can_be_empty: true
         location:
           selector: ".nu-e-subt"
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: img
+          attr: src
       - name: "url"
         type: "url"
         location:
