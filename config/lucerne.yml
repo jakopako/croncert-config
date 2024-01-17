@@ -1,7 +1,7 @@
 scrapers:
   - name: Schuur
     url: https://www.schuur.ch/programm/
-    item: body.layout-standard > div > div > div > div > div.frame.frame-default.frame-type-list.frame-layout-0 > div.event-list > section.event-list-box.event-link-to-details.lazyload-event-background > article
+    item: div.viz-event-list article
     fields:
       - name: "location"
         value: "Konzerthaus Schüür"
@@ -15,14 +15,15 @@ scrapers:
         value: https://www.schuur.ch/programm/
       - name: comment
         location:
-          selector: div.event-box-title > span.event-subtitle
+          selector: span.viz-event-headline
+        can_be_empty: true
       - name: title
         location:
-          selector: div.event-box-title > h3 > a.event-box-details-link > span.event-name
+          selector: span.viz-event-name
       - name: url
         type: url
         location:
-          selector: div.event-box-title > h3 > a.event-box-details-link
+          selector: h3 > a.viz-event-box-details-link
           attr: href
       - name: date
         type: date
@@ -33,7 +34,7 @@ scrapers:
               year: true
               time: true
             location:
-              selector: div.event-box-date > div.event-date
-            layout: ["Mon. 2.1.2006 – 15:04"]
+              selector: div.viz-event-date
+            layout: ["Mon. 2. January 2006 – 15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
