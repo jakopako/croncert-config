@@ -389,7 +389,7 @@ scrapers:
 
   - name: JazzOnze
     url: https://jazzonzeplus.ch/
-    item: body > div.hfeed.site > div.site-content > section.blank_template.clearfix.parallax-section > div.mid-content > div.rfp-shortcode-6346.rfp-wrapper > div.rfp-grids.rfp-posts > div.edition-2023.item.md3.rfp-grid.rfp-item.sm4.xs12
+    item: body > div.hfeed.site > div.site-content > section.blank_template.clearfix.parallax-section > div.mid-content > div.rfp-shortcode-6346.rfp-wrapper > div.rfp-grids.rfp-posts > div.item.md3.rfp-grid.rfp-item
     fields:
       - name: "city"
         value: "Lausanne"
@@ -403,12 +403,21 @@ scrapers:
         type: date
         components:
           - covers:
+              year: true
+            location:
+              selector: ""
+              attr: class
+              regex_extract:
+                exp: "edition-[0-9]{4}"
+            layout:
+              - edition-2006
+          - covers:
               day: true
               month: true
             location:
               selector: div.program:nth-child(5) > span
               regex_extract:
-                exp: "(31|1er|2|3|4|5) (octobre|novembre)"
+                exp: "[0-9]{1,2}(er)? [a-z]+"
             layout:
               - "2 January"
               - "2er January"
