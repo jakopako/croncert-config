@@ -1718,7 +1718,7 @@ scrapers:
 
   - name: GzZh
     url: https://gz-zh.ch/?zielgruppen=erwachsene&sparte=events,musik
-    item: div.wrap > div > div.grid.no-gutters.row > article.col-6.col-lg-3.col-md-4.col-xl-2.grid-item.has-image > div.loaded.square > div.innerbox
+    item: div.wrap > div > div.grid.no-gutters.row > article.col-6.col-lg-3.col-md-4.col-xl-2.grid-item.has-image
     fields:
       - name: city
         value: "Zurich"
@@ -1739,6 +1739,11 @@ scrapers:
         type: text
         location:
           - selector: h2.entry-title.m-0
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: data-src
       - name: eventType
         type: text
         location:
