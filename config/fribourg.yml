@@ -159,7 +159,7 @@ scrapers:
         location:
           - attr: href
       - name: imageUrl
-        type: text
+        type: url
         location:
           - selector: div:nth-child(1) > img
             attr: src
