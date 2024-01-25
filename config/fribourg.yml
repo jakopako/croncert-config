@@ -114,3 +114,65 @@ scrapers:
             layout: ["15h04", "15h"]
         date_language: fr_FR
         date_location: CET
+
+  - name: NouveauMonde
+    url: https://www.nouveaumonde.ch/agenda/
+    item: body > div > div.appScroll > div.content.scrollable > div.flexColumn.gap.spaceBottom > section.appToFilter.column6.flexRow.gap > a.poster.size50
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Fribourg"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Nouveau Monde"
+      - name: "sourceUrl"
+        value: https://www.nouveaumonde.ch/agenda/
+      - name: title
+        type: text
+        location:
+          - selector: div:nth-child(3) > h4
+      - name: genre
+        type: text
+        location:
+          - selector: div:nth-child(3) > ul.flexRow > li.plate.plateMedium
+      - name: date
+        type: date
+        components:
+          - covers:
+              year: true
+              month: true
+              day: true
+            location:
+              selector: h3.date
+            layout: ["02.01.2006"]
+          - covers:
+              time: true
+            location:
+              selector: h4.dateHM
+            layout: ["15h04"]
+        date_location: CET
+        date_language: fr_FR
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div:nth-child(1) > img
+            attr: src
+    filters:
+      - field: genre
+        exp: "rct"
+        match: false
+      - field: genre
+        exp: "caf"
+        match: false
+      - field: genre
+        exp: "fml"
+        match: false
+      - field: genre
+        exp: "spt"
+        match: false
