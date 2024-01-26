@@ -51,3 +51,7 @@ scrapers:
       - field: title
         exp: Bar du
         match: false
+      - field: title
+        exp: jeux
+        match: false
+
