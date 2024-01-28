@@ -32,7 +32,7 @@ scrapers:
               time: true
             location:
               selector: span.hours
-            layout: ["15h04"]
+            layout: ["15h04", "15h"]
         date_location: "Europe/Berlin"
         date_language: fr_FR
       - name: title
@@ -56,9 +56,9 @@ scrapers:
           attr: src
     filters:
       - field: title
-        exp: BRUNCH
+        exp: (?i)(BRUNCH)
         match: false
-        
+
     # I guess there was an eventType field in this config once?
     #   - field: "eventType"
     #     exp: "Jeux"
