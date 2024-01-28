@@ -1,0 +1,57 @@
+scrapers:
+  - name: LaBille
+    url: https://www.bille.ch/agenda/
+    item: body > div.elementor.elementor-5918 > section.elementor-element.elementor-element-464ba54.elementor-section.elementor-section-full_width.elementor-section-height-default.elementor-section-height-default.elementor-top-section > div.elementor-column-gap-default.elementor-container > div.elementor-col-100.elementor-column.elementor-element.elementor-element-acb114b.elementor-top-column > div.elementor-element-populated.elementor-widget-wrap > div.elementor-element.elementor-element-1c8fd92.elementor-widget.elementor-widget-etn-event-pro > div.elementor-widget-container > div.etn-event-style4.etn-event-wrapper.etn-row > div.etn-col-lg-4.etn-col-md-6 > div.etn-event-item > div.etn-event-content:nth-child(2)
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "La Sarraz"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "La Bille"
+      - name: "sourceUrl"
+        value: "https://www.bille.ch/agenda/"
+      - name: comment
+        type: text
+        location:
+          - selector: p
+      - name: title
+        type: text
+        location:
+          - selector: h3.etn-event-title.etn-title > a
+      - name: url
+        type: url
+        location:
+          - selector: h3.etn-event-title.etn-title > a
+            attr: href
+      - name: date
+        type: date 
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.etn-event-date > span
+              child_index: 2
+            layout: ["2 January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: p
+              regex_extract:
+                exp: "[0-9]{1,2}h"
+            layout:
+              - "15h"
+        date_location: CET
+        date_language: fr_FR
+    filters:
+      - field: title
+        exp: Bar du
+        match: false
+      - field: title
+        exp: jeux
+        match: false
+
