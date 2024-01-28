@@ -2003,7 +2003,7 @@ scrapers:
       - name: country
         value: Switzerland
       - name: location
-        value: Rank
+        value: Kultur Lokal Rank
       - name: type
         value: concert
       - name: sourceUrl
@@ -2053,7 +2053,7 @@ scrapers:
       - name: country
         value: Switzerland
       - name: location
-        value: Rank
+        value: Kultur Lokal Rank
       - name: type
         value: concert
       - name: sourceUrl
@@ -2103,7 +2103,7 @@ scrapers:
       - name: country
         value: Switzerland
       - name: location
-        value: Rank
+        value: Kultur Lokal Rank
       - name: type
         value: concert
       - name: sourceUrl
