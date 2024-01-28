@@ -56,7 +56,7 @@ scrapers:
 
   - name: CafeLitteraire
     url: https://lecafelitteraire.ch/culture/
-    item: body.culture > div.site > main.site-main > article.is_page.culture.is_parent > div.entry-content > div.wp-block-getwid-section > div.wp-block-getwid-section__wrapper > div.wp-block-getwid-section__inner-wrapper > div.wp-block-getwid-section__content > div.wp-block-getwid-section__inner-content > ul.list.evenements > li
+    item: ul.list.evenements > li
     fields:
       - name: "location"
         value: "Café Littéraire"
