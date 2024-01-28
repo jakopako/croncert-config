@@ -211,7 +211,7 @@ scrapers:
         value: "ONO Das Kulturlokal"
       - name: "sourceUrl"
         value: "https://www.onobern.ch/homepage/"
-      - name: style
+      - name: comment
         type: text
         location:
           - selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_desc.evo_info.hide_eventtopdata:nth-child(3) > span.evo_below_title:nth-child(3) > span.evcal_event_subtitle
@@ -219,14 +219,6 @@ scrapers:
         type: text
         location:
           - selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_desc.evo_info.hide_eventtopdata:nth-child(3) > span.evcal_desc2.evcal_event_title:nth-child(2)
-      - name: time
-        type: text
-        location:
-          - selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_cblock:nth-child(2) > span.evo_start > em.time:nth-child(4)
-      - name: month
-        type: text
-        location:
-          - selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_cblock:nth-child(2) > span.evo_start > em.month:nth-child(3)
       - name: date
         type: date
         components:
@@ -241,7 +233,7 @@ scrapers:
               month: true
             location:
               selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_cblock:nth-child(2) > span.evo_start > em.month:nth-child(3)
-            layout: ["Jan."]
+            layout: ["Jan.", "January"]
           - covers:
               day: true
             location:
@@ -254,10 +246,6 @@ scrapers:
             layout: ["15:04"]
         date_language: de_DE
         date_location: "Europe/Berlin"
-      - name: day
-        type: text
-        location:
-          - selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_cblock:nth-child(2) > span.evo_start > em.day
       - name: url
         type: url
         location:
@@ -269,7 +257,6 @@ scrapers:
           - selector: .ev_ftImg
             attr: data-bg
     filters:
-      - field: style
+      - field: comment
         exp: "Privat"
         match: false
-
