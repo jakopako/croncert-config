@@ -197,3 +197,66 @@ scrapers:
   #       date_location: CET
   #       date_language: de_DE
 
+  - name: OnoBern
+    url: https://www.onobern.ch/homepage/
+    item: body > div > div.et-boc > div > div > article.hentry.page.post-19.status-publish.type-page > div.entry-content > div.et-l.et-l--post > div.et_builder_inner_content.et_pb_gutters3 > div.et_pb_section.et_pb_section_1.et_section_regular > div.et_pb_row.et_pb_row_3 > div.et-last-child.et_pb_column.et_pb_column_2.et_pb_column_4_4.et_pb_css_mix_blend_mode_passthrough > div.et_pb_bg_layout_light.et_pb_module.et_pb_text.et_pb_text_1.et_pb_text_align_left > div.et_pb_text_inner > div.ajde_evcal_calendar.box_2.list_cal.ul > div.evcal_list_month.eventon_events_list.sep_months > div.sep_month_events > div.event.eventon_list_event.evo_eventtop
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Bern"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "ONO Das Kulturlokal"
+      - name: "sourceUrl"
+        value: "https://www.onobern.ch/homepage/"
+      - name: comment
+        type: text
+        location:
+          - selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_desc.evo_info.hide_eventtopdata:nth-child(3) > span.evo_below_title:nth-child(3) > span.evcal_event_subtitle
+      - name: title
+        type: text
+        location:
+          - selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_desc.evo_info.hide_eventtopdata:nth-child(3) > span.evcal_desc2.evcal_event_title:nth-child(2)
+      - name: date
+        type: date
+        components:
+          - covers:
+              year: true
+            location:
+              selector: #evcal_cur
+              regex_extract:
+                exp: "[0-9]{4}"
+            layout: ["2006"]
+          - covers:
+              month: true
+            location:
+              selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_cblock:nth-child(2) > span.evo_start > em.month:nth-child(3)
+            layout: ["Jan.", "January"]
+          - covers:
+              day: true
+            location:
+              selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_cblock:nth-child(2) > span.evo_start > em.date:nth-child(2)
+            layout: ["02"]
+          - covers:
+              time: true
+            location:
+              selector: p.desc_trig_outter > a.desc_trig.evcal_list_a.hasFtIMG.sin_val > span.evcal_cblock:nth-child(2) > span.evo_start > em.time:nth-child(4)
+            layout: ["15:04"]
+        date_language: de_DE
+        date_location: "Europe/Berlin"
+      - name: url
+        type: url
+        location:
+          - selector: div.evo_event_schema > a
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: .ev_ftImg
+            attr: data-bg
+    filters:
+      - field: comment
+        exp: "Privat"
+        match: false
