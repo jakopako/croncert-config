@@ -1,7 +1,7 @@
 scrapers:
   - name: BoutDuMonde
-    url: https://www.leboutdumonde.ch/
-    item: section.list_program > ul.events > li.event.has_thumb
+    url: https://www.leboutdumonde.ch/programme/
+    item: ul.events > li
     fields:
       # static
       - name: location
@@ -32,7 +32,7 @@ scrapers:
               time: true
             location:
               selector: span.hours
-            layout: ["15h04"]
+            layout: ["15h04", "15h"]
         date_location: "Europe/Berlin"
         date_language: fr_FR
       - name: title
@@ -49,10 +49,20 @@ scrapers:
         location:
           selector: a.more
           attr: href
+      - name: imageUrl
+        type: url
+        location:
+          selector: img
+          attr: src
     filters:
-      - field: "eventType"
-        exp: "Jeux"
+      - field: title
+        exp: (?i)(BRUNCH)
         match: false
+
+    # I guess there was an eventType field in this config once?
+    #   - field: "eventType"
+    #     exp: "Jeux"
+    #     match: false
 
   - name: CafeLitteraire
     url: https://lecafelitteraire.ch/culture/
