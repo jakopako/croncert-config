@@ -125,6 +125,11 @@ scrapers:
         type: "url"
         location:
           selector: a.link-project
+      - name: imageUrl
+        type: "url"
+        location:
+          selector: img
+          attr: src
       - name: title
         type: text
         location:
