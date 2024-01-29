@@ -197,6 +197,57 @@ scrapers:
   #       date_location: CET
   #       date_language: de_DE
 
+  - name: ISC
+    url: https://isc-club.ch/
+    item: div.event_listing > a
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Bern"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "ISC Club"
+      - name: "sourceUrl"
+        value: "https://isc-club.ch/"
+      - name: title
+        type: text
+        location:
+          - selector: div.event_title_two_colums.inside_content.max_width_box > div.column_right:nth-child(2) > div.event_title_title:nth-child(3)
+      - name: style
+        type: text
+        location:
+          - selector: div.event_title_two_colums.inside_content.max_width_box > div.column_right:nth-child(2) > div.event_title_info:nth-child(2)
+      - name: date
+        type: date
+        components:
+          - covers:
+              year: true
+              month: true
+              day: true
+              time: true
+            location:
+              selector: var.atc_date_start
+            layout: ["2006-01-02 15:04:00"]
+        on_subpage: url
+        date_language: de_DE
+        date_location: "Europe/Berlin"
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: imageUrl
+        type: url
+        on_subpage: url
+        location:
+          - selector: "div.fullscreen_event_bg.filter_none"
+            attr: data-bgset
+            regex_extract:
+              exp: "[^ ]+"
+              index: 0
+
+
   - name: OnoBern
     url: https://www.onobern.ch/homepage/
     item: body > div > div.et-boc > div > div > article.hentry.page.post-19.status-publish.type-page > div.entry-content > div.et-l.et-l--post > div.et_builder_inner_content.et_pb_gutters3 > div.et_pb_section.et_pb_section_1.et_section_regular > div.et_pb_row.et_pb_row_3 > div.et-last-child.et_pb_column.et_pb_column_2.et_pb_column_4_4.et_pb_css_mix_blend_mode_passthrough > div.et_pb_bg_layout_light.et_pb_module.et_pb_text.et_pb_text_1.et_pb_text_align_left > div.et_pb_text_inner > div.ajde_evcal_calendar.box_2.list_cal.ul > div.evcal_list_month.eventon_events_list.sep_months > div.sep_month_events > div.event.eventon_list_event.evo_eventtop
@@ -260,3 +311,4 @@ scrapers:
       - field: comment
         exp: "Privat"
         match: false
+
