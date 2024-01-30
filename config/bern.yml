@@ -199,7 +199,7 @@ scrapers:
 
   - name: MahoganyHall
     url: https://www.mahogany.ch/konzerte
-    item: body > div > div > div.column > div.view.view-display-id-page.view-dom-id-16ec81cc9a231bf191b8f75dfe36b39d.view-id-konzerte.view-konzerte > div.view-content > div.views-row
+    item: body > div > div > div.column > div.view.view-id-konzerte.view-konzerte > div.view-content > div.views-row
     fields:
       - name: "type"
         value: "concert"
@@ -319,4 +319,3 @@ scrapers:
       - field: comment
         exp: "Privat"
         match: false
-
