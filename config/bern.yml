@@ -196,6 +196,65 @@ scrapers:
   #             - 15:04 Uhr
   #       date_location: CET
   #       date_language: de_DE
+  
+  - name: MahoganyHall
+    url: https://www.mahogany.ch/konzerte
+    item: body > div > div > div.column > div.view.view-id-konzerte.view-konzerte > div.view-content > div.views-row
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Bern"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Mahagany Hall"
+      - name: "sourceUrl"
+        value: "https://www.mahogany.ch/konzerte"
+      - name: comment
+        type: text
+        location:
+          - selector: div.views-field.views-field-field-teasertext:nth-child(4) > p.field-content
+      - name: style
+        type: text
+        location:
+          - selector: div.views-field.views-field-field-subtitle > h5.field-content
+      - name: title
+        type: text
+        location:
+          - selector: span.views-field.views-field-title:nth-child(2) > h2.field-content > a
+      - name: url
+        type: url
+        location:
+          - selector: span.views-field.views-field-title:nth-child(2) > h2.field-content > a
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.field.field-name-field-titelbild.field-type-image.field-label-hidden > div > div > img
+            attr: src
+        on_subpage: url
+      - name: date
+        type: date
+        components:
+          - covers:
+              year: true
+              month: true
+              day: true
+            location:
+              selector: span.views-field.views-field-field-tueroeffnung > div.concert-tueroeffnung.field-content
+              regex_extract:
+                exp: "[0-9]{1,2}. .* [0-9]{4}"
+            layout: ["2. January 2006"]
+          - covers:
+              time: true
+            location:
+              selector: span.views-field.views-field-field-tueroeffnung > div.concert-tueroeffnung.field-content
+              regex_extract:
+                exp: "[0-9]{2}.[0-9]{2} Uhr"
+            layout: ["15.04 Uhr"]
+        date_language: de_DE
+        date_location: "Europe/Berlin"
 
   - name: ISC
     url: https://isc-club.ch/
@@ -246,7 +305,6 @@ scrapers:
             regex_extract:
               exp: "[^ ]+"
               index: 0
-
 
   - name: OnoBern
     url: https://www.onobern.ch/homepage/
