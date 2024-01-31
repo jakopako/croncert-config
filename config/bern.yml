@@ -208,7 +208,7 @@ scrapers:
       - name: country
         value: Switzerland
       - name: "location"
-        value: "Mahagany Hall"
+        value: "Mahogany Hall"
       - name: "sourceUrl"
         value: "https://www.mahogany.ch/konzerte"
       - name: comment
