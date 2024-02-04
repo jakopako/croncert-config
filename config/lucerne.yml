@@ -38,3 +38,53 @@ scrapers:
             layout: ["Mon. 2. January 2006 – 15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
+
+  - name: Bar59
+    url: https://www.bar59.ch/
+    item: body > div.container > div > div.contentBlock.events > div.day
+    fields:
+      - name: "location"
+        value: "Bar 59"
+      - name: "city"
+        value: "Lucerne"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.bar59.ch/
+      - name: "url"
+        value: https://www.bar59.ch/
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.col-xs-12.col-md-9.col-md-pull-3.left > img
+            attr: src
+      - name: title
+        type: text
+        location:
+          - selector: div.event:nth-child(2) > h3.collapsed > span
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.event:nth-child(2) > h3.collapsed > small
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.daylabel > span.big
+            layout:
+              - Monday 2.1.2006
+        date_location: CET
+        date_language: de_DE
+    render_js: true
+    paginator:
+      location:
+        selector: div.paginatorContainer > div > button:nth-child(3)
+      max_pages: 4
