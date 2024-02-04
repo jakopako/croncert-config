@@ -70,6 +70,11 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://bugbearbookings.com/dublin-castle/"
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.listingDate > img
+            attr: src
       - name: url
         type: url
         location:
