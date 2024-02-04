@@ -60,6 +60,45 @@ scrapers:
         selector: "div#iscroll_other a"
         attr: href
 
+  - name: DublinCastle
+    url: https://bugbearbookings.com/dublin-castle/
+    item: body > div.body > div.colListings > div.listing
+    fields:
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://bugbearbookings.com/dublin-castle/"
+      - name: url
+        type: url
+        location:
+          - selector: div.listingDate:nth-child(3) > a
+            attr: href
+      - name: location
+        type: text
+        location:
+          - selector: div.listingDate:nth-child(3)
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.listingDate
+            layout: ["Mon 2 Jan"]
+      - name: comment
+        type: text
+        location:
+          - selector: div:nth-child(2) > div:nth-child(2)
+            entire_subtree: true
+      - name: title
+        type: text
+        location:
+          - selector: .listingTitle
+            entire_subtree: true
+
   - name: OsloHackney
     url: https://www.oslohackney.com/events/
     item: body.page-template.page-template-templates.page-template-template_gig-guide.page-template-templatestemplate_gig-guide-php.page.page-id-490.body-site-header--standard.body-site-header--logo-left.body-site-header--no-sticky-links > section.section.section--spacing-above-standard.section--spacing-below-standard.section--centered.guide.js-guide-section > div.wrapper > div.js-guide-container.guide__container > div.js-guide-post-grid.guide__post-grid > div.guide__month > div.grid.guide__grid > div.grid__col.guide__grid-col > div.card.card--full.card--alt-layout > div.card__inside > div.card__grid > div.card__grid-content.text__reset
