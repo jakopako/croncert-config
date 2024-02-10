@@ -60,6 +60,47 @@ scrapers:
         selector: "div#iscroll_other a"
         attr: href
 
+  - name: Garage
+    url: https://www.thegarage.london/live/
+    item: body > section.guide.js-guide-section.section.section--centered.section--spacing-above-standard.section--spacing-below-standard > div.wrapper > div.guide__container.js-guide-container > div.guide__post-grid.js-guide-post-grid > div.guide__month > div.grid.guide__grid > div.grid__col.guide__grid-col > div.card.card--alt-layout.card--full > div.card__inside.card__inside--other > div.card__grid.card__grid--center
+    fields:
+      - name: "location"
+        value: "The Garage"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.thegarage.london/live/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              year: true
+              month: true
+              day: true
+            location:
+              selector: h6.card__strip-heading
+            layout: ["Mon.02.Jan.06"]
+        date_location: Europe/London
+        date_language: en_US
+      - name: title
+        type: text
+        location:
+          - selector: a.card__heading.card__heading--last.h4.text-link.text-link--color
+      - name: url
+        type: url
+        location:
+          - selector: a.card__heading.card__heading--last.h4.text-link.text-link--color
+            attr: href
+      - name: imageUrl
+        type: text
+        location:
+          selector: a.card__grid-media > img.lazy
+          attr: data-lazy-srcset
+          regex_extract:
+            exp: "[^ ]+"
+
   - name: OsloHackney
     url: https://www.oslohackney.com/events/
     item: body.page-template.page-template-templates.page-template-template_gig-guide.page-template-templatestemplate_gig-guide-php.page.page-id-490.body-site-header--standard.body-site-header--logo-left.body-site-header--no-sticky-links > section.section.section--spacing-above-standard.section--spacing-below-standard.section--centered.guide.js-guide-section > div.wrapper > div.js-guide-container.guide__container > div.js-guide-post-grid.guide__post-grid > div.guide__month > div.grid.guide__grid > div.grid__col.guide__grid-col > div.card.card--full.card--alt-layout > div.card__inside > div.card__grid > div.card__grid-content.text__reset
