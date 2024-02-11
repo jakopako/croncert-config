@@ -2201,7 +2201,15 @@ scrapers:
       - name: sourceUrl
         value: https://www.dasgleis.ch/
       - name: url
-        value: https://www.dasgleis.ch/
+        type: url
+        location:
+          - selector: div.EventList_eventHeader__eiGxm
+            attr: data-custom-prop
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img.EventList_eventImage__oOks3
+            attr: data-src
       - name: title
         type: text
         location:
