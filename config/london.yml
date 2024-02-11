@@ -93,6 +93,7 @@ scrapers:
             location:
               selector: div.listingDate
             layout: ["Mon 2 Jan"]
+        guess_year: true
       - name: comment
         type: text
         location:
