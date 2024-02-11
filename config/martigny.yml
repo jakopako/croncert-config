@@ -46,3 +46,67 @@ scrapers:
   #               exp: "[0-9]{2} h [0-9]{2}"
   #           layout: ["15 h 04"]
   #       date_location: CET
+
+  - name: LesCavesDuManoir
+    url: https://cavesdumanoir.ch/
+    item: body > div.site > main.homepage > div.homepage__agenda > div.homepage__agenda__list > a.event-card
+    fields:
+      - name: location
+        value: "Les Caves du Manoir"
+      - name: city
+        value: Martigny
+      - name: country
+        value: Switzerland
+      - name: "sourceUrl"
+        value: "https://cavesdumanoir.ch/"
+      - name: type
+        value: concert
+      - name: title
+        type: text
+        location:
+          - selector: div.event-card__content:nth-child(2) > h2.event-card__content__artists > div.event-card__content__artists__name > span
+            all_nodes: true
+            separator: ", "
+      - name: comment
+        type: text
+        location:
+          - selector: div.event-card__content:nth-child(2) > div.event-card__content__infos > span.event-card__content__infos__category:nth-child(2)
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.event-card__img > img
+            attr: src
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: main > div.event__wrapper > div.event__sidebar > div.event-card__content__infos > span.event-card__content__infos__date
+            layout:
+              - 2 January
+          - covers:
+              time: true
+            location:
+              selector: main > div.event__wrapper > div.event__sidebar > div:nth-child(3) > p:nth-child(1)
+              regex_extract:
+                exp: "[0-9]{2}h[0-9]{2}"
+            layout:
+              - 15h04
+        date_location: CET
+        date_language: fr_FR
+        guess_year: true
+    render_js: true
+    filters:
+      - field: comment
+        exp: Drame
+        match: false
+      - field: comment
+        exp: Thriller
+        match: false
