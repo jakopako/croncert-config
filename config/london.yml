@@ -60,6 +60,51 @@ scrapers:
         selector: "div#iscroll_other a"
         attr: href
 
+  - name: DublinCastle
+    url: https://bugbearbookings.com/dublin-castle/
+    item: body > div.body > div.colListings > div.listing
+    fields:
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://bugbearbookings.com/dublin-castle/"
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.listingDate > img
+            attr: src
+      - name: url
+        type: url
+        location:
+          - selector: div.listingDate:nth-child(3) > a
+            attr: href
+      - name: location
+        type: text
+        location:
+          - selector: div.listingDate:nth-child(3)
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.listingDate
+            layout: ["Mon 2 Jan"]
+        guess_year: true
+      - name: comment
+        type: text
+        location:
+          - selector: div:nth-child(2) > div:nth-child(2)
+            entire_subtree: true
+      - name: title
+        type: text
+        location:
+          - selector: .listingTitle
+            entire_subtree: true
+
   - name: Garage
     url: https://www.thegarage.london/live/
     item: body > section.guide.js-guide-section.section.section--centered.section--spacing-above-standard.section--spacing-below-standard > div.wrapper > div.guide__container.js-guide-container > div.guide__post-grid.js-guide-post-grid > div.guide__month > div.grid.guide__grid > div.grid__col.guide__grid-col > div.card.card--alt-layout.card--full > div.card__inside.card__inside--other > div.card__grid.card__grid--center
