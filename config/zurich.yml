@@ -89,6 +89,10 @@ scrapers:
         date_location: "Europe/Berlin"
         date_language: "de_DE"
         guess_year: true
+    filters:
+      - field: title
+        exp: Kunstwettbewerb
+        match: false
 
   - name: Umbo
     url: "https://www.umbo.wtf"
@@ -2092,7 +2096,8 @@ scrapers:
             layout:
               - 2.1.
         date_location: CET
-        guess_year: true
+        # this doesn't work right now (goskyr v0.5.24) because the list of events is not ordered by date
+        # guess_year: true
 
   - name: AmRank3
     url: https://amrank.ch/buehne/
