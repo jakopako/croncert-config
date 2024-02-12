@@ -159,6 +159,12 @@ scrapers:
                 exp: "[0-9]{1,2}\\. [A-Za-z]+"
             layout:
               - "2. January"
+          - covers:
+              time: true
+            location:
+              selector: div > section > span > time:nth-child(1)
+            layout:
+              - "15:04"
         date_location: CET
         date_language: en_US
         guess_year: true
