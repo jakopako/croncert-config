@@ -1,0 +1,57 @@
+scrapers:
+  - name: LePortFranc
+    url: https://www.leportfranc.ch/concerts/
+    item: body > section > div.min-vh-100.programmation > div.container-fluid.mt-5.pt-5 > div.table-responsive > table.programmation.table > tbody > tr
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Sion"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Le Port Franc"
+      - name: "sourceUrl"
+        value: "https://www.leportfranc.ch/concerts"
+      - name: title
+        type: text
+        location:
+          - selector: td.mb-5.mb-md-0:nth-child(2) > a
+            child_index: 2
+      - name: url
+        type: url
+        location:
+          - selector: td.mb-5.mb-md-0:nth-child(2) > a
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: td.mb-5.mb-md-0:nth-child(2) > a > img
+            attr: src
+      - name: comment
+        type: text
+        location:
+          - selector: body > div.min-vh-100.content > div:nth-child(1) > div.col-md-5.offset-md-1 > div:nth-child(2) > span.inline-me > p
+        on_subpage: url
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: td.text-nowrap
+            layout:
+              - "Mon 02.01.06"
+          - covers:
+              time: true
+            location:
+              selector: body > div.min-vh-100.content > div.row.mt-5.smaller.no-gutters > div.col-md-6 > div > div > div.col-md-3.mb-5 > table > tbody > tr:nth-child(2) > td.text-right
+            layout:
+              - "15:04"
+        date_location: Europe/Berlin
+        date_language: fr_FR
+
+
