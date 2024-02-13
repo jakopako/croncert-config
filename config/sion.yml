@@ -54,4 +54,59 @@ scrapers:
         date_location: Europe/Berlin
         date_language: fr_FR
 
-
+  - name: Point11
+    url: http://point11.ch/site/home
+    item: body > div > section > section.clearfix > div > section.centered.clearfix > a
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Sion"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Point11"
+      - name: "sourceUrl"
+        value: "http://point11.ch/site/home"
+      - name: title
+        type: text
+        location:
+          - selector: span.tile-cat.uppercase:nth-child(3)
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: imageUrl
+        type: url
+        location:
+          selector: img.live-img
+          attr: src
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+            location:
+              selector: span.date
+            layout:
+              - "2"
+          - covers:
+              month: true
+            location:
+              selector: span.month
+            layout:
+              - January
+          - covers:
+              time: true
+            location:
+              selector: div.sbp-content
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}h[0-9]{2}"
+                index: 1
+            layout:
+              - 15h04
+        date_language: fr_FR
+        date_location: CET
+        guess_year: true

@@ -140,21 +140,31 @@ scrapers:
       - name: url
         type: url
         location:
-          - selector: div.spotlight > a.button:nth-child(5)
+          - selector: a.image-link
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: a.image-link > figure > img
+            attr: src
       - name: date
         type: date
         components:
           - covers:
               day: true
               month: true
-              time: true
             location:
               selector: summary > div.event-container > div.event-content > time
               regex_extract:
-                exp: "[0-9]{1,2}\\. [A-Za-z]+ [0-9]{2}:[0-9]{2}"
+                exp: "[0-9]{1,2}\\. [A-Za-z]+"
             layout:
-              - 2. January 15:04
+              - "2. January"
+          - covers:
+              time: true
+            location:
+              selector: div > section > span > time:nth-child(1)
+            layout:
+              - "15:04"
         date_location: CET
         date_language: en_US
         guess_year: true

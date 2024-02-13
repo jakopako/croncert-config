@@ -30,7 +30,6 @@ scrapers:
               time: true
             location:
               selector: div.elementor-repeater-item-ff3fa99.tt-evt-li__sub-info.tt-evt-li__sub-info--BeginDate
-              # sk_SK not supported by goodsign/monday. Therefore, we need to strip the day of the week
               regex_extract:
                 exp: "[0-9\\.@: ]+"
             layout:

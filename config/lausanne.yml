@@ -745,6 +745,8 @@ scrapers:
         value: "La Datcha"
       - name: "city"
         value: "Lausanne"
+      - name: "country"
+        value: "Switzerland"
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
