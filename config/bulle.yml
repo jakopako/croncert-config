@@ -1,0 +1,64 @@
+scrapers:
+  - name: Ebullition
+    url: https://www.ebull.ch/en
+    item: body > div.col-md-12.contenaire.page_programmation > a
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Bulle"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "Ebullition"
+      - name: "sourceUrl"
+        value: "https://ebull.ch/fr"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: div.col-12.eventListElement > div.col-12.col-md-4:nth-child(2) > span.date.textToTranslate:nth-child(2)
+            layout:
+              - "Mon. 02.01 / 15:04"
+        date_location: Europe/Berlin
+        date_language: fr_FR
+      - name: style
+        type: text
+        location:
+          - selector: div.col-12.eventListElement > div.col-12.col-md-4:nth-child(2) > span.textToTranslate.type
+        can_be_empty: true
+        # this should allow me to reuse the same config for mobilisons.ch
+        transform:
+          - type: regex-replace
+            regex: theatre
+            replace: THEATRE
+          - type: regex-replace
+            regex: party
+            replace: PARTY
+          - type: regex-replace
+            regex: concert
+            replace: MUSIC
+          - type: regex-replace
+            regex: misc\. 
+            replace: GAMES
+          - type: regex-replace
+            regex: cinéma
+            replace: FILM_MEDIA
+      - name: title
+        type: text
+        location:
+          - selector: div.col-12.eventListElement > div.col-12.col-md-8 > p.artiste
+      - name: url
+        type: url
+        location:
+          - attr: href
+    filters:
+      # we'll reverse this on mobilisons.ch, to avoid duplicate
+      - field: style
+        exp: MUSIC
+        match: true
+
