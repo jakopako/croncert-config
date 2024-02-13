@@ -1,0 +1,58 @@
+scrapers:
+  - name: Amalgame
+    url: https://www.amalgameclub.ch/programme/
+    item: body > div.main-wrap > div.container > div.event-archive > a.event
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Yverdon-les-Bains"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "L’Amalgame"
+      - name: "sourceUrl"
+        value: "https://www.amalgameclub.ch/programme/"
+      - name: title
+        type: text
+        location:
+          - selector: div.event-title.o9.sm-row.xs-row:nth-child(2) > div.w26.xs-9:nth-child(2)
+      - name: style
+        type: text
+        location:
+          - selector: div.event-lead.o9.sm-row.xs-row > div.w26.xs-9:nth-child(2)
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.event-lead.o9.sm-row.xs-row > div.o1.w7.xs-3
+              regex_extract:
+                exp: "[0-9]{2}.[0-9]{2}.[0-9]{2}"
+            layout:
+              - "02.01.06"
+          - covers:
+              time: true
+            location:
+              selector: div.event-title.o9.sm-row.xs-row:nth-child(2) > div.o1.w7.xs-3
+            layout:
+              - "15:04"
+        date_location: Europe/Berlin
+        date_language: fr_FR
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: imageUrl
+        type: url
+        on_subpage: url
+        location:
+          - selector: "div#cover-image"
+            attr: style
+            regex_extract:
+              exp: "http[^']*"
+
+
