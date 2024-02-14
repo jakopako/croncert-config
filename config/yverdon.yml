@@ -46,13 +46,11 @@ scrapers:
         type: url
         location:
           - attr: href
-      - name: imageUrl
-        type: url
-        on_subpage: url
-        location:
-          - selector: "div#cover-image"
-            attr: style
-            regex_extract:
-              exp: "http[^']*"
-
-
+      # - name: imageUrl
+      #   type: url
+      #   on_subpage: url
+      #   location:
+      #     - selector: "div#cover-image"
+      #       attr: style
+      #       regex_extract:
+      #         exp: "http[^']*"

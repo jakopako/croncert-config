@@ -181,8 +181,8 @@ scrapers:
         location:
           - selector: div.concert-date.transition-fast:nth-child(4)
             regex_extract:
-              exp: "[A-Za-z]+"
-              index: -1
+              exp: "[^,]+"
+              index: 1
       - name: location
         type: text
         location:
@@ -211,3 +211,7 @@ scrapers:
               - Monday 2 January 2006, 15:04
         date_location: CET
         date_language: en_US
+    filters:
+      - field: date
+        exp: "> now"
+        match: true
