@@ -1,0 +1,55 @@
+scrapers:
+  - name: SlowClubFreiburg
+    url: https://www.slowclub-freiburg.de/veranstaltungen
+    item: div.event-item
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Freiburg"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Slow Club"
+      - name: "sourceUrl"
+        value: "https://www.slowclub-freiburg.de/veranstaltungen"
+      - name: comment
+        type: text
+        location:
+          - selector: div.event-info:nth-child(3) > div.even-info-genre
+      - name: title
+        type: text
+        location:
+          - selector: div.event-info:nth-child(3) > h2
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.event-date:nth-child(2) > div.event-date-date:nth-child(2)
+            layout:
+              - "02.01.06"
+          - covers:
+              time: true
+            location:
+              selector: div.event-date:nth-child(2) > div.event-date-time:nth-child(3)
+            layout:
+              - "15:04 Uhr"
+      - name: category
+        type: text
+        location:
+          - selector: div.event-format
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.event-detail-img > img
+            attr: src
+      - name: url
+        type: url
+        location:
+          - selector: div.event-detail-rausgegangen > a
+            attr: href
+
