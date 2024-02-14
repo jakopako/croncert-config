@@ -1,7 +1,7 @@
 scrapers:
   - name: Helsinki
     url: "https://www.helsinkiklub.ch"
-    item: ".event .header"
+    item: ".event"
     fields:
       - name: "location"
         value: "Helsinki"
@@ -17,11 +17,16 @@ scrapers:
         value: "https://www.helsinkiklub.ch"
       - name: "title"
         location:
-          selector: ".agenda > .top,.support"
+          selector: ".header > .agenda > .top,.support"
       - name: "comment"
         location:
-          selector: ".agenda > .top .addition,.support .addition"
+          selector: ".header > .agenda > .top .addition,.support .addition"
         can_be_empty: true
+      - name: imageUrl
+        type: url
+        location:
+          - selector: .content > .media > img
+            attr: src
       - name: "date"
         type: "date"
         components:
