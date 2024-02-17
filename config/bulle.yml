@@ -26,6 +26,7 @@ scrapers:
               - "Mon. 02.01 / 15:04"
         date_location: Europe/Berlin
         date_language: fr_FR
+        guess_year: true
       - name: style
         type: text
         location:
@@ -43,7 +44,7 @@ scrapers:
             regex: concert
             replace: MUSIC
           - type: regex-replace
-            regex: misc\. 
+            regex: misc\.
             replace: GAMES
           - type: regex-replace
             regex: cinéma
@@ -52,6 +53,8 @@ scrapers:
         type: text
         location:
           - selector: div.col-12.eventListElement > div.col-12.col-md-8 > p.artiste
+            all_nodes: true
+            separator: ", "
       - name: url
         type: url
         location:
@@ -61,4 +64,3 @@ scrapers:
       - field: style
         exp: MUSIC
         match: true
-
