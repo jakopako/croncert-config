@@ -13,6 +13,8 @@ scrapers:
         value: "Pont Rouge"
       - name: "sourceUrl"
         value: "https://www.pontrouge.ch/"
+      - name: "url"
+        value: "https://www.pontrouge.ch/"
       - name: date
         type: date
         components:
@@ -22,13 +24,17 @@ scrapers:
               selector: div > div > div > div > div > div > div > p:nth-child(1) > span
               regex_extract:
                 exp: "[0-9]{2}"
-            layout: 
+            layout:
               - "02"
           - covers:
               month: true
             location:
               selector: div > div > div > div > div > div > div > p:nth-child(2) > span
-            layout: 
+            transform:
+              - type: regex-replace
+                regex: FEV
+                replace: Févr
+            layout:
               - "JAN."
               - "Jan."
               - "Jan"
@@ -37,7 +43,7 @@ scrapers:
               year: true
             location:
               selector: div > div > div > div > div > div > div > p:nth-child(3) > span
-            layout: 
+            layout:
               - "2006"
         date_location: Europe/Berlin
         date_language: fr_FR
@@ -46,6 +52,3 @@ scrapers:
         location:
           - selector: div > div:nth-child(2) > h4
             entire_subtree: true
-
-
-
