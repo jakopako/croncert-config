@@ -111,7 +111,6 @@ scrapers:
         exp: Thriller
         match: false
 
-
   - name: SunsetBar
     url: https://www.sunsetbar.info/lieu/sunset-bar/
     item: div.tribe-events-calendar-list__event-row
@@ -157,3 +156,4 @@ scrapers:
               - "January 2 @ 15:04"
         date_location: Europe/Berlin
         date_language: fr_FR
+        guess_year: true
