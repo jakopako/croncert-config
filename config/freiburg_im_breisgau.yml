@@ -38,6 +38,7 @@ scrapers:
               selector: div.event-date:nth-child(2) > div.event-date-time:nth-child(3)
             layout:
               - "15:04 Uhr"
+        date_location: CET
       - name: category
         type: text
         location:
@@ -52,4 +53,3 @@ scrapers:
         location:
           - selector: div.event-detail-rausgegangen > a
             attr: href
-
