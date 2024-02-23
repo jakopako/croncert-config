@@ -126,17 +126,15 @@ scrapers:
               month: true
               time: true
             location:
-              selector: strong
+              selector: head > script[type="application/ld+json"]
+              json_selector: "//startDate"
               regex_extract:
-                exp: "[A-Za-z]+\\s[0-9]{1,2}\\s[éA-Za-z]{3,4}\\s-\\s[0-9]{2}:[0-9]{2}"
-            layout: ["Mon 2 Jan - 15:04"]
-            transform:
-              - type: regex-replace
-                regex: Fév
-                replace: févr
+                exp: '[^\+]+'
+            layout:
+              - "2006-01-02T15:04:00"
+        on_subpage: url
         date_location: "Europe/Berlin"
         date_language: "fr_FR"
-        guess_year: true
       - name: url
         type: url
         location:
