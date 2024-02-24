@@ -685,9 +685,6 @@ scrapers:
       - field: "eventType"
         exp: "Spectacle"
         match: true
-      - field: "eventType"
-        exp: "Spectacle"
-        match: true
 
   - name: Premices
     url: https://www.premices.ch/programme
