@@ -603,7 +603,7 @@ scrapers:
 
   - name: PoleSud
     url: https://polesud.ch/evenements-a-venir/
-    item: body.ast-header-break-point.ast-hfb-header.ast-inherit-site-logo-transparent.ast-no-sidebar.ast-normal-title-enabled.ast-separate-container.ast-single-post.ast-two-container.astra-child.page.page-id-29052.page-parent.page-template.page-template-template-events.page-template-template-events-php.wp-custom-logo > div.hfeed.site > div.site-content > div.ast-container > div.content-area.primary > div.event_listings > div.event_listings.wpem-event-listing-box-view.wpem-event-listings.wpem-main.wpem-row > div.wpem-col.wpem-col-12.wpem-col-lg-3.wpem-col-md-6.wpem-event-box-col > div.wpem-event-layout-wrapper > div.event_listing.has-post-thumbnail.hentry.status-publish.type-event_listing
+    item: div.wpem-event-layout-wrapper
     fields:
       - name: location
         value: Pôle Sud
@@ -628,6 +628,13 @@ scrapers:
         type: text
         location:
           selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-title > p.wpem-heading-text
+      - name: imageUrl
+        type: url
+        location:
+          selector: div.wpem-event-banner > div.wpem-event-banner-img
+          attr: style
+          regex_extract:
+            exp: "https:[^)]+"
       - name: evenTypeURL
         type: url
         location:
@@ -674,6 +681,9 @@ scrapers:
     filters:
       - field: "eventType"
         exp: "Concert"
+        match: true
+      - field: "eventType"
+        exp: "Spectacle"
         match: true
       - field: "eventType"
         exp: "Spectacle"
