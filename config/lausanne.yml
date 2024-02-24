@@ -125,6 +125,7 @@ scrapers:
               day: true
               month: true
               time: true
+              year: true
             location:
               selector: head > script[type="application/ld+json"]
               json_selector: "//startDate"
