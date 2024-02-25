@@ -47,7 +47,7 @@ scrapers:
 
   - name: HuxleysNeueWelt
     url: https://huxleysneuewelt.de/events
-    item: ul > li.event-item > a
+    item: ul > li.event-item
     fields:
       - name: "type"
         value: "concert"
@@ -67,6 +67,7 @@ scrapers:
         type: url
         location:
           - attr: href
+            selector: a
       - name: date
         type: date
         components:
