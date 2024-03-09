@@ -882,7 +882,7 @@ scrapers:
               - "02 Jan. 2006, 15:04 "
         date_location: Europe/Berlin
         date_language: fr_FR
-      - name: field-9
+      - name: title
         type: text
         location:
           - selector: a.DjQEyU
@@ -891,4 +891,3 @@ scrapers:
         location:
           - selector: img
             attr: src
-
