@@ -853,3 +853,49 @@ scrapers:
               - "15h"
         date_language: fr_FR
         date_location: CET
+
+  - name: KingsizePub
+    url: https://www.kingsizepub.ch/
+    item: li.yIpRkq
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "King Size pub"
+      - name: "sourceUrl"
+        value: "https://www.kingsizepub.ch/"
+      - name: url
+        type: url
+        location:
+          - selector: a.DjQEyU
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.I_kVM1
+              regex_extract:
+                exp: "[^–]+"
+            layout:
+              - "02 Jan 2006, 15:04 "
+              - "02 Jan. 2006, 15:04 "
+        date_location: Europe/Berlin
+        date_language: fr_FR
+      - name: title
+        type: text
+        location:
+          - selector: a.DjQEyU
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: src
