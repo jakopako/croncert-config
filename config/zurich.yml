@@ -994,7 +994,7 @@ scrapers:
 
   - name: BrauereiOerlikon
     url: https://www.brauerei-oerlikon.ch/events/
-    item: div.E6jjcn > div.VM7gjN > div.Zc7IjY > div.comp-kwuqdcms2.YzqVVZ > div:nth-child(2) > div
+    item: div.comp-lt8tnynm-container > div.comp-lt8tnynr.wixui-repeater > div.comp-lt8tnynr-container > div.wixui-repeater__item
     fields:
       - name: "location"
         value: "Brauerei Oerlikon"
@@ -1006,17 +1006,24 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://www.brauerei-oerlikon.ch/events/"
+      - name: title
+        type: text
+        location:
+          - selector: h1.font_0.wixui-rich-text__text > span.wixui-rich-text__text
       - name: url
         type: url
         location:
-          selector: div.comp-kwuqdcnd1.R6ex7N > a.kuTaGy.zKbzSQ
+          - selector: div.comp-lt8tnyny-container > div.comp-lt8u586t.gydiew > a.TFOeq0.wixui-button.zKbzSQ
+            attr: href
       - name: comment
+        type: text
         location:
-          selector: div:nth-child(3) > p.font_8 > span.wixui-rich-text__text > span.wixui-rich-text__text
-        can_be_empty: true
-      - name: title
+          - selector: div:nth-child(2) > div.QxJLC3.c9GqVL.comp-lt8tsprd.wixui-rich-text:nth-child(2) > p.font_8
+      - name: imageUrl
+        type: url
         location:
-          selector: div > h3
+          - selector: div:nth-child(2) > div.wixui-image > a > wix-image.AXsuhY > picture > img
+            attr: src
       - name: date
         type: date
         components:
@@ -1024,48 +1031,13 @@ scrapers:
               day: true
               month: true
               year: true
-              time: true
             location:
-              selector: div.wixui-rich-text > p.font_8 > span > span > span
-            layout: ["2.1.06, 15:04"]
-
-  - name: ZumWarmeWerni
-    url: https://www.brauerei-oerlikon.ch/zumwarmewerni/
-    item: div.E6jjcn > div.VM7gjN > div.Zc7IjY > div.comp-lc7y811e1.YzqVVZ > div > div
-    fields:
-      - name: "location"
-        value: "Zum Warme Werni"
-      - name: "city"
-        value: "Zurich"
-      - name: country
-        value: Switzerland
-      - name: "type"
-        value: "concert"
-      - name: "sourceUrl"
-        value: https://www.brauerei-oerlikon.ch/zumwarmewerni/
-      - name: url
-        type: url
-        location:
-          selector: div.comp-lc7y812e1.R6ex7N > a.kuTaGy.zKbzSQ
-      - name: comment
-        location:
-          selector: div.BaOVQ8.tz5f0K.comp-lc7y8126.wixui-text > p.font_8 > span > span
-        can_be_empty: true
-        hide: false
-      - name: title
-        location:
-          selector: div.KcpHeO.tz5f0K.comp-lc7y811z.wixui-text > h3.font_3 > span > span
-      - name: date
-        type: date
-        components:
-          - covers:
-              day: true
-              month: true
-              year: true
-              time: true
-            location:
-              selector: div.BaOVQ8.tz5f0K.comp-lc7y811t.wixui-text > p.font_8 > span > span > span
-            layout: ["2.1.06, 15:04"]
+              selector: div > div.wixui-box > div.wixui-rich-text > p.font_7.wixui-rich-text__text > span.wixui-rich-text__text
+            layout:
+              - 2. January 2006
+        date_location: CET
+        date_language: de_DE
+    render_js: true
 
   - name: Plaza
     url: https://www.plaza-zurich.ch/nu/events/event_list_type/2
