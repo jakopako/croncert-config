@@ -1861,6 +1861,12 @@ scrapers:
         location:
           - selector: a.bg-primarybg.pl-5.pr-5.programm-button.text-uppercase.text-white
             attr: href
+      - name: imageUrl
+        type: url
+        on_subpage: url
+        location:
+          - selector: body > main > div > div.pl-0.pr-0 > img
+            attr: src
       - name: comment
         type: text
         location:
@@ -1886,6 +1892,9 @@ scrapers:
       - field: date
         exp: "> now"
         match: true
+      - field: title
+        exp: "Kein Konzert"
+        match: false
 
   - name: RoxyMusikbar
     url: https://www.roxymusikbar.ch/
