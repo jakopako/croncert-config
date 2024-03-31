@@ -254,7 +254,7 @@ scrapers:
         type: url
         can_be_empty: true
         location:
-          selector: a.image > picture > source
+          selector: a.image > img
           attr: data-lazy-srcset
           regex_extract:
             exp: "[^ ]+"
