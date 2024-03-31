@@ -1535,6 +1535,11 @@ scrapers:
         location:
           - selector: h3.mec-event-title > a.mec-color-hover
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: .mec-event-image > a > img
+            attr: src
       - name: date
         type: date
         components:
