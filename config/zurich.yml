@@ -1132,6 +1132,12 @@ scrapers:
         type: url
         location:
           selector: .rf-event-list-entry > a
+      - name: imageUrl
+        type: url
+        on_subpage: url
+        location:
+          - selector: .event-header > img
+            attr: src
       - name: date
         type: date
         components:
