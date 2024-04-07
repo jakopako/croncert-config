@@ -2201,7 +2201,7 @@ scrapers:
         location:
           - selector: div.EventList_eventHeader__eiGxm > div.EventList_eventTitle__1kBIp:nth-child(2) > h2
             regex_extract:
-              exp: "[A-Za-z]+( [A-Za-z]+)*"
+              exp: "[A-Za-záéôà]+( [A-Za-záéôà]+)*"
               index: 1
       - name: category
         location:
