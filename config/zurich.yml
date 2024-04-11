@@ -848,6 +848,13 @@ scrapers:
         type: "url"
         location:
           selector: ".field-name-title a"
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: .field-name-field-event-image > a > img
+          attr: src
+          regex_extract:
+            exp: "[^?]+"
       - name: "comment"
         location:
           selector: ".field-name-field-event-raum"
