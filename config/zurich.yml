@@ -27,6 +27,7 @@ scrapers:
         location:
           - selector: .content > .media > img
             attr: src
+        can_be_empty: true
       - name: "date"
         type: "date"
         components:
@@ -680,11 +681,6 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://walcheturm.ch/agenda/"
-      - name: "imageUrl"
-        type: "url"
-        location:
-          selector: div.thumbnail img
-          attr: src
       - name: "title"
         location:
           selector: ".content h1"
@@ -715,6 +711,12 @@ scrapers:
                 index: 0
             layout: ["15:04"]
         date_location: "Europe/Berlin"
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: div.thumbnail img
+          attr: src
+        can_be_empty: true
 
   - name: Volkshaus
     url: "https://www.volkshaus.ch/aktuell"
@@ -855,6 +857,7 @@ scrapers:
           attr: src
           regex_extract:
             exp: "[^?]+"
+        can_be_empty: true
       - name: "comment"
         location:
           selector: ".field-name-field-event-raum"
@@ -1861,6 +1864,7 @@ scrapers:
         location:
           - selector: body > main > div > div.pl-0.pr-0 > img
             attr: src
+        can_be_empty: true
       - name: comment
         type: text
         location:
@@ -2209,28 +2213,30 @@ scrapers:
         location:
           - selector: div.EventList_eventHeader__eiGxm
             attr: data-custom-prop
-      - name: imageUrl
-        type: url
-        location:
-          - selector: img.EventList_eventImage__oOks3
-            attr: data-src
       - name: title
         type: text
         location:
-          - selector: div.EventList_eventHeader__eiGxm > div.EventList_eventTitle__1kBIp:nth-child(2) > h2
+          - selector: div.EventList_eventTitle__1kBIp > h2
             regex_extract:
               exp: "[A-Za-záéôà]+( [A-Za-záéôà]+)*"
               index: 1
       - name: category
         location:
-          - selector: div.EventList_eventHeader__eiGxm > div.EventList_eventTitle__1kBIp:nth-child(2) > h2
+          - selector: div.EventList_eventTitle__1kBIp > h2
             regex_extract:
               exp: "[A-Z]+"
         hide: true
       - name: comment
         type: text
         location:
-          - selector: div.EventList_eventContent__9i_Dl:nth-child(2) > div.EventList_eventCollapsedParent__X_i3M > div.EventList_eventText__8spHV:nth-child(2) > div > p
+          - selector: div.EventList_eventText__8spHV > div
+            entire_subtree: true
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img.EventList_eventImage__oOks3
+            attr: data-src
+        can_be_empty: true
       - name: date
         type: date
         components:

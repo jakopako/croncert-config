@@ -145,6 +145,7 @@ scrapers:
           attr: data-lazy-srcset
           regex_extract:
             exp: "[^ ]+"
+        can_be_empty: true
 
   - name: OsloHackney
     url: https://www.oslohackney.com/events/

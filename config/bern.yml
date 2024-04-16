@@ -196,7 +196,7 @@ scrapers:
   #             - 15:04 Uhr
   #       date_location: CET
   #       date_language: de_DE
-  
+
   - name: MahoganyHall
     url: https://www.mahogany.ch/konzerte
     item: body > div > div > div.column > div.view.view-id-konzerte.view-konzerte > div.view-content > div.views-row
@@ -305,6 +305,7 @@ scrapers:
             regex_extract:
               exp: "[^ ]+"
               index: 0
+        can_be_empty: true
 
   - name: OnoBern
     url: https://www.onobern.ch/homepage/
@@ -364,9 +365,8 @@ scrapers:
         type: url
         location:
           - selector: .ev_ftImg
-            attr: data-bg
+            attr: data-img
     filters:
       - field: comment
         exp: "Privat"
         match: false
-
