@@ -51,7 +51,7 @@ scrapers:
 
   - name: ClubStereo
     url: https://www.club-stereo.net/category/konzert/
-    item: body > div.site > div.site-content > div.content-area > main.site-main > div > div.overview > ul > a
+    item: div.masonry-article
     fields:
       - name: "city"
         value: "Nuremberg"
@@ -64,22 +64,28 @@ scrapers:
       - name: location
         type: text
         location:
-          - selector: div.archive-row > div.archive-column-info:nth-child(2) > ul > li:nth-child(3) > span.spielort
+          - selector: span.spielort
       - name: title
         type: text
         location:
-          - selector: div.archive-row > div.archive-column-info:nth-child(2) > ul > li > h3 > span.post-title
+          - selector: div.post-title > h3 > a
       - name: url
         type: url
         location:
           - attr: href
+            selector: div.post-title > h3 > a
+      - name: imageUrl
+        type: url
+        location:
+          - attr: data-src
+            selector: img
       - name: date
         type: date
         components:
           - covers:
               time: true
             location:
-              selector: div.archive-row > div.archive-column-info:nth-child(2) > ul > li:nth-child(2) > span.datum > span
+              selector: span.datum > span
             layout:
               - // 15:04 Uhr
           - covers:
@@ -87,7 +93,7 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.archive-row > div.archive-column-info:nth-child(2) > ul > li:nth-child(2) > span.datum
+              selector: span.datum
             layout:
               - 2.1.2006
         date_location: CET

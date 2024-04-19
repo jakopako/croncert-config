@@ -1,7 +1,7 @@
 scrapers:
   - name: Scullers
     url: https://scullersjazz.com/upcoming-events/
-    item: div.blackBack.cf.musicidb-events-integration > div.cf.inside > div.musicidb-tabs > div.current.musicidb-tab > div.musicidb-tabs.ui-tabs-nav > div.musicidb-tab > ul.cf.eventsList > li.cf.listEvent.listItem.summaryContent
+    item: ul.cf.eventsList > li.cf.listEvent.listItem.summaryContent
     fields:
       - name: type
         value: concert
@@ -42,6 +42,11 @@ scrapers:
       - name: url
         type: url
         location:
+          - selector: img.eventImg
+            attr: src
+      - name: imageUrl
+        type: url
+        location:
           - selector: div.eventPosterArea > a
             attr: href
       - name: title
@@ -53,3 +58,4 @@ scrapers:
       - field: date
         exp: "> now"
         match: true
+    page_load_wait: 3000

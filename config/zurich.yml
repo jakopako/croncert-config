@@ -47,7 +47,7 @@ scrapers:
 
   - name: Mehrspur
     url: "https://www.mehrspur.ch/veranstaltungen"
-    item: ".post-content-holder"
+    item: div.row.post-row > div
     fields:
       - name: "location"
         value: "Mehrspur"
@@ -64,11 +64,16 @@ scrapers:
           selector: ".block_under_title a"
       - name: "comment"
         location:
-          selector: ".event-excerpt-fluid"
+          selector: "h6.slogan"
       - name: "url"
         type: "url"
         location:
           selector: ".block_under_title a"
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: "img"
+          attr: src
       - name: "date"
         type: "date"
         components:
@@ -137,54 +142,8 @@ scrapers:
             layout: ["2.1.2006 15:04"]
         date_location: "Europe/Berlin"
 
-  - name: Sender
-    url: "https://gds.fm/SENDER"
-    item: ".event-list__item"
-    fields:
-      - name: "location"
-        value: "Sender"
-      - name: "city"
-        value: "Zurich"
-      - name: country
-        value: Switzerland
-      - name: "type"
-        value: "concert"
-      - name: "sourceUrl"
-        value: "https://gds.fm/SENDER"
-      - name: "title"
-        location:
-          selector: ".event-preview__title"
-      - name: "comment"
-        location:
-          selector: ".event-detail__content div p"
-          max_length: 200
-        on_subpage: "url"
-        can_be_empty: true
-      - name: "url"
-        type: "url"
-        location:
-          selector: "" # An empty string means that we look in the event node itself for an href
-      - name: "imageUrl"
-        type: "url"
-        location:
-          selector: .event-preview__image > source:nth-child(1)
-          attr: data-srcset
-          regex_extract:
-            exp: "[^ ]+"
-            index: 0
-      - name: "date"
-        type: "date"
-        components:
-          - covers:
-              day: true
-              month: true
-              year: true
-              time: true
-            location:
-              selector: ".event-preview__date-long"
-            layout: ["January 02, 2006, 03:04 PM"]
-        date_location: "GMT"
-        date_language: "en_US"
+  # Unfortunately, they're closed since 13/4/2024
+  # - name: Sender
 
   - name: Moods
     url: "https://www.moods.ch/en"

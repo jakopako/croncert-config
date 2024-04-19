@@ -589,7 +589,7 @@ scrapers:
 
   - name: Clubzwei
     url: https://www.clubzwei.de/
-    item: "#wix-events-widget > div > ul > li > div > div:nth-child(2) > div:nth-child(1)"
+    item: "#wix-events-widget > div >div > ul > li > div"
     fields:
       - name: "type"
         value: "concert"
