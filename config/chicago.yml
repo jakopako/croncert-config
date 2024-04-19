@@ -222,7 +222,7 @@ scrapers:
 
   - name: Metro
     url: https://metrochicago.com/events/
-    item: div.generalView.list > div.col-12.eventWrapper.px-0.py-4.rhpSingleEvent > div.g-0.row
+    item: div.generalView > div.col-12.eventWrapper.px-0.py-4.rhpSingleEvent > div.g-0.row
     fields:
       - name: location
         value: Metro
@@ -241,6 +241,11 @@ scrapers:
         location:
           - selector: a.url
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: src
       - name: date
         type: date
         components:
@@ -310,7 +315,7 @@ scrapers:
 
   - name: SleepingVillage
     url: https://sleeping-village.com/events/
-    item: div > div.siteWrap > div > div.maxWidth > div.listings-block > div.listings-block__inner > div.listings-block-list > div.listings-block-list__wrapper > div.listings-block-list__listing > div.listing__details:nth-child(2) > div
+    item: div.listings-block-list__listing
     fields:
       - name: location
         value: Sleeping Village
@@ -323,16 +328,21 @@ scrapers:
       - name: comment
         type: text
         location:
-          - selector: div.listing__description:nth-child(4) > p
+          - selector: div.listing__description > p
       - name: title
         type: text
         location:
-          - selector: a.listing__title-link > h3.listing__title
+          - selector: div.listing__title > h3
       - name: url
         type: url
         location:
           - selector: a.listing__title-link
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.listing__image img
+            attr: src
       - name: date
         type: date
         components:
@@ -353,6 +363,7 @@ scrapers:
         selector: body > div:nth-child(1) > div > div:nth-child(2) > div > div > div:nth-child(4) > div > a.pagination-next.pagination-prev-next
       max_pages: 3
 
+  # currently, 19/4/2024, no events on their website
   - name: GoldenDagger
     url: https://goldendagger.com/
     item: div.site > div.wrapper > div.container > div.row > div.col-md-9.content-area > main.site-main > article.hentry.page.post-18.status-publish.type-page > div.entry-content > div > div.tw-plugin-upcoming-event-list > div.container > div.tw-section > div.row > div.columns.six:nth-child(2)
