@@ -403,12 +403,17 @@ scrapers:
       - name: title
         type: text
         location:
-          selector: div.vsel-meta.vsel-meta-left > h3.vsel-meta-title > a
+          selector: div.vsel-meta > h3.vsel-meta-title > a
       - name: url
         type: url
         location:
-          selector: div.vsel-image-info.vsel-image-info-right > a
+          selector: div.vsel-meta > h3.vsel-meta-title > a
           attr: href
+      - name: imageUrl
+        type: url
+        location:
+          selector: a > img
+          attr: data-src
       - name: comment
         type: text
         location:
@@ -422,7 +427,7 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.vsel-meta.vsel-meta-left > div.vsel-meta-date > span
+              selector: div.vsel-meta-date > span
             layout: ["02/01/2006"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
@@ -735,8 +740,8 @@ scrapers:
         match: false
 
   - name: BogenF
-    url: "https://www.bogenf.ch/konzerte/aktuell/"
-    item: ".concert-month-container .separator-bottom"
+    url: "https://www.bogenf.ch/konzerte"
+    item: ".upcoming-list-item"
     fields:
       - name: "location"
         value: "Bogen F"
@@ -747,39 +752,33 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://www.bogenf.ch/konzerte/aktuell/"
+        value: "https://www.bogenf.ch/konzerte"
       - name: "title"
         location:
-          selector: ".concert-band-title"
+          selector: "div.headlines.h3"
       - name: "url"
         type: "url"
         location:
-          selector: ".concert-bands a"
-      - name: "comment"
-        on_subpage: "url"
-        location:
-          selector: ".bodytext"
-          max_length: 200
-        can_be_empty: true
+          selector: "a"
       - name: "date"
         type: "date"
-        on_subpage: "url"
         components:
           - covers:
               day: true
               month: true
               year: true
-              time: true
             location:
-              selector: ".concert-title-date .title"
-            layout: ["Monday, 2. January 2006, 15:04 Uhr "]
+              selector: "a > time"
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}"
+            layout: ["2.1.2006"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
       - name: "event-status"
         hide: true
         can_be_empty: true
         location:
-          selector: ".sold-out"
+          selector: "span.info-stripe"
     filters:
       - field: "event-status"
         exp: "Abgesagt"
@@ -1893,6 +1892,8 @@ scrapers:
               time: true
             location:
               selector: "#events-details-page-root > div > section > div.IMdHm6 > div:nth-child(1) > div.Ovefgh > div > p.wJMJC7"
+              regex_extract:
+                exp: "[0-9]{1,2}\\. [A-Za-zä]+\\. [0-9]{4}, [0-9]{2}:[0-9]{2}"
             layout:
               - 2. Jan. 2006, 15:04
         date_location: CET
