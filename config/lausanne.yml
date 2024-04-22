@@ -460,8 +460,8 @@ scrapers:
         match: true
 
   - name: LeRomandie
-    url: https://leromandie.ch/programme/
-    item: section#programme > ul > li
+    url: https://www.leromandie.ch/programmation
+    item: article
     fields:
       - name: "location"
         value: "Le Romandie Club"
@@ -472,12 +472,28 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://leromandie.ch/programme/"
+        value: https://www.leromandie.ch/programmation
       - name: url
         type: url
         location:
-          - selector: section.clearfix.content-block > ul.clearfix.list-articles > li > a
+          - selector: div > a
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: src
+      - name: title
+        type: text
+        location:
+          - selector: div.flex.flex-1.flex-col.items-center.mb-2 > h3.flex-1.leading-none.pb-3.text-center
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          - selector: div.flex-1.event-presentation__link
+            entire_subtree: true
+        can_be_empty: true
       - name: date
         type: date
         components:
@@ -486,19 +502,18 @@ scrapers:
               month: true
               year: true
             location:
-              selector: section.programme-list.clearfix.col.col9.content-block.col-left > ul.list-articles.grid-4.clearfix > li > a > p.label > span.date
-            layout: ["02.01.06"]
+              selector: time.flex.justify-between.pb-3 > span.leading-none
+            layout:
+              - "02 Jan 2006"
+              - "02 Jan. 2006"
           - covers:
               time: true
             location:
-              selector: section.programme-list.clearfix.col.col9.content-block.col-left > ul.list-articles.grid-4.clearfix > li > a > div.content > p.infos.clearfix > span.hours > strong
-            layout: ["15:04"]
+              selector: time.flex.justify-between.pb-3 > span.leading-none:nth-child(2)
+            layout:
+              - "15H04"
         date_language: fr_FR
         date_location: "Europe/Berlin"
-      - name: title
-        type: text
-        location:
-          - selector: section.programme-list.clearfix.col.col9.content-block.col-left > ul.list-articles.grid-4.clearfix > li > a > div.content > h2
 
   - name: SalleMetropole
     url: https://sallemetropole.ch/les-spectacles/
