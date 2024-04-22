@@ -478,6 +478,10 @@ scrapers:
               - "15H04"
         date_language: fr_FR
         date_location: "Europe/Berlin"
+    filters:
+      - field: date
+        match: true
+        exp: "> now"
 
   - name: SalleMetropole
     url: https://sallemetropole.ch/les-spectacles/
