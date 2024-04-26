@@ -2332,3 +2332,44 @@ scrapers:
               - 15:04
         date_location: CET
         date_language: de_DE
+
+  - name: Ziegelhuette
+    url: https://wirtschaft-ziegelhuette.ch/aktuell/kegelkonzert-19-4
+    item: div.page-content > h4 > strong
+    render_js: true
+    fields:
+      - name: city
+        value: "Zurich"
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Wirtschaft Ziegelhütte
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://wirtschaft-ziegelhuette.ch/aktuell/kegelkonzert-19-4
+      - name: url
+        value: https://wirtschaft-ziegelhuette.ch/aktuell/kegelkonzert-19-4
+      - name: title
+        location:
+          selector:
+          entire_subtree: true
+          regex_extract:
+            exp: "[A-ZÄÖÜÉÈÀa-zäöüéèà\\s]+"
+            index: 1
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector:
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}\\. [A-ZÄa-zä]+ [0-9]{4}"
+            layout:
+              - "2. January 2006"
+        date_language: de_DE
+        date_location: CET
