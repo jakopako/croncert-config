@@ -88,3 +88,46 @@ scrapers:
       location:
         selector: div.paginatorContainer > div > button:nth-child(3)
       max_pages: 4
+
+  - name: Neubad
+    url: https://neubad.org/veranstaltungen?f%5B0%5D=kategorie_der_veranstaltung_%3AKonzert
+    item: div.view-content > div.w3-section > div.cal.item-list
+    fields:
+      - name: "location"
+        value: Neubad
+      - name: "city"
+        value: "Lucerne"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://neubad.org/veranstaltungen?f%5B0%5D=kategorie_der_veranstaltung_%3AKonzert
+      - name: title
+        type: text
+        location:
+          - selector: div.vorschau > a > span.title
+      - name: url
+        type: url
+        location:
+          selector: span.field-content > div.vorschau > a
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.views-field.views-field-field-datum-event-3 > span.field-content
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: h3
+            layout:
+              - Mon. 2. January
+        date_location: CET
+        date_language: de_DE
+        guess_year: true
