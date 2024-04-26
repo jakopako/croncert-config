@@ -2232,3 +2232,49 @@ scrapers:
       - field: category
         exp: KONZERT
         match: true
+
+  - name: MarsBar
+    url: https://www.marsbar.ch/konzerte_und_veranstaltungen/
+    item: div#content > ul > li
+    fields:
+      - name: city
+        value: "Zurich"
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Mars Bar
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.marsbar.ch/konzerte_und_veranstaltungen/
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div > span.display_font
+      - name: comment
+        type: text
+        location:
+          - selector: div:nth-child(2) > span.note
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div:nth-child(1)
+            layout:
+              - Mon. 2 January
+          - covers:
+              time: true
+            location:
+              selector: div:nth-child(1) > span.note
+            layout:
+              - 15:04
+        date_language: de_DE
+        date_location: CET
