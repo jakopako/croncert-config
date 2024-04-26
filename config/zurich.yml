@@ -1103,7 +1103,7 @@ scrapers:
 
   - name: Zentralwaescherei
     url: https://zentralwaescherei.space/en
-    item: body > div > div.app_app__3X0V5 > div.container > div.base > div > div.events_event__zMaGU.undefined
+    item: div.events_event__zMaGU
     fields:
       - name: "location"
         value: "Zentralwäscherei"
@@ -1119,15 +1119,33 @@ scrapers:
         type: text
         location:
           selector: div.events_event_title__eaz0V > span
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.events_event_img__qmyox > span > img
+            attr: src
+        on_subpage: url
+        can_be_empty: true
+      - name: comment
+        type: text
+        location:
+          - selector: div.events_event_description__MBW41
+            entire_subtree: true
+        on_subpage: url
+        can_be_empty: true
       - name: eventType
         type: text
         location:
           selector: div.events_event_detail___Yldr > div.events_event_detail_bottom__PTC0f > span
           node_index: 2
           entire_subtree: true
+        can_be_empty: true
         hide: true
       - name: url
-        value: https://zentralwaescherei.space/en
+        type: url
+        location:
+          selector: div.events_event_detail___Yldr > div.events_event_detail_bottom__PTC0f > span:nth-child(10) > a
+          attr: href
       - name: date
         type: date
         components:
