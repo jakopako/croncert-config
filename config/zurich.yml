@@ -2278,6 +2278,7 @@ scrapers:
               - 15:04
         date_language: de_DE
         date_location: CET
+        guess_year: true
 
   - name: Mundwerk
     url: https://mw-club.ch/de_de/events/
@@ -2332,6 +2333,7 @@ scrapers:
               - 15:04
         date_location: CET
         date_language: de_DE
+        guess_year: true
 
   - name: Ziegelhuette
     url: https://wirtschaft-ziegelhuette.ch/aktuell/kegelkonzert-19-4
