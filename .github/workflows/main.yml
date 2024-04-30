@@ -29,7 +29,7 @@ jobs:
 
       # Install go binary
       - name: Install the scraper
-        run: go install github.com/jakopako/goskyr@v0.5.27
+        run: go install github.com/jakopako/goskyr@v0.5.28
 
       # Runs a single command using the runners shell
       - name: Run the scraper

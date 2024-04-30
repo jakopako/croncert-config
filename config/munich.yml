@@ -46,8 +46,6 @@ scrapers:
   - name: ImportExport
     url: "https://import-export.cc/"
     item: ".events a"
-    exclude_with_selector:
-      - ".old" # events that have a node with this class will be excluded from the results.
     fields:
       - name: "type"
         value: "concert"
@@ -59,6 +57,18 @@ scrapers:
         value: "ImportExport"
       - name: "sourceUrl"
         value: "https://import-export.cc/"
+        # The next field is the first dynamic field in the
+        # config on purpose. In combination with the filter
+        # we make sure to not waste time on removed items
+        # by not processing any other fields that come
+        # afterwards, especially the date field that needs
+        # to be extracted from a sub page.
+      - name: past
+        location:
+          selector: .event.event-link
+          attr: data-postid
+        can_be_empty: true
+        hide: true
       - name: "url"
         type: "url"
         location:
@@ -86,6 +96,10 @@ scrapers:
             layout: ["Beginn: 15:04"]
         date_location: "Europe/Berlin"
         date_language: de_DE
+    filters:
+      - field: past
+        exp: ".+"
+        match: false
 
   - name: Milla
     url: "https://milla-club.de/"
@@ -188,9 +202,6 @@ scrapers:
   - name: Strom
     url: "https://strom-muc.de/"
     item: ".gdlr-event-item"
-    exclude_with_selector:
-      - ".cancelled-button"
-      - ".coming-soon"
     fields:
       - name: "type"
         value: "concert"
@@ -202,6 +213,12 @@ scrapers:
         value: "Strom"
       - name: "sourceUrl"
         value: "https://strom-muc.de/"
+      - name: status
+        location:
+          selector: .event-status-wrapper > span
+          attr: class
+        can_be_empty: true
+        hide: true
       - name: "title"
         location:
           selector: ".event-title a"
@@ -233,6 +250,12 @@ scrapers:
                 index: -1
             layout: ["15.04", "15:04"]
         date_location: "Europe/Berlin"
+    filters:
+      - field: status
+        exp: ".*coming-soon.*"
+        match: false
+      - field: status
+        exp: ".*cancelled-button.*"
 
   - name: Muffatwerk
     url: "https://www.muffatwerk.de/de/events/concert"

@@ -2,8 +2,7 @@ scrapers:
   - name: "CafeVLese"
     url: "https://cafevlese.cz/kompletni-program/#"
     item: "article.mec-event-article"
-    exclude_with_selector:
-      - ".mec-past-event"
+    render_js: true
     fields:
       - name: "location"
         value: "Café V Lese"
@@ -37,6 +36,14 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "cs_CZ"
+    paginator:
+      location:
+        selector: div.mec-next-month.mec-load-month.mec-next-month
+      max_pages: 2
+    filters:
+      - field: date
+        exp: < now
+        match: false
 
   - name: KasarnaKarlin
     url: "https://www.kasarnakarlin.cz/en/program"
