@@ -1,0 +1,56 @@
+scrapers:
+  - name: Galvanik
+    url: https://galvanik-zug.ch/programm/
+    item: table.uk-table.uk-table-hover > tbody.js-filter > tr.event
+    fields:
+      - name: "location"
+        value: Galvanik
+      - name: "city"
+        value: "Zug"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://galvanik-zug.ch/programm/
+      - name: comment
+        type: text
+        location:
+          - selector: td.cat > div.category.round-button
+      - name: title
+        type: text
+        location:
+          - selector: td.artist > a.eventLink > span.title
+      - name: url
+        type: url
+        location:
+          - selector: td.artist > a.eventLink
+            attr: href
+      - name: imageUrl
+        type: url
+        on_subpage: url
+        location:
+          - selector: div.small-slider > div > div > ul > li > picture > img
+            attr: src
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.event-infos > div > div.date-time > h2
+              child_index: 0
+            layout:
+              - 2. Jan. 06
+          - covers:
+              time: true
+            location:
+              selector: div.event-infos > div > div.date-time > h2
+              child_index: 2
+            layout:
+              - 15:04 Uhr
+        date_language: de_DE
+        date_location: CET
