@@ -91,6 +91,11 @@ scrapers:
         type: "url"
         location:
           selector: ".pic a"
+      - name: imageUrl
+        type: url
+        location:
+          selector: div.pic > a > img
+          attr: src
       - name: "date"
         type: "date"
         on_subpage: "url"
@@ -105,8 +110,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: ".datetime dd"
-              node_index: 2
+              selector: ".datetime dd:nth-chid(6)"
             layout: ["15:04"]
         date_location: "Europe/Berlin"
 
