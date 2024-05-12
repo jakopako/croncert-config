@@ -40,8 +40,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: ".qt-eventtable tr td"
-              node_index: 2
+              selector: ".qt-eventtable tr:nth-child(3) td"
               regex_extract:
                 exp: "Inizio concerto: .*"
               entire_subtree: true
@@ -60,6 +59,5 @@ scrapers:
         match: false
     paginator:
       location:
-        selector: ".pagination .qt-btn-primary"
-        node_index: -1
-      max_pages: 4
+        selector: ".pagination li:nth-child(2) .qt-btn-primary"
+      max_pages: 2

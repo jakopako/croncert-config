@@ -257,7 +257,7 @@ scrapers:
 
   - name: Docks
     url: https://www.docks.ch/programme/
-    item: body.page-template.page-template-page-programme.page-template-page-programme-php.page.page-id-3652 > div.wrapper.wrapper-programme > div.container-fluid > div.home-program.position-relative > div.row.programme-container > div.col-xxl-10 > div.row.special-row > div.mix.col-sm-6.col-md-5.col-lg-4.col-xl-4.col-xxl-4.concerts
+    item: div.row.programme-container > div.col-xxl-10 > div.row.special-row > div.mix.col-sm-6.col-md-5.col-lg-4.col-xl-4.col-xxl-4.concerts
     fields:
       - name: "type"
         value: "concert"
@@ -290,8 +290,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: span.event-info-door
-              node_index: 1
+              selector: span.event-info-door:nth-child(4)
               child_index: 1
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2}"
@@ -555,12 +554,10 @@ scrapers:
         type: text
         location:
           selector: .eventItem__infoMobile div
-          node_index: 0
       - name: eventType
         type: text
         location:
-          selector: .eventItem__infoMobile div
-          node_index: 1
+          selector: .eventItem__infoMobile div:nth-child(2)
       - name: date
         type: date
         components:

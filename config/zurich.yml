@@ -364,8 +364,8 @@ scrapers:
           selector: ".event h3"
       - name: "comment"
         location:
-          selector: ".member .member-name"
-          node_index: 1
+          selector: "div.member"
+          entire_subtree: true
         can_be_empty: true
       - name: "url"
         type: "url"
@@ -536,8 +536,7 @@ scrapers:
         on_subpage: "url"
         can_be_empty: true
         location:
-          selector: ".col-lg-12 p"
-          node_index: 2
+          selector: ".col-lg-12 p:nth-child(7)"
           max_length: 200
       - name: "date"
         type: "date"
@@ -621,8 +620,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: ".time li strong"
-              node_index: 1
+              selector: ".time > li:nth-child(2) > strong"
             transform:
               - type: regex-replace
                 regex: "p\\.m\\."
@@ -938,7 +936,6 @@ scrapers:
               year: true
             location:
               selector: ".iconbox_content_container p"
-              node_index: 0
               entire_subtree: true
               regex_extract:
                 exp: "[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}"
@@ -946,8 +943,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: ".iconbox_content_container p"
-              node_index: 3
+              selector: article:nth-child(6) div.iconbox_content > div > p
               regex_extract:
                 exp: "[0-9]{1,2}:[0-9]{2}"
             layout: ["15:04"]
@@ -1136,8 +1132,7 @@ scrapers:
       - name: eventType
         type: text
         location:
-          selector: div.events_event_detail___Yldr > div.events_event_detail_bottom__PTC0f > span
-          node_index: 2
+          selector: div.events_event_detail___Yldr > div.events_event_detail_bottom__PTC0f > span:nth-child(3)
           entire_subtree: true
         can_be_empty: true
         hide: true

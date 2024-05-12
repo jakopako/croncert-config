@@ -111,8 +111,7 @@ scrapers:
           selector: ".abb-text h3 a"
       - name: "eventStatus"
         location:
-          selector: ".abb-text h3 a span"
-          node_index: 1
+          selector: ".abb-text h3 a span:nth-child(2)"
         can_be_empty: true
         hide: true
       - name: "date"

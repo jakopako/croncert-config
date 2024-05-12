@@ -72,8 +72,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.contentbox > div.content > div.textblock > div.infobox > div.table > div.trow > div.tcell
-              node_index: 1
+              selector: div.contentbox > div.content > div.textblock > div.infobox > div.table > div.trow > div.tcell:nth-child(2)
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"

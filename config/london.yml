@@ -187,8 +187,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: ".wrapper .standard-content ul.single-article__list > li"
-              node_index: 1
+              selector: ".wrapper .standard-content ul.single-article__list > li:nth-child(2)"
               child_index: 1
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2}"
