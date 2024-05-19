@@ -86,10 +86,10 @@ scrapers:
         date_language: en_US
     render_js: true
     interaction:
-      type: click
-      selector: "#main > section.events-section > div.events-listing > div > div.view-more-shows-wrap > a"
-      count: 4
-      delay: 1000
+      - type: click
+        selector: "#main > section.events-section > div.events-listing > div > div.view-more-shows-wrap > a"
+        count: 4
+        delay: 1000
 
   - name: VarietyPlayhouse
     url: https://www.variety-playhouse.com/

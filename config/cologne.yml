@@ -100,10 +100,10 @@ scrapers:
               exp: "[a-zA-Z]+( [a-zA-Z]+)?"
     render_js: true
     interaction:
-      type: click
-      selector: div.et_pb_section.et_pb_section_1.et_section_regular > div > div > div > div > div > div > div.event_ajax_load.et_pb_button_wrapper > a
-      count: 3
-      delay: 3000
+      - type: click
+        selector: div.et_pb_section.et_pb_section_1.et_section_regular > div > div > div > div > div > div > div.event_ajax_load.et_pb_button_wrapper > a
+        count: 3
+        delay: 3000
     filters:
       - field: "title"
         exp: ".*(?i)(abgesagt).*"

@@ -54,7 +54,7 @@ scrapers:
           selector: h1.tleft.kropki.nomargin > a > span.bo
     render_js: true
     interaction:
-      type: click
-      selector: "#load-next-posts > a"
-      count: 3
-      delay: 1000
+      - type: click
+        selector: "#load-next-posts > a"
+        count: 3
+        delay: 1000

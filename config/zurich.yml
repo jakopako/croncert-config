@@ -189,9 +189,9 @@ scrapers:
         date_language: "de_DE"
     render_js: true
     interaction:
-      type: click
-      selector: main > section:nth-child(4) > div.justify-between > div > button:nth-child(2)
-      count: 1
+      - type: click
+        selector: main > section:nth-child(4) > div.justify-between > div > button:nth-child(2)
+        count: 1
 
   - name: ElLokal
     url: "http://www.ellokal.ch/?lang=de&details=9"
@@ -577,11 +577,14 @@ scrapers:
   - name: X-TRA
     url: "https://www.x-tra.ch/en/program/concerts/"
     item: ".events .tile li"
-    # render_js: true
-    # interaction:
-    #   type: click
-    #   selector: div.events > a.more
-    #   count: 1
+    render_js: true
+    interaction:
+      - type: click # accept coockies
+        selector: div.ccm-modal--body > div.ccm-widget--buttons > button.button.ccm--save-settings.ccm--button-primary.ccm--ctrl-init
+      - type: click # close newsletter pop up
+        selector: "#events_newsletter > a"
+      - type: click # load more events
+        selector: div.events > a.more
     fields:
       - name: "location"
         value: "X-TRA"
@@ -1426,8 +1429,8 @@ scrapers:
         guess_year: true
     render_js: true
     interaction:
-      type: click
-      selector: body > div.wrap > div > main > div.container-fluid > button
+      - type: click
+        selector: body > div.wrap > div > main > div.container-fluid > button
     filters:
       - field: eventType
         exp: Ausstellung
@@ -1523,9 +1526,9 @@ scrapers:
         date_location: CET
     render_js: true
     interaction:
-      type: click
-      selector: div.mec-load-more-wrap > div
-      count: 2
+      - type: click
+        selector: div.mec-load-more-wrap > div
+        count: 2
     filters:
       - field: title
         exp: "Live:.*"
@@ -1630,9 +1633,9 @@ scrapers:
         date_language: de_DE
     render_js: true
     interaction:
-      type: click
-      selector: section > div:nth-child(7) > div > div > div > div > div > div > div > div > div.load-more-container > a > span
-      count: 2
+      - type: click
+        selector: section > div:nth-child(7) > div > div > div > div > div > div > div > div > div.load-more-container > a > span
+        count: 2
 
   - name: ZoaCity
     url: https://zoacity.ch/
@@ -1741,10 +1744,10 @@ scrapers:
         date_language: de_DE
     render_js: true
     interaction:
-      type: click
-      selector: "#container-async > button"
-      count: 3
-      delay: 3000
+      - type: click
+        selector: "#container-async > button"
+        count: 3
+        delay: 3000
     filters:
       - field: eventType
         exp: "^Musik$"

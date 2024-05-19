@@ -110,10 +110,10 @@ scrapers:
         guess_year: true
     render_js: true
     interaction:
-      type: click
-      selector: div.ectbe-pagination > div > a > span
-      count: 2
-      delay: 3000
+      - type: click
+        selector: div.ectbe-pagination > div > a > span
+        count: 2
+        delay: 3000
     filters:
       - field: cat
         exp: ".*Live.*"
