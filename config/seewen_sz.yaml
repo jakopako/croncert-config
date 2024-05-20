@@ -1,0 +1,70 @@
+scrapers:
+  - name: Gaswerk
+    url: https://www.gaswerk-eventbar.ch/events/
+    item: div.ep.span6 > a
+    fields:
+      - name: location
+        value: Gaswerk
+      - name: city
+        value: Seewen SZ
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.gaswerk-eventbar.ch/events/
+      - name: title
+        type: text
+        location:
+          - selector: div.eventdesc > div.eventtitle
+      - name: eventType
+        type: text
+        location:
+          - selector: div.eventdesc > div.eventart
+        hide: true
+      - name: url
+        type: url
+        location:
+          - selector: ""
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.eventimg > img.attachment-eventpreview.size-eventpreview.wp-post-image
+            attr: src
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.eventinfobox
+              child_index: 2
+            layout:
+              - Monday, 2.1.2006
+          - covers:
+              time: true
+            location:
+              selector: div.eventinfobox
+              child_index: 8
+            layout:
+              - 15:04
+              - 15:04 Uhr
+        date_location: CET
+        date_language: de_DE
+    filters:
+      - field: eventType
+        exp: Tanzkurs
+        match: false
+      - field: eventType
+        exp: (?i)(party)
+        match: false
+      - field: eventType
+        exp: Paartanzabend
+        match: false
+      - field: eventType
+        exp: (?i)(new year)
+        match: false
