@@ -2373,3 +2373,38 @@ scrapers:
               - "2. January 2006"
         date_language: de_DE
         date_location: CET
+
+  - name: KlusClassics
+    url: https://festival.klusclassics.ch/#programm
+    item: div.alignnone > div.kt-row-layout-equal > div.fk-column-text
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://festival.klusclassics.ch/#programm
+      - name: title
+        type: text
+        location:
+          - selector: h3.wp-block-kadence-advancedheading
+            entire_subtree: true
+      - name: location
+        location:
+          - selector: p > strong:nth-child(3)
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: p > strong
+            layout:
+              - Monday, 2. January 2006, 15:04 Uhr
+        date_location: CET
+        date_language: de_DE
