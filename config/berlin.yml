@@ -151,3 +151,45 @@ scrapers:
               - 2/
         date_location: CET
         date_language: de_DE
+
+  - name: Peppi Guggenheim
+    url: https://www.peppi-guggenheim.de/?post_type=tribe_events
+    item: div.tribe-common-g-col.tribe-events-calendar-list__event-details
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Gretchen"
+      - name: "sourceUrl"
+        value: "https://www.peppi-guggenheim.de/?post_type=tribe_events"
+      - name: title
+        type: text
+        location:
+          - selector: h3.tribe-common-h4--min-medium.tribe-common-h6.tribe-events-calendar-list__event-title > a.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+      - name: comment
+        location:
+          - selector: div > p
+        can_be_empty: true
+      - name: url
+        type: url
+        location:
+          - selector: h3.tribe-common-h4--min-medium.tribe-common-h6.tribe-events-calendar-list__event-title > a.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: div.tribe-common-b2.tribe-events-calendar-list__event-datetime-wrapper > time.tribe-events-calendar-list__event-datetime > span.tribe-event-date-start
+            layout:
+              - January 2 @ 15:04
+        date_location: CET
+        date_language: de_DE
+        guess_year: true
