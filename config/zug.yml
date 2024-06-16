@@ -54,3 +54,44 @@ scrapers:
               - 15:04 Uhr
         date_language: de_DE
         date_location: CET
+
+  - name: HidenHarlekin
+    url: https://eventfrog.ch/de/events.html?searchTerm=hiden+harlekin+zug
+    item: div.event-list > div.event-list__events > a.event-list__events__tile
+    fields:
+      - name: "location"
+        value: Hidén Harlekin
+      - name: "city"
+        value: "Zug"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://eventfrog.ch/de/events.html?searchTerm=hiden+harlekin+zug
+      - name: title
+        type: text
+        location:
+          - selector: div.event-list__events__tile__content > div.event-list__events__tile__content__infos > span.event-list__events__tile__content__infos__title
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.event-list__events__tile__image > img
+            attr: src
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: div.event-list__events__tile__content > div.event-list__events__tile__content__infos > span.event-list__events__tile__content__infos__time
+            layout:
+              - Monday, 2. January, 15:04
+        date_location: CET
+        date_language: de_DE
