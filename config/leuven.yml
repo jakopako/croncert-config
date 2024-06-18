@@ -42,7 +42,7 @@ scrapers:
 
   - name: 30cc
     url: https://www.30cc.be/nl/programma?discipline=3
-    item: body.page-programma > div.page-wrap > div.js-filter.page-main > div.section.section--content.section--default > div.container > div.section__content > div.grid > div.grid--bp-med__8.grid__12 > div.block.js-load-more > div.block > div.grid.grid--flex.js-load-more-results > div.grid__12.is-view-list > div.excerpt.excerpt--clickable.excerpt--event.excerpt--link > div.excerpt__main
+    item: div.block > div.grid.grid--flex.js-load-more-results > div.grid__12.is-view-list > div.excerpt.excerpt--clickable.excerpt--event.excerpt--link
     fields:
       - name: "type"
         value: "concert"
@@ -82,6 +82,11 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "nl_BE"
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.excerpt__img > img.image.image--responsive
+            attr: src
     paginator:
       location:
         selector: "a.next"
