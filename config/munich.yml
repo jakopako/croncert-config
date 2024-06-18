@@ -248,6 +248,11 @@ scrapers:
                 index: -1
             layout: ["15.04", "15:04"]
         date_location: "Europe/Berlin"
+      - name: comment
+        on_subpage: url
+        location:
+          selector: div.gdlr-event-content
+          entire_subtree: true
     filters:
       - field: status
         exp: ".*coming-soon.*"
