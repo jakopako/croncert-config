@@ -227,7 +227,7 @@ scrapers:
 
   - name: ArenaWien
     url: https://arena.wien/Home/Programm#data_abonnement=-1&data_month=-1&data_year=-1&data_event_category=-1&searchTerm=&data_mode=DATE&data_pagenumber=0&page_header=alle+Monate
-    item: body > form > div.container.theme-showcase > div.row > div.DnnModule.DnnModule-EventListDirectTicketing.DnnModule-1076.col-md-12 > div > div > div.DNNModuleContent.ModEventListDirectTicketingC > div > div.row > div.col-md-12 > div.VAlist > div.suite_calRowContainer > a
+    item: div.DNNModuleContent.ModEventListDirectTicketingC > div > div.row > div.col-md-12 > div.VAlist > div.suite_calRowContainer > a
     fields:
       - name: location
         value: Arena

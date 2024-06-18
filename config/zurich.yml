@@ -2411,3 +2411,60 @@ scrapers:
               - Monday, 2. January 2006, 15:04 Uhr
         date_location: CET
         date_language: de_DE
+
+  - name: Baeckeranlage
+    url: https://www.stadt-zuerich.ch/sd/de/index/stadtleben/quartierraeume/veranstaltungen_qts.html
+    item: div.masonrygrid_item > div.mod_newsteaser > a.teaser
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.stadt-zuerich.ch/sd/de/index/stadtleben/quartierraeume/veranstaltungen_qts.html
+      - name: location
+        value: Bäckeranlage
+      - name: title
+        type: text
+        location:
+          - selector: div.content > h3
+            regex_extract:
+              exp: "[^–]+([ A-Za-zöäüéàè]+)?"
+              index: -1
+      - name: eventType
+        location:
+          - selector: div.content > h3
+            regex_extract:
+              exp: "[A-Za-z]+"
+        hide: true
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.content > div.mod_eventinfo.var_eventteaser > div.mod_eventinfo__column-wrapper > div.mod_eventinfo__column.mod_eventinfo__column--time-location > time.mod_eventinfo__time
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2}"
+            layout:
+              - 15.04
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.content > div.mod_eventinfo.var_eventteaser > div.mod_eventinfo__column-wrapper > div.mod_eventinfo__column.mod_eventinfo__column--time-location > time.mod_eventinfo__full-date > span.mod_eventinfo__full-date--date
+            layout:
+              - 2. January 2006,
+        date_location: CET
+        date_language: de_DE
+    filters:
+      - field: eventType
+        match: true
+        exp: Sommerkonzerte
