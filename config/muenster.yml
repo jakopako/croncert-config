@@ -55,6 +55,9 @@ scrapers:
       - field: genre
         exp: ".*Dancefloor.*"
         match: false
+      - field: title
+        exp: ".*(?i)(verschoben).*"
+        match: false
     paginator:
       location:
         selector: li.tribe-events-nav-next > a

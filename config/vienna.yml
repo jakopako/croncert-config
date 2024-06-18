@@ -181,6 +181,9 @@ scrapers:
       - field: "title"
         exp: ".*Führung in.*"
         match: false
+      - field: title
+        exp: ".*(?i)(verschoben).*"
+        match: false
 
   - name: PorgyAndBess
     url: https://www.porgy.at/events/upcoming
@@ -286,4 +289,7 @@ scrapers:
     filters:
       - field: "title"
         exp: ".*ABGESAGT.*"
+        match: false
+      - field: title
+        exp: ".*(?i)(verschoben).*"
         match: false

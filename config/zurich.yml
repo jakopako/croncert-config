@@ -1054,6 +1054,9 @@ scrapers:
       - field: "title"
         exp: "ABGESAGT.*"
         match: false
+      - field: title
+        exp: ".*(?i)(verschoben).*"
+        match: false
 
   - name: RoteFabrik
     url: "https://rotefabrik.ch/de/programm.html#/calendar/konzert/"

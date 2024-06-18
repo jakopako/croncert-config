@@ -140,7 +140,7 @@ scrapers:
 
   # - name: BeJazz
   #   url: https://www.bejazz.ch/de/bejazz-aktueller-jazz-in-bern/programm-80.html
-  #   item: body > div.bjz-wrapper.ym-wrapper > div.wbox.ym-wrapper-inner > div.bjz-action.ym-column > div.bjz-action-marginal.ym-col1 > div.ym-gbox > div.bjz-component-marginal > div.bjz-component-marginal-inner > div.bjz-component-marginal-items > ul > li > a.bjz-component-marginal-eventitem
+  #   item: div.bjz-component-marginal-inner > div.bjz-component-marginal-items > ul > li > a.bjz-component-marginal-eventitem
   #   fields:
   #     - name: "city"
   #       value: "Bern"
