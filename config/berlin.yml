@@ -193,3 +193,60 @@ scrapers:
         date_location: CET
         date_language: de_DE
         guess_year: true
+
+  - name: Lido
+    url: https://www.lido-berlin.de/
+    item: div.page > div.event-list > article.event-ticket
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Lido"
+      - name: "sourceUrl"
+        value: "https://www.lido-berlin.de/"
+      - name: eventType
+        type: text
+        location:
+          - selector: div.event-ticket__type > div.event-ticket__type__label
+        hide: true
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.event-ticket__content > h1.event-ticket__content__title > a
+      - name: url
+        type: url
+        location:
+          - selector: div.event-ticket__content > h1.event-ticket__content__title > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.event-ticket__meta > div.event-ticket__meta__times > div.event-ticket__meta__times__time:nth-child(2) > div.event-ticket__meta__times__time__value
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.event-ticket__meta.event-ticket__meta--mobile > div.event-ticket__meta__date > div.event-ticket__meta__date__day-month
+            layout:
+              - 2.1.
+          - covers:
+              year: true
+            location:
+              selector: div.event-ticket__meta.event-ticket__meta--desktop > div.event-ticket__meta__date > div.event-ticket__meta__date__year
+            layout:
+              - "2006"
+        date_location: CET
+    filters:
+      - field: eventType
+        match: false
+        exp: Party
