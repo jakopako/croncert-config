@@ -152,7 +152,7 @@ scrapers:
         date_location: CET
         date_language: de_DE
 
-  - name: Peppi Guggenheim
+  - name: PeppiGuggenheim
     url: https://www.peppi-guggenheim.de/?post_type=tribe_events
     item: div.tribe-common-g-col.tribe-events-calendar-list__event-details
     fields:

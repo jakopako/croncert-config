@@ -42,9 +42,9 @@ scrapers:
             location:
               selector: ".qt-eventtable tr:nth-child(3) td"
               regex_extract:
-                exp: "Inizio concerto: .*"
+                exp: "Inizio ore: .*"
               entire_subtree: true
-            layout: ["Inizio concerto: 3:04 pm"]
+            layout: ["Inizio ore: 3:04 pm"]
         date_location: "Europe/Berlin"
         date_language: "it_IT"
     filters:
