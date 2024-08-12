@@ -1,0 +1,47 @@
+scrapers:
+  - name: BlueNoteHawaii
+    url: https://www.bluenotejazz.com/hawaii/shows/?list_view
+    item: div.container.shows-wrap > ul.the-shows > li.show-group
+    fields:
+      - name: location
+        value: Blue Note Hawaii
+      - name: city
+        value: Honolulu
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.bluenotejazz.com/hawaii/shows/?list_view
+      - name: title
+        type: text
+        location:
+          - selector: div.event-wrap > div.col-8.group-listing > div.listing-title > h2 > a
+      - name: url
+        type: url
+        location:
+          - selector: div.event-wrap > div.col-8.group-listing > div.listing-title > h2 > a
+            attr: href
+      # doesn't work right now. Maybe some scrolling is needed
+      # - name: imageUrl
+      #   type: text
+      #   location:
+      #     - selector: div.event-wrap > div.group-image > a > div
+      #       attr: style
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: ul.group-events > li.event > time > span.time
+            layout:
+              - 15:04 PM
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.event-wrap > div.event-meta > div.date-display > time
+            layout:
+              - Jan 2
+        date_location: HST
+        date_language: en_US
+    render_js: true
