@@ -265,7 +265,7 @@ scrapers:
       - name: "imageUrl"
         type: "url"
         location:
-          selector: img
+          selector: ".nu-e-flyer img"
           attr: src
       - name: "url"
         type: "url"
