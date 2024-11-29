@@ -22,6 +22,8 @@ scrapers:
               month: true
             location:
               selector: section.eventCard__head > div.eventCard__head__date > div.dateBox.dateBox--listItem > div.dateBox-item.dateBox-item--from > div.l-verticalCenter > div
+              regex_extract:
+                exp: "[A-Za-z]+"
             layout: ["January"]
           - covers:
               day: true
