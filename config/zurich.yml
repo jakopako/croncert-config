@@ -1162,10 +1162,14 @@ scrapers:
             location:
               selector: div.events_event_starttime__iwhoE > span
             layout: ["15:04"]
+        date_location: CET
     render_js: true
     filters:
       - field: "eventType"
         exp: ".*Concert.*"
+        match: true
+      - field: "title"
+        exp: ".*(?i)(concert).*"
         match: true
 
   - name: GZRiesbach
@@ -1235,6 +1239,7 @@ scrapers:
               regex_extract:
                 exp: "[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{2}"
             layout: ["2.1.06"]
+        date_location: CET
       - name: url
         value: http://brickbar.ch/ueber-mich/
     filters:
