@@ -789,8 +789,8 @@ scrapers:
         match: false
 
   - name: Dynamo
-    url: "https://www.dynamo.ch/veranstaltungen"
-    item: ".node-event"
+    url: https://www.dynamo.ch/events-kurse?type=event
+    item: div.md\:pb-24.min-h-screen.pb-8 > section
     fields:
       - name: "location"
         value: "Dynamo"
@@ -801,48 +801,52 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://www.dynamo.ch/veranstaltungen"
-      - name: "title"
+        value: "https://www.dynamo.ch/events-kurse?type=event"
+      - name: title
+        type: text
         location:
-          selector: ".field-name-title a"
-      - name: "url"
-        type: "url"
+          - selector: div.dynamo-container.md\:py-8.py-4.view-grid > div.gap-8 > div > div > div.w-full > article.relative > div > a > div.flex.flex-col.gap-2 > h3.hyphens-auto.my-0
+      - name: eventType
+        type: text
         location:
-          selector: ".field-name-title a"
-      - name: "imageUrl"
-        type: "url"
+          - selector: div.dynamo-container.md\:py-8.py-4.view-grid > div.gap-8 > div > div > div.w-full > article.relative > div > a > div.flex.flex-col.gap-2 > div.flex.flex-wrap.gap-4.items-center > div.brackets.brackets--active.brackets--flex.flex.justify-center > p.flex.font-bold.gap-1.text-black > span:nth-child(3)
+        hide: true
+      - name: url
+        type: url
         location:
-          selector: .field-name-field-event-image > a > img
-          attr: src
-          regex_extract:
-            exp: "[^?]+"
-        can_be_empty: true
-      - name: "comment"
+          - selector: div.dynamo-container.md\:py-8.py-4.view-grid > div.gap-8 > div > div > div.w-full > article.relative > div > a
+            attr: href
+      - name: imageUrl
+        type: url
         location:
-          selector: ".field-name-field-event-raum"
-        can_be_empty: true
-      - name: "date"
-        type: "date"
+          - selector: div.image-mix-blend-mode > img
+            attr: src
+      - name: date
+        type: date
         components:
+          - covers:
+              time: true
+            location:
+              selector: div.dynamo-container > div.gap-8 > div > div > div.w-full > article.relative > div > a > div.flex.flex-col.gap-2 > div.flex.flex-wrap.gap-4.items-center > p.font-bold
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout:
+              - 15:04
           - covers:
               day: true
               month: true
               year: true
             location:
-              selector: ".date-display-single, .date-display-start"
-              regex_extract:
-                exp: "[0-9]{1,2}\\. [\u00e4A-Za-z]{3,9} [0-9]{4}"
-            layout: ["2. January 2006"]
-          - covers:
-              time: true
-            location:
-              selector: ".date-display-start"
-              regex_extract:
-                exp: "[0-9]{2}:[0-9]{2}"
-            layout: ["15:04"]
-        date_location: "Europe/Berlin"
-        date_language: "de_DE"
+              selector: div > div.dynamo-container > button.day-picker-toggler > span
+            layout:
+              - Mon. 2/1/2006
+        date_location: CET
+        date_language: de_DE
+    render_js: true
     filters:
+      - field: eventType
+        exp: "Konzert"
+        match: true
       - field: "title"
         exp: ".*(?i)(abgesagt).*"
         match: false
@@ -1283,7 +1287,9 @@ scrapers:
               time: true
             location:
               selector: a > div.datum > span.zeit.ztop
-            layout: ["ab 15 Uhr", "ab 15:04 Uhr"]
+              regex_extract:
+                exp: "[0-9]{2}(:[0-9]{2})?"
+            layout: ["15", "15:04"]
         date_location: CET
         date_language: de_DE
       - name: title
@@ -2192,6 +2198,19 @@ scrapers:
         value: concert
       - name: sourceUrl
         value: https://www.dasgleis.ch/
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.EventList_eventHeader__eiGxm > div.EventList_eventTime__oXEFW > h2
+            layout:
+              - 2.1.2006, 15:04
+        date_location: CET
       - name: url
         type: url
         location:
@@ -2221,20 +2240,10 @@ scrapers:
           - selector: img.EventList_eventImage__oOks3
             attr: data-src
         can_be_empty: true
-      - name: date
-        type: date
-        components:
-          - covers:
-              day: true
-              month: true
-              year: true
-              time: true
-            location:
-              selector: div.EventList_eventHeader__eiGxm > div.EventList_eventTime__oXEFW > h2
-            layout:
-              - 2.1.2006, 15:04
-        date_location: CET
     filters:
+      - field: date
+        exp: < now
+        match: false
       - field: category
         exp: KONZERT
         match: true
