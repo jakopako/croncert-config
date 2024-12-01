@@ -337,6 +337,7 @@ scrapers:
               attr: "datetime"
             layout: ["2006-01-02T15:04:05-07:00"]
         date_location: "Europe/Berlin"
+    render_js: true
     filters:
       - field: "title"
         exp: "Verschoben.*"
