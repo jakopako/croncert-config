@@ -224,10 +224,13 @@ scrapers:
       - name: title
         type: text
         location:
-          selector: div.header > .artist
-          entire_subtree: true
-          all_nodes: true
-          separator: ", "
+          - selector: header.dtitle
+            entire_subtree: true
+          - selector: div.header > .artist
+            entire_subtree: true
+            all_nodes: true
+            separator: ", "
+        separator: " - "
       - name: date
         type: date
         components:
@@ -721,7 +724,7 @@ scrapers:
         date_location: "Europe/Berlin"
         date_language: "fr_FR"
 
-  # This one is a bit messy, but better than nothing for now. Unfortunately we'r missing a couple of events.
+  # This one is a bit messy, but better than nothing for now. Unfortunately we're missing a couple of events.
   # See discussion here: https://github.com/jakopako/croncert-config/discussions/174
   - name: Datcha
     url: https://la-datcha.ch/

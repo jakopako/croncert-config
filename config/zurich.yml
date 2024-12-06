@@ -1792,6 +1792,7 @@ scrapers:
         type: text
         location:
           - selector: div.col-md-6.col-sm-6:nth-child(2) > div.mec-event-detail > div.mec-event-loc-place
+        can_be_empty: true
         hide: true
       - name: title
         type: text
@@ -1826,6 +1827,9 @@ scrapers:
     filters:
       - field: room
         exp: Rampe
+        match: true
+      - field: room
+        exp: ""
         match: true
 
   - name: Lebewohlfabrik
@@ -2404,6 +2408,8 @@ scrapers:
         value: concert
       - name: sourceUrl
         value: https://festival.klusclassics.ch/#programm
+      - name: url
+        value: https://festival.klusclassics.ch/#programm
       - name: title
         type: text
         location:
@@ -2426,6 +2432,10 @@ scrapers:
               - Monday, 2. January 2006, 15:04 Uhr
         date_location: CET
         date_language: de_DE
+    filters:
+      - field: date
+        exp: "< now"
+        match: false
 
   - name: Baeckeranlage
     url: https://www.stadt-zuerich.ch/sd/de/index/stadtleben/quartierraeume/veranstaltungen_qts.html
