@@ -114,3 +114,61 @@ scrapers:
       location:
         selector: "div.after.right > a"
       max_pages: 4
+
+  - name: LeZenith
+    url: https://le-zenith.com/program
+    item: div.app-program__items.js-shows-list > div.card-show
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Paris"
+      - name: "location"
+        value: "Le Zenith"
+      - name: "sourceUrl"
+        value: "https://le-zenith.com/program"
+      - name: url
+        type: url
+        location:
+          - selector: a.button.button--bg-white-c-sky-blue.card-show__button
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.card-show__img > img
+            attr: src
+      - name: title
+        type: text
+        location:
+          - selector: div.card-show__artist
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: body > div.page__content > div.app-event > section.app-event__informations > div.app-event__informations-dates > div > div:nth-child(2) > div:nth-child(1) > div
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2} [a-zèéà]+\\."
+            layout: ["2 Jan."]
+          - covers:
+              year: true
+            location:
+              selector: body > div.page__content > div.app-event > section.app-event__informations > div.app-event__informations-dates > div > div:nth-child(2) > div:nth-child(1) > div
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{4}"
+            layout: ["2006"]
+          - covers:
+              time: true
+            location:
+              selector: body > div.page__content > div.app-event > section.app-event__informations > div.app-event__informations-dates > div > div:nth-child(2) > div:nth-child(1) > div
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+        date_location: CET
+        date_language: fr_FR

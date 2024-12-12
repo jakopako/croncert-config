@@ -328,15 +328,22 @@ scrapers:
         on_subpage: "url"
         components:
           - covers:
+              time: true
+            location:
+              selector: ul.quick-facts > li:nth-child(3)
+              child_index: 2
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+            layout: ["15:04"]
+          - covers:
               day: true
               month: true
               year: true
-              time: true
             location:
-              selector: ".event-meta time"
-              attr: "datetime"
-            layout: ["2006-01-02T15:04:05-07:00"]
+              selector: div.event-meta > time
+            layout: ["Monday, 2.1.2006"]
         date_location: "Europe/Berlin"
+        date_language: de_DE
     render_js: true
     filters:
       - field: "title"
