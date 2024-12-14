@@ -138,46 +138,45 @@ scrapers:
       location:
         selector: "a.endless_more"
 
-  # reactivate as soon as bug https://github.com/jakopako/goskyr/issues/264 is fixed
-  # - name: Reduta
-  #   url: http://www.redutajazzclub.cz/program-en
-  #   item: body > div.container.frontpage > div.row.textpage.programpage > div.col.s12.row.nopadding > div.row > div.progitem.col.s12.row.hl2
-  #   fields:
-  #     - name: "location"
-  #       value: "Reduta Jazz Club"
-  #     - name: "city"
-  #       value: "Prague"
-  #     - name: "type"
-  #       value: "concert"
-  #     - name: "sourceUrl"
-  #       value: "http://www.redutajazzclub.cz/program-en"
-  #     - name: title
-  #       location:
-  #         selector: div.col.s12.row > div.col.program > div.progheader > a
-  #     - name: comment
-  #       location:
-  #         selector: div.col.s12.row > div.col.program > div.progaddtext > p
-  #       can_be_empty: true
-  #     - name: url
-  #       type: url
-  #       location:
-  #         selector: div.col.s12.row > div.col.program > div.progheader > a
-  #     - name: date
-  #       type: date
-  #       components:
-  #         - covers:
-  #             day: true
-  #             month: true
-  #           location:
-  #             selector: div.col.s12.row > div.col.datum > div.date
-  #           layout: ["2/1"]
-  #         - covers:
-  #             time: true
-  #           location:
-  #             selector: div.col.s12.row > div.col.datum > div.time
-  #           layout: ["15:04"]
-  #       date_location: "Europe/Berlin"
-  #       guess_year: true
+  - name: Reduta
+    url: http://www.redutajazzclub.cz/program-en
+    item: body > div.container.frontpage > div.row.textpage.programpage > div.col.s12.row.nopadding > div.row > div.progitem.col.s12.row.hl2
+    fields:
+      - name: "location"
+        value: "Reduta Jazz Club"
+      - name: "city"
+        value: "Prague"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "http://www.redutajazzclub.cz/program-en"
+      - name: title
+        location:
+          selector: div.col.s12.row > div.col.program > div.progheader > a
+      - name: comment
+        location:
+          selector: div.col.s12.row > div.col.program > div.progaddtext > p
+        can_be_empty: true
+      - name: url
+        type: url
+        location:
+          selector: div.col.s12.row > div.col.program > div.progheader > a
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.col.s12.row > div.col.datum > div.date
+            layout: ["2/1"]
+          - covers:
+              time: true
+            location:
+              selector: div.col.s12.row > div.col.datum > div.time
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        guess_year: true
 
   - name: Roxy
     url: https://www.roxy.cz/en/#program
@@ -213,3 +212,42 @@ scrapers:
             layout: ["2006-01-02 15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
+
+  - name: Agharta
+    url: https://www.agharta.cz/
+    render_js: true
+    interaction:
+      - type: click
+        selector: div.inner-content > div.content-sections > strong > a
+        count: 1
+        delay: 3000
+    item: table.month_list > tbody > tr
+    fields:
+      - name: "location"
+        value: "Agharta"
+      - name: "city"
+        value: "Prague"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.agharta.cz/"
+      - name: title
+        location:
+          selector: a.month_list
+      - name: url
+        type: url
+        location:
+          selector: a.month_list
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: td:nth-child(2) > span
+            layout:
+              - 2.1.
+        date_location: CET
+        guess_year: true
