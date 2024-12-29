@@ -45,6 +45,11 @@ scrapers:
               selector: div > div > div > div > div > div > div > p:nth-child(3) > span
             layout:
               - "2006"
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout: ["15:04"]
         date_location: Europe/Berlin
         date_language: fr_FR
       - name: title

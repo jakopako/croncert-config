@@ -521,6 +521,11 @@ scrapers:
             location:
               selector: div.event-meta > span
             layout: ["Mon, 02.01."]
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
         guess_year: true

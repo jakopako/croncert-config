@@ -249,5 +249,10 @@ scrapers:
               selector: td:nth-child(2) > span
             layout:
               - 2.1.
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout: ["15:04"]
         date_location: CET
         guess_year: true
