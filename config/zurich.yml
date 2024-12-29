@@ -437,6 +437,11 @@ scrapers:
             location:
               selector: div.vsel-meta-date > span
             layout: ["02/01/2006"]
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
       - name: "location"
@@ -1251,6 +1256,16 @@ scrapers:
               regex_extract:
                 exp: "[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{2}"
             layout: ["2.1.06"]
+          - covers:
+              time: true
+            location:
+              # workaround: we need to add a non existent selector in this case
+              # to make sure we're using the given default. Otherwise, with an
+              # empty selector we'd get the item's node value which is not empty
+              # in this case.
+              selector: ".non-existent-class"
+              default: "20:00"
+            layout: ["15:04"]
         date_location: CET
       - name: url
         value: http://brickbar.ch/ueber-mich/
