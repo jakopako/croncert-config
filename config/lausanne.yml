@@ -166,7 +166,7 @@ scrapers:
         value: Switzerland
       - name: "type"
         value: "concert"
-      - name: "sourceUrl" # This is needed to uniquely identify this scraper
+      - name: "sourceUrl"
         value: https://basebarlausanne.ch/evenements/
       - name: date
         type: date
@@ -177,9 +177,14 @@ scrapers:
               year: true
             location:
               selector: div.row.visible-xs.visible-sm.sticky-div > h2.col-xs-12.col-md-offset-1.col-md-10.date-header > span.day
-            layout: ["Mon 2. January 2006"] # adapt according to actual format
-        date_location: "Europe/Berlin" # example
-        date_language: "de_DE" # example
+            layout: ["Mon 2. January 2006"]
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout: ["15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "de_DE"
       - name: title
         type: text
         location:
@@ -487,7 +492,17 @@ scrapers:
 
   - name: SalleMetropole
     url: https://sallemetropole.ch/les-spectacles/
-    item: body.is-loading.page.page-id-35.page-template.page-template-concerts.page-template-layouts.page-template-layoutsconcerts-php > div.main-wrap > section.page-concerts > div.inner-page > section.spectacles-section > div.container > div.spectacles > div.spectacles__in > a.spectacles__item
+    item: div.spectacles > div.spectacles__in > a.spectacles__item
+    render_js: true
+    interaction: # the only way we can filter for concerts on this website
+      - type: click
+        selector: "#tab-body-1 > form > div.filters__left > div.filters__item.filters__item--programm.custom-select > div > button > span.filter-option.pull-left"
+        count: 1
+        delay: 1000
+      - type: click
+        selector: "#tab-body-1 > form > div.filters__left > div.filters__item.filters__item--programm.custom-select > div > div > ul > li:nth-child(3) > a > span.text"
+        count: 1
+        delay: 2000
     fields:
       - name: "type"
         value: "concert"
@@ -503,6 +518,11 @@ scrapers:
         type: url
         location:
           attr: href
+      - name: imageUrl
+        type: url
+        location:
+          selector: span.spectacles__item__pic.fit-img-container > img
+          attr: src
       - name: title
         type: text
         location:
@@ -523,6 +543,11 @@ scrapers:
             location:
               selector: span.spectacles__item__date
             layout: ["Mon. 02.01.06"]
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout: ["15:04"]
         date_language: fr_FR
         date_location: Europe/Berlin
 

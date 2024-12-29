@@ -59,11 +59,6 @@ scrapers:
         exp: (?i)(BRUNCH)
         match: false
 
-    # I guess there was an eventType field in this config once?
-    #   - field: "eventType"
-    #     exp: "Jeux"
-    #     match: false
-
   - name: CafeLitteraire
     url: https://lecafelitteraire.ch/culture/
     item: ul.list.evenements > li
@@ -159,7 +154,14 @@ scrapers:
               year: true
             location:
               selector: div.date_event
-            layout: ["2.1.2006 "]
+            layout: ["Monday 2.1.2006 "]
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout: ["15:04"]
+        date_language: fr_FR
+        date_location: CET
       - name: ticketing
         location:
           selector: span.ticketing

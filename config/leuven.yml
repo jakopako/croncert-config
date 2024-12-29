@@ -170,6 +170,11 @@ scrapers:
             location:
               selector: .rTableCell
             layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "nl_BE"
 
