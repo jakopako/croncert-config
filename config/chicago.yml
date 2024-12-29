@@ -89,7 +89,7 @@ scrapers:
             layout: ["Show: 3pm", "Show: 3:04pm"]
         date_location: America/Chicago
 
-  - name: ShubasTavern
+  - name: SchubasTavern
     url: https://lh-st.com/
     item: body.home.page-template-default.page.page-id-78 > div.container.my-5 > div.row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4.tessera-card-deck > div.col > div.card.mb-3.h-100.tessera-show-card
     fields:
