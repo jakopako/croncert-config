@@ -35,7 +35,7 @@ scrapers:
               year: true
             location:
               selector: div.event-sneak-peek__meta > div.event-sneak-peek__date
-            layout: ["Mon 02.01.2006"]
+            layout: ["Mon. 02.01.2006"]
           - covers:
               time: true
             location:

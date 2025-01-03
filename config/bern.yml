@@ -34,14 +34,14 @@ scrapers:
               day: true
               month: true
               year: true
-            layout: ["Mon, 2.1.06"]
+            layout: ["Mon., 2.1.06"]
             location:
               selector: div.billboard-big > div > div.billboard-datum > font
           - covers:
               time: true
             location:
               selector: div.eventinfos > b:nth-child(3)
-            layout: ["15:04"]
+            layout: ["15:04", "15.04"]
         date_language: de_DE
         date_location: "Europe/Berlin"
 
