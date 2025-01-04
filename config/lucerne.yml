@@ -57,15 +57,15 @@ scrapers:
         value: https://www.bar59.ch/
       - name: "url"
         value: https://www.bar59.ch/
+      - name: title
+        type: text
+        location:
+          - selector: div.event:nth-child(2) > h3.collapsed > span
       - name: imageUrl
         type: url
         location:
           - selector: div.col-xs-12.col-md-9.col-md-pull-3.left > img
             attr: src
-      - name: title
-        type: text
-        location:
-          - selector: div.event:nth-child(2) > h3.collapsed > span
       - name: date
         type: date
         components:
@@ -86,6 +86,7 @@ scrapers:
         date_location: CET
         date_language: de_DE
     render_js: true
+    page_load_wait: 5000
     paginator:
       location:
         selector: div.paginatorContainer > div > button:nth-child(3)

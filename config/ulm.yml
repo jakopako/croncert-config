@@ -36,7 +36,7 @@ scrapers:
               year: true
             location:
               selector: div.detailzusatz > div.detail-col.col-location
-            layout: ["Mon. 2.1.2006"]
+            layout: ["Mon, 2.1.2006"]
           - covers:
               time: true
             location:
