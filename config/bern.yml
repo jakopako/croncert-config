@@ -91,6 +91,11 @@ scrapers:
         location:
           selector: div.contentbox > div.content > div.textblock > div.text > p
         can_be_empty: true
+      - name: genresText
+        type: text
+        location:
+          selector: span.eventgenre
+        can_be_empty: true
 
   - name: Dachstock
     url: https://www.dachstock.ch/events

@@ -164,6 +164,8 @@ scrapers:
       - name: title
         location:
           selector: h3.h3
+          all_nodes: true
+          separator: ", "
       - name: url
         type: url
         location:
@@ -177,8 +179,8 @@ scrapers:
               month: true
               year: true
             location:
-              selector: time.flex.items-center
-              attr: datetime # in the source code it's dateTime. Very weird that go sees it as datetime...
+              selector: a.absolute.inset-0
+              attr: href
               regex_extract:
                 exp: "[0-9]{4}(-[0-9]{2}){2}"
             layout: ["2006-01-02"]
@@ -189,6 +191,11 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
+      - name: genresText
+        location:
+          selector: span.block.paragraph-2 > span.paragraph-2 > span
+          all_nodes: true
+          separator: " "
     render_js: true
     interaction:
       - type: click
