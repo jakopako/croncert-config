@@ -353,6 +353,10 @@ scrapers:
             layout: ["Monday, 2.1.2006"]
         date_location: "Europe/Berlin"
         date_language: de_DE
+      - name: genresText
+        location:
+          selector: ".subtitle strong"
+        can_be_empty: true
     render_js: true
     filters:
       - field: "title"
@@ -431,11 +435,6 @@ scrapers:
         location:
           selector: a > img
           attr: data-src
-      - name: comment
-        type: text
-        location:
-          selector: div.vsel-image-info.vsel-image-info-right > div.vsel-info > p
-        can_be_empty: true
       - name: date
         type: date
         components:
@@ -453,6 +452,10 @@ scrapers:
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
+      - name: genresText
+        on_subpage: url
+        location:
+          selector: section > div > div.vsel-content > div.vsel-meta.vsel-alignleft > div.vsel-meta-cats
       - name: "location"
         value: "Heldenbar"
       - name: "city"
