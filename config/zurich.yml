@@ -1263,9 +1263,13 @@ scrapers:
         value: http://brickbar.ch/ueber-mich/
       - name: title
         location:
+          selector: strong
           entire_subtree: true
           regex_extract:
             exp: "[A-Za-z]+.+"
+      - name: genresText
+        location:
+          entire_subtree: true
       - name: date
         type: date
         components:
