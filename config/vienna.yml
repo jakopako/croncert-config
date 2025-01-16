@@ -242,6 +242,10 @@ scrapers:
       - name: title
         location:
           selector: span.col-md-5.suite_Eventitle > span.Event_H1
+        transform:
+          - type: regex-replace
+            regex: "\\*[A-Z /]+\\*"
+            replace: ""
       - name: url
         type: url
         location:
