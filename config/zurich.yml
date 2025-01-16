@@ -1527,6 +1527,10 @@ scrapers:
         type: text
         location:
           - selector: div.el-content.uk-panel:nth-child(3) > p
+      - name: genresText
+        type: text
+        location:
+          - selector: div.el-content.uk-panel:nth-child(3) > p
       - name: title
         type: text
         location:
