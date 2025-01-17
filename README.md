@@ -44,6 +44,12 @@ We'll demonstrate the process for the location "Konzerthaus Schüür" with the u
    1. Field names
 
       Most of the fields mentioned should be correctly named already due to the machine learning. Still you might have to do some renaming. In this specific case of 'Schüür' it sometimes happens that there are two `title` fields. Rename one to `comment`.
+      If possible, you'll want the following dynamic fields:
+
+      - `title` - mandatory
+      - `url` - mandatory
+      - `comment` - optional
+      - `genresText` - optional - NEW. This text field will be used by the API to try to extract genres from, so it should contain some.
 
    1. Date field
 
