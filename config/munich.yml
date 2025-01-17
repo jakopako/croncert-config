@@ -21,6 +21,10 @@ scrapers:
           selector: ".b-text-one-col__col_1 p"
           max_length: 200
         on_subpage: "url"
+      - name: "genresText"
+        location:
+          selector: ".b-text-one-col__col_1 p"
+        on_subpage: "url"
       - name: "url"
         type: "url"
         location:
