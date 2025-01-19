@@ -2077,7 +2077,7 @@ scrapers:
   # The following three locations are actually just one location. This workaround is needed to capture all events of this venue.
   - name: AmRank1
     url: https://amrank.ch/buehne/
-    item: article > section.container > div.card > header.accordionItemHeading > div.card-header-content.concert-group
+    item: article > section.container > div
     fields:
       - name: city
         value: Zurich
@@ -2092,16 +2092,21 @@ scrapers:
       - name: comment
         type: text
         location:
-          - selector: div:nth-child(3) > div > p
+          - selector: div.haupteintrag > div > p
+            entire_subtree: true
+      - name: genresText
+        type: text
+        location:
+          - selector: div.haupteintrag > div > p > strong
       - name: url
         type: url
         location:
-          - selector: div:nth-child(3) > h3 > a
+          - selector: div.haupteintrag > h3 > a
             attr: href
       - name: title
         type: text
         location:
-          - selector: div.first-line > h3
+          - selector: div.haupteintrag > h3 > a
       - name: date
         type: date
         components:
@@ -2127,7 +2132,7 @@ scrapers:
 
   - name: AmRank2
     url: https://amrank.ch/buehne/
-    item: article > section.container > div.card > header.accordionItemHeading > div.card-header-content.concert-group
+    item: article > section.container > div
     fields:
       - name: city
         value: Zurich
@@ -2142,16 +2147,21 @@ scrapers:
       - name: comment
         type: text
         location:
-          - selector: div:nth-child(3) > div > p
+          - selector: div.haupteintrag > div > p
+            entire_subtree: true
+      - name: genresText
+        type: text
+        location:
+          - selector: div.haupteintrag > div > p > strong
       - name: url
         type: url
         location:
-          - selector: div:nth-child(3) > h3 > a
+          - selector: div.haupteintrag > h3 > a
             attr: href
       - name: title
         type: text
         location:
-          - selector: div.first-line > h3
+          - selector: div.haupteintrag > h3 > a
       - name: date
         type: date
         components:
@@ -2178,7 +2188,7 @@ scrapers:
 
   - name: AmRank3
     url: https://amrank.ch/buehne/
-    item: article > section.container > div.card > header.accordionItemHeading > div.card-header-content.concert-group
+    item: article > section.container > div
     fields:
       - name: city
         value: Zurich
@@ -2193,16 +2203,21 @@ scrapers:
       - name: comment
         type: text
         location:
-          - selector: div:nth-child(3) > div > p
+          - selector: div.haupteintrag > div > p
+            entire_subtree: true
+      - name: genresText
+        type: text
+        location:
+          - selector: div.haupteintrag > div > p > strong
       - name: url
         type: url
         location:
-          - selector: div:nth-child(3) > h3 > a
+          - selector: div.haupteintrag > h3 > a
             attr: href
       - name: title
         type: text
         location:
-          - selector: div.first-line > h3
+          - selector: div.haupteintrag > h3 > a
       - name: date
         type: date
         components:
