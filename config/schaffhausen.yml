@@ -1,0 +1,70 @@
+scrapers:
+  - name: Kammgarn
+    url: https://kammgarn.ch/
+    item: div.article-body > div.facetwp-template > article.bandarticle
+    fields:
+      - name: location
+        value: Kammgarn
+      - name: city
+        value: Schaffhausen
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://kammgarn.ch/
+      - name: title
+        type: text
+        location:
+          - selector: h2.h2 > a
+      - name: url
+        type: url
+        location:
+          - selector: h2.h2 > a
+            attr: href
+      - name: genresText
+        type: text
+        location:
+          - selector: a.articlelink > div.genreshover
+      - name: comment
+        on_subpage: url
+        location:
+          - selector: div.row > div.maincontent > section > div.article-body > p
+            entire_subtree: true
+        can_be_empty: true
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.row > div.infofloater > div > div.firstdiv > div:nth-child(2)
+            layout:
+              - Monday 2.1.2006
+          - covers:
+              time: true
+            location:
+              selector: div.row > div.infofloater > div > div.firstdiv > div:nth-child(6)
+            layout:
+              - 15:04
+        date_location: CET
+        date_language: de_DE
+    filters:
+      - field: genresText
+        exp: "Film"
+        match: false
+      - field: genresText
+        exp: ".*(?i)party.*"
+        match: false
+      - field: genresText
+        exp: ".*(?i)degustation.*"
+        match: false
+      - field: genresText
+        exp: ".*(?i)handel.*"
+        match: false
+      - field: title
+        exp: ".*(?i)abgesagt.*"
+        match: false
