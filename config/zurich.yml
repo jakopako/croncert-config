@@ -955,13 +955,17 @@ scrapers:
               selector: ".col-md-8"
               entire_subtree: true
               regex_extract:
-                exp: "[0-9]{2}[:\\.]{1}[0-9]{2}"
+                exp: "[0-9]{2}[:\\.]{1}[0-9o]{2}"
                 index: -1
+            transform:
+              - type: regex-replace
+                regex: "o"
+                replace: "0"
             layout: ["15:04", "15.04"]
         date_location: "Europe/Berlin"
     filters:
       - field: eventType
-        exp: Konzert
+        exp: Concert
         match: true
 
   - name: Komplex457
@@ -985,6 +989,14 @@ scrapers:
         type: "url"
         location:
           selector: ""
+      - name: genresText
+        on_subpage: "url"
+        location:
+          - selector: "article:nth-child(7) > div.iconbox_content > div > p"
+          - selector: "article:nth-child(8) > div.iconbox_content > div > p"
+          - selector: "article:nth-child(9) > div.iconbox_content > div > p"
+        separator: ", "
+        can_be_empty: true
       - name: "date"
         type: "date"
         on_subpage: "url"
