@@ -2115,6 +2115,13 @@ scrapers:
         location:
           - selector: div.haupteintrag > h3 > a
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div:nth-child(2) > img
+            attr: srcset
+            regex_extract:
+              exp: "[^ ]+"
       - name: title
         type: text
         location:
@@ -2170,6 +2177,13 @@ scrapers:
         location:
           - selector: div.haupteintrag > h3 > a
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div:nth-child(2) > img
+            attr: srcset
+            regex_extract:
+              exp: "[^ ]+"
       - name: title
         type: text
         location:
@@ -2226,6 +2240,13 @@ scrapers:
         location:
           - selector: div.haupteintrag > h3 > a
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div:nth-child(2) > img
+            attr: srcset
+            regex_extract:
+              exp: "[^ ]+"
       - name: title
         type: text
         location:
