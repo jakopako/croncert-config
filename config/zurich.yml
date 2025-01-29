@@ -842,7 +842,7 @@ scrapers:
 
   - name: Dynamo
     url: https://www.dynamo.ch/events-kurse?type=event
-    item: div.md\:pb-24.min-h-screen.pb-8 > section
+    item: div.md\:pb-24.min-h-screen.pb-8 > section > div.dynamo-container.md\:py-8.py-4.view-grid > div.gap-8 > div > div > div.w-full > article.relative > div > a
     fields:
       - name: "location"
         value: "Dynamo"
@@ -857,29 +857,29 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.dynamo-container.md\:py-8.py-4.view-grid > div.gap-8 > div > div > div.w-full > article.relative > div > a > div.flex.flex-col.gap-2 > h3.hyphens-auto.my-0
+          - selector: div.flex.flex-col.gap-2 > h3.hyphens-auto.my-0
       - name: eventType
         type: text
         location:
-          - selector: div.dynamo-container.md\:py-8.py-4.view-grid > div.gap-8 > div > div > div.w-full > article.relative > div > a > div.flex.flex-col.gap-2 > div.flex.flex-wrap.gap-4.items-center > div.brackets.brackets--active.brackets--flex.flex.justify-center > p.flex.font-bold.gap-1.text-black > span:nth-child(3)
-        hide: true
+          - selector: div.flex.flex-col.gap-2 > div.flex.flex-wrap.gap-4.items-center > div.brackets.brackets--active.brackets--flex.flex.justify-center > p.flex.font-bold.gap-1.text-black > span:nth-child(3)
+        # hide: true
       - name: url
         type: url
         location:
-          - selector: div.dynamo-container.md\:py-8.py-4.view-grid > div.gap-8 > div > div > div.w-full > article.relative > div > a
-            attr: href
+          - attr: href
       - name: imageUrl
         type: url
         location:
           - selector: div.image-mix-blend-mode > img
             attr: src
       - name: date
+        on_subpage: url
         type: date
         components:
           - covers:
               time: true
             location:
-              selector: div.dynamo-container > div.gap-8 > div > div > div.w-full > article.relative > div > a > div.flex.flex-col.gap-2 > div.flex.flex-wrap.gap-4.items-center > p.font-bold
+              selector: body > main > div > article > div > div:nth-child(1) > div > div > div > time:nth-child(1)
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2}"
             layout:
@@ -889,12 +889,13 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div > div.dynamo-container > button.day-picker-toggler > span
+              selector: body > main > div > article > div > div:nth-child(1) > div > div > time
             layout:
               - Mon. 2/1/2006
         date_location: CET
         date_language: de_DE
     render_js: true
+    page_load_wait: 3000
     filters:
       - field: eventType
         exp: "Konzert"
