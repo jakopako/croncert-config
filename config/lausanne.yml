@@ -430,6 +430,45 @@ scrapers:
         exp: "> now"
         match: true
 
+  - name: La Breche
+    url: https://www.la-breche.fun/
+    item: div.event_info_grid-2 > a.link-block-3.w-inline-block
+    fields:
+      - name: city
+        value: Lausanne
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: http://www.la-breche.fun/
+      - name: title
+        type: text
+        location:
+          - selector: div.div-contenu-artiste-3.titrage > div.div-flexbox-artiste.vbig > div.artist-div-2:nth-child(2) > div.h2-2
+          - selector: div.div-contenu-artiste-3.titrage > div.div-flexbox-artiste.vbig > div.artist-div-2:nth-child(3) > div.h2-2
+        separator: ", "
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.div-contenu-artiste-3.titrage > img.image-2
+            attr: src
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: ""
+              attr: href
+            layout: ["/events/02-01-2006","/events/02-01-06"]
+
   - name: LeRomandie
     url: https://www.leromandie.ch/programmation
     item: article
