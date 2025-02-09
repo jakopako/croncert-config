@@ -145,7 +145,7 @@ scrapers:
 
   - name: MahoganyHall
     url: https://www.mahogany.ch/konzerte
-    item: body > div > div > div.column > div.view.view-id-konzerte.view-konzerte > div.view-content > div.views-row
+    item: div.view.view-display-id-page_1.view-id-konzerte.view-konzerte > div.view-content > div.views-row
     fields:
       - name: "type"
         value: "concert"
@@ -160,47 +160,35 @@ scrapers:
       - name: comment
         type: text
         location:
-          - selector: div.views-field.views-field-field-teasertext:nth-child(4) > p.field-content
-      - name: style
-        type: text
-        location:
-          - selector: div.views-field.views-field-field-subtitle > h5.field-content
+          - selector: div.views-field.views-field-field-teasertext > div.field-content > p
       - name: title
         type: text
         location:
-          - selector: span.views-field.views-field-title:nth-child(2) > h2.field-content > a
+          - selector: div.views-field.views-field-title > h2.field-content > a
       - name: url
         type: url
         location:
-          - selector: span.views-field.views-field-title:nth-child(2) > h2.field-content > a
+          - selector: div.views-field.views-field-title > h2.field-content > a
             attr: href
-      - name: imageUrl
-        type: url
+      - name: genresText
+        type: text
         location:
-          - selector: div.field.field-name-field-titelbild.field-type-image.field-label-hidden > div > div > img
-            attr: src
-        on_subpage: url
+          - selector: div.views-field.views-field-field-subtitle > h5.field-content
+            entire_subtree: true
       - name: date
         type: date
         components:
           - covers:
-              year: true
-              month: true
               day: true
-            location:
-              selector: span.views-field.views-field-field-tueroeffnung > div.concert-tueroeffnung.field-content
-              regex_extract:
-                exp: "[0-9]{1,2}. .* [0-9]{4}"
-            layout: ["2. January 2006"]
-          - covers:
+              month: true
+              year: true
               time: true
             location:
-              selector: span.views-field.views-field-field-tueroeffnung > div.concert-tueroeffnung.field-content
-              regex_extract:
-                exp: "[0-9]{2}.[0-9]{2} Uhr"
-            layout: ["15.04 Uhr"]
+              selector: div.views-field.views-field-field-tueroeffnung > div.field-content > time.datetime
+            layout:
+              - Monday, 2. January 2006 | 15.04 Uhr
+        date_location: CET
         date_language: de_DE
-        date_location: "Europe/Berlin"
 
   - name: ISC
     url: https://isc-club.ch/

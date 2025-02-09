@@ -2637,3 +2637,50 @@ scrapers:
       - field: eventType
         match: true
         exp: Sommerkonzerte
+
+  - name: Galotti
+    url: https://www.galotti.ch/events/
+    item: div.container.event-overview__container > div.event-overview__events > a.event-card
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Galotti
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.galotti.ch/events/
+      - name: title
+        type: text
+        location:
+          - selector: div.event-card__container > article.event-card__article > h1.event-card__title
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: "#main > div.app__content > article > header > div > div > div > p"
+              child_index: 0
+            layout:
+              - Mon 2.1.06
+          - covers:
+              time: true
+            location:
+              selector: "#main > div.app__content > article > header > div > div > div > p"
+              child_index: 2
+              regex_extract:
+                exp: "([0-9]{2}:[0-9]{2})"
+            layout:
+              - 15:04
+        date_location: CET
+        date_language: de_DE

@@ -874,6 +874,12 @@ scrapers:
         type: text
         location:
           - selector: div.w-dyn-list:nth-child(3) > div.concert__bands__media.w-dyn-items > div.concert__band.small.w-dyn-item > div.event__band__style:nth-child(3)
+        can_be_empty: true
+      - name: genresText
+        type: text
+        location:
+          - selector: div.w-dyn-list:nth-child(3) > div.concert__bands__media.w-dyn-items > div.concert__band.small.w-dyn-item > div.event__band__style:nth-child(3)
+        can_be_empty: true
       - name: imageUrl
         type: url
         location:
