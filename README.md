@@ -48,8 +48,9 @@ We'll demonstrate the process for the location "Konzerthaus Schüür" with the u
 
       - `title` - mandatory
       - `url` - mandatory
+      - `imageUrl` - optional - a url that points to the event's image
       - `comment` - optional
-      - `genresText` - optional - NEW. This text field will be used by the API to try to extract genres from, so it should contain some.
+      - `genresText` - optional - This text field will be used by the API to try to extract genres from, so it should contain some.
 
    1. Date field
 
