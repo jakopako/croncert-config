@@ -163,7 +163,7 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h1
+          - selector: div.eventWrapperTable > div.eventFacts > h2
       - name: url
         type: url
         location:
@@ -180,7 +180,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2 > span.daytime
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h3 > span.daytime
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2} Uhr"
             layout:
@@ -190,7 +190,7 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h3
             layout:
               - 2.1.2006
         date_location: CET
