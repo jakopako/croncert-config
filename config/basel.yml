@@ -1,4 +1,61 @@
 scrapers:
+  - name: BirdsEye
+    url: https://birdseye.ch/index.php?p=events&l=en
+    item: body > div.container > div.grid > div.pagecontent
+    fields:
+      - name: "location"
+        value: "the Bird's Eye jazz club"
+      - name: city
+        value: "Basel"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: url
+        type: url
+        value: https://birdseye.ch/index.php?p=events
+      - name: sourceUrl
+        type: url
+        value: https://birdseye.ch/index.php?p=events
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.grid > img.event-img
+            attr: src
+      - name: icalUrl
+        type: url
+        location:
+          - selector: ul.ical > a
+        can_be_empty: true
+      - name: date
+        type: date
+        on_subpage: icalUrl
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: select > option
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}"
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              default: "20:30"
+            layout:
+              - "15:04"
+        date_location: "Europe/Berlin"
+      - name: title
+        type: text
+        location:
+          - selector: h2.event-desc > strong
+      - name: comment
+        type: text
+        location:
+          - selector: div.grid > p.lineup
+        can_be_empty: true
   - name: Humbug
     url: https://www.humbug.club/programm
     item: body > div.content-wrapper > div.programm-grid > a
