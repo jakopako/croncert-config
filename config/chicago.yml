@@ -253,7 +253,7 @@ scrapers:
               day: true
               month: true
             location:
-              selector: div.col-12.col-md-3 > div.g-0.row > div.col-sm-12.p-0 > div.rhp-event-thumb > a.url > div.eventDateListTop > div.eventMonth.mb-0.singleEventDate.text-uppercase
+              selector: div#eventDate
             layout:
               - Mon, January 2
               - Mon, Jan 2
