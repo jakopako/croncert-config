@@ -147,6 +147,7 @@ scrapers:
               selector: div.date > span.monthyear
             layout:
               - Jan. 2006
+              - Jan.. 2006
           - covers:
               day: true
             location:
