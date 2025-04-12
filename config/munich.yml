@@ -410,7 +410,7 @@ scrapers:
       - name: location
         type: text
         location:
-          - selector: div.e-con-inner > div.e-con.e-con-boxed.elementor-element.elementor-element-5cee072:nth-child(2) > div.e-con-inner > div.elementor-element.elementor-element-a977703.elementor-widget.elementor-widget-shortcode:nth-child(3) > div.elementor-widget-container > div.elementor-shortcode
+          - selector: div.elementor-shortcode
       - name: comment
         type: text
         can_be_empty: true
@@ -419,7 +419,7 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.e-con-inner > div.e-con.e-con-boxed.elementor-element.elementor-element-5cee072:nth-child(2) > div.e-con-inner > div.elementor-element.elementor-element-53d396b.elementor-page-title.elementor-widget.elementor-widget-heading.elementor-widget-theme-post-title > div.elementor-widget-container > h1.elementor-heading-title.elementor-size-default
+          - selector: h1
       - name: url
         type: url
         location:
@@ -438,16 +438,18 @@ scrapers:
               month: true
               year: true
             location:
-              selector: ".elementor-element-6254285 .elementor-widget-container h2"
+              selector: body > div.elementor > div.elementor-element > div > div.elementor-element.elementor-element-1e3a848 > div.elementor-element.elementor-element-6254285 > div > h2
             layout: ["02.01.2006"]
           - covers:
               time: true
             location:
-              selector: ".elementor-element-d2a1061.dc-has-condition.dc-condition-empty.elementor-widget.elementor-widget-text-editor > div"
+              selector: body > div.elementor > div.elementor-element.elementor-element-51f5561 > div > div.elementor-element.elementor-element-1e3a848 > div.elementor-element.elementor-element-05a07ab > div > div.elementor-element.elementor-element-d2a1061 > div > strong
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2}"
+              default: "20:00"
               child_index: 2
-            layout: ["15:04"]
+            layout: 
+              - "15:04"
         date_location: "Europe/Berlin"
       - name: "status"
         location:

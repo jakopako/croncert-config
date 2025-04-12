@@ -95,6 +95,7 @@ scrapers:
             layout:
               - Monday, 2. January 2006, 15:04
               - Monday, 2 January 2006, 15:04
+              - Monday 2. January 2006, 15:04
         date_location: CET
     filters:
       - field: date

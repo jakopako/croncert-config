@@ -95,7 +95,7 @@ scrapers:
               - type: regex-replace
                 regex: März
                 replace: Mär
-            layout: ["Mon 2.Jan."]
+            layout: ["Mon 2.Jan.", "Mon 2.Jan", "Mon 2.January"]
           - covers:
               time: true
             location:
@@ -1816,7 +1816,7 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: h2.entry-title.m-0
+          - selector: h2.entry-title
       - name: imageUrl
         type: url
         location:
@@ -1834,7 +1834,7 @@ scrapers:
               time: true
             location:
               selector: div.place-time:nth-child(3) > div.filter-date
-              child_index: 2
+              child_index: 4
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2}"
             layout:
@@ -1847,6 +1847,7 @@ scrapers:
               selector: div.place-time:nth-child(3) > div.filter-date
             layout:
               - Mon 2.1.2006
+              - Mon. 2.1.2006
         date_location: CET
         date_language: de_DE
     render_js: true

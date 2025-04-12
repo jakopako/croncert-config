@@ -1,7 +1,7 @@
 scrapers:
   - name: Loewensaal
     url: https://www.loewensaal.com/programm.html
-    item: body > div.page > div.content-wrapper > section.main-content > div.block.mod_article > div.ce_rsce_tao_centered_wrapper_start.centered-wrapper > div.centered-wrapper-inner > div.block.hirscheventlistprogramm.mod_eventlist > div.even.eventListItem.first.last.upcoming
+    item: body > div.page > div.content-wrapper > section.main-content > div.block.mod_article > div.ce_rsce_tao_centered_wrapper_start.centered-wrapper > div.centered-wrapper-inner > div.block.hirscheventlistprogramm.mod_eventlist > div.even.eventListItem.upcoming
     fields:
       - name: "location"
         value: Löwensaal
@@ -16,7 +16,7 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h1
+          - selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2
       - name: comment
         type: text
         location:
@@ -33,7 +33,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2 > span.daytime
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h3 > span.daytime
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2} Uhr"
             layout:
@@ -43,7 +43,7 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h3
             layout:
               - 2.1.2006
         date_location: CET
@@ -120,10 +120,11 @@ scrapers:
         type: text
         location:
           - selector: div.konzert-termin-vorschau.row > div > div.termin-details-genre
+        can_be_empty: true
       - name: url
         type: url
         location:
-          - selector: div.konzert-termin-details.row:nth-child(2) > div.col-12.col-sm-8.mb-3 > div.my-1.row > div.col:nth-child(2) > div.termin-details-ticket > button.btn.btn-warning > a
+          - selector: div.row.konzert-termin-details > div.col-12.col-sm-4.mb-3 > div.interaction_links.text-end > div:nth-child(2) > button:nth-child(3) > a
             attr: href
       - name: date
         type: date
@@ -133,9 +134,10 @@ scrapers:
             location:
               selector: div.konzert-termin-vorschau.row > div.col-12 > div.termin-details-uhrzeit:nth-child(2)
               regex_extract:
-                exp: "[0-9]{2}:[0-9]{2} Uhr"
+                exp: "[0-9]{2}:[0-9]{2}( Uhr)?"
             layout:
               - "15:04 Uhr"
+              - "15:04"
           - covers:
               day: true
               month: true
@@ -163,7 +165,7 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h1
+          - selector: div.eventWrapperTable > div.eventFacts > h2
       - name: url
         type: url
         location:
@@ -180,7 +182,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2 > span.daytime
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h3 > span.daytime
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2} Uhr"
             layout:
@@ -190,7 +192,7 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h2
+              selector: div.eventWrapperTable > div.eventFacts:nth-child(2) > h3
             layout:
               - 2.1.2006
         date_location: CET

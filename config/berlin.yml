@@ -36,9 +36,9 @@ scrapers:
             location:
               selector: div.gig_top > span.date
               regex_extract:
-                exp: "Show: [0-9\\.]+"
+                exp: "(Show|Doors): [0-9\\.]+"
               entire_subtree: true
-            layout: ["Show: 15", "Show: 15.04"]
+            layout: ["Show: 15", "Show: 15.04", "Doors: 15.04"]
         date_location: "Europe/Berlin"
     filters:
       - field: "title"
@@ -86,9 +86,13 @@ scrapers:
               selector: div.date > span
             layout:
               - Jan
+              - "Jan."
             transform:
               - type: regex-replace
                 regex: Mrz
+                replace: Mär
+              - type: regex-replace
+                regex: März
                 replace: Mär
           - covers:
               day: true
@@ -143,6 +147,7 @@ scrapers:
               selector: div.date > span.monthyear
             layout:
               - Jan. 2006
+              - Jan.. 2006
           - covers:
               day: true
             location:
