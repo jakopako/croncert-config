@@ -95,7 +95,7 @@ scrapers:
               - type: regex-replace
                 regex: März
                 replace: Mär
-            layout: ["Mon 2.Jan."]
+            layout: ["Mon 2.Jan.", "Mon 2.Jan", "Mon 2.January"]
           - covers:
               time: true
             location:
