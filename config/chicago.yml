@@ -264,7 +264,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.d-block.eventDoorStartDate.eventsColor > span
+              selector: div.eventDoorStartDate > span
               regex_extract:
                 exp: "[0-9]{1,2}[0-9:]*[ap]{1}m"
                 index: -1

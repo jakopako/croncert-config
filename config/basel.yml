@@ -38,8 +38,14 @@ scrapers:
             location:
               selector: select > option
               regex_extract:
-                exp: "[0-9].*"
-            layout: ["02.01.2006 15:04", "02.01.2006"]
+                exp: "[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}"
+            layout: ["2.1.2006"]
+          - covers:
+              time: true
+            location:
+              default: "20:30"
+            layout:
+              - "15:04"
         date_location: "Europe/Berlin"
       - name: title
         type: text
