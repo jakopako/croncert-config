@@ -50,6 +50,7 @@ scrapers:
         location:
           - selector: div.grid > p.lineup
         can_be_empty: true
+
   - name: Humbug
     url: https://www.humbug.club/programm
     item: body > div.content-wrapper > div.programm-grid > a
