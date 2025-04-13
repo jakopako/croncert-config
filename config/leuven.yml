@@ -125,18 +125,11 @@ scrapers:
               day: true
               month: true
               year: true
-            location:
-              selector: div.event-specs > div.field.field--name-field-event-date.field__items > div
-              regex_extract:
-                exp: "([0-9]{2}\\.){2}[0-9]{4}"
-            layout: ["2.1.2006"]
-          - covers:
               time: true
             location:
-              selector: div.event-specs > div.field.field--name-field-event-date.field__items > div
-              regex_extract:
-                exp: "[0-9]{2}u([0-9]{2})?"
-            layout: ["15u", "15u04"]
+              selector: time
+              attr: datetime
+            layout: ["2006-01-02T15:04:00+01:00", "2006-01-02T15:04:00+02:00", "2006-01-02 "]
         date_location: "Europe/Berlin"
         date_language: "nl_BE"
 
