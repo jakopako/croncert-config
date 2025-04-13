@@ -31,17 +31,19 @@ scrapers:
         components:
           - covers:
               time: true
+            default: 19:00
             location:
-              selector: ul.group-events > li.event > time > span.time
+              selector: div.ticket-wrap > time > span.time
             layout:
               - 15:04 PM
           - covers:
               day: true
               month: true
             location:
-              selector: div.event-wrap > div.event-meta > div.date-display > time
+              selector: time
+              attr: datetime
             layout:
-              - Jan 2
+              - 2006-01-02
         date_location: HST
         date_language: en_US
     render_js: true
