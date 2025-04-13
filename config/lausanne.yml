@@ -13,11 +13,21 @@ scrapers:
         value: "Théatre de Beaulieu"
       - name: "sourceUrl"
         value: "https://beaulieu-lausanne.com/agenda/"
+      - name: internalLocation
+        type: text
+        location:
+          selector: ul.style-h5 > li
       - name: url
         type: url
         location:
           selector: a
           attr: href
+      - name: imageUrl
+        type: url
+        on_subpage: url
+        location:
+          selector: div.thumbnail-wrapper > img
+          attr: src
       - name: title
         type: text
         location:
@@ -31,17 +41,22 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.content-wrapper > header > time
+              selector: div.date-wrapper
               regex_extract:
-                exp: "[0-9]{1,2} [a-z]+ [0-9]{4}"
-            layout: ["2 January 2006"]
+                exp: "[0-9]{1,2} [a-zé]+ [0-9]{4}"
+            layout: ["2 January 2006", "2 Jan 2006"]
           - covers:
               time: true
+            default: 20:00
             location:
-              selector: article > div > div.col-xl-4.col-lg-5.col-md-12.col-sm-12.col-12.offset-lg-1 > aside > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(2) > span
+              selector: div.details > div.row:nth-child(2) > span:nth-child(2)
             layout: [15h04]
         date_location: Europe/Berlin
         date_language: fr_FR
+    filters:
+      - field: internalLocation
+        exp: Théâtre de Beaulieu
+        match: true
 
   - name: BleuLézard
     url: https://bleu-lezard.ch/programmation/
