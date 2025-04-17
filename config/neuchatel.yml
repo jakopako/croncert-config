@@ -29,6 +29,11 @@ scrapers:
         location:
           selector: a
         attr: href
+      - name: imageUrl
+        type: url
+        location:
+          selector: a > img
+          attr: data-lazy-src
       - name: "date"
         type: "date"
         components:
