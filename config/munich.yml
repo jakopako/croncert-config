@@ -659,11 +659,9 @@ scrapers:
               selector: script[type='application/ld+json']
               json_selector: "//startDate"
             layout:
-              # - "2006-01-02T15:04:00+01:00"
               - "2006-01-02T15:04:05-07:00"
         date_location: CET
         date_language: de_DE
-        # guess_year: true
     render_js: true
     filters:
       - field: location
