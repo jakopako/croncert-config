@@ -1,0 +1,51 @@
+scrapers:
+  - name: TheVicSwindon
+    url: https://thevicswindon.com/event-directory/
+    item: div.event
+    fields:
+      - name: "location"
+        value: "The Vic Swindon"
+      - name: "city"
+        value: "Swindon"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://thevicswindon.com"
+      - name: title
+        type: text
+        location:
+          - selector: span[itemprop="name"]
+      - name: comment
+        type: text
+        location:
+          - selector: span.evcal_event_subtitle
+      - name: imageUrl
+        type: url
+        location:
+          selector: div.evo_boxtop
+          attr: style
+          regex_extract:
+            exp: "https://[^)]*"
+      - name: url
+        type: url
+        location:
+          selector: a[itemprop="url"]
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.evo_event_schema > meta[itemprop="startDate"]
+              attr: content
+            layout: ["2006-1-2T15:04+0:00"]
+    paginator:
+      location:
+        selector: div.evcal_arrows > i.fa.fa-chevron-right
+        attr: href
+    render_js: true
+
