@@ -19,6 +19,7 @@ scrapers:
         type: text
         location:
           - selector: span.evcal_event_subtitle
+        can_be_empty: true
       - name: imageUrl
         type: url
         location:
@@ -45,8 +46,8 @@ scrapers:
             layout: ["2006-1-2T15:04+0:00"]
     paginator:
       location:
-        selector: div.evcal_arrows > i.fa.fa-chevron-right
-        attr: href
+        selector: span#evcal_next
+      max_pages: 8
     render_js: true
 
   - name: WyvernTheatreSwindon
@@ -110,4 +111,8 @@ scrapers:
       - field: "genre"
         exp: "Classical & Opera"
         match: true
+    paginator:
+      location:
+        selector: span#main-content > div > div.container > div.flex > button
+      max_pages: 7
 
