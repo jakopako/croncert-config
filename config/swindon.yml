@@ -57,6 +57,16 @@ scrapers:
     fields:
       - name: "location"
         value: "The Wyvern Theatre"
+        location:
+          selector: span:#main-content > div> div > div > div > div> div > div> div > div:nth-child(4) > div > span > a
+        on_subpage: url
+        transform:
+          - type: regex-replace
+            regex: ".*Wyvern.*"
+            replace: The Wyvern Theatre
+          - type: regex-replace
+            regex: ".*Arts Centre.*"
+            replace: The Arts Centre
       - name: "city"
         value: "Swindon"
       - name: "type"
