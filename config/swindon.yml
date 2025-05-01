@@ -1,0 +1,125 @@
+scrapers:
+  - name: TheVicSwindon
+    url: https://thevicswindon.com/event-directory/
+    item: div.event
+    fields:
+      - name: "location"
+        value: "The Vic Swindon"
+      - name: "city"
+        value: "Swindon"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://thevicswindon.com"
+      - name: title
+        type: text
+        location:
+          - selector: span[itemprop="name"]
+      - name: comment
+        type: text
+        location:
+          - selector: span.evcal_event_subtitle
+        can_be_empty: true
+      - name: imageUrl
+        type: url
+        location:
+          selector: div.evo_boxtop
+          attr: style
+          regex_extract:
+            exp: "https://[^)]*"
+      - name: url
+        type: url
+        location:
+          selector: a[itemprop="url"]
+          attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.evo_event_schema > meta[itemprop="startDate"]
+              attr: content
+            layout: ["2006-1-2T15:04+0:00"]
+    paginator:
+      location:
+        selector: span#evcal_next
+      max_pages: 8
+    render_js: true
+
+  - name: WyvernTheatreSwindon
+    url: https://trafalgartickets.com/wyvern-theatre-swindon/en-GB/whats-on
+    item: a.flex.flex-col.focus\:outline-none.focus\:ring-2.focus\:ring-offset-1.focus\:ring-offset-white.group.lg\:max-w-sm.overflow-visible.relative.rounded.size-full.text-left
+    render_js: true
+    fields:
+      - name: "location"
+        location:
+          selector: "#main-content > div > div > div > div > div > div > div > div > div:nth-child(4) > div > span > a"
+        on_subpage: url
+        transform:
+          - type: regex-replace
+            regex: ".*Wyvern.*"
+            replace: The Wyvern Theatre
+          - type: regex-replace
+            regex: ".*Arts Centre.*"
+            replace: The Arts Centre
+      - name: "city"
+        value: "Swindon"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://trafalgartickets.com/wyvern-theatre-swindon"
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+              year: true
+            location:
+              selector: script[type="application/ld+json"]
+              json_selector: "//startDate"
+            layout: ["2006-01-02T15:04:05.000Z"]
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          - selector: '#main-content > div.container > div > div > div > div[data-track="true"]'
+            entire_subtree: true
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.flex.flex-col.gap-3.lg\:h-full.relative > div.flex.flex-col > h3.font-bold.lg\:font-semibold.lg\:text-display-sm.text-mobile-body.text-navy-200.text-navy-200
+      - name: genre
+        type: text
+        location:
+          - selector: div.flex.flex-col.gap-3.lg\:h-full.relative > div.flex.flex-col > span.font-medium.text-navy-100.text-xs.uppercase
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: imageUrl
+        type: url
+        location:
+          selector: img
+          attr: src
+    filters:
+      - field: "genre"
+        exp: Music
+        match: true
+      - field: "genre"
+        exp: Comedy
+        match: true
+      - field: "genre"
+        exp: "Classical & Opera"
+        match: true
+    paginator:
+      location:
+        selector: span#main-content > div > div.container > div.flex > button
+      max_pages: 7
