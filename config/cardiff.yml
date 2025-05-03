@@ -1,0 +1,66 @@
+scrapers:
+  - name: NewTheatreCardiff
+    url: https://trafalgartickets.com/new-theatre-cardiff/en-GB/whats-on
+    item: a.flex.flex-col.focus\:outline-none.focus\:ring-2.focus\:ring-offset-1.focus\:ring-offset-white.group.lg\:max-w-sm.overflow-visible.relative.rounded.size-full.text-left
+    render_js: true
+    fields:
+      - name: "location"
+        value: The New Theatre
+      - name: "city"
+        value: "Cardiff"
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://trafalgartickets.com/wyvern-theatre-swindon"
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+              year: true
+            location:
+              selector: script[type="application/ld+json"]
+              json_selector: "//startDate"
+            layout: ["2006-01-02T15:04:05.000Z"]
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          - selector: '#main-content > div.container > div > div > div > div[data-track="true"]'
+            entire_subtree: true
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.flex.flex-col.gap-3.lg\:h-full.relative > div.flex.flex-col > h3.font-bold.lg\:font-semibold.lg\:text-display-sm.text-mobile-body.text-navy-200.text-navy-200
+      - name: genre
+        type: text
+        location:
+          - selector: div.flex.flex-col.gap-3.lg\:h-full.relative > div.flex.flex-col > span.font-medium.text-navy-100.text-xs.uppercase
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: imageUrl
+        type: url
+        location:
+          selector: img
+          attr: src
+    filters:
+      - field: "genre"
+        exp: Music
+        match: true
+      - field: "genre"
+        exp: Comedy
+        match: true
+      - field: "genre"
+        exp: "Classical & Opera"
+        match: true
+    paginator:
+      location:
+        selector: span#main-content > div > div.container > div.flex > button
+      max_pages: 7
+
