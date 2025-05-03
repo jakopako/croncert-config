@@ -11,7 +11,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://trafalgartickets.com/wyvern-theatre-swindon"
+        value: "https://trafalgartickets.com/new-theatre-cardiff"
       - name: date
         type: date
         on_subpage: url
