@@ -31,7 +31,9 @@ scrapers:
             layout: ["15:04"]
         date_location: CET
         date_language: fr_FR
-      - name: genre
+      # here it'd be useful if we could produce a list of genres, but currently goskyr doesn't support lists
+      # workaround is to use genresText, which will make the backend extract a list of genres and populate the genres field
+      - name: genresText
         type: text
         location:
           - selector: div.genre-wrapper > div.field > div.field__item > span
@@ -119,8 +121,8 @@ scrapers:
     url: https://www.nouveaumonde.ch/agenda/
     item: body > div > div.appScroll > div.content.scrollable > div.flexColumn.gap.spaceBottom > section.appToFilter.column6.flexRow.gap > a.poster.size50
     fields:
-      - name: "type"
-        value: "concert"
+      # - name: "type"
+      #   value: "concert"
       - name: "city"
         value: "Fribourg"
       - name: country
@@ -133,10 +135,26 @@ scrapers:
         type: text
         location:
           - selector: div:nth-child(3) > h4
-      - name: genre
+      - name: type
         type: text
         location:
           - selector: div:nth-child(3) > ul.flexRow > li.plate.plateMedium
+        transform:
+          - type: regex-replace
+            regex: "^act$"
+            replace: activity
+          - type: regex-replace
+            regex: "^atl$"
+            replace: atelier
+          - type: regex-replace
+            regex: "^crt$"
+            replace: concert
+          - type: regex-replace
+            regex: "^exp$"
+            replace: exhibition
+          - type: regex-replace
+            regex: "^fte$"
+            replace: party
       - name: date
         type: date
         components:
@@ -164,15 +182,18 @@ scrapers:
           - selector: div:nth-child(1) > img
             attr: src
     filters:
-      - field: genre
+      - field: type
         exp: "rct"
         match: false
-      - field: genre
+      - field: type
         exp: "caf"
         match: false
-      - field: genre
+      - field: type
         exp: "fml"
         match: false
-      - field: genre
+      - field: type
         exp: "spt"
+        match: false
+      - field: type
+        exp: "prj"
         match: false

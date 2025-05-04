@@ -19,8 +19,6 @@ scrapers:
         value: Pavilion
       - name: "city"
         value: "Glasgow"
-      - name: "type"
-        value: "concert"
       - name: "sourceUrl"
         value: "https://trafalgartickets.com/pavilion-theatre-glasgow"
       - name: date
@@ -47,10 +45,14 @@ scrapers:
         type: text
         location:
           - selector: div.flex.flex-col.gap-3.lg\:h-full.relative > div.flex.flex-col > h3.font-bold.lg\:font-semibold.lg\:text-display-sm.text-mobile-body.text-navy-200.text-navy-200
-      - name: genre
+      - name: type
         type: text
         location:
           - selector: div.flex.flex-col.gap-3.lg\:h-full.relative > div.flex.flex-col > span.font-medium.text-navy-100.text-xs.uppercase
+        transform:
+          - type: regex-replace
+            regex: "^Music$"
+            replace: concert
       - name: url
         type: url
         location:
@@ -61,12 +63,15 @@ scrapers:
           selector: img
           attr: src
     filters:
-      - field: "genre"
-        exp: Music
+      - field: "type"
+        exp: concert
         match: true
-      - field: "genre"
+      - field: "type"
+        exp: Musical
+        match: true
+      - field: "type"
         exp: Comedy
         match: true
-      - field: "genre"
+      - field: "type"
         exp: "Classical & Opera"
         match: true
