@@ -3,6 +3,17 @@ scrapers:
     url: https://trafalgartickets.com/pavilion-theatre-glasgow/en-GB/whats-on
     item: a.flex.flex-col.focus\:outline-none.focus\:ring-2.focus\:ring-offset-1.focus\:ring-offset-white.group.lg\:max-w-sm.overflow-visible.relative.rounded.size-full.text-left
     render_js: true
+    interaction:
+      # cookie banner
+      - type: click
+        selector: button#onetrust-reject-all-handler
+        count: 1
+        delay: 1000
+      # load more events
+      - type: click
+        selector: span#main-content > div > div.container > div.flex > button
+        count: 7
+        delay: 2000
     fields:
       - name: "location"
         value: Pavilion
@@ -59,8 +70,3 @@ scrapers:
       - field: "genre"
         exp: "Classical & Opera"
         match: true
-    paginator:
-      location:
-        selector: span#main-content > div > div.container > div.flex > button
-      max_pages: 7
-
