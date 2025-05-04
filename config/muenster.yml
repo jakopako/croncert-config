@@ -9,19 +9,37 @@ scrapers:
         value: Münster
       - name: "country"
         value: Germany
-      - name: "type"
-        value: "concert"
+      # - name: "type"
+      #   value: "concert"
       - name: "sourceUrl"
         value: https://www.hotjazzclub.de/events/
       - name: title
         type: text
         location:
           - selector: div.cmsmasters_events_list_event_info > h2.entry-title.summary.tribe-events-list-event-title > a.url
-      - name: genre
+      - name: genresText
         type: text
         location:
           - selector: div.cmsmasters_events_list_event_info > div.tribe-events-event-meta.vcard > div.author.location > div.published.time-details.updated
             child_index: 2
+      - name: type
+        type: text
+        location:
+          - selector: div.cmsmasters_events_list_event_info > div.tribe-events-event-meta.vcard > div.author.location > div.published.time-details.updated
+            child_index: 2
+        transform:
+          - type: regex-replace
+            regex: ".*(Konzert).*"
+            replace: concert
+          - type: regex-replace
+            regex: ".*(Session).*"
+            replace: concert
+          - type: regex-replace
+            regex: ".*(Comedy).*"
+            replace: comedy
+          - type: regex-replace
+            regex: ".*(Dancefloor).*"
+            replace: party
       - name: url
         type: url
         location:
@@ -52,9 +70,6 @@ scrapers:
         date_location: CET
         date_language: de_DE
     filters:
-      - field: genre
-        exp: ".*Dancefloor.*"
-        match: false
       - field: title
         exp: ".*(?i)(verschoben).*"
         match: false
