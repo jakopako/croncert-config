@@ -3,6 +3,17 @@ scrapers:
     url: https://trafalgartickets.com/cliffs-pavilion-southend/en-GB/whats-on
     item: a.flex.flex-col.focus\:outline-none.focus\:ring-2.focus\:ring-offset-1.focus\:ring-offset-white.group.lg\:max-w-sm.overflow-visible.relative.rounded.size-full.text-left
     render_js: true
+    interaction:
+      # cookie banner
+      - type: click
+        selector: button#onetrust-reject-all-handler
+        count: 1
+        delay: 1000
+      # load more events
+      - type: click
+        selector: span#main-content > div > div.container > div.flex > button
+        count: 7
+        delay: 2000
     fields:
       - name: "location"
         value: Cliffs Pavilion
@@ -38,6 +49,7 @@ scrapers:
           - selector: div.flex.flex-col.gap-3.lg\:h-full.relative > div.flex.flex-col > h3.font-bold.lg\:font-semibold.lg\:text-display-sm.text-mobile-body.text-navy-200.text-navy-200
       - name: genre
         type: text
+        can_be_empty: true
         location:
           - selector: div.flex.flex-col.gap-3.lg\:h-full.relative > div.flex.flex-col > span.font-medium.text-navy-100.text-xs.uppercase
       - name: url
@@ -59,8 +71,3 @@ scrapers:
       - field: "genre"
         exp: "Classical & Opera"
         match: true
-    paginator:
-      location:
-        selector: span#main-content > div > div.container > div.flex > button
-      max_pages: 7
-
