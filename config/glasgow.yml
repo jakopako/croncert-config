@@ -19,6 +19,8 @@ scrapers:
         value: Pavilion
       - name: "city"
         value: "Glasgow"
+      - name: "country"
+        value: "United Kingdom"
       - name: "sourceUrl"
         value: "https://trafalgartickets.com/pavilion-theatre-glasgow"
       - name: date
