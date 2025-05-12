@@ -19,6 +19,8 @@ scrapers:
         value: The New Theatre
       - name: "city"
         value: "Cardiff"
+      - name: "country"
+        value: "United Kingdom"
       - name: "sourceUrl"
         value: "https://trafalgartickets.com/new-theatre-cardiff"
       - name: date
