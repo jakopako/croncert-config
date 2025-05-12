@@ -32,10 +32,9 @@ scrapers:
       - name: imageUrl
         type: url
         location:
-          - selector: picture > img
-            attr: data-lazy-srcset
-            regex_extract:
-              exp: "https://[^ ]+"
+          - selector: img
+            attr: data-lazy-src
+        can_be_empty: true
       - name: date
         type: date
         components:

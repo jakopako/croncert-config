@@ -66,7 +66,7 @@ We'll demonstrate the process for the location "Konzerthaus Schüür" with the u
 
    1. Final validation against the API
 
-      Run the following command to validate the new scraper's output against the api.
+      Run the following command to validate the new scraper's output against the concertcloud API. Note that the `--dryrun` option is only available since goskyr **v0.5.49**
 
       ```
       goskyr -c config -s <scraper-name> --dryrun
