@@ -57,7 +57,7 @@ scrapers:
 
   - name: NewMorning
     url: https://www.newmorning.com/programmation
-    item: body > div > section > div.fragment > section.clear-all.page > section.ligne-programmation.shadow > div.evenement > div.contenu
+    item: div.container.me-xl-0.mw-100.pe-2.pe-xl-0.ps-2 > section.d-sm-none.mt-3 > a
     fields:
       - name: "type"
         value: "concert"
@@ -67,23 +67,27 @@ scrapers:
         value: "New Morning"
       - name: "sourceUrl"
         value: "https://www.newmorning.com/programmation"
-      - name: title
-        location:
-          selector: a.item > div.info > div.formation
-      - name: status
-        location:
-          selector: a.item > div.info > ul.infos > li.alert
-        can_be_empty: true
-        hide: true
       - name: comment
+        on_subpage: url
         location:
-          selector: a.item > div.info > div.baseline
+          - selector: "#main > div.me-0.row > div.col-12.col-lg-10.pe-0 > main > section > div > section.pb-md-2.text-center.text-md-start.text-secondary > div > div > div.col-md-8 > p.fst-italic.text-center.text-light.text-md-start"
+          - selector: "#event-info > div.col-lg-8.col-md-8.col-xl-8.pb-3.pe-md-3.pt-md-3.text-center.text-md-start > div:nth-child(2)"
+            entire_subtree: true
+        separator: "\n"
         can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.align-items-center.bg-white.mb-3.me-0.ms-0.no-gutters.p-2.rounded.row.shadow.text-body > div.col-11.m-0.pt-0 > div.no-gutters.row:nth-child(2) > div.col-7.ml-2.ms-2.p-0 > h6.card-title.fs-6.mb-1
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.align-items-center.bg-white.mb-3.me-0.ms-0.no-gutters.p-2.rounded.row.shadow.text-body > div.col-11.m-0.pt-0 > div.no-gutters.row:nth-child(2) > div.col-4.p-0 > div.carousel.carousel-fade.slide > div.carousel-inner > div.active.carousel-item > img.img-fluid.w-100
+            attr: src
       - name: url
         type: url
         location:
-          selector: a.item
-          attr: href
+          - attr: href
       - name: date
         type: date
         on_subpage: url
@@ -93,27 +97,19 @@ scrapers:
               month: true
               year: true
             location:
-              selector: section.evenement > div > div.date.left
-            layout: ["Monday 2/1/2006"]
+              selector: "#main > div.me-0.row > div.col-12.col-lg-10.pe-0 > main > section > div > section.bg-opacity-75.bg-white.border.mb-3.pe-2.pe-sm-4.ps-2.ps-sm-4.pt-2.pt-sm-3.text-secondary > header > h1"
+            layout:
+              - Monday 2/1/2006
           - covers:
               time: true
             location:
-              selector: section.evenement > div > div.date.left > span
-              entire_subtree: true
+              selector: "#main > div.me-0.row > div.col-12.col-lg-10.pe-0 > main > section > div > section.bg-opacity-75.bg-white.border.mb-3.pe-2.pe-sm-4.ps-2.ps-sm-4.pt-2.pt-sm-3.text-secondary > header > p:nth-child(3)"
               regex_extract:
-                exp: "[0-9]{2}:[0-9]{2}"
-                index: -1
-            layout: ["15:04"]
+                exp: "[0-9]{2}h[0-9]{2}"
+            layout:
+              - 15h04
+        date_location: CET
         date_language: fr_FR
-        date_location: "Europe/Paris"
-    filters:
-      - field: "status"
-        exp: "Annulé"
-        match: false
-    paginator:
-      location:
-        selector: "div.after.right > a"
-      max_pages: 4
 
   - name: LeZenith
     url: https://le-zenith.com/program
@@ -152,8 +148,8 @@ scrapers:
               selector: body > div.page__content > div.app-event > section.app-event__informations > div.app-event__informations-dates > div > div:nth-child(2) > div:nth-child(1) > div
               entire_subtree: true
               regex_extract:
-                exp: "[0-9]{2} [a-zèéà]+\\."
-            layout: ["2 Jan."]
+                exp: "[0-9]{2} [a-zèéà]+"
+            layout: ["2 Jan"]
           - covers:
               year: true
             location:
