@@ -3,7 +3,9 @@ writer:
   # filepath: concerts.json
   # type: api
   # uri: "http://localhost:5001/api/events"
+  # uriDryRun: "http://localhost:5001/api/events/validate"
   # user: croncert
   # password: croncert
   type: "api"
+  uriDryRun: "https://api.concertcloud.live/api/events/validate"
   # The other parameters are defined as env variables.

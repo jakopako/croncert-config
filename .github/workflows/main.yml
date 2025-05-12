@@ -22,14 +22,14 @@ jobs:
       - name: Setup Go environment
         uses: actions/setup-go@v5
         with:
-          go-version: 1.23
+          go-version: 1.24
 
       - name: Install google chrome
         uses: browser-actions/setup-chrome@latest
 
       # Install go binary
       - name: Install the scraper
-        run: go install github.com/jakopako/goskyr@v0.5.46
+        run: go install github.com/jakopako/goskyr@v0.5.49
 
       # Runs a single command using the runners shell
       - name: Run the scraper

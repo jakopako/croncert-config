@@ -1,7 +1,7 @@
-scraper:
+scrapers:
   - name: LaLaiterie
-    url: https://www.artefact.org/la-laiterie/programmation
-    item: div.event-block.table-row.with-image > div.desc
+    url: https://www.artefact.org/la-laiterie/programmation/
+    item: a.border-2.border-black.event-list-item.flex.group.h-full
     fields:
       - name: city
         value: Strasbourg
@@ -11,42 +11,42 @@ scraper:
         value: France
       - name: sourceUrl
         value: https://www.artefact.org/la-laiterie/programmation
-      - name: title
-        type: text
-        location:
-          - selector: div.artistes > div.artiste.tete-affiche
-          - selector: div.artistes > div.artiste.level1:nth-child(2)
-            child_index: 1
-        separator: ", "
       - name: location
         type: text
         location:
-          - selector: div.date > span:nth-child(2)
+          - selector: div.flex.flex-col.items-center.justify-between > div.border-black.border-l-2.flex.flex-col.h-full.items-center.justify-center > div.border-black.border-t-2.flex.flex-row.gap-2.items-center.justify-center > span.font-futura.font-normal.leading-tight
+            regex_extract:
+              exp: "[^-]+"
+      - name: title
+        type: text
+        location:
+          - selector: div.flex.flex-col.items-center.justify-between > div.flex.flex-col.font-futura.justify-center > h4
+      - name: genresText
+        type: text
+        location:
+          - selector: div.w-full.lg\:\:w-3\/4.flex.flex-col.md\:flex-row.justify-between.items-center > div.max-h-\[135px\].w-full.flex.flex-col.justify-center.text-black.text-left.font-futura.px-2.sm\:px-4.md\:px-8.py-2.lg\:py-5.my-auto > div > p
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: picture > img
+            attr: data-lazy-srcset
+            regex_extract:
+              exp: "https://[^ ]+"
       - name: date
         type: date
         components:
           - covers:
-              month: true
               day: true
+              month: true
               year: true
-            location:
-              selector: div.date > span.date-display-single
-            layout:
-              - "Monday 2 January 2006"
-          - covers:
               time: true
             location:
-              selector: div.date
-              child_index: 1
+              selector: div.flex.flex-col.items-center.justify-between > div.border-b-2.border-black.flex.font-futura-mono.items-center.justify-center.md\:hidden.text-center.text-xs.uppercase.w-full
             layout:
-              - "| 15h04 |"
-        date_language: fr_FR
+              - Monday 2 January 2006 15h04
         date_location: CET
-      - name: url
-        type: url
-        location:
-          - selector: a.desc-link
-            attr: href
-    paginator:
-      location:
-        selector: div.pager > a.next
+        date_language: fr_FR

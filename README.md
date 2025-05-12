@@ -39,7 +39,7 @@ We'll demonstrate the process for the location "Konzerthaus Schüür" with the u
 
 1. **Update the generated configuration accordingly**
 
-   First, to get a feeling what data would be extracted with the previously generated configuration run `./goskyr`. In our case, this should print a number of json items containing concert info. Now that you have an idea of what data is scraped with the current configuration, we need to adapt a few things for this specific use case.
+   First, to get a feeling what data would be extracted with the previously generated configuration run `goskyr`. In our case, this should print a number of json items containing concert info. Now that you have an idea of what data is scraped with the current configuration, we need to adapt a few things for this specific use case.
 
    1. Field names
 
@@ -62,7 +62,15 @@ We'll demonstrate the process for the location "Konzerthaus Schüür" with the u
 
    1. Check the output
 
-      Run `./goskyr` again and check whether the output makes sense. If it does, change the value of the `name` field to the name of the location and copy the config snippet to the corresponding file in the `config` directory. The example location has already been added to the corresponding configuration file so you can see the final version there.
+      Run `goskyr` again and check whether the output makes sense. If it does, change the value of the `name` field to the name of the location and copy the config snippet to the corresponding file in the `config` directory. The example location has already been added to the corresponding configuration file so you can see the final version there.
+
+   1. Final validation against the API
+
+      Run the following command to validate the new scraper's output against the api.
+
+      ```
+      goskyr -c config -s <scraper-name> --dryrun
+      ```
 
 1. **Make a pull request**
 
