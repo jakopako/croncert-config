@@ -22,6 +22,11 @@ scrapers:
         location:
           - selector: div.event-info.single-day:nth-child(2) > div.event-title > h3 > a
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.event-info.single-day > div.event-details > p > a
+            attr: href
       - name: date
         type: date
         components:
@@ -73,6 +78,16 @@ scrapers:
         location:
           - selector: a[data-hook="ev-rsvp-button"]
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: wow-image > img
+            attr: src
+        transform:
+          # unblur some weird blured image url
+          - type: regex-replace
+            regex: "w_147.*enc_auto"
+            replace: "w_100,h_100,fp_0.50_0.50,q_80,usm_0.66_1.00_0.01,enc_auto"
       - name: title
         type: text
         location:
@@ -122,6 +137,11 @@ scrapers:
         type: url
         location:
           - attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.thumb > img
+            attr: data-src
       - name: date
         type: date
         on_subpage: url
@@ -138,14 +158,14 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div > div > div.col-3.col-md-12.col-sm-12.info.agenda-info > div > table > tbody > tr:nth-child(4) > td:nth-child(2) > b
+              selector: div > div > div.col-3.col-md-12.col-sm-12.info.agenda-info > div > table > tbody > tr.price-table__item--Arrival > td:nth-child(2) > b
             layout: ["15:04u"]
         date_location: CET
         date_language: nl_BE
 
   - name: Bitterzoet
     url: https://www.bitterzoet.com/agenda/
-    item: div.agenda-page__agenda-item > div.agenda-item.agenda-item--lg > div.agenda-item__container--text > div.agenda-item__container--text--inner
+    item: div.agenda-page__agenda-item > div.agenda-item.agenda-item--lg
     fields:
       - name: "location"
         value: Bitterzoet
@@ -160,12 +180,24 @@ scrapers:
       - name: url
         type: url
         location:
-          - selector: div.agenda-item__buy-tickets > a
+          - selector: div.agenda-item__container--text > a
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: a > div.agenda-item__image
+            attr: style
+            regex_extract:
+              exp: "https://[^)]+"
       - name: title
         type: text
         location:
           - selector: a > div.agenda-item__title:nth-child(4) > div.title-component
+      - name: genresText
+        type: text
+        location:
+          - selector: a > div.agenda-item__subtitle:nth-child(5)
+        can_be_empty: true
       - name: comment
         type: text
         location:
@@ -215,6 +247,12 @@ scrapers:
         location:
           - selector: header.tribe-events-calendar-list__event-header > h3.tribe-common-h4--min-medium.tribe-common-h6.tribe-events-calendar-list__event-title > a.tribe-common-anchor-thin.tribe-events-calendar-list__event-title-link
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.tribe-events-calendar-list__event-featured-image-wrapper.tribe-common-g-col > a > img
+            attr: src
+        can_be_empty: true
       - name: date
         type: date
         components:
@@ -231,7 +269,7 @@ scrapers:
 
   - name: DeNieuweAnita
     url: https://denieuweanita.nl/
-    item: div.vc_column_container.wpb_column > div.vc_column-inner > div.wpb_wrapper > div.vc_clearfix > div.vc_basic_grid.vc_grid-container.wpb_content_element > div.vc_row > div.vc_pageable-slide-wrapper > div.vc_clearfix.vc_grid-item > div.vc_grid-item-mini > div.vc_gitem-animated-block > div > div > div.vc_row
+    item: "#us_grid_2 > div.w-grid-list > article.agenda"
     fields:
       - name: "location"
         value: De Nieuwe Anita
@@ -246,43 +284,32 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: div:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
+          - selector: div > h2.w-post-elm.post_title.usg_post_title_1.entry-title
       - name: url
         type: url
         location:
-          - selector: div:nth-child(3) > div.vc_custom_heading.vc_gitem-post-data.vc_gitem-post-data-source-post_title > h6 > a.vc_gitem-link
+          - selector: a
             attr: href
-      - name: eventType
-        type: text
-        location:
-          - selector: div.vc_col-sm-1.vc_gitem-col.vc_custom_1697709766737 > div
-        hide: true
       - name: date
         type: date
         components:
           - covers:
               time: true
             location:
-              selector: div > div.vc_gitem-acf.time-agenda.vc_gitem-align-center
+              selector: div.w-post-elm.post_custom_field.usg_post_custom_field_3.type_text.agenda_time_start.color_link_inherit > span
+              default: "20:00"
             layout:
-              - 15:04 pm
+              - 15:04
           - covers:
               day: true
               month: true
             location:
-              selector: div > div.vc_gitem-post-meta-field-_agenda_short_date.date-agenda.vc_gitem-align-center
+              selector: div.w-post-elm.post_custom_field.usg_post_custom_field_2.type_text._space_yearless_date.color_link_inherit > span
             layout:
-              - January 2
+              - 2 Jan
         date_location: CET
         date_language: en_US
         guess_year: true
-    filters:
-      - field: eventType
-        exp: b
-        match: false
-      - field: eventType
-        exp: 1
-        match: false
 
   # this venue website would benefit from a scrolling function to be able to scrape more events
   - name: Paradiso
@@ -302,6 +329,10 @@ scrapers:
         location:
           - selector: h2.chakra-heading
       - name: comment
+        type: text
+        location:
+          - selector: p.chakra-text
+      - name: genresText
         type: text
         location:
           - selector: p.chakra-text
