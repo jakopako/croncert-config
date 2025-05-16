@@ -41,7 +41,7 @@ scrapers:
         date_location: America/New_York
         date_language: en_US
     render_js: true
-    page_load_wait: 3000
+    page_load_wait: 4000
 
   - name: CenterStage
     url: https://www.centerstage-atlanta.com/
@@ -66,15 +66,23 @@ scrapers:
         location:
           - selector: a.event-link
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: src
       - name: date
         type: date
         components:
           - covers:
               time: true
             location:
-              selector: div.event-action > div.event-item-content > div.event-info > div.event-details:nth-child(5) > div.event-show_time:nth-child(4)
+              selector: div.event-details-visible > div.event-show_time
+              regex_extract:
+                exp: "[0-9]{1,2}:[0-9]{2} [ap]m"
+                index: -1
             layout:
-              - Show 15:04 pm
+              - 15:04 pm
           - covers:
               day: true
               month: true
