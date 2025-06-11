@@ -92,7 +92,7 @@ scrapers:
             location:
               selector: div.grid-item > div.event-title > p.event-date
               regex_extract:
-                exp: "[0-9]{2}"
+                exp: "[0-9]{1,2}"
                 index: 1
             layout:
               - 1
@@ -101,7 +101,7 @@ scrapers:
             location:
               selector: div.grid-item > div.event-title > p.event-date
               regex_extract:
-                exp: "[0-9]{2,4}"
+                exp: "[0-9]{1,4}"
                 index: 2
             layout:
               - 06
@@ -127,6 +127,9 @@ scrapers:
       - field: "title"
         exp: ".*(?i)(abgesagt).*"
         match: false
+      - field: "title"
+        exp: "Infos zum geschlossenen HUMBUG"
+        match: false
       - field: title
         exp: ".*UshaltBAR.*"
         match: false
@@ -135,8 +138,8 @@ scrapers:
         match: true
 
   - name: ParterreOne
-    url: "https://www.parterre.net/de/musik-kultur/one-music/programm?category=1"
-    item: "section.oneprog .upcomingprev"
+    url: "https://parterre-one.ch/klub-kultur/"
+    item: "div.col-12.col-md-6.animation-fade"
     fields:
       - name: "location"
         value: "Parterre One"
@@ -144,21 +147,30 @@ scrapers:
         value: "Basel"
       - name: country
         value: Switzerland
-      - name: "type"
-        value: "concert"
       - name: "sourceUrl"
         value: "https://www.parterre.net/de/musik-kultur/one-music/programm?category=1"
       - name: "title"
         location:
-          selector: ".smalltext h2"
+          selector: "div > h3"
+      - name: "type"
+        type: text
+        location:
+          selector: "div > span.card-categories-subheader"
+        transform:
+          - type: regex-replace
+            regex: "Konzert"
+            replace: concert
+          - type: regex-replace
+            regex: "Party"
+            replace: party
       - name: "url"
         type: "url"
         location:
-          selector: ".pic a"
+          selector: "a"
       - name: imageUrl
         type: url
         location:
-          selector: div.pic > a > img
+          selector: "div > img"
           attr: src
       - name: "date"
         type: "date"
@@ -169,14 +181,14 @@ scrapers:
               month: true
               year: true
             location:
-              selector: ".datetime dd"
+              selector: "div > div:nth-child(1) > span.fs-35.fw-light"
             layout: ["02.01.2006"]
           - covers:
               time: true
             location:
-              selector: ".datetime dd:nth-chid(6)"
-            layout: ["15:04"]
-        date_location: "Europe/Berlin"
+              selector: "div > div:nth-child(3) > span.fs-35.fw-light.text-uppercase"
+            layout: ["15:04 Uhr"]
+        date_location: "CET"
 
   - name: KaserneBasel
     url: https://kaserne-basel.ch/en
