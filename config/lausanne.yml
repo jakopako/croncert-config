@@ -375,6 +375,7 @@ scrapers:
   - name: Fête de la Musique Lausanne
     url: https://fetemusiquelausanne.ch/programme/
     item: a.card--artist
+    render_js: true
     fields:
       - name: "type"
         value: "concert"
