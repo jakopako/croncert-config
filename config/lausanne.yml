@@ -383,10 +383,12 @@ scrapers:
         value: "Lausanne"
       - name: country
         value: Switzerland
+      - name: sourceUrl
+        value: "https://fetemusiquelausanne.ch/programme/"
       - name: title
         type: text
         location:
-          - selector: div.card-content > div.card-header > h3 
+          - selector: div.card-content > div.card-header > h3
       - name: url
         type: url
         location:
@@ -396,7 +398,7 @@ scrapers:
         location:
           - selector: picture > img
             attr: src
-      - name: style
+      - name: genresText
         type: text
         location:
           - selector: div.categories > span.category
@@ -432,7 +434,6 @@ scrapers:
           entire_subtree: true
         on_subpage: url
         can_be_empty: true
-
 
   - name: JazzOnze
     url: https://jazzonzeplus.ch/
