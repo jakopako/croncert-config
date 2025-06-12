@@ -372,6 +372,69 @@ scrapers:
                 exp: "(-[0-9]{2}){3}"
             layout: ["-15-04-00"]
 
+  - name: Fête de la Musique Lausanne
+    url: https://fetemusiquelausanne.ch/programme/
+    item: a.card--artist
+    render_js: true
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: country
+        value: Switzerland
+      - name: sourceUrl
+        value: "https://fetemusiquelausanne.ch/programme/"
+      - name: title
+        type: text
+        location:
+          - selector: div.card-content > div.card-header > h3
+      - name: url
+        type: url
+        location:
+          attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: picture > img
+            attr: src
+      - name: genresText
+        type: text
+        location:
+          - selector: div.categories > span.category
+            all_nodes: true
+            separator: ", "
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              default: "06-21"
+            layout: ["01-02"]
+          - covers:
+              time: true
+            location:
+              selector: span.time
+              default: "09h00"
+            layout: ["15h04"]
+        date_location: "Europe/Paris"
+        date_language: "fr_FR"
+        guess_year: true
+      - name: location
+        type: text
+        location:
+          selector: span.place
+      - name: comment
+        type: text
+        location:
+          selector: div.content
+          entire_subtree: true
+        on_subpage: url
+        can_be_empty: true
+
   - name: JazzOnze
     url: https://jazzonzeplus.ch/
     item: body > div.hfeed.site > div.site-content > section.blank_template.clearfix.parallax-section > div.mid-content > div.rfp-shortcode-6346.rfp-wrapper > div.rfp-grids.rfp-posts > div.item.md3.rfp-grid.rfp-item
