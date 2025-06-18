@@ -103,7 +103,7 @@ scrapers:
     item: body > main.clearfix > section > div.container-fluid > ul.targets > li.kalender-uebersicht
     fields:
       - name: "location"
-        value: JAZZ Studio
+        value: Jazzstudio
       - name: "city"
         value: "Nuremberg"
       - name: "country"
