@@ -551,7 +551,7 @@ scrapers:
 
   - name: Feierwerk
     url: https://www.feierwerk.de/konzert-kulturprogramm/kkp/
-    item: body.page-1390.pidir-150 > div > div.outercontainer > div.container960 > div.row-fluid > div.maincontent.span9 > div.row-fluid > div.span12 > div.event
+    item: div.row-fluid > div.span12 > div.search-results > div.event
     fields:
       - name: type
         value: concert
@@ -617,9 +617,10 @@ scrapers:
       - field: status
         exp: Abgesagt
         match: false
-    paginator:
-      location:
-        selector: li.next > a
+    # disabled for now, because it does not work anymore
+    # paginator:
+    #   location:
+    #     selector: li.next > a
 
   - name: Clubzwei
     url: https://www.clubzwei.de/
