@@ -824,6 +824,9 @@ scrapers:
               time: true
             location:
               default: "20:00"
+              selector: "a > time"
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
