@@ -210,8 +210,8 @@ scrapers:
           selector: div.row.sk_indent.gig.xs-card > div.col-xs-12.col-sm-8.col-md-7.card > div.hidden-xs > div.tickets > a.boxoffice.ticket_link.information
           attr: href
 
-  - name: DClub
-    url: https://dclub.ch/agenda/
+  - name: ABCClub
+    url: https://dclub.ch/agenda/?place=abc
     item: div.dclub-agenda > div.date_container > div.events_container > div.event
     fields:
       - name: "type"
@@ -221,9 +221,9 @@ scrapers:
       - name: country
         value: Switzerland
       - name: "location"
-        value: "D! Club"
+        value: "ABC Club"
       - name: "sourceUrl"
-        value: "https://dclub.ch/agenda/"
+        value: "https://dclub.ch/agenda/?place=abc"
       - name: style
         type: text
         location:
@@ -235,12 +235,10 @@ scrapers:
           attr: href
       - name: imageUrl
         type: url
-        can_be_empty: true
+        # can_be_empty: true
         location:
           selector: a.image > img
-          attr: data-lazy-srcset
-          regex_extract:
-            exp: "[^ ]+"
+          attr: src
       - name: title
         type: text
         location:
@@ -277,6 +275,81 @@ scrapers:
         can_be_empty: true
         location:
           selector: div.dclub-date-content > div > p
+    # filters:
+    #   - field: imageUrl
+    #     exp: ""
+    #     match: false
+
+  - name: DClub
+    url: https://dclub.ch/agenda/?place=d-club
+    item: div.dclub-agenda > div.date_container > div.events_container > div.event
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Lausanne"
+      - name: country
+        value: Switzerland
+      - name: "location"
+        value: "D! Club"
+      - name: "sourceUrl"
+        value: "https://dclub.ch/agenda/?place=d-club"
+      - name: style
+        type: text
+        location:
+          selector: div.info > div.details > p.style
+      - name: url
+        type: url
+        location:
+          selector: a.main
+          attr: href
+      - name: imageUrl
+        type: url
+        # can_be_empty: true
+        location:
+          selector: a.image > img
+          attr: src
+      - name: title
+        type: text
+        location:
+          - selector: header.dtitle
+            entire_subtree: true
+          - selector: div.header > .artist
+            entire_subtree: true
+            all_nodes: true
+            separator: ", "
+        separator: " - "
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: a.main
+              attr: href
+              regex_extract:
+                exp: "[0-9]{8}"
+            layout: ["20060102"]
+          - covers:
+              time: true
+            location:
+              selector: div.details > p.door
+            layout: ["Porte: 15:04"]
+        date_location: "Europe/Berlin"
+        date_language: "fr_FR"
+      - name: comment
+        type: text
+        on_subpage: "url"
+        can_be_empty: true
+        location:
+          selector: div.dclub-date-content > div > p
+    # filters:
+    #   - field: imageUrl
+    #     exp: ""
+    #     match: false
+
 
   - name: Docks
     url: https://www.docks.ch/programme/
