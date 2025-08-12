@@ -235,7 +235,7 @@ scrapers:
           attr: href
       - name: imageUrl
         type: url
-        # can_be_empty: true
+        can_be_empty: true
         location:
           selector: a.image > img
           attr: src
@@ -269,16 +269,28 @@ scrapers:
             layout: ["Porte: 15:04"]
         date_location: "Europe/Berlin"
         date_language: "fr_FR"
+      - name: locationTag
+        type: text
+        location:
+          selector: div.place-image > img
+          attr: class
       - name: comment
         type: text
         on_subpage: "url"
         can_be_empty: true
         location:
           selector: div.dclub-date-content > div > p
-    # filters:
-    #   - field: imageUrl
-    #     exp: ""
-    #     match: false
+    filters:
+      # we want all non-empty imageUrls. match: false and exp: "" would not work here.
+      - field: imageUrl
+        exp: ".+"
+        match: true
+      # we want all events that are tagged with "abc". However, we cannot use
+      # match: true and exp: "abc" because this would behave like an 'or' condition
+      # together with the previous filter. Hence, we have to 'invert' the logic.
+      - field: locationTag
+        exp: "dclub"
+        match: false
 
   - name: DClub
     url: https://dclub.ch/agenda/?place=d-club
@@ -305,7 +317,7 @@ scrapers:
           attr: href
       - name: imageUrl
         type: url
-        # can_be_empty: true
+        can_be_empty: true
         location:
           selector: a.image > img
           attr: src
@@ -339,17 +351,28 @@ scrapers:
             layout: ["Porte: 15:04"]
         date_location: "Europe/Berlin"
         date_language: "fr_FR"
+      - name: locationTag
+        type: text
+        location:
+          selector: div.place-image > img
+          attr: class
       - name: comment
         type: text
         on_subpage: "url"
         can_be_empty: true
         location:
           selector: div.dclub-date-content > div > p
-    # filters:
-    #   - field: imageUrl
-    #     exp: ""
-    #     match: false
-
+    filters:
+      # we want all non-empty imageUrls. match: false and exp: "" would not work here.
+      - field: imageUrl
+        exp: ".+"
+        match: true
+      # we want all events that are tagged with "dclub". However, we cannot use
+      # match: true and exp: "dclub" because this would behave like an 'or' condition
+      # together with the previous filter. Hence, we have to 'invert' the logic.
+      - field: locationTag
+        exp: "abc"
+        match: false
 
   - name: Docks
     url: https://www.docks.ch/programme/
