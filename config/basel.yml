@@ -248,7 +248,8 @@ scrapers:
         date_location: CET
         date_language: en_US
         guess_year: true
-    render_js: true
+    fetcher:
+      type: dynamic
     filters:
       - field: "eventType"
         exp: "Theatre"

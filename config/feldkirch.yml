@@ -37,4 +37,5 @@ scrapers:
         type: text
         location:
           selector: div.row_events > a.event.w-inline-block > div.event-lead > div.event-title-alt > h3.event-title-text
-    render_js: true
+    fetcher:
+      type: dynamic

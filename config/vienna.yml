@@ -108,7 +108,8 @@ scrapers:
         date_location: CET
         date_language: de_DE
         guess_year: true
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click
         selector: div.ectbe-pagination > div > a > span
@@ -285,7 +286,8 @@ scrapers:
             layout: ["02"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
-    render_js: true
+    fetcher:
+      type: dynamic
     paginator:
       location:
         selector: "#dnn_ctr1076_ViewEventListDirectTicketing_ctl01 > div:nth-child(4) > div > p:nth-child(3) > a:nth-child(3)"

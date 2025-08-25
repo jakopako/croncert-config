@@ -40,8 +40,9 @@ scrapers:
               - Mon, Jan 2, 2006 15:04 PM
         date_location: America/New_York
         date_language: en_US
-    render_js: true
-    page_load_wait: 4000
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 4000
 
   - name: CenterStage
     url: https://www.centerstage-atlanta.com/
@@ -92,7 +93,8 @@ scrapers:
               - Mon Jan 2
         date_location: America/New_York
         date_language: en_US
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click
         selector: "#main > section.events-section > div.events-listing > div > div.view-more-shows-wrap > a"
@@ -140,5 +142,6 @@ scrapers:
               - Mon, Jan 2, 2006 15:04 PM
         date_location: America/New_York
         date_language: en_US
-    render_js: true
-    page_load_wait: 3000
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 3000

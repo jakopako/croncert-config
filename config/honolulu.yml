@@ -46,4 +46,5 @@ scrapers:
               - 2006-01-02
         date_location: HST
         date_language: en_US
-    render_js: true
+    fetcher:
+      type: dynamic

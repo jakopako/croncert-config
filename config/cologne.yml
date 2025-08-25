@@ -98,7 +98,8 @@ scrapers:
           - selector: div.decm-show-detail-center > span.decm-show-data-display-block.duration.ecs-eventTime.eventTime-ecs-icon.time > span.decm-show-data-display-block.duration.ecs-venue.venue.venue-ecs-icon > span.decm_venue
             regex_extract:
               exp: "[a-zA-Z]+( [a-zA-Z]+)?"
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click
         selector: div.et_pb_section.et_pb_section_1.et_section_regular > div > div > div > div > div > div > div.event_ajax_load.et_pb_button_wrapper > a

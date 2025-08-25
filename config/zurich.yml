@@ -196,7 +196,8 @@ scrapers:
           selector: span.block.paragraph-2 > span.paragraph-2 > span
           all_nodes: true
           separator: " "
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click
         selector: main > section:nth-child(4) > div.justify-between > div > button:nth-child(2)
@@ -357,7 +358,8 @@ scrapers:
         location:
           selector: ".subtitle strong"
         can_be_empty: true
-    render_js: true
+    fetcher:
+      type: dynamic
     filters:
       - field: "title"
         exp: "Verschoben.*"
@@ -612,7 +614,8 @@ scrapers:
   - name: X-TRA
     url: "https://www.x-tra.ch/en/program/concerts/"
     item: ".events .tile li"
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click # accept coockies
         selector: div.ccm-modal--body > div.ccm-widget--buttons > button.button.ccm--save-settings.ccm--button-primary.ccm--ctrl-init
@@ -897,8 +900,9 @@ scrapers:
               - Mon. 2/1/2006
         date_location: CET
         date_language: de_DE
-    render_js: true
-    page_load_wait: 3000
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 3000
     filters:
       - field: eventType
         exp: "Konzert"
@@ -1081,7 +1085,8 @@ scrapers:
             layout: ["15:04"]
         date_location: CET
         date_language: de_DE
-    render_js: true
+    fetcher:
+      type: dynamic
 
   - name: Plaza
     url: https://www.plaza-zurich.ch/nu/events/event_list_type/2
@@ -1138,7 +1143,8 @@ scrapers:
   - name: RoteFabrik
     url: "https://rotefabrik.ch/de/programm.html#/calendar/konzert/"
     item: ".rf-calendar-container > article"
-    render_js: true
+    fetcher:
+      type: dynamic
     fields:
       - name: "location"
         value: "Rote Fabrik"
@@ -1240,7 +1246,8 @@ scrapers:
               selector: div.events_event_starttime__iwhoE > span
             layout: ["15:04"]
         date_location: CET
-    render_js: true
+    fetcher:
+      type: dynamic
     filters:
       - field: "eventType"
         exp: ".*Concert.*"
@@ -1533,7 +1540,8 @@ scrapers:
         date_location: CET
         date_language: de_DE
         guess_year: true
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click
         selector: body > div.wrap > div > main > div.container-fluid > button
@@ -1634,7 +1642,8 @@ scrapers:
             layout:
               - 2.1.2006
         date_location: CET
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click
         selector: div.mec-load-more-wrap > div
@@ -1741,7 +1750,8 @@ scrapers:
               - 2. January 2006, ab 15 Uhr
         date_location: CET
         date_language: de_DE
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click
         selector: section > div:nth-child(7) > div > div > div > div > div > div > div > div > div.load-more-container > a > span
@@ -1853,7 +1863,8 @@ scrapers:
               - Mon. 2.1.2006
         date_location: CET
         date_language: de_DE
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click
         selector: "#container-async > button"
@@ -2029,7 +2040,8 @@ scrapers:
               - 2. Jan. 2006, 15:04
         date_location: CET
         date_language: de_DE
-    render_js: true
+    fetcher:
+      type: dynamic
     filters:
       - field: title
         exp: "KARAOKE.*"
@@ -2501,7 +2513,8 @@ scrapers:
   - name: Ziegelhuette
     url: https://wirtschaft-ziegelhuette.ch/aktuell/kegelkonzert-19-4
     item: div.page-content > h4 > strong
-    render_js: true
+    fetcher:
+      type: dynamic
     fields:
       - name: city
         value: "Zurich"

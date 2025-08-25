@@ -33,4 +33,5 @@ scrapers:
         type: text
         location:
           - selector: h2.card__title.h3
-    render_js: true
+    fetcher:
+      type: dynamic

@@ -2,7 +2,8 @@ scrapers:
   - name: Smallslive
     url: https://www.smallslive.com/events/calendar/
     item: .day-list .day-event
-    render_js: true
+    fetcher:
+      type: dynamic
     fields:
       - name: type
         value: concert

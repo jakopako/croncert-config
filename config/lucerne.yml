@@ -85,8 +85,9 @@ scrapers:
               - Monday 2.1.2006
         date_location: CET
         date_language: de_DE
-    render_js: true
-    page_load_wait: 5000
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 5000
     paginator:
       location:
         selector: div.paginatorContainer > div > button:nth-child(3)

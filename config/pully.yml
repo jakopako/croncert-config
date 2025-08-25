@@ -46,7 +46,8 @@ scrapers:
               - Mon. 2.1.2006
         date_location: CET
         date_language: fr_FR
-    render_js: true
+    fetcher:
+      type: dynamic
     filters:
       - field: date
         exp: "> now"
@@ -103,7 +104,8 @@ scrapers:
               - Mon. 2.1.2006
         date_location: CET
         date_language: fr_FR
-    render_js: true
+    fetcher:
+      type: dynamic
     filters:
       - field: date
         exp: "> now"

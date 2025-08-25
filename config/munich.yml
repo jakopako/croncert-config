@@ -663,7 +663,8 @@ scrapers:
               - "2006-01-02T15:04:05-07:00"
         date_location: CET
         date_language: de_DE
-    render_js: true
+    fetcher:
+      type: dynamic
     filters:
       - field: location
         exp: Ampere # already covered

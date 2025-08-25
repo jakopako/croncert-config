@@ -714,7 +714,8 @@ scrapers:
   - name: SalleMetropole
     url: https://sallemetropole.ch/les-spectacles/
     item: div.spectacles > div.spectacles__in > a.spectacles__item
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction: # the only way we can filter for concerts on this website
       - type: click
         selector: "#tab-body-1 > form > div.filters__left > div.filters__item.filters__item--programm.custom-select > div > button > span.filter-option.pull-left"
@@ -905,7 +906,8 @@ scrapers:
         location:
           selector: div.wpem-event-infomation > div.wpem-event-details > div.wpem-event-date-time > span.wpem-event-date-time-text > div.wpem-event-date-time > span.wpem-event-date-time-text
         can_be_empty: true
-    render_js: true
+    fetcher:
+      type: dynamic
     filters:
       - field: "eventType"
         exp: "Concert"

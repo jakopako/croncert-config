@@ -53,9 +53,10 @@ scrapers:
         type: text
         location:
           - selector: div.listingBody > h3 > a
-    render_js: true
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 3000
     filters:
       - field: date
         exp: "> now"
         match: true
-    page_load_wait: 3000

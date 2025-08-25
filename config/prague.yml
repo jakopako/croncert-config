@@ -2,7 +2,8 @@ scrapers:
   - name: "CafeVLese"
     url: "https://cafevlese.cz/kompletni-program/#"
     item: "article.mec-event-article"
-    render_js: true
+    fetcher:
+      type: dynamic
     fields:
       - name: "location"
         value: "Café V Lese"
@@ -215,7 +216,8 @@ scrapers:
 
   - name: Agharta
     url: https://www.agharta.cz/
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       - type: click
         selector: div.inner-content > div.content-sections > strong > a

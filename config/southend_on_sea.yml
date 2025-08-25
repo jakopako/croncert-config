@@ -2,7 +2,8 @@ scrapers:
   - name: CliffsPavilion
     url: https://trafalgartickets.com/cliffs-pavilion-southend/en-GB/whats-on
     item: a.flex.flex-col.focus\:outline-none.focus\:ring-2.focus\:ring-offset-1.focus\:ring-offset-white.group.lg\:max-w-sm.overflow-visible.relative.rounded.size-full.text-left
-    render_js: true
+    fetcher:
+      type: dynamic
     interaction:
       # cookie banner
       - type: click

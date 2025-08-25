@@ -217,7 +217,8 @@ scrapers:
               - Monday 2 January  2006 / 15:04
         date_location: CET
         date_language: nl_BE
-    render_js: true
+    fetcher:
+      type: dynamic
 
   - name: MaloeMelo
     url: https://www.maloemelo.com/events/
@@ -370,7 +371,8 @@ scrapers:
         date_language: nl_BE
         date_location: CET
         guess_year: true
-    render_js: true
+    fetcher:
+      type: dynamic
     filters:
       - field: location
         exp: Bitterzoet # already covered by a different scraper

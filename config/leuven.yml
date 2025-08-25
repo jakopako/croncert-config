@@ -129,14 +129,20 @@ scrapers:
             location:
               selector: time
               attr: datetime
-            layout: ["2006-01-02T15:04:00+01:00", "2006-01-02T15:04:00+02:00", "2006-01-02 "]
+            layout:
+              [
+                "2006-01-02T15:04:00+01:00",
+                "2006-01-02T15:04:00+02:00",
+                "2006-01-02 ",
+              ]
         date_location: "Europe/Berlin"
         date_language: "nl_BE"
 
   - name: BlauweKater
     url: http://www.blauwekater.be/events.html
     item: .rTable .rTableRow
-    render_js: true
+    fetcher:
+      type: dynamic
     fields:
       - name: "type"
         value: "concert"
