@@ -135,3 +135,60 @@ scrapers:
         date_location: CET
         date_language: de_DE
         guess_year: true
+
+  - name: Jazzkantine
+    url: https://www.jazzkantine.com/veranstaltungen
+    item: div.eventlist.eventlist--upcoming > article.eventlist-event.eventlist-event--hasimg.eventlist-hasimg.is-loaded
+    fields:
+      - name: "location"
+        value: Jazzkantine
+      - name: "city"
+        value: "Lucerne"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: https://www.jazzkantine.com/veranstaltungen
+      - name: comment
+        type: text
+        can_be_empty: true
+        location:
+          - selector: div.eventlist-column-info > div.eventlist-description > div.columns-12.sqs-grid-12.sqs-layout > div.row.sqs-row > div.col.span-12.sqs-col-12 > div.html-block.sqs-block.sqs-block-html > div.sqs-block-content > div.sqs-html-content > p
+            entire_subtree: true
+      - name: title
+        type: text
+        location:
+          - selector: div.eventlist-column-info > h1.eventlist-title > a.eventlist-title-link
+      - name: url
+        type: url
+        location:
+          - selector: div.eventlist-column-info > h1.eventlist-title > a.eventlist-title-link
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: a.content-fill.eventlist-column-thumbnail > img
+            attr: src
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.eventlist-column-info > ul.event-meta.eventlist-meta > li.event-meta-item.eventlist-meta-item.eventlist-meta-time > span.event-time-localized > time.event-time-localized-start
+            layout:
+              - "15:04"
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.eventlist-column-info > ul.event-meta.eventlist-meta > li.event-meta-item.eventlist-meta-date.eventlist-meta-item > time.event-date
+            layout:
+              - Monday, 2. January 2006
+        date_location: CET
+        date_language: de_DE
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 2000
