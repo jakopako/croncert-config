@@ -29,7 +29,7 @@ jobs:
 
       # Install go binary
       - name: Install the scraper
-        run: go install github.com/jakopako/goskyr@v0.6.1
+        run: go install github.com/jakopako/goskyr@v0.6.2
 
       # Runs a single command using the runners shell
       - name: Run the scraper
@@ -37,4 +37,3 @@ jobs:
         env:
           WRITER_USER: ${{ secrets.WRITER_USER }}
           WRITER_PASSWORD: ${{ secrets.WRITER_PASSWORD }}
-          WRITER_URI: ${{ secrets.WRITER_URI }}
