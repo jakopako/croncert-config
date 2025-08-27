@@ -9,6 +9,7 @@ writer:
   # user: croncert
   # password: croncert
   type: "api"
+  uri: "https://api.concertcloud.live/api/events"
   uri_dryrun: "https://api.concertcloud.live/api/events/validate"
   uri_status: "https://api.concertcloud.live/api/status"
   write_status: true
