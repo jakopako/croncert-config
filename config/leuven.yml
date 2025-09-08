@@ -91,6 +91,10 @@ scrapers:
       location:
         selector: "a.next"
         attr: href
+    filters:
+      - field: title
+        exp: "Hackathon"
+        match: false
 
   - name: Lemmens
     url: https://www.luca-arts.be/nl/concerten-evenementen

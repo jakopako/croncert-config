@@ -46,6 +46,8 @@ scrapers:
         type: text
         location:
           - selector: section.eventCard__details.isprice > div.eventCard__details__description > p
+        can_be_empty: true
+      # TODO include genres from web site
     filters:
       - field: title
         exp: "Canceled.*"
