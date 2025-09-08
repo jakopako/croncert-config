@@ -101,3 +101,72 @@ scrapers:
       - field: date
         exp: "> now"
         match: true
+
+  - name: BarLabuesch
+    url: https://bar.labuesch.ch/#events
+    item: div.wb-anim.wb-anim-zoom-in.wb-store-item
+    fields:
+      - name: "city"
+        value: "Winterthur"
+      - name: "country"
+        value: "Switzerland"
+      - name: "type"
+        value: "concert"
+      - name: "location"
+        value: "Labuesch Bar"
+      - name: "sourceUrl"
+        value: https://bar.labuesch.ch/#events
+      - name: title
+        type: text
+        location:
+          - selector: div.wb-store-name > a
+            regex_extract:
+              exp: "[^-]+"
+              index: 1
+      - name: url
+        type: url
+        location:
+          - selector: div.wb-store-name > a
+            attr: href
+      - name: comment
+        type: text
+        on_subpage: "url"
+        location:
+          - selector: div > div > div.wb-store-properties > div.wb-store-desc > div:nth-child(2)
+            entire_subtree: true
+      - name: date
+        type: date
+        on_subpage: "url"
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div > div > div.wb-store-properties > table > tbody
+              entire_subtree: true
+              regex_extract:
+                exp: "([0-9]{2}\\.){2}[0-9]{4}"
+                index: 0
+            layout: ["02.01.2006"]
+          - covers:
+              time: true
+            location:
+              selector: div > div > div.wb-store-properties > table > tbody
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2} Uhr"
+                index: 1
+            layout: ["15.04 Uhr"]
+        date_location: "Europe/Zurich"
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.wb-store-thumb > a > img
+            attr: src
+    fetcher:
+      type: static
+    filters:
+      - field: title
+        exp: "Tanzkurs"
+        match: false
