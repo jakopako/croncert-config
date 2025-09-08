@@ -1752,10 +1752,11 @@ scrapers:
         date_language: de_DE
     fetcher:
       type: dynamic
-    interaction:
-      - type: click
-        selector: section > div:nth-child(7) > div > div > div > div > div > div > div > div > div.load-more-container > a > span
-        count: 2
+    # Sometimes there is no button, if there are only few events. So we comment this out for now. Need to solve this more elegantly later.
+    # interaction:
+    #   - type: click
+    #     selector: section > div:nth-child(7) > div > div > div > div > div > div > div > div > div.load-more-container > a > span
+    #     count: 2
 
   - name: ZoaCity
     url: https://zoacity.ch/
