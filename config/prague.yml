@@ -233,14 +233,23 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://www.agharta.cz/"
+      - name: colspan
+        location:
+          selector: td:nth-child(3)
+          attr: colspan
+        can_be_empty: true
+        hide: true
       - name: title
         location:
-          selector: a.month_list
+          - selector: a.month_list
+          - selector: td:nth-child(3) > span
+        separator: ""
       - name: url
         type: url
         location:
           selector: a.month_list
           attr: href
+          default: "https://www.agharta.cz/"
       - name: date
         type: date
         components:
@@ -258,6 +267,11 @@ scrapers:
             layout: ["15:04"]
         date_location: CET
         guess_year: true
+    filters:
+      # a little hack to filter out rows that are not events and prevent 'empty field' errors
+      - field: colspan
+        exp: "2"
+        match: false
 
   - name: ForumKarlin
     url: https://www.forumkarlin.cz/en/events/

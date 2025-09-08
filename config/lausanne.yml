@@ -228,6 +228,11 @@ scrapers:
         type: text
         location:
           selector: div.info > div.details > p.style
+      - name: locationTag
+        type: text
+        location:
+          selector: div.place-image > img
+          attr: class
       - name: url
         type: url
         location:
@@ -269,11 +274,6 @@ scrapers:
             layout: ["Porte: 15:04"]
         date_location: "Europe/Berlin"
         date_language: "fr_FR"
-      - name: locationTag
-        type: text
-        location:
-          selector: div.place-image > img
-          attr: class
       - name: comment
         type: text
         on_subpage: "url"
