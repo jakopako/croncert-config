@@ -47,7 +47,13 @@ scrapers:
         location:
           - selector: section.eventCard__details.isprice > div.eventCard__details__description > p
         can_be_empty: true
-      # TODO include genres from web site
+      - name: genresText
+        type: text
+        location:
+          - selector: div.eventAdditional-tags > ul > li > span
+            all_nodes: true
+            separator: ", "
+        can_be_empty: true
     filters:
       - field: title
         exp: "Canceled.*"
