@@ -1,4 +1,60 @@
 scrapers:
+  - name: Albani
+    url: https://www.albani.ch/de/programm.html
+    item: div.accWrap
+    fields:
+      - name: "location"
+        value: "Albani"
+      - name: "city"
+        value: "Winterthur"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.albani.ch/de/programm.html"
+      - name: url
+        type: url
+        location:
+          - selector: div > a
+            attr: data-acc-ref
+      - name: title
+        type: text
+        location:
+          - selector: div.albani-event-label > span
+            all_nodes: true
+            separator: " "
+      - name: comment
+        type: text
+        location:
+          - selector: div.albani-event-textblock > p
+            all_nodes: true
+            separator: "\n"
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: data-src
+      - name: date
+        type: date
+        guess_year: true
+        components:
+          - covers:
+              day: true    
+              month: true
+            location:
+              selector: div.albani-event-date > span.date
+            layout: ["Mon 02.01"]
+          - covers:
+              time: true
+            location:
+              selector: div.albani-event-date > span.subline
+            layout: ["15:04 UHR"]
+        date_location: CET
+        date_language: de_DE
+    fetcher:
+      type: static
+
   - name: Salzhaus
     url: "https://www.salzhaus.ch/de/programm.html"
     item: ".sHprogramm"
