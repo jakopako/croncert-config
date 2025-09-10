@@ -43,9 +43,6 @@ scrapers:
         location:
           - selector: div.ic-title-cat > a
         can_be_empty: true
-      - name: bla
-        location:
-          selector: span.ic-single-next, span.ic-period-startdate, span.ic-single-startdate
       - name: date
         type: date
         components:
