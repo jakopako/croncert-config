@@ -2,7 +2,7 @@ scrapers:
   - name: ESSE
     url: https://www.esse-musicbar.ch/index.php/veranstaltungen/live-veranstaltiungen
     item: div.ic-list-event
-    fields: 
+    fields:
       - name: "location"
         value: "ESSE"
       - name: "city"
@@ -43,15 +43,18 @@ scrapers:
         location:
           - selector: div.ic-title-cat > a
         can_be_empty: true
+      - name: bla
+        location:
+          selector: span.ic-single-next, span.ic-period-startdate, span.ic-single-startdate
       - name: date
         type: date
         components:
           - covers:
-              day: true    
+              day: true
               month: true
               year: true
             location:
-              selector: span.ic-single-next
+              selector: span.ic-single-next, span.ic-period-startdate, span.ic-single-startdate
             transform:
               - type: regex-replace
                 regex: "[^A-Za-z0-9,.ä]+"
@@ -60,7 +63,7 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: span.ic-single-starttime
+              selector: span.ic-single-starttime, span.ic-period-starttime
             layout: ["15:04"]
         date_location: CET
         date_language: de_DE
@@ -69,6 +72,13 @@ scrapers:
     paginator:
       location:
         selector: "#icagenda-list > div:nth-child(5) > div > div.ic-next > a"
+    filters:
+      - field: title
+        exp: "Kulinarische Mittagspause"
+        match: false
+      - field: title
+        exp: "Privatanlass"
+        match: false
 
   - name: Salzhaus
     url: "https://www.salzhaus.ch/de/programm.html"
