@@ -24,12 +24,18 @@ scrapers:
           - selector: div.albani-event-label > span
             all_nodes: true
             separator: " "
+      - name: genresText
+        type: text
+        location:
+          - selector: div.albani-event-label > span.subline
+        can_be_empty: true
       - name: comment
         type: text
         location:
           - selector: div.albani-event-textblock > p
             all_nodes: true
             separator: "\n"
+        can_be_empty: true
       - name: imageUrl
         type: url
         location:
