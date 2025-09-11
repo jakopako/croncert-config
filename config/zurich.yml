@@ -1350,7 +1350,7 @@ scrapers:
 
   - name: AlteKaserne
     url: https://www.altekaserne.com/events
-    item: body.unknown.other > div.container > div > main > div.inside > div.mod_article.first.last.block > div.ce_metamodel_content.first.block > div.row.party > div.col-sm-8.col-lg-9 > div.text-block
+    item: div.row.party > div.col-sm-8.col-lg-9 > div.text-block
     fields:
       - name: "type"
         value: "concert"
@@ -1383,6 +1383,7 @@ scrapers:
               selector: a > div.datum > span.zeit.ztop
               regex_extract:
                 exp: "[0-9]{2}(:[0-9]{2})?"
+              default: "20:00"
             layout: ["15", "15:04"]
         date_location: CET
         date_language: de_DE
@@ -1884,7 +1885,14 @@ scrapers:
 
   - name: AmbossRampe
     url: https://ambossrampe.ch/programm/
-    item: div.elementor-shortcode > div.mec-skin-list-container.mec-wrap > div.mec-skin-list-events-container > div.colorskin-custom.mec-wrap > div.mec-event-list-modern > article.mec-clear.mec-divider-toggle.mec-event-article
+    item: div.mec-event-list-modern > article.mec-clear.mec-divider-toggle.mec-event-article
+    fetcher:
+      type: dynamic
+    interaction:
+      - type: click
+        selector: div.mec-load-more-wrap > div
+        count: 4
+        delay: 2000
     fields:
       - name: city
         value: "Zurich"
@@ -1913,11 +1921,14 @@ scrapers:
             attr: href
       - name: date
         type: date
+        on_subpage: url
         components:
           - covers:
               time: true
             location:
-              selector: div.col-md-6.col-sm-6:nth-child(2) > div.mec-event-detail > div.mec-time-details:nth-child(2) > span.mec-start-time
+              selector: article > div.col-md-8 > div.mec-single-event-bar > div.mec-single-event-time > dl > dd > abbr
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
             layout:
               - "15:04"
           - covers:
@@ -1925,19 +1936,19 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.col-md-6.col-sm-6:nth-child(2) > h4.mec-event-title > a.mec-color-hover
-              attr: href
-              regex_extract:
-                exp: "[0-9]{4}(-[0-9]{2}){2}"
-            layout: ["2006-1-2"]
+              selector: article > div.col-md-8 > div.mec-single-event-bar > div.mec-single-event-date > dl > dd > abbr > span
+            layout: ["2. Jan.. 2006"]
         date_location: CET
         date_language: de_DE
     filters:
+      - field: title
+        exp: "Barabend"
+        match: false
+      - field: title
+        exp: "Restaurantbetrieb"
+        match: false
       - field: room
         exp: Rampe
-        match: true
-      - field: room
-        exp: ""
         match: true
 
   - name: Lebewohlfabrik
@@ -2107,7 +2118,7 @@ scrapers:
   # The following three locations are actually just one location. This workaround is needed to capture all events of this venue.
   - name: AmRank1
     url: https://amrank.ch/buehne/
-    item: article > section.container > div
+    item: article#programm > section.container > div
     fields:
       - name: city
         value: Zurich
@@ -2169,7 +2180,7 @@ scrapers:
 
   - name: AmRank2
     url: https://amrank.ch/buehne/
-    item: article > section.container > div
+    item: article#programm > section.container > div
     fields:
       - name: city
         value: Zurich
@@ -2232,7 +2243,7 @@ scrapers:
 
   - name: AmRank3
     url: https://amrank.ch/buehne/
-    item: article > section.container > div
+    item: article#programm > section.container > div
     fields:
       - name: city
         value: Zurich
