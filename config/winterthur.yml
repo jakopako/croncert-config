@@ -252,7 +252,7 @@ scrapers:
   - name: Kraftfeld
     url: https://www.kraftfeld.ch/de/programm.html
     item: article.kf-listitem
-    fields: 
+    fields:
       - name: "location"
         value: "Kraftfeld"
       - name: "city"
@@ -267,6 +267,9 @@ scrapers:
         type: text
         location:
           - attr: title
+            regex_extract:
+              exp: "[^|]+"
+              index: 0
       - name: url
         type: url
         location:
@@ -290,7 +293,7 @@ scrapers:
         type: date
         components:
           - covers:
-              day: true    
+              day: true
               month: true
               year: true
             location:
