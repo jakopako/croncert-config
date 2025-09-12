@@ -748,23 +748,30 @@ scrapers:
         value: Bahnwärter Thiel
       - name: url
         value: https://www.bahnwaerterthiel.de/
-      - name: title
-        type: text
-        location:
-          - selector: p
-            child_index: 0
-          - selector: p
-            child_index: 2
-          - selector: p
-            child_index: 4
-          - selector: p
-            child_index: 6
-        separator: ", "
       - name: comment
         type: text
         location:
-          - selector:
-            child_index: 2
+          - selector: p
+            entire_subtree: true
+        transform:
+          - type: regex-replace
+            regex: "\\s+\\n\\s+"
+            replace: ", "
+
+          # - selector: p
+          #   child_index: 0
+          # - selector: p
+          #   child_index: 2
+          # - selector: p
+          #   child_index: 4
+          # - selector: p
+          #   child_index: 6
+        # separator: ", "
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - child_index: 2
         can_be_empty: true
       - name: date
         type: date
@@ -783,8 +790,8 @@ scrapers:
             location:
               selector:
               regex_extract:
-                exp: "[0-9]{2}-"
-            layout: ["15-"]
+                exp: "[0-9]{2}(-|:[0-9]{2})"
+            layout: ["15-", "15:04"]
         date_location: CET
     filters:
       - field: date
