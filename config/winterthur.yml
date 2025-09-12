@@ -248,3 +248,65 @@ scrapers:
       - field: title
         exp: "Tanzkurs"
         match: false
+
+  - name: Kraftfeld
+    url: https://www.kraftfeld.ch/de/programm.html
+    item: article.kf-listitem
+    fields: 
+      - name: "location"
+        value: "Kraftfeld"
+      - name: "city"
+        value: "Winterthur"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.kraftfeld.ch/de/programm.html"
+      - name: title
+        type: text
+        location:
+          - attr: title
+      - name: url
+        type: url
+        location:
+          - attr: data-url
+      - name: imageUrl
+        type: url
+        on_subpage: url
+        location:
+          - selector: .kf-image > a > img
+            attr: data-src
+        can_be_empty: true
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          - selector: div.kf-text > p
+            all_nodes: true
+            separator: "\n"
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true    
+              month: true
+              year: true
+            location:
+              attr: title
+              regex_extract:
+                exp: "[0-9]{2}.[0-9]{2}.[0-9]{4}$"
+            layout: ["02.01.2006"]
+          - covers:
+              time: true
+            location:
+              default: "23:00"
+              selector: div.kf-times > span.kf-time
+              regex_extract:
+                exp: "[0-9]{2}.[0-9]{0,2}$"
+            layout: ["15h", "15:04"]
+        date_location: CET
+        date_language: de_DE
+    fetcher:
+      type: static
