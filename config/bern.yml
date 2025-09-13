@@ -1,7 +1,8 @@
 scrapers:
   - name: Bierhuebeli
     url: "https://bierhuebeli.ch/konzerte/"
-    item: div.elementor-widget-container > div.js-wpv-view-layout.js-wpv-layout-responsive.js-wpv-view-layout-11026 > a.datumlink
+    #wpv-view-layout-21772-CATTRf804edd54c7df1da97942dc63264639b > a:nth-child(15)
+    item: div.elementor-shortcode > div > a.datumlink
     fields:
       - name: "type"
         value: "concert"
@@ -20,12 +21,18 @@ scrapers:
       - name: title
         type: text
         location:
-          selector: div.datumswrapper > div.event-upperpart > div.eventtitel
+          selector: div.eventtitel
+      - name: tag
+        type: text
+        location:
+          selector: div.eventtag24.normaltags
+        can_be_empty: true
       - name: comment
         type: text
         can_be_empty: true
         location:
-          selector: div.datumswrapper > div.byline
+          selector: div.billing-part > div.byline > font
+          entire_subtree: true
       - name: date
         type: date
         on_subpage: url
@@ -34,16 +41,26 @@ scrapers:
               day: true
               month: true
               year: true
-            layout: ["Mon., 2.1.06"]
+            layout: ["2.1.2006"]
             location:
-              selector: div.billboard-big > div > div.billboard-datum > font
+              selector: div.eventdatum25
+              regex_extract:
+                exp: "[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{4}"
           - covers:
               time: true
             location:
-              selector: div.eventinfos > b:nth-child(3)
-            layout: ["15:04", "15.04"]
+              selector: div.eventheadline2.headlinecolorgrey
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+                index: -1
+            layout: ["15:04"]
         date_language: de_DE
         date_location: "Europe/Berlin"
+    filters:
+      - field: tag
+        exp: "Abgesagt"
+        match: false
 
   - name: Gaskessel
     url: https://gaskessel.ch/programm/
