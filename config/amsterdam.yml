@@ -111,11 +111,11 @@ scrapers:
         date_language: en_US
 
   - name: Bimhuis
-    url: https://www.bimhuis.nl/?agenda=true
-    item: section#agenda > div.center > section#agenda-listing > ul.items > li > a.agenda-item
+    url: https://www.bimhuis.nl/agenda
+    item: ul.agenda-tile-overview.agenda-tile-overview--list > li.agenda-tile-overview__item > div.agenda-tile
     fields:
       - name: "location"
-        value: BIMHUIS
+        value: Bimhuis
       - name: "city"
         value: "Amsterdam"
       - name: "country"
@@ -123,45 +123,55 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: https://www.bimhuis.nl/?agenda=true
+        value: https://www.bimhuis.nl/agenda
       - name: comment
         type: text
         location:
-          - selector: div.content div.sub-title
-        can_be_empty: true
+          - selector: div.agenda-tile__content.agenda-tile__content-nl > div > div > p.NRmTR_lljAoM
       - name: title
         type: text
         location:
-          - selector: div.content > h3
+          - selector: div.agenda-tile__content.agenda-tile__content-nl > div > div > a.agenda-tile__link > h3.PJCQ_bnIF
       - name: url
         type: url
         location:
-          - attr: href
+          - selector: div.agenda-tile__content.agenda-tile__content-nl > div > div > a.agenda-tile__link
+            attr: href
       - name: imageUrl
         type: url
         location:
-          - selector: div.thumb > img
-            attr: data-src
+          - selector: div.agenda-tile__img-tile > figure.AxKgX_gvVear.agenda-tile__img-container > img
+            attr: src
       - name: date
         type: date
-        on_subpage: url
         components:
+          - covers:
+              time: true
+            location:
+              selector: div.agenda-tile__content.agenda-tile__content-nl > div > time.agenda-tile__dates > span
+            layout:
+              - "15:04"
           - covers:
               day: true
               month: true
               year: true
             location:
-              selector: div > div > div.col-3.col-md-12.col-sm-12.info.agenda-info > div > h3
-              child_index: 2
+              selector: div.agenda-tile__content.agenda-tile__content-nl > div > time.agenda-tile__dates
             layout:
-              - 2 January 2006
-          - covers:
-              time: true
-            location:
-              selector: div > div > div.col-3.col-md-12.col-sm-12.info.agenda-info > div > table > tbody > tr.price-table__item--Arrival > td:nth-child(2) > b
-            layout: ["15:04u"]
+              - Mon 2 January 2006
         date_location: CET
         date_language: nl_BE
+    fetcher:
+      type: dynamic
+    interaction:
+      - type: scroll
+        delay: 2000
+      - type: scroll
+        delay: 2000
+      - type: scroll
+        delay: 2000
+      - type: scroll
+        delay: 2000
 
   - name: Bitterzoet
     url: https://www.bitterzoet.com/agenda/
