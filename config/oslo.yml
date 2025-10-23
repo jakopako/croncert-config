@@ -1,0 +1,65 @@
+scrapers:
+  - name: Cosmopolite
+    url: https://cosmopolite.no/program
+    item: ul.large-up-3.medium-up-2.row.small-up-1 > li.column.column-block
+    fields:
+      - name: location
+        value: Cosmopolite
+      - name: city
+        value: Oslo
+      - name: country
+        value: Norway
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://cosmopolite.no/program
+      - name: title
+        type: text
+        location:
+          - selector: div.views-field.views-field-title > a
+      - name: url
+        type: url
+        location:
+          - selector: div.views-field.views-field-title > a
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.views-field.views-field-field-image > a > img
+            attr: src
+      - name: genresText
+        type: text
+        location:
+          - selector: div.top-row.views-field.views-field-nothing > div.genres
+        can_be_empty: true
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.row.region.middle > div.medium-4.small-12.columns.left > div > div.text-content.field.field--node-field-date.field--name-field-date.field-name-field-date.field--type-datetime.field--label-hidden.field__item
+            layout:
+              - Monday 2. January 2006
+          - covers:
+              time: true
+            location:
+              selector: div.row.region.middle > div.medium-4.small-12.columns.left > div > div.field.field--node-field-actual-start-time.field--name-field-actual-start-time.field-name-field-actual-start-time.field--type-time.field--label-hidden.field__item
+              regex_extract:
+                exp: "\\d{2}:\\d{2}"
+            layout:
+              - 15:04
+        date_location: CET
+        date_language: nb_NO
+    fetcher:
+      type: dynamic
+    interaction:
+      - type: scroll
+        delay: 2000
+      - type: scroll
+        delay: 2000
+      - type: scroll
+        delay: 2000
