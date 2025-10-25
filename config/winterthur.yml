@@ -46,7 +46,7 @@ scrapers:
         guess_year: true
         components:
           - covers:
-              day: true    
+              day: true
               month: true
             location:
               selector: div.albani-event-date > span.date
@@ -375,3 +375,65 @@ scrapers:
         date_language: de_DE
     fetcher:
       type: static
+
+  - name: GaswerkWinterthur
+    url: https://www.gaswerk.ch/
+    item: div.col-md-7.schedule-wrapper > div.schedule > div.schedule__item
+    fields:
+      - name: "location"
+        value: "Gaswerk"
+      - name: "city"
+        value: "Winterthur"
+      - name: country
+        value: Switzerland
+      - name: "type"
+        value: "concert"
+      - name: "sourceUrl"
+        value: "https://www.gaswerk.ch/"
+      - name: title
+        type: text
+        location:
+          - selector: a.schedule__item__label > p.schedule__item__label__title > span.schedule__item__label__title__act
+            all_nodes: true
+            separator: ", "
+      - name: eventType
+        type: text
+        location:
+          - selector: a.schedule__item__label > p.schedule__item__label__category:nth-child(2)
+      - name: url
+        type: url
+        location:
+          - selector: div.collapse.schedule__item__content > div.schedule__item__content__meta:nth-child(3) > ul > li:nth-child(4) > a
+            attr: href
+            default: https://www.gaswerk.ch/
+      - name: genresText
+        type: text
+        location:
+          - selector: a.schedule__item__label > p.schedule__item__label__title > span.schedule__item__label__title__meta:nth-child(2)
+            all_nodes: true
+            separator: ", "
+      - name: date
+        type: date
+        components:
+          - covers:
+              time: true
+            location:
+              selector: div.collapse.schedule__item__content > div.schedule__item__content__meta:nth-child(3) > ul > li
+            layout:
+              - "Türöffnung: 15:04"
+          - covers:
+              month: true
+              day: true
+            location:
+              selector: a.schedule__item__label > p.schedule__item__label__date
+            layout:
+              - Mon 2.1
+        date_location: CET
+        date_language: de_DE
+        guess_year: true
+    fetcher:
+      type: static
+    filters:
+      - field: eventType
+        exp: Kino
+        match: false
