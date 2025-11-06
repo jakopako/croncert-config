@@ -352,7 +352,6 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: sourceUrl
-        type: text
         value: https://www.roundhouse.org.uk/whats-on/
       - name: title
         type: text
@@ -386,6 +385,8 @@ scrapers:
             location:
               default: "20:00"
             layout: ["15:04"]
+        date_location: Europe/London
+        date_language: en_US
       - name: dateForFiltering
         hide: true
         location:
@@ -397,3 +398,67 @@ scrapers:
       - field: dateForFiltering
         exp: ".+ - .+"
         match: false
+
+  - name: Kingsplace
+    url: https://www.kingsplace.co.uk/whats-on/
+    item: div.grid-item > div.grid-item__inner.lev
+    fields:
+      - name: "location"
+        value: "Kingsplace"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: sourceUrl
+        value: https://www.kingsplace.co.uk/whats-on/
+      - name: title
+        type: text
+        location:
+          - selector: div.text:nth-child(3) > h2.grid-item__title
+      - name: genresText
+        type: text
+        location:
+          - selector: div.text:nth-child(3) > h3.grid-item__sub_title > a
+      - name: comment
+        type: text
+        location:
+          - selector: div.text:nth-child(3) > p.synop
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.grid-item__image div
+            attr: data-src
+      - name: url
+        type: url
+        location:
+          - selector: p.grid-item__cta:nth-child(4) > a.btn.fom:nth-child(2)
+            attr: href
+            default: "https://www.kingsplace.co.uk/whats-on/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: time.grid-item__date
+            layout:
+              - Mon 2 Jan
+          - covers:
+              time: true
+            location:
+              selector: time.grid-item__date > span.time
+              regex_extract:
+                exp: "\\d{1,2}(\\.\\d{2})?[ap]m"
+            layout:
+              - 15pm
+              - 15.04pm
+        date_language: en_US
+        date_location: Europe/London
+        guess_year: true
+    fetcher:
+      type: static
+    paginator:
+      location:
+        selector: nav.grid_pagination div.max > a
+      max_pages: 6
