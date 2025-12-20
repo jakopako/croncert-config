@@ -321,3 +321,48 @@ scrapers:
       - field: comment
         exp: "Privat"
         match: false
+
+  - name: BeeFlat
+    url: https://www.bee-flat.ch/
+    item: div.events > article.event.tile > a
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Bern
+      - name: country
+        value: Switzerland
+      - name: location
+        value: bee-flat
+      - name: sourceUrl
+        value: https://www.bee-flat.ch/
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: comment
+        type: text
+        location:
+          - selector: div.band.main > div.bandheader > div > div.style:nth-child(3)
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.band.main > div.bandheader > h2
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: div.band.main > div.bandheader > div > div.date
+              child_index: 1
+            layout:
+              - 2. January, 15:04 Uhr
+        date_location: CET
+        date_language: de_DE
+        guess_year: true
+    fetcher:
+      type: static
