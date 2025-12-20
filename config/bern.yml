@@ -366,3 +366,46 @@ scrapers:
         guess_year: true
     fetcher:
       type: static
+
+  - name: Dampfzentrale
+    url: https://www.dampfzentrale.ch/?filter=musik
+    item: div.container-15.event-entry > a.overlay-link.row
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Bern
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Dampfzentrale
+      - name: sourceUrl
+        value: https://www.dampfzentrale.ch/?filter=musik
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.col-sm-8.event-information.offset-lg-1:nth-child(2) > h2.text-l
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.col-sm-8.event-information.offset-lg-1:nth-child(2) > div.event-meta.row.text-m > div.col-lg-2.col-md-3.col-xs-4:nth-child(2)
+            layout:
+              - 2.1.06
+          - covers:
+              time: true
+            location:
+              selector: div.col-sm-8.event-information.offset-lg-1:nth-child(2) > div.event-meta.row.text-m > div.col-md-2.col-xs-2:nth-child(3) > time
+            layout:
+              - "15:04"
+        date_location: CET
+    fetcher:
+      type: static
