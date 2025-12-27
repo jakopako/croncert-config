@@ -26,6 +26,7 @@ scrapers:
         type: text
         location:
           - selector: a.articlelink > div.genreshover
+        can_be_empty: true
       - name: comment
         on_subpage: url
         location:
@@ -41,15 +42,19 @@ scrapers:
               month: true
               year: true
             location:
-              selector: div.row > div.infofloater > div > div.firstdiv > div:nth-child(2)
+              selector: div.row > div.infofloater > div > div.firstdiv > div
             layout:
               - Monday 2.1.2006
           - covers:
               time: true
             location:
-              selector: div.row > div.infofloater > div > div.firstdiv > div:nth-child(6)
+              selector: div.row > div.infofloater > div > div.firstdiv
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2} Uhr"
+                index: -1
             layout:
-              - 15:04
+              - 15:04 Uhr
         date_location: CET
         date_language: de_DE
     filters:
