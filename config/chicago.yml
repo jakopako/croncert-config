@@ -86,8 +86,8 @@ scrapers:
               selector: div.eventDoorStartDate
               entire_subtree: true
               regex_extract:
-                exp: "Show: [0-9:]+pm"
-            layout: ["Show: 3pm", "Show: 3:04pm"]
+                exp: "Show: [0-9:]+\\s*pm"
+            layout: ["Show: 3pm", "Show: 3:04pm", "Show: 3 pm", "Show: 3:04 pm"]
         date_location: America/Chicago
 
   - name: SchubasTavern

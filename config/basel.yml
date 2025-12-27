@@ -75,6 +75,9 @@ scrapers:
         type: text
         location:
           - selector: div.grid-item > div.event-title > div.event-title-wrapper > h4
+      - name: dateStr
+        location:
+          - selector: div.grid-item > div.event-title > p.event-date
       - name: date
         type: date
         components:
@@ -83,26 +86,30 @@ scrapers:
             location:
               selector: div.grid-item > div.event-title > p.event-date
               regex_extract:
-                exp: "[0-9]{2}"
-                index: 0
+                exp: "[0-9]{1,2}[–\\.-]{1}"
+                index: -2
             layout:
-              - 2
+              - "2."
+              - "2–"
+              - "2-"
           - covers:
               month: true
             location:
               selector: div.grid-item > div.event-title > p.event-date
               regex_extract:
-                exp: "[0-9]{1,2}"
-                index: 1
+                exp: "[0-9]{1,2}[–\\.-]{1}"
+                index: -1
             layout:
-              - 1
+              - "1."
+              - "1–"
+              - "1-"
           - covers:
               year: true
             location:
               selector: div.grid-item > div.event-title > p.event-date
               regex_extract:
                 exp: "[0-9]{1,4}"
-                index: 2
+                index: -1
             layout:
               - 06
               - 2006

@@ -436,7 +436,7 @@ scrapers:
         type: url
         location:
           selector: a > img
-          attr: data-src
+          attr: data-src-img
       - name: date
         type: date
         components:
