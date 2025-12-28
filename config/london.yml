@@ -440,22 +440,15 @@ scrapers:
           - covers:
               day: true
               month: true
-            location:
-              selector: time.grid-item__date
-            layout:
-              - Mon 2 Jan
-          - covers:
+              year: true
               time: true
             location:
-              selector: time.grid-item__date > span.time
-              regex_extract:
-                exp: "\\d{1,2}(\\.\\d{2})?[ap]m"
+              selector: time.grid-item__date
+              attr: datetime
             layout:
-              - 15pm
-              - 15.04pm
+              - 2006-01-02 15:04:05
         date_language: en_US
         date_location: Europe/London
-        guess_year: true
     fetcher:
       type: static
     paginator:

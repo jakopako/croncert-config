@@ -33,11 +33,10 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: div.event-info.single-day:nth-child(2) > span.event-time
-              regex_extract:
-                exp: "[0-9]{2}\\.[0-9]{2}"
+              selector: div.non-existing-selector
+              default: "21:00"
             layout:
-              - "15.04"
+              - "15:04"
           - covers:
               year: true
             location:
@@ -58,6 +57,8 @@ scrapers:
               - "2"
         date_location: CET
         date_language: en_US
+    fetcher:
+      type: static
 
   - name: BourbonStreet
     url: https://www.bourbonstreet.nl/shows
