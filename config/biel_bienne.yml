@@ -1,0 +1,56 @@
+scrapers:
+  - name: LaCoupole
+    url: https://ajz.ch/fr-ch/coupole/programm/
+    item: li.bg-theme-black-lighter.flex.text-theme-white > div.flex.flex-col
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Biel/Bienne
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Coupole
+      - name: sourceUrl
+        value: https://ajz.ch/fr-ch/coupole/programm/
+      - name: url
+        value: https://ajz.ch/fr-ch/coupole/programm/
+      - name: title
+        type: text
+        location:
+          - selector: div.cursor-pointer.flex.flex-col.leading-\[1\].peer.px-5.py-3.uppercase > div.flex.flex-col.gap-2:nth-child(2) > h2.break-\[auto-phrase\].font-extrabold.text-\[30px\]
+            # examples: [espace DISKUT, Bobby's Mic Surprise, Treffpong, '#madcollab']
+      - name: comment
+        type: text
+        location:
+          - selector: div.cursor-pointer.flex.flex-col.leading-\[1\].peer.px-5.py-3.uppercase > div.flex.flex-col.gap-1:nth-child(3) > div.font-medium
+            # examples: [Échanges culturels, Performance & Fun et musique, Fun et musique, Party]
+      - name: genresText
+        type: text
+        location:
+          - selector: div.flex.flex-row.flex-wrap.xs\:flex-nowrap.gap-y-2.gap-x-5.justify-between > div.font-extrabold
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.cursor-pointer.flex.flex-col.leading-\[1\].peer.px-5.py-3.uppercase > div.flex.flex-row.gap-5.justify-between > div.flex.flex-row.gap-1.items-end > div.font-extrabold.text-\[15px\]
+              # examples: ["04.01", "04.01", "08.01", "10.01"]
+            layout:
+              - "02.01"
+          - covers:
+              time: true
+            location:
+              selector: div.cursor-pointer.flex.flex-col.leading-\[1\].peer.px-5.py-3.uppercase > div.flex.flex-row.gap-5.justify-between > div.flex.flex-row.gap-2:nth-child(2) > div.font-extrabold.text-\[15px\]
+              regex_extract:
+                exp: "[0-9]{1,2}:[0-9]{2}"
+                index: 0
+              # examples: ['13:00–19:00', '20:00–22:00', '18:00–23:00', '23:00–06:00']
+            layout:
+              - 15:04
+        date_location: CET
+    fetcher:
+      type: static
