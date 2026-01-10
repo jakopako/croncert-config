@@ -47,9 +47,12 @@ scrapers:
             layout: ["2 January 2006", "2 Jan 2006"]
           - covers:
               time: true
-            default: 20:00
             location:
               selector: div.details > div.row:nth-child(2) > span:nth-child(2)
+              regex_extract:
+                exp: "[0-9]{2}h[0-9]{2}"
+                ignore_errors: true
+              default: 20h00
             layout: [15h04]
         date_location: Europe/Berlin
         date_language: fr_FR

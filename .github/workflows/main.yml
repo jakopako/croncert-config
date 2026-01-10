@@ -29,11 +29,11 @@ jobs:
 
       # Install go binary
       - name: Install the scraper
-        run: go install github.com/jakopako/goskyr@v0.6.2
+        run: go install github.com/jakopako/goskyr@v0.7.0
 
       # Runs a single command using the runners shell
       - name: Run the scraper
-        run: goskyr -c config
+        run: goskyr scrape -c config
         env:
           WRITER_USER: ${{ secrets.WRITER_USER }}
           WRITER_PASSWORD: ${{ secrets.WRITER_PASSWORD }}

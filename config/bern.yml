@@ -1,7 +1,8 @@
 scrapers:
   - name: Bierhuebeli
     url: "https://bierhuebeli.ch/konzerte/"
-    item: div.elementor-widget-container > div.js-wpv-view-layout.js-wpv-layout-responsive.js-wpv-view-layout-11026 > a.datumlink
+    #wpv-view-layout-21772-CATTRf804edd54c7df1da97942dc63264639b > a:nth-child(15)
+    item: div.elementor-shortcode > div > a.datumlink
     fields:
       - name: "type"
         value: "concert"
@@ -20,12 +21,18 @@ scrapers:
       - name: title
         type: text
         location:
-          selector: div.datumswrapper > div.event-upperpart > div.eventtitel
+          selector: div.eventtitel
+      - name: tag
+        type: text
+        location:
+          selector: div.eventtag24.normaltags
+        can_be_empty: true
       - name: comment
         type: text
         can_be_empty: true
         location:
-          selector: div.datumswrapper > div.byline
+          selector: div.billing-part > div.byline > font
+          entire_subtree: true
       - name: date
         type: date
         on_subpage: url
@@ -34,16 +41,26 @@ scrapers:
               day: true
               month: true
               year: true
-            layout: ["Mon., 2.1.06"]
+            layout: ["2.1.2006"]
             location:
-              selector: div.billboard-big > div > div.billboard-datum > font
+              selector: div.eventdatum25
+              regex_extract:
+                exp: "[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{4}"
           - covers:
               time: true
             location:
-              selector: div.eventinfos > b:nth-child(3)
-            layout: ["15:04", "15.04"]
+              selector: div.eventheadline2.headlinecolorgrey
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2}"
+                index: -1
+            layout: ["15:04"]
         date_language: de_DE
         date_location: "Europe/Berlin"
+    filters:
+      - field: tag
+        exp: "Abgesagt"
+        match: false
 
   - name: Gaskessel
     url: https://gaskessel.ch/programm/
@@ -304,3 +321,91 @@ scrapers:
       - field: comment
         exp: "Privat"
         match: false
+
+  - name: BeeFlat
+    url: https://www.bee-flat.ch/
+    item: div.events > article.event.tile > a
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Bern
+      - name: country
+        value: Switzerland
+      - name: location
+        value: bee-flat
+      - name: sourceUrl
+        value: https://www.bee-flat.ch/
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: comment
+        type: text
+        location:
+          - selector: div.band.main > div.bandheader > div > div.style:nth-child(3)
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: div.band.main > div.bandheader > h2
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: div.band.main > div.bandheader > div > div.date
+              child_index: 1
+            layout:
+              - 2. January, 15:04 Uhr
+        date_location: CET
+        date_language: de_DE
+        guess_year: true
+    fetcher:
+      type: static
+
+  - name: Dampfzentrale
+    url: https://www.dampfzentrale.ch/?filter=musik
+    item: div.container-15.event-entry > a.overlay-link.row
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Bern
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Dampfzentrale
+      - name: sourceUrl
+        value: https://www.dampfzentrale.ch/?filter=musik
+      - name: url
+        type: url
+        location:
+          - attr: href
+      - name: title
+        type: text
+        location:
+          - selector: div.col-sm-8.event-information.offset-lg-1:nth-child(2) > h2.text-l
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.col-sm-8.event-information.offset-lg-1:nth-child(2) > div.event-meta.row.text-m > div.col-lg-2.col-md-3.col-xs-4:nth-child(2)
+            layout:
+              - 2.1.06
+          - covers:
+              time: true
+            location:
+              selector: div.col-sm-8.event-information.offset-lg-1:nth-child(2) > div.event-meta.row.text-m > div.col-md-2.col-xs-2:nth-child(3) > time
+            layout:
+              - "15:04"
+        date_location: CET
+    fetcher:
+      type: static
