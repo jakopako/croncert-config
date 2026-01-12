@@ -16,8 +16,8 @@ scrapers:
       - name: url
         type: url
         location:
-          - selector: div > a
-            attr: data-acc-ref
+          - selector: div > div.accLabel
+            attr: data-page-url
       - name: title
         type: text
         location:
