@@ -52,6 +52,7 @@ scrapers:
         can_be_empty: true
       - name: date
         type: date
+        on_subpage: url
         components:
           - covers:
               day: true
@@ -60,13 +61,15 @@ scrapers:
             location:
               selector: span.date
             layout:
-              - 2.1.2006
+              - "Monday 02.01.2006"
           - covers:
               time: true
             location:
-              default: "20:00"
+              default: "20h00"
+              selector: span.time
             layout:
-              - 15:04
+              - "Portes 15h04"
         date_location: CET
+        date_language: fr_FR
     fetcher:
       type: static
