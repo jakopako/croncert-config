@@ -6,6 +6,7 @@ writer:
   # uri_dryrun: "http://localhost:5001/api/events/validate"
   # uri_status: "http://localhost:5001/api/status"
   # write_status: true
+  # batch_size: 50
   # user: croncert
   # password: croncert
   type: "api"
