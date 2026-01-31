@@ -46,7 +46,7 @@ scrapers:
 
   - name: CenterStage
     url: https://www.centerstage-atlanta.com/
-    item: body.csa-body.home.page.page-id-70.page-template-default > div.csa-site-wrap > div.csa-main-content > section.content-area > main.site-main > section.events-section > div.events-listing > div.events-listing__inner > div.event-item.popup-event
+    item: div.events-listing > div.events-listing__inner > div.event-item.popup-event
     fields:
       - name: "city"
         value: "Atlanta"
@@ -87,11 +87,10 @@ scrapers:
           - covers:
               day: true
               month: true
-              year: true
             location:
               selector: div.event-action > div.event-item-content > div.event-info > span.event-date
             layout:
-              - Mon Jan 2 2006
+              - Mon Jan 2
         date_location: America/New_York
         date_language: en_US
     fetcher:
