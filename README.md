@@ -17,6 +17,8 @@ If you know a concert venue that you'd like to add to [concertcloud.live](https:
 
 ### How to add a config snippet - step by step
 
+NOTE: THIS PART IS NOT UP-TO-DATE WITH THE LATEST GOSKYR VERSION (0.9.1).
+
 We'll demonstrate the process for the location "Konzerthaus Schüür" with the url https://www.schuur.ch/programm/
 
 1. **Install goskyr**
