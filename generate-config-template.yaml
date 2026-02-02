@@ -1,0 +1,28 @@
+min_occurrences: 30
+distinct_values: true
+labler:
+  type: "local-ml" # options: basic, local-ml, remote-llm
+  model_name: "concert-20230509-mod" # only for local-ml
+  words_dir: "word-lists" # only for local-ml
+  # api_key: "remote-llm-api-key" # only for remote-llm
+  # llm_provider: "googleai" # only for remote-llm, options: googleai
+  # llm_model: "gemini-2.5-flash" # only for remote-llm (e.g. gemini-2.5-flash)
+  # label_set: # only for remote-llm
+  #   - title
+  #   - url
+  #   - imageUrl
+  #   - comment
+  #   - genresText
+  #   - city
+  #   - date-component-day
+  #   - date-component-month
+  #   - date-component-time
+  #   - date-component-day-month-year
+  #   - date-component-day-month-year-time
+  #   - date-component-day-month
+  #   - date-component-year
+  #   - date-component-day-month-time
+  #   - date-component-month-year
+# fetcher:
+#   type: "dynamic"
+#   page_load_wait_ms: 2000
