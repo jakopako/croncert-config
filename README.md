@@ -17,9 +17,7 @@ If you know a concert venue that you'd like to add to [concertcloud.live](https:
 
 ### How to add a config snippet - step by step
 
-NOTE: THIS PART IS NOT UP-TO-DATE WITH THE LATEST GOSKYR VERSION (0.9.1).
-
-We'll demonstrate the process for the location "Konzerthaus Schüür" with the url https://www.schuur.ch/programm/
+We'll demonstrate the process for the venue "Konzerthaus Schüür" with the url <https://www.schuur.ch/programm/>. goskyr version `v0.9.1` has been used for the following commands.
 
 1. **Install goskyr**
 
@@ -27,58 +25,65 @@ We'll demonstrate the process for the location "Konzerthaus Schüür" with the u
 
 1. **Generate initial config snippet**
 
-   Since v0.2.5 goskyr provides functionality to automatically generate a config snippet for a given url. We're going to rely on this feature to generate an initial version of the configuration. Additionally, we're going to make use of the new machine learning feature that is available since goskyr v0.4.0 to give us a first prediction of the field names. Unfortunately, goskyr still lacks the ability to generate the _entire_ configuration so we'll have to make some modifications afterwards.
-
-   1. Run goskyr with the `-g` and `--model` flags
+   We'll use the `goskyr generate` command to create an initial configuration snippet based on the nature of a given website. Not only will the structure of a website be analyzed but the tool will also attempt to label fields accordingly. Unfortunately, goskyr still lacks the ability to generate the _entire_ configuration so we'll have to make some modifications afterwards.
+   1. Copy the file `generate-config-template.yaml` to `generate-config.yaml` and run goskyr `goskyr generate` as described below.
 
       ![screenshot field extraction](schuur-extract.png)
 
-      In your terminal run `./goskyr -g  https://www.schuur.ch/programm/ --model concert-20230509-mod` You'll be presented with a table that shows different fields from the website with corresponding examples. In case you don't see the fields you'd expect from looking at the website there might be a couple of things you can try. Adding the option `-m` allows you to set a minimum number of occurences of the extracted fields (default is 20). Only fields that occur at least this many times are added to the table to filter out noise. In some cases though a list of items on a website may be shorter so you may want to decrease that number accordingly. A second thing that you could try is using the `-d` flag to render js. Note, that chrome needs to be installed for this to work.
+      In your terminal run `goskyr generate -u https://www.schuur.ch/programm/ -i` You'll be presented with a table that shows different fields from the website with corresponding examples. In case you don't see the fields you'd expect from looking at the website there might be a couple of things you can try. Changing `min_occurences` in the generate configuration file allows you to set a minimum number of occurences of the extracted fields. Only fields that occur at least this many times are added to the table to filter out noise. In some cases though a list of items on a website may be shorter so you may want to decrease that number accordingly. A second thing that you could try is using a dynamic instead of a static fetcher. Checkout <https://github.com/jakopako/goskyr?tab=readme-ov-file#fetcher> for more details.
 
    1. Select fields
 
-      With the <kbd>↑</kbd> and <kbd>↓</kbd> arrow keys you can navigate through the rows and with the <kbd>return</kbd> key you can select or de-select a row (ie a field). In case there are many fields to select from the color coding can be useful by giving fields that are close to each other (in the html tree) a similar color. In our example case we can ignore the colors. Once you selected the fields that you want to extract from the website (in our example we select all fields except the one with `Party`/`Konzert`.. as values) press the <kbd>tab</kbd> key to navigate to the button below the table and press <kbd>return</kbd> to generate the configuration. Note that the predicted field names are probably not always correct but still should provide some help to finalize the configuration more quickly.
+      With the <kbd>↑</kbd> and <kbd>↓</kbd> arrow keys you can navigate through the rows and with the <kbd>return</kbd> key you can select or de-select a row (ie a field). In case there are many fields to select from the color coding can be useful by giving fields that are close to each other (in the html tree) a similar color. In our example case we can ignore the colors. Once you selected the fields that you want to extract from the website (in our example we select all fields as shown in the picture) press the <kbd>tab</kbd> key to navigate to the button below the table and press <kbd>return</kbd> to generate the configuration.
+
+      The predicted field names are probably not always correct but still should provide some help to finalize the configuration more quickly. A better preditction will probably be achieved when setting the `labler.type` to `remote-llm` but make sure to provide a corresponding valid API key for the remote LLM serice.
 
 1. **Update the generated configuration accordingly**
 
-   First, to get a feeling what data would be extracted with the previously generated configuration run `goskyr`. In our case, this should print a number of json items containing concert info. Now that you have an idea of what data is scraped with the current configuration, we need to adapt a few things for this specific use case.
-
+   First, to get a feeling what data would be extracted with the previously generated configuration run `goskyr scrape`. In our case, this should print a number of json items containing concert info. Now that you have an idea of what data is scraped with the current configuration, we need to adapt a few things for this specific use case.
    1. Field names
 
-      Most of the fields mentioned should be correctly named already due to the machine learning. Still you might have to do some renaming. In this specific case of 'Schüür' it sometimes happens that there are two `title` fields. Rename one to `comment`.
-      If possible, you'll want the following dynamic fields:
+      Most of the fields mentioned should be correctly named already due to the machine learning / AI. Still you might have to do some renaming. In our case, we need to rename the first `url` field to `imageUrl`.
 
+      If possible, you'll want the following dynamic fields:
       - `title` - mandatory
       - `url` - mandatory
       - `imageUrl` - optional - a url that points to the event's image
       - `comment` - optional
-      - `genresText` - optional - This text field will be used by the API to try to extract genres from, so it should contain some.
+      - `genresText` - optional - This text field will be used by the API to try to extract genres from, so it should contain some genres.
 
    1. Date field
 
-      In the ideal case (as should be the case in our example) nothing needs to be done for the date field configuration. However, sometimes the automatic extraction algorithm makes mistakes in which case we need to correct the configuration. To better understand the date extraction read the section on the `Key: type` under **[Dynamic Fields](https://github.com/jakopako/goskyr#dynamic-fields)**.
+      In the ideal case nothing needs to be done for the date field configuration. However, sometimes the automatic extraction algorithm makes mistakes in which case we need to correct the configuration. To better understand the date extraction read the section on the `Key: type` under **[Dynamic Fields](https://github.com/jakopako/goskyr#dynamic-fields)**.
+
+      In our example, we're seeing some error logs regarding date parsing when running `goskyr scrape`.
+
+      ```
+      time=2026-02-02T23:17:56.509+01:00 level=ERROR msg="error while parsing field date: parsing time \"Thu. 07. May 2026 \\xe2\\x80\\x93 21:00 \" as \"Mon. 2. Jan. 2006 \\xe2\\x80\\x93 15:04 \": cannot parse \" 2026 \\xe2\\x80\\x93 21:00 \" as \". \". Skipping item map[comment:Salsa con el DJ Mingo imageUrl:https://www.schuur.ch/fileadmin/_processed_/a/b/csm_2026-NocheCubana-b3000_5cb192cba8.jpg title:Noche Cubana url:https://www.schuur.ch/programm/events/event-details/noche-cubana-07-05-2026-konzerthaus-schuur-luzern]." name=https://www.schuur.ch/programm/
+      ```
+
+      The reason for those errors is that this website is not consistent in its date formatting, hence we need to add a second format to the generated scraper configuration.
+
+      ```yaml
+      layout:
+        - Mon. 2. Jan. 2006 – 15:04
+        - Mon. 2. January 2006 – 15:04 # manual addition
+      ```
 
    1. Additional fields
 
-      Right now we only configured dynamic fields, ie fields whose values change depending on the scraped website. For [concertcloud.live](https://concertcloud.live) we also need a couple of static fields: `city`, `location`, `type` and `sourceUrl`. Check the config files in `config/` to find out how to configure those. If the mandatory fields are not present then the scraper won't be able to send the data to the api that feeds the website. Also note, that `type` should be a static field with 'concert' as value and `city` should be a static field with the city name in English.
+      Right now we only configured dynamic fields, ie fields whose values change depending on the scraped website. For [concertcloud.live](https://concertcloud.live) we also need a couple of static fields: `city`, `location`, `type` and `sourceUrl`. Check the config files in `config/` to find out how to configure those. If the mandatory fields are not present then the scraper won't be able to send the data to the api that feeds the website. Also note, that `type` should be a static field with 'concert' as value and `city` should be a static field with the city name in English. It is probably best to add a `country` field as well to ensure proper geo encoding of the events.
 
    1. Check the output
 
-      Run `goskyr` again and check whether the output makes sense. If it does, change the value of the `name` field to the name of the location and copy the config snippet to the corresponding file in the `config` directory. The example location has already been added to the corresponding configuration file so you can see the final version there.
+      Run `goskyr scrape` again and check whether the output makes sense. If it does, change the value of the `name` field to the name of the location and copy the config snippet to the corresponding file in the `config` directory. The example location has already been added to the corresponding configuration file so you can see the final version there.
 
    1. Final validation against the API
 
-      Run the following command to validate the new scraper's output against the concertcloud API. Note that the `--dryrun` option is only available since goskyr **v0.5.49**
+      Run the following command to validate the new scraper's output against the concertcloud API.
 
-      ```
-      goskyr -c config -s <scraper-name> --dryrun
+      ```bash
+      goskyr scrape -c config -n Schuur --dry-run
       ```
 
 1. **Make a pull request**
-
-## Limitations
-
-There are still a few limititions that will be solved in the future and include the following but might not be limited to:
-
-- a field (type `text` & `url`) can only have one selector across all items of one concert location.
-- if you encounter any other bugs or limitations feel free to open an issue in the [goskyr](https://github.com/jakopako/goskyr) repo.

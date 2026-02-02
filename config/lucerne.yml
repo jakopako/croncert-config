@@ -1,30 +1,41 @@
 scrapers:
   - name: Schuur
     url: https://www.schuur.ch/programm/
-    item: div.viz-event-list article
+    item: div.viz-event-list-container > div.viz-event-list > section.viz-event-list-box
     fields:
-      - name: "location"
-        value: "Konzerthaus Schüür"
-      - name: "city"
-        value: "Lucerne"
+      - name: location
+        value: Konzerthaus Schüür
+      - name: city
+        value: Lucerne
       - name: country
         value: Switzerland
-      - name: "type"
-        value: "concert"
-      - name: "sourceUrl"
+      - name: type
+        value: concert
+      - name: sourceUrl
         value: https://www.schuur.ch/programm/
-      - name: comment
+      - name: imageUrl
+        type: url
         location:
-          selector: span.viz-event-headline
-        can_be_empty: true
-      - name: title
-        location:
-          selector: span.viz-event-name
+          - selector: div.viz-event-box-image-container > a.viz-event-box-details-link > div.viz-event-box-image > img.lazyload
+            attr: src
+            # examples: ['https://www.schuur.ch/fileadmin/_processed_/f/5/csm_260203-Faber-16x9_947a41799f.jpg', 'https://www.schuur.ch/fileadmin/_processed_/9/6/csm_260204-KAA_0a20bccbd4.jpg', 'https://www.schuur.ch/fileadmin/_processed_/f/4/csm_260205-Bernhoft_393071a98b.jpg', 'https://www.schuur.ch/fileadmin/_processed_/a/b/csm_2026-NocheCubana-b3000_a1e5fa2131.jpg']
       - name: url
         type: url
         location:
-          selector: h3 > a.viz-event-box-details-link
-          attr: href
+          - selector: article > div.viz-event-box-title > div.viz-event-box-date > h3 > a.viz-event-box-details-link
+            attr: href
+            # examples: ['https://www.schuur.ch/programm/events/event-details/faber-03-02-2026-konzerthaus-schuur-luzern', 'https://www.schuur.ch/programm/events/event-details/kick-ass-award-04-02-2026-konzerthaus-schuur-luzern', 'https://www.schuur.ch/programm/events/event-details/bernhoft-05-02-2026-konzerthaus-schuur-luzern', 'https://www.schuur.ch/programm/events/event-details/noche-cubana-05-02-2026-konzerthaus-schuur-luzern']
+      - name: title
+        type: text
+        location:
+          - selector: article > div.viz-event-box-title > div.viz-event-box-date > h3 > a.viz-event-box-details-link > span.viz-event-name
+            # examples: [Faber – Ausverkauft, Kick Ass Award, Bernhoft, Noche Cubana]
+      - name: comment
+        type: text
+        location:
+          - selector: article > div.viz-event-box-title > div.viz-event-box-date > span.viz-event-headline
+            # examples: [«Addio Addio»-Tour, 'Verjüngungsinitiative: z''alt für Politik – das crazy', '«The Cause I Wanna»-Tour 2026 / Support: Ay Wing', Salsa con el DJ Ivan]
+        can_be_empty: true
       - name: date
         type: date
         components:
@@ -34,12 +45,15 @@ scrapers:
               year: true
               time: true
             location:
-              selector: div.viz-event-date
+              selector: article > div.viz-event-box-title > div.viz-event-box-date > div.viz-event-date-and-sub-container > div.viz-event-date
+              # examples: ['Di. 03. Feb. 2026 – 19:00', 'Mi. 04. Feb. 2026 – 19:00', 'Do. 05. Feb. 2026 – 19:00', 'Do. 05. Feb. 2026 – 21:00']
             layout:
-              - "Mon. 2. January 2006 – 15:04"
-              - "Mon. 2. Jan. 2006 – 15:04"
-        date_location: "Europe/Berlin"
-        date_language: "de_DE"
+              - Mon. 2. Jan. 2006 – 15:04
+              - Mon. 2. January 2006 – 15:04
+        date_location: CET
+        date_language: de_DE
+    fetcher:
+      type: static
 
   - name: Bar59
     url: https://www.bar59.ch/
