@@ -34,11 +34,6 @@ scrapers:
         location:
           - selector: p.subtitle
             # examples: [Seule en scène, En collaboration avec Le Collège Musical, Monster Sound (Unique concert des 20 ans), Save the date !]
-      - name: other
-        type: text
-        location:
-          - selector: div.infos:nth-child(6)
-            # examples: ['20:00 - 00:00 / Normal : CHF 30.- / Soutien : CHF 35.-  / Membres Bikini Test : CHF 20.- / Abonnements AG Culturel* : Gratuit (limité)', '19:30 - 00:00 / À partir de 16 ans : CHF 10.–  / De 12 à 15 ans : CHF 5.– / Moins de 12 ans : Gratuit  / Soutien : CHF 15.-  / Abonnement AG Culturel : Gratuit', '19:30 - 02:00 / Normal : CHF 15.- / Soutien : CHF 20.-  / Membres Bikini Test : Gratuit / Abonnements AG Culturel* : Gratuit (limité)', '14:30 - 06:00 / 14:00 - 20:30 / PRIX LIBRE / 20:30 - 06:00 / NORMAL CHF 10.- / SOUTIEN CHF 15.-  / ABONNEMENT AG CULTUREL & MEMBRES : GRATUIT']
       - name: date
         type: date
         components:
