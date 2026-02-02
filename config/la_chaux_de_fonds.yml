@@ -1,0 +1,60 @@
+scrapers:
+  - name: BikiniTest
+    url: https://www.bikinitest.ch/
+    item: div.events.masonry-holder > div.box
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: La Chaux-de-Fonds
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Bikini Test
+      - name: sourceUrl
+        value: https://www.bikinitest.ch/
+      - name: genresText
+        type: text
+        location:
+          - selector: div.style
+            # examples: [Slap / Chanson / Poésie, All Styles, Rock Metal, All Styles Party]
+      - name: url
+        type: url
+        location:
+          - selector: h1.title > a.fancybox
+            attr: href
+            # examples: [/1206/voir/2026/02/14, /1212/voir/2026/03/21, /1210/voir/2026/04/18, /1213/voir/2026/05/30]
+      - name: title
+        type: text
+        location:
+          - selector: h1.title > a.fancybox
+            # examples: [Phanee de Pool, It’s Time ! par The College Machine, Silver Dust, Ultima]
+      - name: comment
+        type: text
+        location:
+          - selector: p.subtitle
+            # examples: [Seule en scène, En collaboration avec Le Collège Musical, Monster Sound (Unique concert des 20 ans), Save the date !]
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: time.time
+              # examples: [sa 14 février 2026, sa 21 mars 2026, sa 18 avril 2026, sa 30 mai 2026]
+              regex_extract:
+                exp: "([0-9]{1,2} [a-zéû]+ [0-9]{4})"
+            layout:
+              - 2 January 2006
+          - covers:
+              time: true
+            location:
+              selector: div.infos:nth-child(6)
+              regex_extract:
+                exp: "([0-9]{2}:[0-9]{2})"
+            layout:
+              - 15:04
+        date_location: CET
+        date_language: fr_FR
