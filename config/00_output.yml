@@ -14,4 +14,5 @@ writer:
   uri_dryrun: "https://api.concertcloud.live/api/events/validate"
   uri_status: "https://api.concertcloud.live/api/status"
   write_status: true
+  batch_size: 50
   # The other parameters are defined as env variables.
