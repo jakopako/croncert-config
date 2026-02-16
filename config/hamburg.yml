@@ -163,6 +163,7 @@ scrapers:
               selector: div.col.col-12.col-md-4.cp-meta > p.cp-times > span.cp-start
               regex_extract:
                 exp: "[0-9]{2}:[0-9]{2}"
+              default: "20:00"
             layout: ["15:04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"

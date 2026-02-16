@@ -98,6 +98,10 @@ scrapers:
             layout:
               - 2.1.2006
         date_location: CET
+    filters:
+      - field: location
+        exp: Löwensaal # covered by Löwensaal scraper
+        match: false
 
   - name: JazzStudio
     url: https://www.jazzstudio.de/veranstaltungen/
