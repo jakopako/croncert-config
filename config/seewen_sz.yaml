@@ -6,7 +6,9 @@ scrapers:
       - name: location
         value: Gaswerk
       - name: city
-        value: Seewen SZ
+        value: Seewen
+      - name: state
+        value: Schwyz
       - name: country
         value: Switzerland
       - name: type
