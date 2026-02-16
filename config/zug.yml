@@ -162,6 +162,12 @@ scrapers:
       - field: comment
         exp: "(?i)(theater)"
         match: false
+      - field: title
+        exp: "(?i)(erzähltheater)"
+        match: false
+      - field: title
+        exp: "(?i)(spotlight atelier)"
+        match: false
       - field: date
         exp: < now
         match: false
