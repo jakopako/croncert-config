@@ -65,6 +65,7 @@ scrapers:
         type: text
         location:
           - selector: span.spielort
+            default: Club Stereo
       - name: title
         type: text
         location:
@@ -77,7 +78,7 @@ scrapers:
       - name: imageUrl
         type: url
         location:
-          - attr: data-src
+          - attr: src
             selector: img
       - name: date
         type: date
