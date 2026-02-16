@@ -267,11 +267,13 @@ scrapers:
             location:
               selector: div.eventDoorStartDate > span
               regex_extract:
-                exp: "[0-9]{1,2}[0-9:]*[ap]{1}m"
+                exp: "[0-9]{1,2}[0-9:]*(\\s)?[ap]{1}m"
                 index: -1
             layout:
               - 15pm
               - 15:04pm
+              - 15 pm
+              - 15:04 pm
         date_location: America/Chicago
         date_language: en_US
 
