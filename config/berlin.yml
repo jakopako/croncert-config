@@ -255,3 +255,50 @@ scrapers:
       - field: eventType
         match: false
         exp: Party
+
+  - name: Monarch
+    url: https://kottimonarch.de/programm.php
+    item: body > div.breite > div.nachrichten > div > div
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Monarch"
+      - name: "sourceUrl"
+        value: "https://kottimonarch.de/programm.php"
+      - name: title
+        type: text
+        location:
+          - selector: table > tbody > tr > td > b > div
+            # examples: [INDIE GROUND, SHANE TODD (COMEDY), BREEZE X FLIRT RECORDS, POLLYESTER AND THE WORLD DOMINATION (KONZERT)]
+            regex_extract:
+              exp: "[^\\(]+"
+              index: 0
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+            default: https://kottimonarch.de/programm.php
+            # examples: ['https://loveyourartist.com/en/profiles/spokes-gmbh-5OQQ41/events/shane-todd-hold-me-back-berlin-FKX5K3', 'https://www.tixforgigs.com/Event/71706', 'https://www.eventbrite.co.uk/e/triple-entendre-indiesoulhip-hop-tickets-1981477939858?aff=oddtdtcreator', 'https://loveyourartist.com/de/profiles/dynamite-konzerte-CK59OW/events/konrad-kuchenmeister-berlin-KWI1QN']
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: b
+              # examples: ['Donnerstag 26/02/2026-21:00', 'Freitag 27/02/2026-18:00', 'Freitag 27/02/2026-23:00', 'Donnerstag 05/03/2026-20:00']
+            layout:
+              - Monday 2/1/2006-15:04
+        date_location: CET
+        date_language: de_DE
+    fetcher:
+      type: static
