@@ -757,16 +757,6 @@ scrapers:
           - type: regex-replace
             regex: "\\s+\\n\\s+"
             replace: ", "
-
-          # - selector: p
-          #   child_index: 0
-          # - selector: p
-          #   child_index: 2
-          # - selector: p
-          #   child_index: 4
-          # - selector: p
-          #   child_index: 6
-        # separator: ", "
         can_be_empty: true
       - name: title
         type: text
@@ -797,3 +787,47 @@ scrapers:
       - field: date
         exp: "> now"
         match: true
+
+  - name: Prinzregententheater
+    url: https://theaterakademie.de/de/theater/programm
+    item: section > ul > li.datarecord--small.datarecord
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Munich"
+      - name: "country"
+        value: "Germany"
+      - name: "sourceUrl"
+        value: https://theaterakademie.de/de/theater/programm
+      - name: location
+        value: Prinzregententheater
+      - name: url
+        value: https://theaterakademie.de/de/theater/programm
+      - name: title
+        type: text
+        location:
+          - selector: div.flex-4.flex.flex-col.text-left > .font-timesarial-sans.font-medium
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.flex-2.flex.lg\:flex-col.text-left > time
+              attr: datetime
+            layout: ["2006-01-02"]
+          - covers:
+              time: true
+            location:
+              selector: div.flex-2.flex.lg\:flex-col.text-left > div > time
+            layout: [15:04 Uhr]
+        date_location: CET
+      - name: eventSubtitle
+        location:
+          - selector: span.eventSubtitle.overflow-hidden.text-ellipsis
+        can_be_empty: true
+    fetcher:
+      type: dynamic
