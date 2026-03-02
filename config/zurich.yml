@@ -2658,3 +2658,76 @@ scrapers:
               - 15:04
         date_location: CET
         date_language: de_DE
+
+  - name: Kanzlei
+    url: https://www.kanzlei.ch/
+    item: div.event > div.container > div.row
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Kanzlei
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://www.kanzlei.ch/
+      - name: url
+        type: url
+        location:
+          - selector: div.col-md-3.col-xs-12.hidden-sm.hidden-xs.links:nth-child(3) > a.btn.btn-primary
+            attr: href
+            # examples: ['https://eventfrog.ch/homeparty', 'https://eventfrog.ch/shabbamarch26', 'https://zurich.karabas.ch/yaktak/', 'https://eventfrog.ch/homeparty']
+      - name: title
+        type: text
+        location:
+          - selector: div.col-md-6.col-md-offset-3.col-xs-12:nth-child(4) > h2.text-center
+            # examples: [Homeparty 23+, Shabba, Yaktak live, Homeparty 23+]
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.fade.modal:nth-child(6) > div.modal-dialog > div.modal-content > div.modal-body:nth-child(2) > p > img.img-responsive
+            attr: src
+            # examples: ['https://kanzlei.nighthub.ch/storage/events/flyers/resized/8p4j27NFtGSen5aF6X6kKKhRICPL0Pyq2EyxGxim.png', 'https://kanzlei.nighthub.ch/storage/events/flyers/resized/dKF6etj1U4JhXKkocnuLzCezeoGeE9TaLG83Go9T.jpg', 'https://kanzlei.nighthub.ch/storage/events/flyers/resized/TeMlXb9glUUncoso82KqPzAxS4SqZBXcPvU2mpOc.jpg', 'https://kanzlei.nighthub.ch/storage/events/flyers/resized/b8l9zMIoKDCEo6UalK2tbv3Emosz5xXvBFZh7iua.png']
+      - name: comment
+        type: text
+        location:
+          - selector: div.fade.modal:nth-child(6) > div.modal-dialog > div.modal-content > div.modal-body:nth-child(2) > p:nth-child(3)
+            child_index: 14
+            # examples: ['Hier gibt’s beste Musik, wunderschöne Menschen und starke Drinks, für welche du nicht gleich den ganzen Lohn wieder rausballern musst.', 'YAKTAK – a Ukrainian singer and songwriter who has become a real sensation in the world of Ukrainian music. In a short creative journey, he has already collaborated and released many features with such popular artists as Jerry Heil, MamaRika, KOLA and others.', 'Hier treffen sich sympathische, offene Menschen, um gemeinsam zu feiern: Kein sinnloses Posen, keine überteuerten Preise, dafür aber beste Musik und ganz viel Spass! Egal ob auf dem Dancefloor, beim Mario Kart spielen oder vor der Fotobox, bei der Homeparty ist Spass für alle garantiert!', 'Freut euch auf eine Nacht voller Nostalgie, Neon-Vibes und unvergesslicher Party-Momente. Ob ABBA, Madonna, Michael Jackson oder die 90s Dancefloor-Hymnen, die jeder kennt – DISCO FEVER liefert den Soundtrack für alle, die damals aufgewachsen sind und heute immer noch feiern können.']
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.col-md-3.col-xs-12.datecol > span.weekday
+              child_index: 2
+              # examples: ["06.03", "07.03", "13.03", "13.03"]
+            layout:
+              - "2.1"
+          - covers:
+              time: true
+            location:
+              selector: div.col-md-3.col-xs-12.datecol
+              child_index: 2
+              # examples: ['ab 23:00', 'ab 23:00', 'ab 19:00', 'ab 23:00']
+            layout:
+              - ab 15:04
+        date_location: CET
+        guess_year: true
+    fetcher:
+      type: dynamic
+    filters:
+      - field: title
+        exp: (?i)(party)
+        match: false
+      - field: title
+        exp: (?i)(disco fever)
+        match: false
+      - field: title
+        exp: (?i)(theatersport)
+        match: false
