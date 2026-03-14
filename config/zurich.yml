@@ -51,8 +51,8 @@ scrapers:
         guess_year: true
 
   - name: Mehrspur
-    url: "https://www.mehrspur.ch/veranstaltungen"
-    item: div.row.post-row > div
+    url: https://www.mehrspur.ch/programm
+    item: div.programm_tile_wrapper.w-col.w-col-3.w-dyn-item > div.programm_tile
     fields:
       - name: "location"
         value: "Mehrspur"
@@ -63,52 +63,43 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://www.mehrspur.ch/veranstaltungen"
-      - name: "title"
+        value: https://www.mehrspur.ch/programm
+      - name: url
+        type: url
         location:
-          selector: ".block_under_title a"
-      - name: "comment"
+          - selector: a.programm-tile-img-wrapper.w-inline-block
+            attr: href
+            # examples: [/veranstaltungen/pino-zortea, /veranstaltungen/sphaera-iii, /veranstaltungen/ben-wendel, /veranstaltungen/jazz-jam-22]
+      - name: imageUrl
+        type: url
         location:
-          selector: "h6.slogan"
-      - name: "url"
-        type: "url"
+          - selector: a.programm-tile-img-wrapper.w-inline-block > img.programm_tile_img
+            attr: src
+            # examples: ['https://cdn.prod.website-files.com/685fb5e5a17273fa961538fd/69778a62f7a3dc0ce2bcf3e5_karussell-bild_300dpi.jpg', 'https://cdn.prod.website-files.com/685fb5e5a17273fa961538fd/69778d293d1a9a3f4b9307f1_241004_Sphaera_III_LeaHuser-10.jpg', 'https://cdn.prod.website-files.com/685fb5e5a17273fa961538fd/699ebb21cf314790480f7ab1_Ben%20Wendel%20Option%204%20(Credit%20Josh%20Goleman_low_web.jpg', 'https://cdn.prod.website-files.com/685fb5e5a17273fa961538fd/695e7df6ef5ee0f324c8945d_Photo.jpg']
+      - name: title
+        type: text
         location:
-          selector: ".block_under_title a"
-      - name: "imageUrl"
-        type: "url"
+          - selector: a.programm-tile-img-wrapper.w-condition-invisible.w-inline-block:nth-child(3) > div.event_placeholder > div
+            # examples: [Pino Zortea, SPHAERA III, Ben Wendel, Jazz Jam]
+      - name: genresText
+        type: text
         location:
-          selector: "img"
-          attr: src
-      - name: "date"
-        type: "date"
+          - selector: div.border-bottom.border-top.fusszeile_wrapper:nth-child(6) > div.w-embed > p.align-left.meta-text
+            # examples: [Jazz, Jazz, Masterclass Jazz, Jazz]
+      - name: date
+        type: date
         components:
           - covers:
               day: true
               month: true
-            location:
-              selector: ".event-date"
-              child_index: 1
-            transform:
-              - type: regex-replace
-                regex: Mrz
-                replace: Mär
-              - type: regex-replace
-                regex: März
-                replace: Mär
-            layout: ["Mon 2.Jan.", "Mon 2.Jan", "Mon 2.January"]
-          - covers:
+              year: true
               time: true
             location:
-              selector: ".event-time"
-              child_index: 1
-            layout: ["15:04"]
-        date_location: "Europe/Berlin"
-        date_language: "de_DE"
-        guess_year: true
-    filters:
-      - field: title
-        exp: Kunstwettbewerb
-        match: false
+              selector: div.programm_tile_datetime_code.w-embed > h2
+              # examples: ['14.03.2026 20:30', '14.03.2026 22:00', '17.03.2026 12:30', '17.03.2026 20:00']
+            layout:
+              - 2.1.2006 15:04
+        date_location: CET
 
   - name: Umbo
     url: "https://www.umbo.wtf"
