@@ -13,6 +13,8 @@ scrapers:
         value: "Ebullition"
       - name: "sourceUrl"
         value: "https://ebull.ch/fr"
+      - name: imageUrl
+        value: https://www.fusions.ch/ebullition/img/ebullition_logo.gif
       - name: title
         type: text
         location:

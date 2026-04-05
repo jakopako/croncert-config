@@ -926,6 +926,13 @@ scrapers:
         type: "url"
         location:
           selector: "h2 a"
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: ".event-summary-image > a > img"
+          attr: srcset
+          regex_extract:
+            exp: "[^ ]+"
       - name: "comment"
         location:
           selector: "div.col-md-8 > p:nth-child(6)"
