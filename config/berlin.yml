@@ -1,4 +1,65 @@
 scrapers:
+  - name: AstraKulturhaus
+    url: https://www.astra-berlin.de/
+    item: article.event
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Astra Kulturhaus"
+      - name: "sourceUrl"
+        value: "https://www.astra-berlin.de/"
+      - name: eventCategory
+        type: text
+        location:
+          - selector: div.event__kind div.event__label
+        hide: true
+        can_be_empty: true
+      - name: title
+        type: text
+        location:
+          - selector: h1.event__title > a
+      - name: url
+        type: url
+        location:
+          - selector: h1.event__title > a
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img.image__src
+            attr: src
+        on_subpage: url 
+        can_be_empty: true
+      - name: comment
+        type: text
+        location:
+          - selector: div.gig__description > p
+        entire_subtree: true
+        can_be_empty: true
+        on_subpage: url
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              attr: data-realdate 
+            layout:
+              - "2006-01-02 15:04:05 -0700 "
+        date_location: "Europe/Berlin"
+    filters:
+      - field: eventCategory
+        exp: "Konzert|Musik|Concert|Music"
+        match: true
+
   - name: Gretchen
     url: https://www.gretchen-club.de/
     item: body.normal.start > div.block > div.start > div > div.dates > div.gig
