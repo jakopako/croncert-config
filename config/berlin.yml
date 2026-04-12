@@ -118,6 +118,58 @@ scrapers:
             can_be_empty: true
         date_location: "Europe/Berlin"
 
+  # ─────────────────────────────────────────────────────────────────────────────
+  # FRANNZ CLUB (Kulturbrauerei, Schönhauser Allee 36, Prenzlauer Berg)
+  # URL: https://www.frannz.de/veranstaltungen/
+  # ─────────────────────────────────────────────────────────────────────────────
+  - name: FrannzClub
+    url: https://www.frannz.de/
+    item: article.events
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Frannz Club"
+      - name: "sourceUrl"
+        value: "https://www.frannz.de/"
+      - name: "url"
+        value: "https://www.frannz.de/"
+      - name: title
+        type: text
+        location:
+          - selector: h2.event-title
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.image > img
+            attr: src
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+            location:
+              selector: div.event-day
+            layout:
+              - "02"
+          - covers:
+              month: true
+            location:
+              selector: div.event-month
+            layout:
+              - "January"
+          - covers:
+              time: true
+            location:
+              selector: div.event-entrance > strong
+            layout:
+              - "15:04"
+        date_location: "Europe/Berlin"
+
   - name: Gretchen
     url: https://www.gretchen-club.de/
     item: body.normal.start > div.block > div.start > div > div.dates > div.gig
