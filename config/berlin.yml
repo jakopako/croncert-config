@@ -60,6 +60,64 @@ scrapers:
         exp: "Konzert|Musik|Concert|Music"
         match: true
 
+  - name: Badehaus
+    url: https://badehaus-berlin.com/en/concerts/
+    item: div.em-events-list > div
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Badehaus"
+      - name: "sourceUrl"
+        value: "https://badehaus-berlin.com/en/concerts/"
+      - name: title
+        type: text
+        location:
+          - selector: h2 > a
+      - name: url
+        type: url
+        location:
+          - selector: h2 > a
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: src
+      - name: comment
+        type: text
+        location:
+          - selector: div.post-content > div > div > p:nth-child(17)
+        on_subpage: url
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: p.eventinfo
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}"
+            layout:
+              - "02.01.2006"
+          - covers:
+              time: true
+            location:
+              selector: p.eventinfo
+              regex_extract:
+                exp: "[0-9]{2}:[0-9]{2} UHR"
+            layout:
+              - "15:04 UHR"
+            can_be_empty: true
+        date_location: "Europe/Berlin"
+
   - name: Gretchen
     url: https://www.gretchen-club.de/
     item: body.normal.start > div.block > div.start > div > div.dates > div.gig
