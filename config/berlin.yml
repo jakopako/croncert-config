@@ -302,3 +302,71 @@ scrapers:
         date_language: de_DE
     fetcher:
       type: static
+
+  - name: Schokoladen
+    url: https://schokoladen-mitte.de/
+    item: div.event
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Schokoladen"
+      - name: "sourceUrl"
+        value: "https://schokoladen-mitte.de/"
+      - name: "url"
+        value: "https://schokoladen-mitte.de/"
+      - name: category
+        type: text
+        location:
+          - selector: h6
+        hide: true
+        can_be_empty: true
+      - name: imageUrl
+        type: url
+        can_be_empty: true
+        location:
+          - selector: div.event-info img
+            attr: src
+      - name: title
+        type: text
+        location:
+          - selector: div.title div.event-header h2
+      - name: comment
+        type: text
+        location:
+          - selector: div.event-description
+            entire_subtree: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.event-info
+              attr: data-event-date
+            layout:
+              - "2006-01-02"
+          - covers:
+              time: true
+            location:
+              selector: div.event-info > div > div > div.col-md-3 > div > p > span
+              regex_extract:
+                exp: "[0-9]{2}(h|:)[0-9]{0,2}?$"
+            layout:
+              - "15h"
+              - "15:04"
+            can_be_empty: true
+        date_location: "Europe/Berlin"
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 2000
+    filters:
+      - field: category
+        exp: "Musik|Konzert|Music|Concert"
+        match: true
