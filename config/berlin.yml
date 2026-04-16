@@ -118,6 +118,63 @@ scrapers:
             can_be_empty: true
         date_location: "Europe/Berlin"
 
+  - name: BFlat
+    url: https://b-flat-berlin.de/programm
+    item: 
+      div.summary-item
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "B Flat"
+      - name: "sourceUrl"
+        value: "https://b-flat-berlin.de/programm"
+      - name: "title"
+        location:
+          - selector: div.summary-title > a
+      - name: url
+        type: url
+        location:
+          - selector: div.summary-title > a
+            attr: href
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          - selector: div.sqs-html-content > p
+            all_nodes: true
+            separator: "\n"
+      - name: imageUrl
+        type: url
+        location:
+        - selector: div.img-wrapper > img
+          attr: data-src
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.eventitem-column-meta > ul > li > time
+              attr: datetime
+            layout: ["2006-01-02"]
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout: ["15:04"]
+        date_location: "CET"
+        date_language: "de_DE"
+    fetcher:
+      type: static
+
   # ─────────────────────────────────────────────────────────────────────────────
   # FRANNZ CLUB (Kulturbrauerei, Schönhauser Allee 36, Prenzlauer Berg)
   # URL: https://www.frannz.de/veranstaltungen/
