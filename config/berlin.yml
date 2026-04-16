@@ -676,3 +676,65 @@ scrapers:
       - field: "event-type"
         exp: "(?i)concert"
         match: true
+
+  - name: Quasimodo
+    url: https://quasimodo.club/en/events
+    item: ul.events > li
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Gretchen"
+      - name: "sourceUrl"
+        value: https://quasimodo.club/en/events
+      - name: title
+        location:
+          - selector: h4.event-title
+          - selector: span.event-support
+        separator: ", "
+      - name: url
+        type: url
+        location:
+          selector: a
+          attr: href
+      - name: imageUrl
+        type: url
+        location:
+          selector: div.event-image
+          attr: style
+          regex_extract:
+            exp: "http[^)]+"
+      - name: genresText
+        location:
+          selector: div.event-tags > a
+          all_nodes: true
+          separator: ", "
+        can_be_empty: true
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          selector: div.description
+          entire_subtree: true
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.event-data.visible-xs > div.date
+            layout:
+              - 02.01.2006 - 15:04
+        date_location: CET
+        date_language: de_DE
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 2000
