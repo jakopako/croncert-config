@@ -33,7 +33,7 @@ scrapers:
         location:
           - selector: img.image__src
             attr: src
-        on_subpage: url 
+        on_subpage: url
         can_be_empty: true
       - name: comment
         type: text
@@ -51,7 +51,7 @@ scrapers:
               year: true
               time: true
             location:
-              attr: data-realdate 
+              attr: data-realdate
             layout:
               - "2006-01-02 15:04:05 -0700 "
         date_location: "Europe/Berlin"
@@ -120,8 +120,7 @@ scrapers:
 
   - name: BFlat
     url: https://b-flat-berlin.de/programm
-    item: 
-      div.summary-item
+    item: div.summary-item
     fields:
       - name: "type"
         value: "concert"
@@ -151,8 +150,8 @@ scrapers:
       - name: imageUrl
         type: url
         location:
-        - selector: div.img-wrapper > img
-          attr: data-src
+          - selector: div.img-wrapper > img
+            attr: data-src
       - name: date
         type: date
         on_subpage: url
@@ -597,4 +596,83 @@ scrapers:
     filters:
       - field: category
         exp: "Musik|Konzert|Music|Concert"
+        match: true
+
+  - name: SilentGreen
+    url: https://www.silent-green.net/en/programme
+    item: ul.calendar-horizontal.d-flex.justify-content-between.list-unstyled > li.eventDay
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Silent Green"
+      - name: sourceUrl
+        type: url
+        value: https://www.silent-green.net/en/programme
+      - name: url
+        type: url
+        location:
+          - selector: span.d-none.popperContent.tooltipContent > p > a.d-block
+            attr: href
+            # examples: ['/en/programme/detail/jasmine-wood-pavel-milyakov?tx_news_pi1%5Bday%5D=2&tx_news_pi1%5Bmonth%5D=4&tx_news_pi1%5Byear%5D=2026&cHash=7727afa2e4a92cd3a818d80b3b60da9d', '/en/programme/detail/lucy-kruger-the-lost-boys?tx_news_pi1%5Bday%5D=4&tx_news_pi1%5Bmonth%5D=4&tx_news_pi1%5Byear%5D=2026&cHash=fc14d0e41fe01bcab57716b9638443b7', '/en/programme/detail/juana-molina?tx_news_pi1%5Bday%5D=7&tx_news_pi1%5Bmonth%5D=4&tx_news_pi1%5Byear%5D=2026&cHash=9748e2f8890d669a4f8eeb08ba8044c1', '/en/programme/detail/malibu?tx_news_pi1%5Bday%5D=8&tx_news_pi1%5Bmonth%5D=4&tx_news_pi1%5Byear%5D=2026&cHash=531394439a661c32aa8af1999f635827']
+      - name: event-type
+        type: text
+        location:
+          - selector: span.d-none.popperContent.tooltipContent > p > a.d-block > span.cat
+            # examples: [Concert, Concert, Concert, Concert]
+        can_be_empty: true
+      - name: imageUrl
+        type: url
+        on_subpage: url
+        location:
+          selector: picture > source
+          attr: srcset
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          selector: div.ce-bodytext
+          entire_subtree: true
+        can_be_empty: true
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: span.event-detail-date-begin
+            layout:
+              - "Mon 01/02/2006"
+          - covers:
+              time: true
+            location:
+              selector: div.container-event-detail-metadata > div > div > span.event-detail-datetime > span.event-detail-time > span.event-detail-time-begin
+              default: 08:30 pm Start
+            layout:
+              - "03:04 pm Start"
+              - "03:04 pm -"
+      - name: title
+        type: text
+        location:
+          - selector: span.d-none.popperContent.tooltipContent > p > a.d-block > span.title:nth-child(2)
+            # examples: [Jasmine Wood + Pavel Milyakov – cancelled, Lucy Kruger & The Lost Boys + Kristof Hahn, Juana Molina – sold out, Malibu]
+    paginator:
+      location:
+        selector: li.arrow-next > a
+      max_pages: 12
+    fetcher:
+      type: static
+    filters:
+      - field: "event-type"
+        exp: "(?i)konzert"
+        match: true
+      - field: "event-type"
+        exp: "(?i)concert"
         match: true
