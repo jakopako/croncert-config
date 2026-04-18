@@ -21,7 +21,7 @@ jobs:
           go-version: 1.24
 
       - name: Install google chrome
-        uses: browser-actions/setup-chrome@latest
+        uses: browser-actions/setup-chrome@v1
 
       - name: Install goskyr
         run: go install github.com/jakopako/goskyr/cmd/goskyr@v0.9.1
