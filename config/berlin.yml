@@ -426,6 +426,63 @@ scrapers:
         date_language: de_DE
         guess_year: true
 
+  - name: SO36
+    url: https://www.so36.com/
+    item: div.nav-wrap li
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "SO36"
+      - name: "sourceUrl"
+        value: "https://www.so36.com/"
+      - name: title
+        type: text
+        location:
+          - selector: a
+        transform:
+          - type: regex-replace
+            regex: "^Tickets "
+            replace: ""
+          - type: regex-replace
+            regex: " in Berlin am [0-9.]+$"
+            replace: ""
+      - name: url
+        type: url
+        location:
+          - selector: a
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img[src*="/hero_image/"]
+            attr: src
+        on_subpage: url
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: a
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}"
+            layout:
+              - "02.01.2006"
+        date_location: "Europe/Berlin"
+    filters:
+      - field: url
+        exp: ".*/produkte/.*"
+        match: true
+
   - name: Lido
     url: https://www.lido-berlin.de/
     item: div.page > div.event-list > article.event-ticket
