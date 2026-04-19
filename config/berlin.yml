@@ -795,3 +795,68 @@ scrapers:
     fetcher:
       type: dynamic
       page_load_wait_ms: 2000
+
+  - name: UberArena
+    url: https://www.uber-arena.de/en/events-tickets
+    item: div.entry
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Uber Arena"
+      - name: source
+        type: url
+        value: https://www.uber-arena.de/en/events-tickets
+      - name: title
+        type: text
+        location:
+          - selector: h3.event-title > a
+      - name: url
+        type: url
+        location:
+          - selector: h3.event-title > a
+            attr: href
+      - name: event-type
+        type: text
+        location:
+          - selector: span.event-category
+            # examples: [Concert, Concert, Concert, Concert]
+        can_be_empty: true
+      - name: imageUrl
+        type: url
+        location:
+          selector: div.thumb > a > img
+          attr: src
+      - name: comment
+        type: text
+        on_subpage: url
+        location:
+          selector: div.event-body
+          entire_subtree: true
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: h3.event-title > a
+              attr: href
+              regex_extract:
+                exp: "[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{4}"
+            layout:
+              - "2006-01-02-1504"
+    filters:
+      - field: "event-type"
+        exp: "(?i)konzert"
+        match: true
+      - field: "event-type"
+        exp: "(?i)concert"
+        match: true
