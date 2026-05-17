@@ -7,6 +7,8 @@ scrapers:
         value: "concert"
       - name: "city"
         value: "Budapest"
+      - name: "country"
+        value: "Hungary"
       - name: "location"
         value: "A38"
       - name: "sourceUrl"
