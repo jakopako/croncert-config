@@ -171,7 +171,7 @@ scrapers:
   # are excluded because of a differently formatted date and hence a resulting date parsing error.
   - name: VeveySpringClassics
     url: https://veveyspringclassic.ch/en/schedule/concerts-publics/
-    item: div.site-main > section.pt-4.section > div.row > div.col-sm-3 > div.concert-item > a
+    item: div.concert-item > a
     fields:
       - name: type
         value: concert
@@ -180,11 +180,7 @@ scrapers:
       - name: country
         value: Switzerland
       - name: city
-        location:
-          - selector: div.concert-date.transition-fast:nth-child(4)
-            regex_extract:
-              exp: "[^,]+"
-              index: 1
+        value: Vevey
       - name: location
         type: text
         location:
@@ -199,6 +195,11 @@ scrapers:
         type: url
         location:
           - attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.concert-image
+            attr: data-bg
       - name: date
         type: date
         components:
