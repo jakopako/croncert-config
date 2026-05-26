@@ -118,6 +118,11 @@ scrapers:
       - name: "title"
         location:
           selector: ".text-block-21"
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: "img"
+          attr: "src"
       - name: "comment"
         location:
           selector: ".text-block-28"
@@ -157,6 +162,12 @@ scrapers:
           selector: h3.h3
           all_nodes: true
           separator: ", "
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div > div.w-full > span > span.hidden > span > div > img:nth-child(2)
+            attr: src
+        can_be_empty: true
       - name: url
         type: url
         location:
@@ -324,6 +335,13 @@ scrapers:
         type: "url"
         location:
           selector: ".event-link"
+      - name: "imageUrl"
+        type: "url"
+        on_subpage: "url"
+        location:
+          selector: "figure.event-media-image > img"
+          attr: src
+        can_be_empty: true
       - name: "date"
         type: "date"
         on_subpage: "url"
@@ -385,6 +403,9 @@ scrapers:
         type: "url"
         location:
           selector: ".desktop-linkoverlay"
+      - name: "imageUrl"
+        type: "url"
+        value: "https://www.tonhalle-orchester.ch/site/templates/images/TonhalleZurich_Logo_RGB_Schwarz.png"
       - name: "date"
         type: "date"
         components:
@@ -553,6 +574,11 @@ scrapers:
         type: "url"
         location:
           selector: ".col-sm-8 h2 a"
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: "img.img-responsive"
+          attr: "src"
       - name: "comment"
         on_subpage: "url"
         can_be_empty: true
@@ -802,6 +828,13 @@ scrapers:
         type: "url"
         location:
           selector: "a"
+      - name: "imageUrl"
+        on_subpage: "url"
+        type: "url"
+        location:
+          selector: "div.image > img"
+          attr: "src"
+        can_be_empty: true
       - name: "date"
         type: "date"
         components:
@@ -1348,7 +1381,7 @@ scrapers:
 
   - name: AlteKaserne
     url: https://www.altekaserne.com/events
-    item: div.row.party > div.col-sm-8.col-lg-9 > div.text-block
+    item: div.row.party
     fields:
       - name: "type"
         value: "concert"
@@ -1363,8 +1396,14 @@ scrapers:
       - name: url
         type: url
         location:
-          - selector: a
+          - selector: div.text-block > a
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.img-block > a > img
+            attr: src
+        can_be_empty: true
       - name: date
         type: date
         components:
@@ -1373,7 +1412,7 @@ scrapers:
               month: true
               year: true
             location:
-              selector: a > div.datum
+              selector: div.text-block > a > div.datum
             layout: ["Mon. 2. Jan. 2006"]
           - covers:
               time: true
@@ -1388,11 +1427,11 @@ scrapers:
       - name: title
         type: text
         location:
-          - selector: a > h3.name
+          - selector: div.text-block > a > h3.name
       - name: comment
         type: text
         location:
-          - selector: p
+          - selector: div.text-block > p
 
   - name: MaagMoments
     url: https://www.maag-moments.ch/maag/de/events.html?event_category=konzerte
@@ -1566,6 +1605,9 @@ scrapers:
         value: https://baramegge.ch/programm/konzerte/
       - name: url
         value: https://baramegge.ch/programm/konzerte/
+      - name: imageUrl
+        type: url
+        value: https://baramegge.ch/wp-content/uploads/yootheme/cache/86/BaE_Logo_RGB-860b4f19.webp
       - name: location
         value: Bar Am Egge
       - name: comment
@@ -1735,6 +1777,13 @@ scrapers:
         location:
           - selector: div.heading-container:nth-child(2) > h2.heading > a
             attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: picture > img
+            attr: data-srcset
+            regex_extract: 
+              exp : "[^, ]+"
       - name: date
         type: date
         components:
@@ -2624,6 +2673,9 @@ scrapers:
         value: concert
       - name: sourceUrl
         value: https://www.galotti.ch/events/
+      - name: imageUrl
+        value: https://p.kagi.com/proxy/01_logo_galotti_schwarz-weiss.240x0.png
+        type: url
       - name: title
         type: text
         location:
