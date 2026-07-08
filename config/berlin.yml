@@ -862,3 +862,73 @@ scrapers:
       - field: "event-type"
         exp: "(?i)concert"
         match: true
+
+
+  - name: WildAtHeart
+    url: https://wildatheartberlin.de/concerts.php
+    item: body > table > tbody > tr
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Wild at Heart"
+      - name: "url"
+        value: "https://wildatheartberlin.de/"
+      - name: "sourceUrl"
+        value: "https://wildatheartberlin.de/"
+      - name: title
+        type: text
+        location:
+          - selector: span.band
+        transform:
+          - type: regex-replace
+            regex: '\" '
+            replace: ""
+          - type: regex-replace
+            regex: ' \"'
+            replace: ""
+      - name: comment
+        type: text
+        location:
+          - selector: td:nth-child(2)
+            entire_subtree: true
+        transform:
+          - type: regex-replace
+            regex: '\"'
+            replace: ""
+          - type: regex-replace
+            regex: ' +'
+            replace: " "
+      - name: dateText
+        type: text
+        location:
+          - selector: span.datum
+            entire_subtree: true
+      - name: date
+        type: date
+        date_location: "Europe/Berlin"
+        date_language: de_DE
+        guess_year: true
+        components:
+          - covers: 
+              day: true
+              month: true
+            location:
+              selector: span.datum
+              entire_subtree: true
+            layout:
+              - "Mon02.01."
+          - covers:
+              time: true
+            location:
+              default: "19:00"
+            layout: ["15:04"]
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: src
