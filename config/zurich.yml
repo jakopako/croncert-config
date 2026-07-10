@@ -195,8 +195,8 @@ scrapers:
         count: 1
 
   - name: ElLokal
-    url: "http://www.ellokal.ch/?lang=de&details=9"
-    item: "#maincontent > .commingupEventsList_0,.commingupEventsList_1"
+    url: "https://www.ellokal.ch/vorschau"
+    item: "tr.wixui-table__row"
     fields:
       - name: "location"
         value: "El Lokal"
@@ -207,40 +207,44 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "http://www.ellokal.ch/?lang=de&details=9"
+        value: "http://www.ellokal.ch/"
       - name: "title"
         location:
-          selector: ".commingupEventsList_block5 a"
-      - name: "comment"
-        location:
-          selector: ".concertStyleNew .concertDetails"
-        on_subpage: "url"
-        can_be_empty: true
+          selector: "td a div"
       - name: "url"
         type: "url"
         location:
-          selector: ".commingupEventsList_block5 a"
+          selector: "td a"
+      - name: "imageUrl"
+        type: "url"
+        location:
+          selector: "div.apPOZK img"
+          attr: src
+        on_subpage: "url"
+        can_be_empty: true
+      - name: "comment"
+        location:
+          selector: "span.wixui-rich-text__text"
+          all_nodes: true
+        on_subpage: "url"
+        can_be_empty: true
       - name: "date"
         type: "date"
         components:
           - covers:
               day: true
-            location:
-              selector: ".commingupEventsList_block2"
-            layout: ["02. "]
-          - covers:
               month: true
+              year: true
             location:
-              selector: ".commingupEventsList_block3"
-            layout: ["January"]
+              selector: "td:nth-child(2) div"
+            layout: ["02/01/2006"]
           - covers:
               time: true
             location:
-              selector: ".commingupEventsList_block4"
+              selector: "td:nth-child(3) div div"
             layout: ["15Uhr04"]
         date_location: "Europe/Berlin"
         date_language: "de_DE"
-        guess_year: true
 
   - name: Mascotte
     url: "https://www.mascotte.ch/nu/events/event_list_type/2"
