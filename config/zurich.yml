@@ -163,7 +163,7 @@ scrapers:
           all_nodes: true
           separator: ", "
       - name: imageUrl
-        type: url
+        type: text
         location:
           - selector: div > div.w-full > span > span.hidden > span > div > img:nth-child(2)
             attr: src
@@ -405,7 +405,11 @@ scrapers:
           selector: ".desktop-linkoverlay"
       - name: "imageUrl"
         type: "url"
-        value: "https://www.tonhalle-orchester.ch/site/templates/images/TonhalleZurich_Logo_RGB_Schwarz.png"
+        on_subpage: url
+        location:
+          selector: div.pagetitle-header > img
+          attr: src
+        default: "https://www.tonhalle-orchester.ch/site/templates/images/TonhalleZurich_Logo_RGB_Schwarz.png"
       - name: "date"
         type: "date"
         components:
