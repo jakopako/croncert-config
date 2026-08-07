@@ -163,7 +163,7 @@ scrapers:
           all_nodes: true
           separator: ", "
       - name: imageUrl
-        type: text
+        type: url
         location:
           - selector: div > div.w-full > span > span.hidden > span > div > img:nth-child(2)
             attr: src
@@ -1790,8 +1790,8 @@ scrapers:
         location:
           - selector: picture > img
             attr: data-srcset
-            regex_extract: 
-              exp : "[^, ]+"
+            regex_extract:
+              exp: "[^, ]+"
       - name: date
         type: date
         components:
