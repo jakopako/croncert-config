@@ -932,3 +932,81 @@ scrapers:
         location:
           - selector: img
             attr: src
+  - name: Hole44
+    url: https://hole-berlin.de/
+    item: div.em-events-list.em-list > ul.eventlisting > li.event-item
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Berlin"
+      - name: "country"
+        value: "Germany"
+      - name: "location"
+        value: "Hole44"
+      - name: "sourceUrl"
+        value: "https://hole-berlin.de/"
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+            location: 
+              selector: div.event_date.grid-10.mobile-grid-30.tablet-grid-20 > div.event_day
+            layout:
+              - "02"
+          - covers:
+              month: true
+              year: true
+            location: 
+              selector: div.event_date.grid-10.mobile-grid-30.tablet-grid-20 > div.event_month:nth-child(2)
+            layout:
+              - "Jan. 2006"
+              - "Jan 2006"
+            transform:
+              - type: regex-replace
+                regex: Mrz
+                replace: Mär
+              - type: regex-replace
+                regex: März
+                replace: Mär
+          - covers:
+              time: true
+            location:
+              selector: div.event_date.grid-10.mobile-grid-30.tablet-grid-20 > div.event_start:nth-child(3)
+            layout:
+              - "15:04"
+        date_location: "Europe/Berlin"
+      - name: url
+        type: url
+        location:
+          - selector: div.event-data.grid-90.mobile-grid-70.tablet-grid-80:nth-child(2) > a.artist
+            attr: href
+            # examples: ['https://hole-berlin.de/event/2026-09-04-myng/', 'https://hole-berlin.de/event/2026-09-05-modern-english/', 'https://hole-berlin.de/event/2026-09-06-bang-yongguk/', 'https://hole-berlin.de/event/2026-09-12-asgeir/']
+            entire_subtree: true
+      - name: title
+        type: text
+        location:
+          - selector: div.event-data.grid-90.mobile-grid-70.tablet-grid-80:nth-child(2) > a.artist
+            # examples: [MYNG, Modern English, BANG YONGGUK, Ásgeir]
+      - name: genresText
+        type: text
+        location:
+          - selector: div.event-data.grid-90.mobile-grid-70.tablet-grid-80:nth-child(2) > div.event-tags > a
+            # examples: [Deutschrap, K-Pop, Metal, Dark Pop]
+        can_be_empty: true
+      - name: imageUrl
+        type: url
+        on_subpage: url
+        location:
+          - selector: a.event-image
+            attr: href
+        can_be_empty: true
+      - name: comment
+        on_subpage: url
+        location:
+          - selector: div.single_event_notes
+            entire_subtree: true
+        can_be_empty: true
+    fetcher:
+      type: static
