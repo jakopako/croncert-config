@@ -42,5 +42,10 @@ scrapers:
             attr: href
       - name: location
         type: text
+        on_subpage: url
         location:
-          - selector: div.text2
+          - selector: div.event-set-info > div.venue-subtitle
+        transform:
+          - type: regex-replace
+            regex: "Live at "
+            replace: ""
