@@ -2682,7 +2682,7 @@ scrapers:
       - name: sourceUrl
         value: https://www.galotti.ch/events/
       - name: imageUrl
-        value: https://p.kagi.com/proxy/01_logo_galotti_schwarz-weiss.240x0.png
+        value: https://www.kulturzueri.ch/site/assets/files/136991/01_logo_galotti_schwarz-weiss.240x0.png
         type: url
       - name: title
         type: text
