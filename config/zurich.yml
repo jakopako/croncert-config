@@ -316,7 +316,14 @@ scrapers:
     item: ".event"
     fields:
       - name: "location"
-        value: "Kaufleuten"
+        on_subpage: "url"
+        location:
+          - selector: header.event-header > div > div:nth-child(5) > ul > li
+            child_index: 2
+        transform:
+          - type: regex-replace
+            regex: "^"
+            replace: "Kaufleuten "
       - name: "city"
         value: "Zurich"
       - name: country
