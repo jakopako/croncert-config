@@ -168,6 +168,9 @@ scrapers:
       - field: title
         exp: "(?i)(spotlight atelier)"
         match: false
+      - field: title
+        exp: "(?i)(im atelier)"
+        match: false
       - field: date
         exp: < now
         match: false
