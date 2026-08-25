@@ -28,11 +28,10 @@ scrapers:
           - selector: ul.ical > a
         can_be_empty: true
       - name: mailUrl
-        type: text
+        type: url
         location:
           - selector: ul.ical > li > a:nth-child(2)
             attr: href
-            entire_subtree: true
         can_be_empty: true
       - name: date
         type: date
