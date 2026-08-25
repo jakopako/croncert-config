@@ -455,3 +455,92 @@ scrapers:
       location:
         selector: nav.grid_pagination div.max > a
       max_pages: 6
+
+  - name: RonnieScotts
+    url: https://www.ronniescotts.co.uk/find-a-show?order=show-date
+    item: div.grid__item > div.listing
+    fields:
+      - name: "location"
+        value: "ronnie scott's"
+      - name: "city"
+        value: "London"
+      - name: "type"
+        value: "concert"
+      - name: sourceUrl
+        value: https://www.ronniescotts.co.uk/find-a-show?order=show-date
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.listing__image-container > img
+            attr: src
+            # examples: ['https://cdn.ronniescotts.co.uk/uploads/_listing_image/2286898/Beatrice-Nicholas-1920x960px_2026-04-14-170510_ljbl.webp?v=1776358827', 'https://cdn.ronniescotts.co.uk/uploads/_listing_image/2511682/Finn-Rees-1920x960px.webp?v=1783011637', 'https://cdn.ronniescotts.co.uk/uploads/_listing_image/2286919/Ophelia-Gordon-1920x960px.webp?v=1776358925', 'https://cdn.ronniescotts.co.uk/uploads/_listing_image/982676/RS_JazzJam_01_2024-10-31-165935_wicl.webp?v=1769087916']
+      - name: title
+        type: text
+        location:
+          - selector: h2.listing__title
+            # examples: [Beatrice Nicholas, Finn Rees, 'Ophelia Gordon: Between the Lines', Ronnie Scott's Jazz Jam]
+      - name: comment
+        type: text
+        location:
+          - selector: p.listing__description
+            # examples: ['Join Beatrice Nicholas for a vibrant evening blending classical masterpieces with swinging jazz, celebrating African American female composers through bold reinterpretations and dynamic trio performance.', 'The Tasmanian-born, Melbourne/Naarm-based keyboardist, composer and producer with a reputation for eclecticism.', 'British pianist Ophelia Gordon presents a bold and boundary-breaking recital rooted in her acclaimed debut album Kapustin: Between the Lines.', The space for London’s top jazz instrumentalists to get together and play music from the canon of bebop and hardbop. You never know who might drop in.]
+      - name: url
+        type: url
+        location:
+          - selector: div.flex:nth-child(5) > a.button.button--tertiary
+            attr: href
+            # examples: ['https://www.ronniescotts.co.uk/find-a-show/beatrice-nicholas', 'https://www.ronniescotts.co.uk/find-a-show/finn-rees', 'https://www.ronniescotts.co.uk/find-a-show/ophelia-gordon', 'https://www.ronniescotts.co.uk/find-a-show/ronnie-scotts-jazz-jam-1']
+      - name: genresText
+        on_subpage: url
+        type: text
+        location:
+          - selector: div.intro__tags > ul > li > a
+            all_nodes: true
+            separator: ", "
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+            location:
+              selector: section > div.container.container--narrow > div.intro > div.intro__container > div > div > p
+              regex_extract:
+                exp: "[0-9]{1,2}"
+            layout:
+              - 2
+          - covers:
+              month: true
+            location:
+              selector: section > div.container.container--narrow > div.intro > div.intro__container > div > div > p
+              regex_extract:
+                exp: "[A-Za-z]{3,9}"
+            layout:
+              - January
+          - covers:
+              year: true
+            location:
+              selector: section > div.container.container--narrow > div.intro > div.intro__container > div > div > p
+              regex_extract:
+                exp: "[0-9]{4}"
+            layout:
+              - 2006
+          - covers:
+              time: true
+            location:
+              selector: section > div.container.container--narrow > div.intro > div.intro__container > div > div > p
+              regex_extract:
+                exp: "[0-9]{1,2}\\.[0-9]{2}(a|p)m"
+                ignore_errors: true
+              default: 8.00pm
+            layout:
+              - 3.04pm
+        date_location: CET
+        date_language: en_US
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 3000
+      user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+    interaction:
+      - type: scroll
+        delay: 4000
