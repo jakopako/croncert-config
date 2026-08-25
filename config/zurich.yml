@@ -882,8 +882,6 @@ scrapers:
     url: https://www.dynamo.ch/events-kurse?type=event
     item: div.md\:pb-24.min-h-screen.pb-8 > section > div.dynamo-container.md\:py-8.py-4.view-grid > div.gap-8 > div > div > div.w-full > article.relative > div > a
     fields:
-      - name: "location"
-        value: "Dynamo"
       - name: "city"
         value: "Zurich"
       - name: country
@@ -910,6 +908,14 @@ scrapers:
         location:
           - selector: div.image-mix-blend-mode > img
             attr: src
+      - name: "location"
+        on_subpage: url
+        location:
+          - selector: "a[href='#lageplan']"
+        transform:
+          - type: regex-replace
+            regex: Saal
+            replace: Dynamo
       - name: date
         on_subpage: url
         type: date
@@ -930,7 +936,7 @@ scrapers:
               selector: body > main > div > article > div > div:nth-child(1) > div > div > time
             layout:
               - Mon. 2/1/2006
-        date_location: CET
+        date_location: Europe/Zurich
         date_language: de_DE
     fetcher:
       type: dynamic
