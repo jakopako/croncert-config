@@ -649,8 +649,6 @@ scrapers:
       - type: click # load more events
         selector: div.events > a.more
     fields:
-      - name: "location"
-        value: "X-TRA"
       - name: "city"
         value: "Zurich"
       - name: country
@@ -672,6 +670,18 @@ scrapers:
         location:
           selector: ".left .content p"
           max_length: 200
+      - name: "location"
+        on_subpage: "url"
+        location:
+          selector: div.event > div > div.right > ul.info
+          entire_subtree: true
+          regex_extract: 
+            exp: "LocationX-TRA( Musikcafe)?"
+          default: "X-TRA"
+        transform:
+          - type: regex-replace
+            regex: "Location"
+            replace: ""
       - name: genresText
         on_subpage: "url"
         location:
@@ -698,7 +708,8 @@ scrapers:
           - covers:
               time: true
             location:
-              selector: ".time > li:nth-child(2) > strong"
+              selector: ".time > li:nth-last-child(1) > strong"
+              default: "7.00 pm"
             transform:
               - type: regex-replace
                 regex: "p\\.m\\."
