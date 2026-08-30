@@ -27,6 +27,12 @@ scrapers:
         location:
           selector: div.eventtag24.normaltags
         can_be_empty: true
+      - name: external
+        type: text
+        location:
+          selector: div.kursaalzusatzneuezeile
+          entire_subtree: true
+        can_be_empty: true
       - name: comment
         type: text
         can_be_empty: true
@@ -60,6 +66,9 @@ scrapers:
     filters:
       - field: tag
         exp: "Abgesagt"
+        match: false
+      - field: external
+        exp: "Kursaal"
         match: false
 
   - name: Gaskessel
