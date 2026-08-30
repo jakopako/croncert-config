@@ -975,8 +975,8 @@ scrapers:
         match: true
 
   - name: Komplex457
-    url: "https://komplex-457.ch/event/"
-    item: ".portfolio"
+    url: "https://komplex-457.ch/Programm"
+    item: div.gap-6.grid.grid-cols-1.lg\:grid-cols-4.md\:gap-8.md\:grid-cols-2 > a
     fields:
       - name: "city"
         value: "Zurich"
@@ -985,7 +985,7 @@ scrapers:
       - name: "type"
         value: "concert"
       - name: "sourceUrl"
-        value: "https://komplex-457.ch/event/"
+        value: "https://komplex-457.ch/Programm"
       - name: url
         type: url
         location:
@@ -1003,13 +1003,13 @@ scrapers:
           - selector: div.bg-gray-900.border.border-gray-800.cursor-pointer.flex.flex-col.group.h-full.hover\:border-purple-600.overflow-hidden.rounded-xl.shadow.text-card-foreground.transition-all > div.flex.flex-col.flex-grow.p-4:nth-child(2) > div.mt-auto:nth-child(3) > div.border.border-transparent.focus\:outline-none.focus\:ring-2.focus\:ring-offset-2.focus\:ring-ring.font-black.hover\:bg-primary\/80.inline-flex.items-center.justify-center.py-2.rounded-md.shadow.text-sm.text-white.transition-colors.w-full
             # examples: [VERLEGT, ABGESAGT, ABGESAGT, ABGESAGT]
         can_be_empty: true
+        hide: true
       - name: imageUrl
         type: url
         location:
           - selector: div.bg-gray-900.border.border-gray-800.cursor-pointer.flex.flex-col.group.h-full.hover\:border-purple-600.overflow-hidden.rounded-xl.shadow.text-card-foreground.transition-all > div.aspect-video.overflow-hidden.relative > img.duration-300.group-hover\:scale-105.h-full.object-cover.transition-transform.w-full
             attr: src
             # examples: ['https://base44.app/api/apps/68d4063c05f4a36a19b01270/files/mp/public/68d4063c05f4a36a19b01270/fff54a9e0_cropped-image.jpg', 'https://base44.app/api/apps/68d4063c05f4a36a19b01270/files/mp/public/68d4063c05f4a36a19b01270/cd484d41f_cropped-image.jpg', 'https://base44.app/api/apps/68d4063c05f4a36a19b01270/files/mp/public/68d4063c05f4a36a19b01270/23ceb28ba_cropped-image.jpg', 'https://base44.app/api/apps/68d4063c05f4a36a19b01270/files/mp/public/68d4063c05f4a36a19b01270/39685294f_cropped-image.jpg']
-
       - name: location
         type: text
         location:
@@ -1046,6 +1046,12 @@ scrapers:
       - field: location
         exp: Komplex 457
         match: true
+      - field: "eventStatus"
+        exp: ".*(?i)(abgesagt).*"
+        match: false
+      - field: "eventStatus"
+        exp: ".*(?i)(verlegt).*"
+        match: false
 
   - name: BrauereiOerlikon
     url: https://www.brauerei-oerlikon.ch/events/
