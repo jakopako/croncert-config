@@ -978,8 +978,6 @@ scrapers:
     url: "https://komplex-457.ch/event/"
     item: ".portfolio"
     fields:
-      - name: "location"
-        value: "Komplex 457"
       - name: "city"
         value: "Zurich"
       - name: country
@@ -988,50 +986,66 @@ scrapers:
         value: "concert"
       - name: "sourceUrl"
         value: "https://komplex-457.ch/event/"
-      - name: "title"
+      - name: url
+        type: url
         location:
-          selector: ".av-masonry-entry-title"
-      - name: "url"
-        type: "url"
+          - selector: ""
+            attr: href
+            # examples: ['/EventDetail?id=69cbd2809dec10456d04e77a', '/EventDetail?id=69ea1eafd6e39cb99ffe646b', '/EventDetail?id=69f89ae2788a8d7f269290c4', '/EventDetail?id=6a47b4188c1c97e4796de72a']
+      - name: title
+        type: text
         location:
-          selector: ""
-      - name: genresText
-        on_subpage: "url"
+          - selector: div.bg-gray-900.border.border-gray-800.cursor-pointer.flex.flex-col.group.h-full.hover\:border-purple-600.overflow-hidden.rounded-xl.shadow.text-card-foreground.transition-all > div.flex.flex-col.flex-grow.p-4:nth-child(2) > h3.font-black.mb-4.text-white.text-xl.tracking-tight
+            # examples: [FARID BANG, BINI, OLIVER TREE, MAD TSAI]
+      - name: eventStatus
+        type: text
         location:
-          - selector: "article:nth-child(7) > div.iconbox_content > div > p"
-          - selector: "article:nth-child(8) > div.iconbox_content > div > p"
-          - selector: "article:nth-child(9) > div.iconbox_content > div > p"
-        separator: ", "
+          - selector: div.bg-gray-900.border.border-gray-800.cursor-pointer.flex.flex-col.group.h-full.hover\:border-purple-600.overflow-hidden.rounded-xl.shadow.text-card-foreground.transition-all > div.flex.flex-col.flex-grow.p-4:nth-child(2) > div.mt-auto:nth-child(3) > div.border.border-transparent.focus\:outline-none.focus\:ring-2.focus\:ring-offset-2.focus\:ring-ring.font-black.hover\:bg-primary\/80.inline-flex.items-center.justify-center.py-2.rounded-md.shadow.text-sm.text-white.transition-colors.w-full
+            # examples: [VERLEGT, ABGESAGT, ABGESAGT, ABGESAGT]
         can_be_empty: true
-      - name: "date"
-        type: "date"
-        on_subpage: "url"
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.bg-gray-900.border.border-gray-800.cursor-pointer.flex.flex-col.group.h-full.hover\:border-purple-600.overflow-hidden.rounded-xl.shadow.text-card-foreground.transition-all > div.aspect-video.overflow-hidden.relative > img.duration-300.group-hover\:scale-105.h-full.object-cover.transition-transform.w-full
+            attr: src
+            # examples: ['https://base44.app/api/apps/68d4063c05f4a36a19b01270/files/mp/public/68d4063c05f4a36a19b01270/fff54a9e0_cropped-image.jpg', 'https://base44.app/api/apps/68d4063c05f4a36a19b01270/files/mp/public/68d4063c05f4a36a19b01270/cd484d41f_cropped-image.jpg', 'https://base44.app/api/apps/68d4063c05f4a36a19b01270/files/mp/public/68d4063c05f4a36a19b01270/23ceb28ba_cropped-image.jpg', 'https://base44.app/api/apps/68d4063c05f4a36a19b01270/files/mp/public/68d4063c05f4a36a19b01270/39685294f_cropped-image.jpg']
+
+      - name: location
+        type: text
+        location:
+          - selector: div.bg-gray-900.border.border-gray-800.cursor-pointer.flex.flex-col.group.h-full.hover\:border-purple-600.overflow-hidden.rounded-xl.shadow.text-card-foreground.transition-all > div.flex.flex-col.flex-grow.p-4:nth-child(2) > div.mt-auto:nth-child(3) > div.flex.font-black.gap-1.items-center.justify-center.mt-2.text-gray-400.text-xs:nth-child(2) > span
+            # examples: ['Komplex 457, Zürich', 'Komplex 457, Zürich', 'Komplex 457, Zürich', 'Komplex 457, Zürich']
+        transform:
+          - type: regex-replace
+            regex: ", Zürich"
+            replace: ""
+      - name: date
+        type: date
         components:
           - covers:
               day: true
               month: true
               year: true
             location:
-              selector: ".iconbox_content_container p"
-              entire_subtree: true
-              regex_extract:
-                exp: "[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}"
-            layout: ["02.01.2006"]
+              selector: div.bg-gray-900.border.border-gray-800.cursor-pointer.flex.flex-col.group.h-full.hover\:border-purple-600.overflow-hidden.rounded-xl.shadow.text-card-foreground.transition-all > div.flex.flex-col.flex-grow.p-4:nth-child(2) > div.flex.font-black.gap-2.items-center.mb-2.text-purple-400.text-sm > span.uppercase
+              # examples: ['Fr., 04. Sep. 2026', 'Mi., 09. Sep. 2026', 'Do., 10. Sep. 2026', 'Fr., 18. Sep. 2026']
+            layout:
+              - Mon., 2. Jan. 2006
           - covers:
               time: true
             location:
-              selector: article:nth-child(6) div.iconbox_content > div > p
-              regex_extract:
-                exp: "[0-9]{1,2}:[0-9]{2}"
-            layout: ["15:04"]
-        date_location: "Europe/Berlin"
+              selector: div.flex.items-center.gap-2.text-purple-400.mb-2.text-sm.font-black > span:nth-child(4)
+              # examples: ['Fr., 04. Sep. 2026', 'Mi., 09. Sep. 2026', 'Do., 10. Sep. 2026', 'Fr., 18. Sep. 2026']
+            layout:
+              - 15:04
+        date_location: CET
+        date_language: de_DE
+    fetcher:
+      type: dynamic
     filters:
-      - field: "title"
-        exp: ".*(?i)(abgesagt).*"
-        match: false
-      - field: title
-        exp: ".*(?i)(verschoben).*"
-        match: false
+      - field: location
+        exp: Komplex 457
+        match: true
 
   - name: BrauereiOerlikon
     url: https://www.brauerei-oerlikon.ch/events/
