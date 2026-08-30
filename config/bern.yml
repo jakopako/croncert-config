@@ -409,3 +409,84 @@ scrapers:
         date_location: CET
     fetcher:
       type: static
+
+  - name: KursaalBern
+    url: https://kursaal-bern.ch/erleben/event-kalender
+    item: div.g-col-12.grid.row-cols-12.tx_eventcalendar__event
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Bern
+      - name: country
+        value: Switzerland
+      - name: location
+        value: Kursaal Bern
+      - name: sourceUrl
+        value: https://kursaal-bern.ch/erleben/event-kalender
+      - name: eventType
+        type: text
+        location:
+          - selector: div.g-col-12.g-col-md-6.g-start-1.g-start-md-3.grid.row-cols-md-6.tx_eventcalendar__event_content:nth-child(2) > div.event__header > div.event_categories > ul.event_categories_list > li.event_category
+            # examples: [Konzert, Comedy, Konzert, Konzert]
+      - name: url
+        type: url
+        location:
+          - selector: div.event__header > h2 > a
+            attr: href
+            default: "https://kursaal-bern.ch/erleben/event-kalender"
+      - name: title
+        type: text
+        location:
+          - selector: div.event__header > h2
+            entire_subtree: true
+      - name: comment
+        type: text
+        location:
+          - selector: div.event__description.grid.row-cols-md-6 > div
+            entire_subtree: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+            location:
+              selector: div.g-col-12.g-col-md-2.g-start-1.tx_eventcalendar__event_date > time.event_date
+              # examples: [30.08.­26, 25.09.­26, 27.09.­26, 10.10.­26]
+              regex_extract:
+                exp: "\\d{2}\\.\\d{2}\\."
+            layout:
+              - "2.1."
+          - covers:
+              year: true
+            location:
+              selector: div.g-col-12.g-col-md-2.g-start-1.tx_eventcalendar__event_date > time.event_date
+              # examples: [30.08.­26, 25.09.­26, 27.09.­26, 10.10.­26]
+              regex_extract:
+                exp: "\\d{2}"
+                index: -1
+            layout:
+              - "06"
+          - covers:
+              time: true
+            location:
+              selector: div.g-col-12.g-col-md-4.g-start-1.g-start-md-9.tx_eventcalendar__event_info:nth-child(3) > table.tx_eventcalendar__event_dates > tbody > tr > td > time.date_from
+              # examples: ['18:30 Uhr', '20:00 Uhr', '20:00 Uhr', '20:00 Uhr']
+            layout:
+              - 15:04 Uhr
+        date_location: CET
+    fetcher:
+      type: dynamic
+    interaction:
+      - type: click
+        selector: "div > div > div > div.tx_eventcalendar__pagination > a"
+        count: 2
+        delay: 2000
+    filters:
+      - field: "title"
+        exp: ".*(?i)(abgesagt).*"
+        match: false
+      - field: "eventType"
+        exp: ".*(?i)(konzert).*"
+        match: true
