@@ -440,6 +440,11 @@ scrapers:
         location:
           - selector: div.event__header > h2
             entire_subtree: true
+      - name: comment
+        type: text
+        location:
+          - selector: div.event__description.grid.row-cols-md-6 > div
+            entire_subtree: true
       - name: date
         type: date
         components:
