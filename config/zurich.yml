@@ -1338,7 +1338,7 @@ scrapers:
 
   - name: GZRiesbach
     url: https://jazzimseefeld.ch/programm/
-    item: body > div.wrapper > div.innerwrap > div.col-width > div.main_content > article > div.concert.topic_active4 > div.ctoggle > div.full
+    item: div.concert.topic_active4
     fields:
       - name: location
         value: GZ Riesbach
@@ -1353,12 +1353,20 @@ scrapers:
       - name: url
         value: https://jazzimseefeld.ch/programm/
       - name: title
+        type: text
         location:
-          selector: h3
+          selector: div.short h3
       - name: comment
+        type: text
         location:
-          selector: p:nth-child(7)
-          entire_subtree: true
+          selector: div.full p
+        can_be_empty: true
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.short img.tp_thumb
+            attr: src
+        can_be_empty: true
       - name: date
         type: date
         components:
@@ -1368,8 +1376,9 @@ scrapers:
               year: true
               time: true
             location:
-              selector: span.concert_date
-            layout: ["2.1.2006 - 15:04"]
+              selector: div.short span.concert_date
+            layout:
+              - "2.1.2006 - 15:04"
         date_location: "Europe/Berlin"
 
   - name: Brick
