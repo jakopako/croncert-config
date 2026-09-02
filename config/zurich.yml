@@ -682,7 +682,7 @@ scrapers:
         location:
           selector: div.event > div > div.right > ul.info
           entire_subtree: true
-          regex_extract: 
+          regex_extract:
             exp: "LocationX-TRA( Musikcafe)?"
           default: "X-TRA"
         transform:
@@ -958,7 +958,7 @@ scrapers:
         date_language: de_DE
     fetcher:
       type: dynamic
-      page_load_wait_ms: 3000
+      page_load_wait_ms: 2000
     filters:
       - field: eventType
         exp: "Konzert"
