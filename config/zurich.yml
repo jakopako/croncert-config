@@ -2833,3 +2833,61 @@ scrapers:
       - field: title
         exp: (?i)(theatersport)
         match: false
+
+  - name: Keller62
+    url: https://keller62.ch/programm
+    item: section.col_1_1.progrList > article.col_1_2.program
+    fields:
+      - name: location
+        value: Keller62
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://keller62.ch/programm
+      - name: url
+        type: url
+        location:
+          - selector: div.newsDescr.white > div.dateWrapper > p.desktop-newsDescr > a.res
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.program-img > img
+            attr: src
+      - name: title
+        type: text
+        location:
+          - selector: div.newsDescr.white > h5
+          - selector: div.newsDescr.white > h6
+        separator: " - "
+      - name: comment
+        type: text
+        location:
+          - selector: div.newsDescr.white > span > p
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.newsDescr.white > div.dateWrapper > p.desktop-newsDescr
+              regex_extract:
+                exp: "[0-9]{2}\\. [^ ]+ [0-9]{4} \\| [0-9]{2}:[0-9]{2}"
+            layout:
+              - 2. January 2006 | 15:04
+        date_location: CET
+        date_language: de_DE
+    fetcher:
+      type: dynamic
+    filters:
+      - field: title
+        exp: .*(?i)(theater).*
+        match: false
