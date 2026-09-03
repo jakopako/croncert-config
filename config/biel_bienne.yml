@@ -54,3 +54,73 @@ scrapers:
         date_location: CET
     fetcher:
       type: static
+
+  - name: KartellCulturel
+    url: https://kartellculturel.ch/fr/programme
+    item: article.event-article
+    fields:
+      - name: type
+        value: concert
+      - name: city
+        value: Biel/Bienne
+      - name: country
+        value: Switzerland
+      - name: sourceUrl
+        value: https://kartellculturel.ch/fr/programme
+      - name: title
+        type: text
+        location:
+          - selector: div.event-main > div.event-data > div > div.event-column > h2
+            entire_subtree: true
+      - name: location
+        type: text
+        location:
+          - selector: div.event-head > div.location
+            entire_subtree: true
+      - name: genresText
+        type: text
+        location:
+          - selector: div.event-head > div.genre
+            entire_subtree: true
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: div.event-head > div.date
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{2}\\.[0-9]{2}\\.[0-9]{2}"
+            layout: ["02.01.06"]
+          - covers:
+              time: true
+            location:
+              selector: div.event-head > div.begin
+              entire_subtree: true
+              regex_extract:
+                exp: "[0-9]{1,2}h[0-9]{2}"
+            layout: ["15h04"]
+        date_location: CET
+        date_language: fr_FR
+      - name: url
+        type: url
+        location:
+          - selector: a[aria-label="event details"]
+            attr: href
+      - name: imageUrl
+        type: url
+        location:
+          - selector: img
+            attr: src
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 2000
+    interaction:
+      - type: scroll
+        delay: 4000
+      - type: scroll
+        delay: 4000
