@@ -64,6 +64,41 @@ Obtain these before beginning when they are not supplied:
 
    This validates the scraped events against the public API. Fix configuration, parsing, naming, or static-field errors revealed by this command, then rerun it. Finish only when the command succeeds and yields credible events for the requested venue.
 
+## Repairing An Existing Scraper
+
+When a known scraper stops extracting events, preserve its base URL and static fields unless the live venue data proves that they are wrong. Diagnose the existing configuration before regenerating it:
+
+1. Run its focused stdout check first:
+
+   ```sh
+   goskyr scrape -c config/<city>.yml -n <scraper-name> --stdout
+   ```
+
+2. Use the outcome to select the next inspection:
+   - `fetched 0 items` without field errors usually means the `item` selector, page rendering, interaction, or a filter no longer matches.
+   - Field parsing errors indicate an affected field is required by default. Either correct the selector, set `can_be_empty: true` for genuinely optional data, or remove a stale optional field. Do not keep an empty `comment` or image selector merely because it used to work.
+   - Events found in the page but missing from output often means a hidden filter field is empty or its expected value changed. Inspect the filter field's live values before changing the filter.
+
+3. Inspect a small live HTML slice around one real event card. Prefer stable semantic classes and direct relationships over generated IDs, long full-page selector chains, or `nth-child` selectors. Confirm the item boundary contains exactly one event and that title, URL, date, image, and optional text are relative to it.
+
+4. For dynamic fetchers, run a debug scrape when the static HTML and scraper output disagree:
+
+   ```sh
+   goskyr --debug scrape -c config/<city>.yml -n <scraper-name> --stdout
+   ```
+
+   Review the generated HTML and screenshot in `debug/`. Confirm that configured clicks executed, the rendered DOM still contains event cards, and selectors match that rendered DOM. Remove or reduce stale load-more interactions when the initial rendered page already contains the needed events.
+
+5. Re-run the focused stdout scrape after each small change. Inspect event count, titles, URLs, dates, venue metadata, and filters before running the production dry run.
+
+## Practical Parsing Rules
+
+- A date-only listing still needs a time component when GoSkyr requires complete event times. Use the repository's established default-time pattern, such as `default: "20:00"` with layout `"15:04"`, only when the venue does not publish a time.
+- When desktop and mobile card variants duplicate the same date or title, choose one variant inside each item. Parsing both can cause duplicate date-component errors.
+- Keep event URLs when the listing provides them. If a venue publishes no per-event links, retain the program page URL rather than inventing one.
+- Verify static city, country, location, and source URL against the live venue page. If a repaired scraper exposes that a venue belongs to a different city, move the entire scraper to that city's file and update the city metadata, then validate it from its new file.
+- Filter service, cancellation, or non-concert entries using the venue's current labels. Retain legacy exclusions when they remain harmless, and add new case-insensitive exclusions when labels have been renamed.
+
 ## Guardrails
 
 - Never replace an existing `generate-config.yaml` without explicit approval.

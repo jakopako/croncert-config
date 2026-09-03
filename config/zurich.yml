@@ -1990,7 +1990,7 @@ scrapers:
 
   - name: AmbossRampe
     url: https://ambossrampe.ch/programm/
-    item: div.mec-event-list-modern > article.mec-clear.mec-divider-toggle.mec-event-article
+    item: article.mec-event-article
     fetcher:
       type: dynamic
     interaction:
@@ -2012,17 +2012,17 @@ scrapers:
       - name: room
         type: text
         location:
-          - selector: div.col-md-6.col-sm-6:nth-child(2) > div.mec-event-detail > div.mec-event-loc-place
+          - selector: div.mec-event-loc-place
         can_be_empty: true
-        hide: true
+        # hide: true
       - name: title
         type: text
         location:
-          - selector: div.col-md-6.col-sm-6:nth-child(2) > h4.mec-event-title > a.mec-color-hover
+          - selector: h4.mec-event-title > a.mec-color-hover
       - name: url
         type: url
         location:
-          - selector: div.col-md-6.col-sm-6:nth-child(2) > h4.mec-event-title > a.mec-color-hover
+          - selector: h4.mec-event-title > a.mec-color-hover
             attr: href
       - name: date
         type: date
@@ -2050,11 +2050,14 @@ scrapers:
         exp: "Barabend"
         match: false
       - field: title
+        exp: ".*(?i)(bar night).*"
+        match: false
+      - field: title
         exp: "Restaurantbetrieb"
         match: false
       - field: room
-        exp: Rampe
-        match: true
+        exp: Restaurant
+        match: false
 
   - name: Lebewohlfabrik
     url: https://www.lebewohlfabrik.ch/programm
