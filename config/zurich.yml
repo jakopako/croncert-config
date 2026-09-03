@@ -1651,7 +1651,7 @@ scrapers:
 
   - name: BarAmEgge
     url: https://baramegge.ch/programm/konzerte/
-    item: div.uk-margin-remove-bottom.uk-margin-remove-top.uk-margin-small.uk-text-center > div.uk-child-width-1-1.uk-grid-small > div > div.el-item
+    item: div.el-item.uk-panel.uk-margin-remove-first-child
     fields:
       - name: "city"
         value: "Zurich"
@@ -1671,15 +1671,15 @@ scrapers:
       - name: comment
         type: text
         location:
-          - selector: div.el-content.uk-panel:nth-child(3) > p
+          - selector: div.el-content.uk-panel > p
       - name: genresText
         type: text
         location:
-          - selector: div.el-content.uk-panel:nth-child(3) > p
+          - selector: div.el-content.uk-panel > p
       - name: title
         type: text
         location:
-          - selector: h4.el-title.uk-margin-remove-bottom.uk-margin-remove-top
+          - selector: h4.el-title
       - name: date
         type: date
         components:
@@ -1689,7 +1689,7 @@ scrapers:
               year: true
               time: true
             location:
-              selector: div.el-meta
+              selector: div.el-meta > p
             layout:
               - Mon 2.1.2006 / 15:04
         date_location: CET
