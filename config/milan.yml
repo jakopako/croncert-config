@@ -58,3 +58,44 @@ scrapers:
       location:
         selector: "div.pagination > a.w-pagination-next"
       max_pages: 6
+  - name: CircoloMagnolia
+    url: https://www.circolomagnolia.it/event_listing_category/eventi/
+    item: div.e-loop-item.event_listing
+    fields:
+      - name: "type"
+        value: "concert"
+      - name: "city"
+        value: "Milan"
+      - name: country
+        value: Italy
+      - name: "location"
+        value: "Circolo Magnolia"
+      - name: "sourceUrl"
+        value: https://www.circolomagnolia.it/event_listing_category/eventi/
+      - name: title
+        type: text
+        location:
+          - selector: section.elementor-hidden-mobile h1.elementor-heading-title > a
+      - name: url
+        type: url
+        location:
+          - selector: section.elementor-hidden-mobile h1.elementor-heading-title > a
+            attr: href
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: section.elementor-hidden-mobile p.elementor-heading-title
+            layout:
+              - 2-1-2006
+          - covers:
+              time: true
+            location:
+              default: "20:00"
+            layout:
+              - "15:04"
+        date_location: CET
