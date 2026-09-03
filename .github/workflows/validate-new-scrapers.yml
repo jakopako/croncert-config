@@ -24,7 +24,7 @@ jobs:
         uses: browser-actions/setup-chrome@v1
 
       - name: Install goskyr
-        run: go install github.com/jakopako/goskyr/cmd/goskyr@v0.9.1
+        run: go install github.com/jakopako/goskyr/cmd/goskyr@v0.9.7
 
       - name: Validate newly added scrapers
         run: bash .github/scripts/validate-added-scrapers.sh "${{ github.event.pull_request.base.sha }}"
