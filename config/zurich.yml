@@ -2604,9 +2604,9 @@ scrapers:
         exp: skip-empty
         match: false
 
-  - name: Eventfrog
+  - name: EventfrogZurich
     url: https://eventfrog.ch/en/events/zuerich/concert.html?geoRadius=10
-    item: div.event-list > div.event-list__events > a.event-list__events__tile
+    item: div.event-list > div.event-list__events.js-events > a.event-list__events__tile
     fields:
       - name: url
         type: url
@@ -2634,7 +2634,6 @@ scrapers:
           - covers:
               day: true
               month: true
-
               time: true
             location:
               selector: "div.event-list__events__tile__content__infos > span.event-list__events__tile__content__infos__time"
@@ -2661,4 +2660,7 @@ scrapers:
         match: true
       - field: location
         exp: Zirkusquartier
+        match: true
+      - field: location
+        exp: The Spot Bar
         match: true
