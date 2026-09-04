@@ -15,6 +15,10 @@ the data available on [concertcloud.live](https://concertcloud.live). I might ha
 
 If you know a concert venue that you'd like to add to [concertcloud.live](https://concertcloud.live) just fork this repository, add a new config snippet and open a pull request to merge the newly added snippet into the main branch. Have a look at the [README of goskyr](https://github.com/jakopako/goskyr) to make yourself familiar with the configuration syntax. Looking at the existing configurations might also give you some hints about how to write your own.
 
+### How to add a config snippet - with AI
+
+There is a skill at `./github/skills/create-venue-scraper-config/SKILL.md` that you can use your together with your favourite AI to create a new scraper configuration just based on the venue's URL. It works quite well. If it doesn't, continue with the next section.
+
 ### How to add a config snippet - step by step
 
 We'll demonstrate the process for the venue "Konzerthaus Schüür" with the url <https://www.schuur.ch/programm/>. goskyr version `v0.9.1` has been used for the following commands.
