@@ -2662,7 +2662,7 @@ scrapers:
       - type: click
         selector: "div > div.event-list__events.js-events > div > button"
         count: 2
-        delay: 2000
+        delay: 3000
     filters:
       - field: location
         exp: Flux Bar
@@ -2675,4 +2675,19 @@ scrapers:
         match: true
       - field: location
         exp: Casi Casa
+        match: true
+      - field: location
+        exp: Mundwerk Kulturbiotop
+        match: true
+      - field: location
+        exp: Kirche Fraumünster
+        match: true
+      - field: location
+        exp: Restaurant Europa
+        match: true
+      - field: location
+        exp: Pile of books
+        match: true
+      - field: location
+        exp: Kasheme
         match: true
