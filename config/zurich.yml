@@ -2529,3 +2529,77 @@ scrapers:
       - field: title
         exp: .*(?i)(theater).*
         match: false
+
+  - name: Hafenkneipe
+    url: https://hafenkneipe.info/agenda/
+    item: article.category-allgemein.format-standard.has-post-thumbnail.hentry.post.status-publish.type-post
+    fields:
+      - name: location
+        value: Hafenkneipe
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://hafenkneipe.info/agenda/
+      - name: title
+        type: text
+        location:
+          - selector: header.entry-header > h2.entry-title > a
+            # examples: [Betriebsferien/Sommeröffnungszeiten, SO 06. SEPT 2026, DI 08. SEPT 2026, DI 29. SEPT 2026]
+            child_index: 2
+            default: "skip-empty"
+      - name: url
+        type: url
+        location:
+          - selector: div.post-thumbnail > a
+            attr: href
+            # examples: ['https://hafenkneipe.info/betriebsferien-sommeroffnungszeiten2025/', 'https://hafenkneipe.info/so-06-sept-2026-gaudion/', 'https://hafenkneipe.info/di-08-sept-2026-tuesday-night-unplugged/', 'https://hafenkneipe.info/di-30-sept-2026-tuesday-night-unplugged/']
+      - name: imageUrl
+        type: url
+        location:
+          - selector: div.post-thumbnail > a > img.attachment-twentyseventeen-featured-image.size-twentyseventeen-featured-image.wp-post-image
+            attr: src
+            # examples: ['https://hafenkneipe.info/wp-content/uploads/2017/02/294156017_5699344210076094_8607729052839150328_n.jpg', 'https://hafenkneipe.info/wp-content/uploads/2026/02/Gaudion-modified.jpg', 'https://hafenkneipe.info/wp-content/uploads/2013/08/1256770800Acoustic_Guitar_bw.jpg', 'https://hafenkneipe.info/wp-content/uploads/2013/08/1256770800Acoustic_Guitar_bw.jpg']
+      - name: comment
+        type: text
+        location:
+          - selector: div.entry-content
+            entire_subtree: true
+        can_be_empty: true
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+            location:
+              selector: header.entry-header > h2.entry-title > a
+            layout:
+              - Mon 02. Jan 2006
+            transform:
+              - type: regex-replace
+                regex: "SEPT"
+                replace: SEP
+          - covers:
+              time: true
+            location:
+              selector: div.entry-content
+              entire_subtree: true
+              regex_extract:
+                exp: "Konzert (\\d{2}h\\d{2})"
+                ignore_errors: true
+              default: Konzert 20h00
+            layout:
+              - Konzert 15h04
+        date_location: CET
+        date_language: de_DE
+    fetcher:
+      type: static
+    filters:
+      - field: title
+        exp: skip-empty
+        match: false
