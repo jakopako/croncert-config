@@ -2603,3 +2603,91 @@ scrapers:
       - field: title
         exp: skip-empty
         match: false
+
+  - name: EventfrogZurich
+    url: https://eventfrog.ch/en/events/zuerich/concert.html?geoRadius=10
+    item: div.event-list > div.event-list__events.js-events > a.event-list__events__tile
+    fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://eventfrog.ch/en/events/zuerich/concert.html?geoRadius=10
+      - name: url
+        type: url
+        location:
+          - selector: ""
+            attr: href
+            # examples: [/en/p/concerts/hip-hop-rap/longsleeve-the-wb-ghostlights-rip-vdot-septacore-7487916973210240380.html, /en/p/concerts/pop-rock/temple-solaire-live-in-concert-afterparty-karaoke-7493089001433255637.html, /en/p/concerts/hip-hop-rap/baze-7468915147450351892.html, /en/p/concerts/other-music-genres/duo-woeschchuchi-7491480820265259295.html]
+      - name: title
+        type: text
+        location:
+          - selector: div.event-list__events__tile__content:nth-child(2) > div.event-list__events__tile__content__infos:nth-child(2) > span.event-list__events__tile__content__infos__title
+            # examples: ['Longsleeve & the WB, Ghostlights, rip & Vdot, Septacore', Temple Solaire – Live in Concert + Afterparty Karaoke, Baze, Duo Wöschchuchi]
+      - name: location
+        type: text
+        location:
+          - selector: div.event-list__events__tile__content:nth-child(2) > div.event-list__events__tile__content__infos:nth-child(2) > span.event-list__events__tile__content__infos__location:nth-child(3)
+            # examples: ['Werk21, Zürich (CH)', 'The Spot Bar, Zürich (CH)', 'Flux Bar, Zürich (CH)', 'GALOTTI Musikwerkstatt, Zürich (CH)']
+        transform:
+          - type: regex-replace
+            regex: ", Z.{1}rich \\(CH\\)"
+            replace: ""
+      - name: date
+        type: date
+        components:
+          - covers:
+              day: true
+              month: true
+              time: true
+            location:
+              selector: "div.event-list__events__tile__content__infos > span.event-list__events__tile__content__infos__time"
+            layout:
+              - 02 January, Monday, 15:04
+        date_location: "Europe/Zurich"
+        date_language: "de_DE"
+        guess_year: true
+    fetcher:
+      type: dynamic
+      page_load_wait_ms: 2000
+    interaction:
+      # Accept cookies modal
+      - type: click
+        selector: "#tf-modal-container__modal > div.modal-footer.cookie-modal__footer > button"
+        count: 1
+        delay: 1000
+      - type: click
+        selector: "div > div.event-list__events.js-events > div > button"
+        count: 2
+        delay: 3000
+    filters:
+      - field: location
+        exp: Flux Bar
+        match: true
+      - field: location
+        exp: Zirkusquartier
+        match: true
+      - field: location
+        exp: The Spot Bar
+        match: true
+      - field: location
+        exp: Casi Casa
+        match: true
+      - field: location
+        exp: Mundwerk Kulturbiotop
+        match: true
+      - field: location
+        exp: Kirche Fraumünster
+        match: true
+      - field: location
+        exp: Restaurant Europa
+        match: true
+      - field: location
+        exp: Pile of books
+        match: true
+      - field: location
+        exp: Kasheme
+        match: true
