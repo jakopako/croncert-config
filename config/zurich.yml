@@ -2608,6 +2608,14 @@ scrapers:
     url: https://eventfrog.ch/en/events/zuerich/concert.html?geoRadius=10
     item: div.event-list > div.event-list__events.js-events > a.event-list__events__tile
     fields:
+      - name: city
+        value: Zurich
+      - name: country
+        value: Switzerland
+      - name: type
+        value: concert
+      - name: sourceUrl
+        value: https://eventfrog.ch/en/events/zuerich/concert.html?geoRadius=10
       - name: url
         type: url
         location:
@@ -2644,6 +2652,7 @@ scrapers:
         guess_year: true
     fetcher:
       type: dynamic
+      page_load_wait_ms: 2000
     interaction:
       # Accept cookies modal
       - type: click
@@ -2663,4 +2672,7 @@ scrapers:
         match: true
       - field: location
         exp: The Spot Bar
+        match: true
+      - field: location
+        exp: Casi Casa
         match: true
