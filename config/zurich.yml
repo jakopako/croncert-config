@@ -2691,13 +2691,13 @@ scrapers:
       - field: location
         exp: Kasheme
         match: true
-  
-  - name: "Mäx Zürich"
+
+  - name: Maex
     url: https://maexzuerich.com/events
     item: div.grid.grid-cols-1.lg\:grid-cols-2
     fields:
       - name: "location"
-        value: "Mäx Zürich"
+        value: "Mäx"
       - name: "city"
         value: "Zurich"
       - name: "country"
@@ -2706,7 +2706,7 @@ scrapers:
         type: url
         value: "https://maexzuerich.com"
       - name: "type"
-        value: "concert"
+        value: "party"
       - name: "imageUrl"
         type: url
         on_subpage: url
@@ -2749,5 +2749,6 @@ scrapers:
         on_subpage: url
         location:
           - selector: span.bg-neutral-700.rounded.px-2.py-1
+        can_be_empty: true
     fetcher:
       type: static
