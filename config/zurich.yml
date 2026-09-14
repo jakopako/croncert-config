@@ -2691,3 +2691,64 @@ scrapers:
       - field: location
         exp: Kasheme
         match: true
+
+  - name: Maex
+    url: https://maexzuerich.com/events
+    item: div.grid.grid-cols-1.lg\:grid-cols-2
+    fields:
+      - name: "location"
+        value: "Mäx"
+      - name: "city"
+        value: "Zurich"
+      - name: "country"
+        value: "Switzerland"
+      - name: "sourceUrl"
+        type: url
+        value: "https://maexzuerich.com"
+      - name: "type"
+        value: "party"
+      - name: "imageUrl"
+        type: url
+        on_subpage: url
+        location:
+          - selector: div > img.w-full
+            attr: src
+      - name: "title"
+        type: text
+        on_subpage: url
+        location:
+          - selector: div.text-white.p-4.lg\:p-8.bg-neutral-900.flex.flex-col.justify-center.bg-opacity-90:nth-child(2) >  h1
+      - name: "comment"
+        type: text
+        location:
+          - selector: p.mt-2.text-neutral-300
+      - name: url
+        type: url
+        location:
+          - selector: div.overflow-hidden > a
+            attr: href
+      - name: date
+        type: date
+        on_subpage: url
+        components:
+          - covers:
+              day: true
+              month: true
+              year: true
+              time: true
+            location:
+              selector: div.text-white.p-4.lg\:p-8.bg-neutral-900.flex.flex-col.justify-center.bg-opacity-90 > div.font-bold
+              regex_extract:
+                exp: "[A-Za-z]+, [0-9]{2}\\.[0-9]{2}\\.[0-9]{4}, [0-9]{2}:[0-9]{2}"
+            layout: ["Monday, 2.1.2006, 15:04"]
+        date_location: CET
+        date_language: en_US
+        components_layout:
+      - name: genresText
+        type: text
+        on_subpage: url
+        location:
+          - selector: span.bg-neutral-700.rounded.px-2.py-1
+        can_be_empty: true
+    fetcher:
+      type: static
